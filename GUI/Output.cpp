@@ -14,7 +14,7 @@ Output::Output()
 
 	UI.StatusBarHeight = 50;
 	UI.ToolBarHeight = 50;
-	UI.MenuItemWidth = 80;
+	UI.MenuItemWidth = 100;
 
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = GREEN;	//Filling color
@@ -81,6 +81,10 @@ void Output::CreateDrawToolBar() const
 	//reoder them in UI_Info.h ==> enum DrawMenuItem
 	string MenuItemImages[DRAW_ITM_COUNT];
 	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
+	MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\Menu_Triangle.jpg";
+	MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
+	MenuItemImages[ITM_RHOMBUS] = "images\\MenuItems\\Menu_Rhombus.jpg";
+	MenuItemImages[ITM_LINE] = "images\\MenuItems\\Menu_Line.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
 
 	//TODO: Prepare images for each menu item and add it to the list
@@ -97,6 +101,12 @@ void Output::CreateDrawToolBar() const
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+
+void Output::drawOnToolbar(string path , int place)
+{
+	pWind->DrawImage(path, place*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+}
+
 
 void Output::CreatePlayToolBar() const
 {
@@ -140,6 +150,7 @@ int Output::getCrntPenWidth() const		//get current pen width
 {
 	return UI.PenWidth;
 }
+
 
 //======================================================================================//
 //								Figures Drawing Functions								//

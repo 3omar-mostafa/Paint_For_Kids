@@ -15,7 +15,6 @@ int main()
 	pOut->PrintMessage("This demo is to test input and output classes, Click anywhere to start the test");
 	pIn->GetPointClicked(x,y);	//Wait for any click
 
-
 	///////////////////////////////////////////////////////////////////////////////////
 	// TEST 1:	
 	//			Create The FULL Tool bar, the drawing area and the status bar	
@@ -36,7 +35,7 @@ int main()
 	pIn->GetPointClicked(x,y);	//Wait for any click
 
 	GfxInfo gfxInfo;//to be used with draw function of the class Ouput
-	Point P1, P2,P3,P4;
+	Point P1, P2,P3;
 
 	/// 2.1- Rectangle Test ///
 	/// =================== 
@@ -181,22 +180,32 @@ int main()
 		{
 		case DRAW_RECT:
 				pOut->PrintMessage("Action: Draw a Rectangle , Click anywhere");
+				pOut->CreateDrawToolBar();
+				pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
 				break;
 
 		case DRAW_LINE:
 				pOut->PrintMessage("Action: Draw a Line , Click anywhere");
+				pOut->CreateDrawToolBar();
+				pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
 				break;
 
 		case DRAW_RHOMBUS:
 				pOut->PrintMessage("Action: Draw a Rhombus , Click anywhere");
+				pOut->CreateDrawToolBar();
+				pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
 				break;
 
 		case DRAW_ELLIPSE:
 				pOut->PrintMessage("Action: Draw an Ellipse , Click anywhere");
+				pOut->CreateDrawToolBar();
+				pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
 				break;
 
 		case DRAW_TRI:
 				pOut->PrintMessage("Action: Draw a Triangle , Click anywhere");
+				pOut->CreateDrawToolBar();
+				pOut->drawOnToolbar("images\\MenuItems\\Menu_Triangle_Selected.jpg", ITM_TRIANGLE);
 				break;
 
 		case CHNG_DRAW_CLR:
