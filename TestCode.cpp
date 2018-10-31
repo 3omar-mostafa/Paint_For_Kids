@@ -36,7 +36,7 @@ int main()
 	pIn->GetPointClicked(x,y);	//Wait for any click
 
 	GfxInfo gfxInfo;//to be used with draw function of the class Ouput
-	Point P1, P2;
+	Point P1, P2,P3,P4;
 
 	/// 2.1- Rectangle Test ///
 	/// =================== 
@@ -91,7 +91,10 @@ int main()
 
 	pOut->PrintMessage("Drawing a Line Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
+	
 	pOut->ClearDrawArea();
+
+
 
 	/// 2.3- Triangle Test ///
 	/// =================== 
@@ -108,18 +111,23 @@ int main()
 	/// =================== 
 	pOut->PrintMessage("Drawing a Rhombus, filled/non-filled and Highlighted filled/non-filled,  Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
-
+	pOut->PrintMessage("Drawing a center for Rhombus  Click to continue");
+	pIn->GetPointClicked(P1.x, P1.y);
+	/*pIn->GetPointClicked(P2.x, P2.y);
+	pIn->GetPointClicked(P3.x, P3.y);
+	pIn->GetPointClicked(P4.x, P4.y);*/
+	pOut->DrawRhombus(P1,/* P2, P3, P4,*/ gfxInfo, false);
 	///TODO: Add code to draw Rhombus in all possible states
 
 	pOut->PrintMessage("Drawing a Rhombus Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawArea();
 	
-	/// 2.5- Rhombus Test ///
+	/// 2.5- Ellipse Test ///
 	/// =================== 
 	pOut->PrintMessage("Drawing an Ellipse, filled/non-filled and Highlighted filled/non-filled,  Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
-
+	
 	///TODO: Add code to draw Ellipse in all possible states
 
 	pOut->PrintMessage("Drawing a Ellipse Test ==> OK,  Click anywhere to continue");
