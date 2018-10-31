@@ -17,11 +17,22 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
 	//If you want to change the menu items order, change the order here
+
+
+	ITM_GAME,
+	ITM_SAVE,
+	ITM_COPY,
+	ITM_DELETE,
+	ITM_FILL_COLOR,
+	ITM_DRAW_COLOR,
+	DRAW_ACTION_COUNT, //no. of menu action items
+
 	ITM_RECT,		//Recangle item in menu
 	ITM_TRIANGLE,
 	ITM_CIRCLE,
 	ITM_RHOMBUS,
 	ITM_LINE,
+	
 	//TODO: Add more items names here
 
 	ITM_EXIT,		//Exit item
@@ -55,7 +66,8 @@ struct UI_Info	//User Interface Info.
 		wx , wy,			//Window starting coordinates
 		StatusBarHeight,	//Status Bar Height
 		ToolBarHeight,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
-		MenuItemWidth;		//Width of each item in toolbar menu
+		MenuItemWidth,		//Width of each item in toolbar menu
+		MenuActionWidth;	//Width of each action item (copy , delete ...) in toolbar menu
 	
 
 	color DrawColor;		//Drawing color

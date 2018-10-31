@@ -12,7 +12,7 @@ void Input::GetPointClicked(int &x, int &y) const
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetString(Output *pO) const 
+string Input::GetSrting(Output *pO) const
 {
 	string Label;
 	char Key;
@@ -45,20 +45,44 @@ ActionType Input::GetUserAction() const
 		{	
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-			int ClickedItemOrder = (x / UI.MenuItemWidth);
+
+			//ClickedItemOrder = (x / UI.MenuItemWidth);
+
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
-			switch (ClickedItemOrder)
-			{
-			case ITM_RECT: return DRAW_RECT;
-			case ITM_EXIT: return EXIT;
-			case ITM_TRIANGLE: return DRAW_TRI;
-			case ITM_CIRCLE:   return DRAW_ELLIPSE;
-			case ITM_RHOMBUS:  return DRAW_RHOMBUS;
-			case ITM_LINE:	   return DRAW_LINE;
+			// Omar :
+			// I've changed this logic because I made buttons that have different widths
+
 			
-			default: return EMPTY;	//A click on empty place in desgin toolbar
+			if (x < UI.MenuItemWidth)
+				return TO_PLAY;
+			else if (x < DRAW_ACTION_COUNT * UI.MenuActionWidth + 50) {
+				int ClickedItemOrder = ( (x - 50) / UI.MenuActionWidth);
+				switch (ClickedItemOrder)
+				{
+				case ITM_SAVE :return SAVE;
+				case ITM_COPY :return COPY;
+				case ITM_DELETE :return DEL;
+				case ITM_FILL_COLOR :return CHNG_FILL_CLR;
+				case ITM_DRAW_COLOR :return CHNG_DRAW_CLR;
+
+				default: return EMPTY;	//A click on empty place in desgin toolbar
+				}
+			}else{
+				int ClickedItemOrder = (DRAW_ACTION_COUNT + 1 + (x - 50 - DRAW_ACTION_COUNT*UI.MenuActionWidth) / UI.MenuItemWidth);
+
+				switch (ClickedItemOrder)
+				{
+				case ITM_RECT: return DRAW_RECT;
+				case ITM_EXIT: return EXIT;
+				case ITM_TRIANGLE: return DRAW_TRI;
+				case ITM_CIRCLE:   return DRAW_ELLIPSE;
+				case ITM_RHOMBUS:  return DRAW_RHOMBUS;
+				case ITM_LINE:	   return DRAW_LINE;
+
+				default: return EMPTY;	//A click on empty place in desgin toolbar
+				}
 			}
 		}
 

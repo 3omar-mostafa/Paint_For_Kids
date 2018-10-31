@@ -15,6 +15,7 @@ Output::Output()
 	UI.StatusBarHeight = 50;
 	UI.ToolBarHeight = 50;
 	UI.MenuItemWidth = 100;
+	UI.MenuActionWidth = 50;
 
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = GREEN;	//Filling color
@@ -80,6 +81,13 @@ void Output::CreateDrawToolBar() const
 	//To control the order of these images in the menu, 
 	//reoder them in UI_Info.h ==> enum DrawMenuItem
 	string MenuItemImages[DRAW_ITM_COUNT];
+	MenuItemImages[ITM_GAME] = "images\\MenuItems\\Menu_game.jpg";
+	MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_save.jpg";
+	MenuItemImages[ITM_COPY] = "images\\MenuItems\\Menu_copy.jpg";
+	MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_delete.jpg";
+	MenuItemImages[ITM_FILL_COLOR] = "images\\MenuItems\\Menu_fill_color.jpg";
+	MenuItemImages[ITM_DRAW_COLOR] = "images\\MenuItems\\Menu_draw_color.jpg";
+
 	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
 	MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\Menu_Triangle.jpg";
 	MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
@@ -87,13 +95,18 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_LINE] = "images\\MenuItems\\Menu_Line.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
 
+
 	//TODO: Prepare images for each menu item and add it to the list
 
+	// Draw Game Mode Menu item
+	pWind->DrawImage(MenuItemImages[ITM_GAME], 0, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+	//Draw menu action item one image at a time
+	for (int i = 1; i < DRAW_ACTION_COUNT; i++)
+		pWind->DrawImage(MenuItemImages[i], (i+1)*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight);
+
 	//Draw menu item one image at a time
-	for (int i = 0; i < DRAW_ITM_COUNT; i++)
-		pWind->DrawImage(MenuItemImages[i], i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
-
-
+	for (int i = 0; i < DRAW_ITM_COUNT-DRAW_ACTION_COUNT -1 ; i++)
+		pWind->DrawImage(MenuItemImages[ITM_RECT + i], (DRAW_ACTION_COUNT + 1) *UI.MenuActionWidth + i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
 
 	//Draw a line under the toolbar
 	pWind->SetPen(RED, 3);
@@ -104,7 +117,16 @@ void Output::CreateDrawToolBar() const
 
 void Output::drawOnToolbar(string path , int place)
 {
-	pWind->DrawImage(path, place*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+	if (place == 0) {
+		pWind->DrawImage(path, place*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+	}
+	else if (place < DRAW_ACTION_COUNT) {
+		pWind->DrawImage(path, 50 + place*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight);
+	}
+	else {
+		pWind->DrawImage(path, (DRAW_ACTION_COUNT + 1) *UI.MenuActionWidth +  (place - DRAW_ACTION_COUNT - 1) * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+	}
+	
 }
 
 
