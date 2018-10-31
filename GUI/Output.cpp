@@ -190,7 +190,7 @@ void Output::DrawCircle(Point P1, Point P2, GfxInfo CircleGfxInfo, bool selected
 	pWind->DrawCircle(P1.x, P1.y, radius, style);
 
 }
-void Output::DrawRhombus(Point P1,/* Point P2, Point P3, Point P4,*/ GfxInfo RhombusGfxInfo, bool selected) const
+void Output::DrawRhombus(Point P, GfxInfo RhombusGfxInfo, bool selected) const
 {
 
 	color DrawingClr;
@@ -210,10 +210,10 @@ void Output::DrawRhombus(Point P1,/* Point P2, Point P3, Point P4,*/ GfxInfo Rho
 		style = FRAME;
 	int X[4];
 	int Y[4];
-	Point P2, P3, P4, P5;
-	P2.x = P1.x; P3.x = P1.x;  P2.y = P1.y + 100; P3.y = P1.y - 100;
-	P4.y = P1.y; P5.y = P1.y;  P4.x = P1.x + 50; P5.x = P1.x - 50;
-	Point pt[4] = { P2,P4,P3,P5 };
+	Point P1, P2, P3, P4;
+	P1.x = P.x;        P2.x = P.x + 50;  P3.x = P.x;        P4.x = P.x - 50; 
+	P1.y = P.y + 100;  P2.y = P.y;       P3.y = P.y - 100;  P4.y = P.y;
+	Point pt[4] = { P1,P2,P3,P4 };
 	for (int i = 0; i < 4; i++) {
 		X[i] = pt[i].x;
 		Y[i] = pt[i].y;
@@ -278,15 +278,7 @@ void Output::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected) co
 
 	pWind->SetPen(DrawingClr, 1);
 	drawstyle style;
-	if (LineGfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(LineGfxInfo.FillClr);
-	}
-	else
-		style = FRAME;
-
-
+	style = FRAME;
 	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
 
 }
