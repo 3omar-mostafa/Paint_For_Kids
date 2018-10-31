@@ -34,45 +34,47 @@ int main()
 	pOut->PrintMessage("TEST2: Now we will show that Output class can draw any figure in any state, Click anywhere to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
 
-	GfxInfo gfxInfo;//to be used with draw function of the class Ouput
-	Point P1, P2,P3;
+	GfxInfo gfxInfo; //to be used with draw function of the class Ouput
+	Point P1, P2, P3;
 
 	/// 2.1- Rectangle Test ///
 	/// =================== 
 	pOut->PrintMessage("Drawing a Rectangle, filled/non-filled and Highlighted filled/non-filled,  Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	
-	// 2.1.1 - Drawing non-filled rectangle
-	pOut->PrintMessage("Drawing a Rectangle ==> non-filled,  Click two points");
+	// 2.1.1 - Drawing filled rectangle
+	//pOut->PrintMessage("Drawing a Rectangle ==> non-filled,  Click two points");  ***Commented this line and removed all similar lines to keep the status bar statements consistent
+	pOut->PrintMessage("Click 2, Filled");
+	
+	gfxInfo.BorderWdth = 12;
+	gfxInfo.DrawClr = BLACK;	 //any color for border
+	gfxInfo.FillClr = MEDIUMAQUAMARINE; //any color for filling
+	gfxInfo.isFilled = true;	//Figure is filled
+	
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
-
-	gfxInfo.BorderWdth = 5;
-	gfxInfo.DrawClr = BLACK;	//any color for border
-	gfxInfo.isFilled = false;	//Figure is NOT filled
 	pOut->DrawRect(P1, P2, gfxInfo, false);
 
-	// 2.1.2 - Drawing highlighted non-filled rectangle
-	pOut->PrintMessage("Drawing a Rectangle ==> Highlighted non-filled, Click to Highlight");
-	pIn->GetPointClicked(x,y);	//Wait for any click
+	// 2.1.2 - Drawing non-filled rectangle
+	pOut->PrintMessage("Click 2, Non-Filled");
+	gfxInfo.isFilled = false;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
+	pOut->DrawRect(P1, P2, gfxInfo, false);
+
+	// 2.1.3 - Drawing a highlighted filled rectangle
+	pOut->PrintMessage("Click 2, Highlighted Filled");
+	gfxInfo.isFilled = true;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
 	pOut->DrawRect(P1, P2, gfxInfo, true);
 
 
-	// 2.1.3 - Drawing a filled rectangle
-	pOut->PrintMessage("Drawing a Rectangle ==> filled,  Click two points");
+	// 2.1.4 - Drawing a highlighted non-filled rectangle
+	pOut->PrintMessage("Click 2, Highlighted Non-Filled");
+	gfxInfo.isFilled = false;
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
-
-	gfxInfo.BorderWdth = 6;
-	gfxInfo.DrawClr = BLUE;	//any color for border
-	gfxInfo.FillClr = GREEN;//any color for filling
-	gfxInfo.isFilled = true;//Figure is filled
-	pOut->DrawRect(P1, P2, gfxInfo, false);
-
-
-	// 2.1.4 - Drawing a highlighted filled rectangle
-	pOut->PrintMessage("Drawing a Rectangle ==> Highlighted filled, Click to Highlight");
-	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->DrawRect(P1, P2, gfxInfo, true);
 
 
@@ -83,15 +85,22 @@ int main()
 
 	/// 2.2- Line Test ///
 	/// ============== 
-	pOut->PrintMessage("Drawing a Line, normal and Highlighted, Click to continue");
+	pOut->PrintMessage("Drawing a Line, Normal and Highlighted, Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
 
 
 	///TODO: Add code to draw Line, Normal and Highlighted
-	pOut->PrintMessage("click 2");
+	// 2.2.1 - Drawing a normal line
+	pOut->PrintMessage("Click 2, Normal");
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
-	pOut->DrawLine(P1,P2,gfxInfo,true);
+	pOut->DrawLine(P1, P2, gfxInfo, false);
+	
+	// 2.2.2 - Drawing a highlighted line
+	pOut->PrintMessage("Click 2, Highlighted");
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
+	pOut->DrawLine(P1, P2, gfxInfo, true);
 
 	pOut->PrintMessage("Drawing a Line Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -106,11 +115,37 @@ int main()
 	pIn->GetPointClicked(x,y);	//Wait for any click
 
 	///TODO: Add code to draw Triangle in all possible states
-	pOut->PrintMessage("click 3");
+	// 2.3.1 - Drawing a filled triangle
+	pOut->PrintMessage("Click 3, Filled");
+	gfxInfo.isFilled = true;
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
 	pIn->GetPointClicked(P3.x, P3.y);
 	pOut->DrawTriangle(P1, P2, P3, gfxInfo, false);
+
+	// 2.3.2 - Drawing a non-filled triangle
+	pOut->PrintMessage("Click 3, Non-Filled");
+	gfxInfo.isFilled = false;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->GetPointClicked(P3.x, P3.y);
+	pOut->DrawTriangle(P1, P2, P3, gfxInfo, false);
+
+	// 2.3.3 - Drawing a highlighted filled triangle
+	pOut->PrintMessage("Click 3, Highlighted Filled");
+	gfxInfo.isFilled = true;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->GetPointClicked(P3.x, P3.y);
+	pOut->DrawTriangle(P1, P2, P3, gfxInfo, true);
+
+	// 2.3.4 - Drawing a highlighted non-filled triangle
+	pOut->PrintMessage("Click 3, Highlighted Non-Filled");
+	gfxInfo.isFilled = false;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
+	pIn->GetPointClicked(P3.x, P3.y);
+	pOut->DrawTriangle(P1, P2, P3, gfxInfo, true);
 
 	pOut->PrintMessage("Drawing a Triangle Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -120,10 +155,33 @@ int main()
 	/// =================== 
 	pOut->PrintMessage("Drawing a Rhombus, filled/non-filled and Highlighted filled/non-filled,  Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
-	pOut->PrintMessage("Drawing a center for Rhombus  Click to continue");
+	
+	///TODO: Add code to draw Rhombus in all possible states
+	// 2.4.1 - Drawing a filled rhombus
+	pOut->PrintMessage("Click 1, Filled");
+	gfxInfo.isFilled = true;
 	pIn->GetPointClicked(P1.x, P1.y);
 	pOut->DrawRhombus(P1, gfxInfo, false);
-	///TODO: Add code to draw Rhombus in all possible states
+
+	// 2.4.2 - Drawing a non-filled rhombus
+	pOut->PrintMessage("Click 1, Non-Filled");
+	gfxInfo.isFilled = false;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pOut->DrawRhombus(P1, gfxInfo, false);
+
+	// 2.4.3 - Drawing a highlighted filled rhombus
+	pOut->PrintMessage("Click 1, Highlighted Filled");
+	gfxInfo.isFilled = true;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pOut->DrawRhombus(P1, gfxInfo, true);
+
+	// 2.4.4 - Drawing a highlighted non-filled rhombus
+	pOut->PrintMessage("Click 1, Highlighted Non-Filled");
+	gfxInfo.isFilled = false;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pOut->DrawRhombus(P1, gfxInfo, true);
+
+
 
 	pOut->PrintMessage("Drawing a Rhombus Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -135,10 +193,33 @@ int main()
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	
 	///TODO: Add code to draw Ellipse in all possible states
-	pOut->PrintMessage("click 2");
+	// 2.5.1 - Drawing a filled ellipse
+	pOut->PrintMessage("Click 2, Filled");
+	gfxInfo.isFilled = true;
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
-	pOut->DrawElipse(P1,P2,gfxInfo,true);
+	pOut->DrawElipse(P1, P2, gfxInfo, false);
+
+	// 2.5.2 - Drawing a non-filled ellipse
+	pOut->PrintMessage("Click 2, Non-Filled");
+	gfxInfo.isFilled = false;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
+	pOut->DrawElipse(P1, P2, gfxInfo, false);
+
+	// 2.5.3 - Drawing a highlighted filled ellipse
+	pOut->PrintMessage("Click 2, Highlighted Filled");
+	gfxInfo.isFilled = true;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
+	pOut->DrawElipse(P1, P2, gfxInfo, true);
+
+	// 2.5.4 - Drawing a highlighted non-filled ellipse
+	pOut->PrintMessage("Click 2, Highlighted Non-Filled");
+	gfxInfo.isFilled = false;
+	pIn->GetPointClicked(P1.x, P1.y);
+	pIn->GetPointClicked(P2.x, P2.y);
+	pOut->DrawElipse(P1, P2, gfxInfo, true);
 
 	pOut->PrintMessage("Drawing a Ellipse Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -155,9 +236,9 @@ int main()
 
 	///TODO: Add code here to 
 	// 1- Read a string from the user on the status bar
-	// 2- After reading the stirng clear the status bar
-	// 3- print on the status bar "You Entered" then print the string
-
+	// 2- After reading the string clear the status bar
+	// 3- Print on the status bar "You Entered" then print the string
+	pOut->PrintMessage("You entered "+ pIn->GetString(pOut) +".");
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawArea();
 

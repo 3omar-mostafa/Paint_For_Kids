@@ -18,10 +18,10 @@ Output::Output()
 
 	UI.DrawColor = BLUE;	//Drawing color
 	UI.FillColor = GREEN;	//Filling color
-	UI.MsgColor = RED;		//Messages color
-	UI.BkGrndColor = LIGHTGOLDENRODYELLOW;	//Background color
+	UI.MsgColor = WHITESMOKE;		//Messages color
+	UI.BkGrndColor = GAINSBORO;	//Background color
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
-	UI.StatusBarColor = TURQUOISE;
+	UI.StatusBarColor = STEELBLUE;
 	UI.PenWidth = 3;	//width of the figures frames
 
 
