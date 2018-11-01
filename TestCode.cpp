@@ -260,33 +260,59 @@ int main()
 		switch (ActType)
 		{
 		case DRAW_RECT:
-				pOut->PrintMessage("Action: Draw a Rectangle , Click anywhere");
 				pOut->CreateDrawToolBar();
 				pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
+			    pOut->PrintMessage("Action: Draw a Rectangle, Click 2");
+				gfxInfo.FillClr = GREEN;
+				gfxInfo.isFilled = true;
+				pIn->GetPointClicked(P1.x, P1.y);
+				pIn->GetPointClicked(P2.x, P2.y);
+				pOut->DrawRect(P1, P2, gfxInfo, false);
 				break;
 
 		case DRAW_LINE:
-				pOut->PrintMessage("Action: Draw a Line , Click anywhere");
 				pOut->CreateDrawToolBar();
 				pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
+			    pOut->PrintMessage("Action: Draw a Line, Click 2");
+				gfxInfo.FillClr = BLACK;
+				gfxInfo.isFilled = true;
+				pIn->GetPointClicked(P1.x, P1.y);
+				pIn->GetPointClicked(P2.x, P2.y);
+				pOut->DrawLine(P1, P2, gfxInfo, false);
 				break;
 
 		case DRAW_RHOMBUS:
-				pOut->PrintMessage("Action: Draw a Rhombus , Click anywhere");
-				pOut->CreateDrawToolBar();
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
+		 	    pOut->CreateDrawToolBar();
+			    pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS); 
+			    pOut->PrintMessage("Action: Draw a Rhombus, Click 1");
+				gfxInfo.FillClr = BLUE;
+				gfxInfo.isFilled = true;
+				pIn->GetPointClicked(P1.x, P1.y);
+				pOut->DrawRhombus(P1, gfxInfo, false);
+				
 				break;
 
 		case DRAW_ELLIPSE:
-				pOut->PrintMessage("Action: Draw an Ellipse , Click anywhere");
 				pOut->CreateDrawToolBar();
 				pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
+			    pOut->PrintMessage("Action: Draw an Ellipse, Click 2");
+				gfxInfo.FillClr = YELLOW;
+				gfxInfo.isFilled = true;
+				pIn->GetPointClicked(P1.x, P1.y);
+				pIn->GetPointClicked(P2.x, P2.y);
+				pOut->DrawElipse(P1, P2, gfxInfo, false);				
 				break;
 
 		case DRAW_TRI:
-				pOut->PrintMessage("Action: Draw a Triangle , Click anywhere");
-				pOut->CreateDrawToolBar();
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_Triangle_Selected.jpg", ITM_TRIANGLE);
+			    pOut->CreateDrawToolBar();
+			    pOut->drawOnToolbar("images\\MenuItems\\Menu_Triangle_Selected.jpg", ITM_TRIANGLE); 
+			    pOut->PrintMessage("Action: Draw a Triangle, Click 3");
+				gfxInfo.FillClr = RED;
+				gfxInfo.isFilled = true;
+				pIn->GetPointClicked(P1.x, P1.y);
+				pIn->GetPointClicked(P2.x, P2.y);
+				pIn->GetPointClicked(P3.x, P3.y);
+				pOut->DrawTriangle(P1, P2, P3, gfxInfo, false);				
 				break;
 
 		case CHNG_DRAW_CLR:
@@ -346,6 +372,7 @@ int main()
 		case EXIT:				
 				break;
 		}
+		pOut->PrintMessage("Action performed! Click anywhere.");
 	}while(ActType != EXIT);
 
 

@@ -170,6 +170,7 @@ color Output::getCrntFillColor() const	//get current filling color
 
 int Output::getCrntPenWidth() const		//get current pen width
 {
+	
 	return UI.PenWidth;
 }
 
