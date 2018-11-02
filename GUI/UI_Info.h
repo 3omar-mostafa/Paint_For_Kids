@@ -45,6 +45,10 @@ enum PlayMenuItem //The items of the Play menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
 	//If you want to change the menu items order, change the order here
+	ITM_DRAW,
+	ITM_COL_CLR,
+	ITM_COL_SHP,
+	ITM_EXIT1,
 	
 	//TODO: Add more items names here
 

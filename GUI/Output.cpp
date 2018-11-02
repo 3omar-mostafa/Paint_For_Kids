@@ -132,7 +132,23 @@ void Output::drawOnToolbar(string path , int place)
 
 void Output::CreatePlayToolBar() const
 {
+	string nul = "images\\MenuItems\\clean.jpg";
+	for (int i = 0; i < DRAW_ITM_COUNT+7; i++)
+		pWind->DrawImage( nul, (i) *UI.MenuActionWidth , 0, UI.MenuItemWidth, UI.ToolBarHeight);
 	UI.InterfaceMode = MODE_PLAY;
+	string PlayItemImages[PLAY_ITM_COUNT];
+	PlayItemImages[ITM_DRAW] = "images\\MenuItems\\draw.jpg";
+	PlayItemImages[ITM_COL_CLR] = "images\\MenuItems\\col_clr.jpg";
+	PlayItemImages[ITM_COL_SHP] = "images\\MenuItems\\col_shp.jpg";
+	PlayItemImages[ITM_EXIT1] = "images\\MenuItems\\EXIT1.jpg";
+	pWind->DrawImage(PlayItemImages[ITM_DRAW], 0, 0, UI.MenuActionWidth+30, UI.ToolBarHeight);
+	//for (int i = 1; i < PLAY_ITM_COUNT; i++)
+		pWind->DrawImage(PlayItemImages[ITM_COL_CLR], (10)*UI.MenuActionWidth, 0, UI.MenuActionWidth+30, UI.ToolBarHeight);
+		pWind->DrawImage(PlayItemImages[ITM_COL_SHP], (12)*UI.MenuActionWidth, 0, UI.MenuActionWidth+30, UI.ToolBarHeight);
+		pWind->DrawImage(PlayItemImages[ITM_EXIT1], (22)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight);
+	pWind->SetPen(MIDNIGHTBLUE, 3);
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+
 	///TODO: write code to create Play mode menu
 }
 //////////////////////////////////////////////////////////////////////////////////////////
