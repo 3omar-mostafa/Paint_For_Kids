@@ -361,10 +361,10 @@ int main()
 
 		case TO_PLAY:
 				pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
-				pOut->CreateDrawToolBar();
+				
 				pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
 
-				//pOut->CreatePlayToolBar();
+				pOut->CreatePlayToolBar();
 				//TODO: Temporary Commenting until we build it
 				break;
 
