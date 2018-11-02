@@ -194,32 +194,28 @@ int main()
 
 	///TODO: Add code to draw Ellipse in all possible states
 	// 2.5.1 - Drawing a filled ellipse
-	pOut->PrintMessage("Click 2, Filled");
+	pOut->PrintMessage("Click 1, Filled");
 	gfxInfo.isFilled = true;
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->GetPointClicked(P2.x, P2.y);
-	pOut->DrawElipse(P1, P2, gfxInfo, false);
+	pOut->DrawEllipse(P1, gfxInfo, false);
 
 	// 2.5.2 - Drawing a non-filled ellipse
-	pOut->PrintMessage("Click 2, Non-Filled");
+	pOut->PrintMessage("Click 1, Non-Filled");
 	gfxInfo.isFilled = false;
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->GetPointClicked(P2.x, P2.y);
-	pOut->DrawElipse(P1, P2, gfxInfo, false);
+	pOut->DrawEllipse(P1, gfxInfo, false);
 
 	// 2.5.3 - Drawing a highlighted filled ellipse
-	pOut->PrintMessage("Click 2, Highlighted Filled");
+	pOut->PrintMessage("Click 1, Highlighted Filled");
 	gfxInfo.isFilled = true;
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->GetPointClicked(P2.x, P2.y);
-	pOut->DrawElipse(P1, P2, gfxInfo, true);
+	pOut->DrawEllipse(P1, gfxInfo, true);
 
 	// 2.5.4 - Drawing a highlighted non-filled ellipse
-	pOut->PrintMessage("Click 2, Highlighted Non-Filled");
+	pOut->PrintMessage("Click 1, Highlighted Non-Filled");
 	gfxInfo.isFilled = false;
 	pIn->GetPointClicked(P1.x, P1.y);
-	pIn->GetPointClicked(P2.x, P2.y);
-	pOut->DrawElipse(P1, P2, gfxInfo, true);
+	pOut->DrawEllipse(P1, gfxInfo, true);
 
 	pOut->PrintMessage("Drawing a Ellipse Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
@@ -295,12 +291,11 @@ int main()
 		case DRAW_ELLIPSE:
 				pOut->CreateDrawToolBar();
 				pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
-			    pOut->PrintMessage("Action: Draw an Ellipse, Click 2");
+			    pOut->PrintMessage("Action: Draw an Ellipse, Click 1");
 				gfxInfo.FillClr = YELLOW;
 				gfxInfo.isFilled = true;
 				pIn->GetPointClicked(P1.x, P1.y);
-				pIn->GetPointClicked(P2.x, P2.y);
-				pOut->DrawElipse(P1, P2, gfxInfo, false);				
+				pOut->DrawEllipse(P1, gfxInfo, false);				
 				break;
 
 		case DRAW_TRI:

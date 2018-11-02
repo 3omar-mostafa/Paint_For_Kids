@@ -21,7 +21,7 @@ public:
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle
 	void DrawCircle(Point P1,Point P2 ,GfxInfo CircleGfxInfo, bool selected = false) const;
-	void DrawElipse(Point P1, Point P2, GfxInfo ElipseGfxInfo, bool selected = false) const;
+	void DrawEllipse(Point P, GfxInfo ElipseGfxInfo, bool selected = false) const;
 	void DrawTriangle(Point P1, Point P2,Point P3, GfxInfo TriGfxInfo, bool selected = false) const;
 	void DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected = false) const;
 	void DrawRhombus(Point P, GfxInfo RhombusGfxInfo, bool selected=false) const;

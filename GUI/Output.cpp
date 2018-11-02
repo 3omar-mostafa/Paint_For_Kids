@@ -274,7 +274,7 @@ void Output::DrawRhombus(Point P, GfxInfo RhombusGfxInfo, bool selected) const
 
 }
 
-void Output::DrawElipse(Point P1, Point P2, GfxInfo ElipseGfxInfo, bool selected) const
+void Output::DrawEllipse(Point P, GfxInfo ElipseGfxInfo, bool selected) const
 {
 	color DrawingClr;
 	if (selected)
@@ -291,11 +291,14 @@ void Output::DrawElipse(Point P1, Point P2, GfxInfo ElipseGfxInfo, bool selected
 	}
 	else
 		style = FRAME;
-
+	Point P1, P2;
+	P1.x = P.x - 150; P1.y = P.y + 80;
+	P2.x = P.x + 150; P2.y = P.y - 80;
 
 	pWind->DrawEllipse(P1.x, P1.y, P2.x, P2.y, style);
 
 }
+
 void Output::DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected) const
 {
 	color DrawingClr;
