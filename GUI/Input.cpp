@@ -61,9 +61,13 @@ ActionType Input::GetUserAction() const
 				int ClickedItemOrder = ( (x - 50) / UI.MenuActionWidth);
 				switch (ClickedItemOrder)
 				{
-				case ITM_SAVE :return SAVE;
+				case ITM_SAVE:return SAVE;
 				case ITM_COPY :return COPY;
-				case ITM_DELETE :return DEL;
+				case ITM_CUT:return CUT;
+				case ITM_PASTE:return PASTE;
+				case ITM_DELETE:return DEL;
+				case ITM_CLEAR:return CLEAR;
+				case ITM_SELECT:return SELECT;
 				case ITM_FILL_COLOR :return CHNG_FILL_CLR;
 				case ITM_DRAW_COLOR :return CHNG_DRAW_CLR;
 

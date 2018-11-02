@@ -36,6 +36,11 @@ public:
 
 	void drawOnToolbar(string , int );
 	
+	void drawColorMenu();
+	void deleteolorMenu();
+
+	void selectColor(Point, color &, bool & );
+
 	~Output();
 };
 

@@ -22,7 +22,11 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_GAME,
 	ITM_SAVE,
 	ITM_COPY,
+	ITM_CUT,
+	ITM_PASTE,
 	ITM_DELETE,
+	ITM_CLEAR,
+	ITM_SELECT,
 	ITM_FILL_COLOR,
 	ITM_DRAW_COLOR,
 	DRAW_ACTION_COUNT, //no. of menu action items

@@ -31,7 +31,10 @@ Output::Output()
 	//Change the title
 	pWind->ChangeTitle("Paint for Kids - Programming Techniques Project");
 
+
 	CreateDrawToolBar();
+	// draw fill color icon
+	pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", 9*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 	CreateStatusBar();
 }
 
@@ -84,8 +87,12 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_GAME] = "images\\MenuItems\\Menu_game.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_save.jpg";
 	MenuItemImages[ITM_COPY] = "images\\MenuItems\\Menu_copy.jpg";
+	MenuItemImages[ITM_CUT] = "images\\MenuItems\\Menu_Cut.jpg";
+	MenuItemImages[ITM_PASTE] = "images\\MenuItems\\Menu_Paste.jpg";
 	MenuItemImages[ITM_DELETE] = "images\\MenuItems\\Menu_delete.jpg";
-	MenuItemImages[ITM_FILL_COLOR] = "images\\MenuItems\\Menu_fill_color.jpg";
+	MenuItemImages[ITM_CLEAR] = "images\\MenuItems\\Menu_Clear_All.jpg";
+	MenuItemImages[ITM_SELECT] = "images\\MenuItems\\Menu_Select.jpg";
+	MenuItemImages[ITM_FILL_COLOR] = "images\\MenuItems\\Menu_fill_color_black.jpg";
 	MenuItemImages[ITM_DRAW_COLOR] = "images\\MenuItems\\Menu_draw_color.jpg";
 
 	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
@@ -99,18 +106,25 @@ void Output::CreateDrawToolBar() const
 	//TODO: Prepare images for each menu item and add it to the list
 
 	// Draw Game Mode Menu item
-	pWind->DrawImage(MenuItemImages[ITM_GAME], 0, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+	pWind->DrawImage(MenuItemImages[ITM_GAME], 0, 0, UI.MenuItemWidth, UI.ToolBarHeight-3);
 	//Draw menu action item one image at a time
 	for (int i = 1; i < DRAW_ACTION_COUNT; i++)
-		pWind->DrawImage(MenuItemImages[i], (i+1)*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight);
+	{
+		// in order not redraw the fill color icon with black theme
+		// it was initially drawn in the constructor
+		if (i == ITM_FILL_COLOR) continue; 
+
+		pWind->DrawImage(MenuItemImages[i], (i + 1)*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+	}
+		
 
 	//Draw menu item one image at a time
 	for (int i = 0; i < DRAW_ITM_COUNT-DRAW_ACTION_COUNT -1 ; i++)
-		pWind->DrawImage(MenuItemImages[ITM_RECT + i], (DRAW_ACTION_COUNT + 1) *UI.MenuActionWidth + i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+		pWind->DrawImage(MenuItemImages[ITM_RECT + i], (DRAW_ACTION_COUNT + 1) *UI.MenuActionWidth + i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight-3);
 
 	//Draw a line under the toolbar
 	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+	pWind->DrawLine(0, UI.ToolBarHeight-1.5, UI.width, UI.ToolBarHeight-1.5);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -118,23 +132,78 @@ void Output::CreateDrawToolBar() const
 void Output::drawOnToolbar(string path , int place)
 {
 	if (place == 0) {
-		pWind->DrawImage(path, place*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+		pWind->DrawImage(path, place*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight-3);
 	}
 	else if (place < DRAW_ACTION_COUNT) {
-		pWind->DrawImage(path, 50 + place*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight);
+		pWind->DrawImage(path, 50 + place*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight-3);
 	}
 	else {
-		pWind->DrawImage(path, (DRAW_ACTION_COUNT + 1) *UI.MenuActionWidth +  (place - DRAW_ACTION_COUNT - 1) * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+		pWind->DrawImage(path, (DRAW_ACTION_COUNT + 1) *UI.MenuActionWidth +  (place - DRAW_ACTION_COUNT - 1) * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight-3);
 	}
 	
+}
+
+
+void Output::drawColorMenu()
+{
+	pWind->DrawImage("images\\MenuItems\\colors.jpg", 9*UI.MenuActionWidth -5 , UI.ToolBarHeight, UI.MenuActionWidth+5, 6* UI.ToolBarHeight);
+}
+
+void Output::deleteolorMenu()
+{
+	pWind->SetPen(UI.BkGrndColor, 1);
+	pWind->SetBrush(UI.BkGrndColor);
+	pWind->DrawRectangle(9 * UI.MenuActionWidth - 5, UI.ToolBarHeight, 10 * UI.MenuActionWidth, 7*UI.ToolBarHeight);
+}
+
+// return 0 if succeeded (user clicked on color palette)
+void Output::selectColor(Point p , color & fillColor , bool & isFilled) {
+
+	if (p.x > 9 * UI.MenuActionWidth && p.x < 10 * UI.MenuActionWidth) {
+		int selectedColor = (p.y / UI.MenuActionWidth );
+		
+		switch (selectedColor) {
+		case 1 :
+			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", 9*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+			fillColor = BLACK;
+			isFilled = true;
+			return ;
+		case 2:
+			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_white.jpg", 9 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+			fillColor = WHITE;
+			isFilled = true;
+			return ;
+		case 3:
+			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_red.jpg", 9 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+			fillColor = RED;
+			isFilled = true;
+			return ;
+		case 4:
+			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_yellow.jpg", 9 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+			fillColor = YELLOW;
+			isFilled = true;
+			return ;
+		case 5:
+			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_green.jpg", 9 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+			fillColor = GREEN;
+			isFilled = true;
+			return ;
+		case 6:
+			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_blue.jpg", 9 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+			fillColor = BLUE;
+			isFilled = true;
+			return ;
+		}
+	}
+
 }
 
 
 void Output::CreatePlayToolBar() const
 {
 	string nul = "images\\MenuItems\\clean.jpg";
-	for (int i = 0; i < DRAW_ITM_COUNT+7; i++)
-		pWind->DrawImage( nul, (i) *UI.MenuActionWidth , 0, UI.MenuItemWidth, UI.ToolBarHeight);
+	pWind->DrawImage( nul, 0 , 0, UI.width, UI.ToolBarHeight);
+
 	UI.InterfaceMode = MODE_PLAY;
 	string PlayItemImages[PLAY_ITM_COUNT];
 	PlayItemImages[ITM_DRAW] = "images\\MenuItems\\draw.jpg";
