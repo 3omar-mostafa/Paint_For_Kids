@@ -34,15 +34,15 @@ string Input::GetString(Output *pO) const
 
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction() const
-{	
-	int x,y;
+{
+	int x, y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 
-	if(UI.InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
+	if (UI.InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
 		//[1] If user clicks on the Toolbar
-		if ( y >= 0 && y < UI.ToolBarHeight)
-		{	
+		if (y >= 0 && y < UI.ToolBarHeight)
+		{
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
 
@@ -54,27 +54,30 @@ ActionType Input::GetUserAction() const
 			// Omar :
 			// I've changed this logic because I made buttons that have different widths
 
-			
+
 			if (x < UI.MenuItemWidth)
 				return TO_PLAY;
-			else if (x < DRAW_ACTION_COUNT * UI.MenuActionWidth + 50) {
-				int ClickedItemOrder = ( (x - 50) / UI.MenuActionWidth);
+			else if (x < DRAW_ACTION_COUNT * UI.MenuActionWidth + 50)
+			{
+				int ClickedItemOrder = ((x - 50) / UI.MenuActionWidth);
 				switch (ClickedItemOrder)
 				{
 				case ITM_SAVE:return SAVE;
-				case ITM_COPY :return COPY;
+				case ITM_COPY:return COPY;
 				case ITM_CUT:return CUT;
 				case ITM_PASTE:return PASTE;
 				case ITM_DELETE:return DEL;
 				case ITM_CLEAR:return CLEAR;
 				case ITM_SELECT:return SELECT;
-				case ITM_FILL_COLOR :return CHNG_FILL_CLR;
-				case ITM_DRAW_COLOR :return CHNG_DRAW_CLR;
+				case ITM_FILL_COLOR:return CHNG_FILL_CLR;
+				case ITM_DRAW_COLOR:return CHNG_DRAW_CLR;
 
 				default: return EMPTY;	//A click on empty place in desgin toolbar
 				}
-			}else{
-				int ClickedItemOrder = (DRAW_ACTION_COUNT + 1 + (x - 50 - DRAW_ACTION_COUNT*UI.MenuActionWidth) / UI.MenuItemWidth);
+			}
+			else
+			{
+				int ClickedItemOrder = (DRAW_ACTION_COUNT + 1 + (x - 50 - DRAW_ACTION_COUNT * UI.MenuActionWidth) / UI.MenuItemWidth);
 
 				switch (ClickedItemOrder)
 				{
@@ -91,22 +94,40 @@ ActionType Input::GetUserAction() const
 		}
 
 		//[2] User clicks on the drawing area
-		if ( y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 		{
-			return DRAWING_AREA;	
+			return DRAWING_AREA;
 		}
-		
+
 		//[3] User clicks on the status bar
 		return STATUS;
 	}
 	else	//GUI is in PLAY mode
 	{
-		///TODO:
-		//perform checks similar to Draw mode checks above
-		//and return the correspoding action
-		return TO_PLAY;	//just for now. This should be updated
-	}	
+		if (y >= 0 && y < UI.ToolBarHeight)
+		{
+			if (x < UI.MenuItemWidth-20)
+				return TO_DRAW;
+			else if (x < (10 * UI.MenuActionWidth +80) && x>10 * UI.MenuActionWidth)
+				return COL_CLR;
+			else if (x < (12 * UI.MenuActionWidth + 80) && x>12 * UI.MenuActionWidth)
+				return COL_SHP;
+			else if (x < (22 * UI.MenuActionWidth + 80) && x > 22 * UI.MenuActionWidth)
+				return EXIT;
+			
+			{
 
+				///TODO:
+				//perform checks similar to Draw mode checks above
+				//and return the correspoding action
+				return TO_PLAY;	//just for now. This should be updated
+			}
+
+		}
+
+
+
+	}
 }
 /////////////////////////////////
 	

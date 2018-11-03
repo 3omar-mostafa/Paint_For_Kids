@@ -83,6 +83,8 @@ void Output::CreateDrawToolBar() const
 	//First prepare List of images for each menu item
 	//To control the order of these images in the menu, 
 	//reoder them in UI_Info.h ==> enum DrawMenuItem
+	string nul = "images\\MenuItems\\clean.jpg";
+	pWind->DrawImage(nul, 0, 0, UI.width, UI.ToolBarHeight);
 	string MenuItemImages[DRAW_ITM_COUNT];
 	MenuItemImages[ITM_GAME] = "images\\MenuItems\\Menu_game.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_save.jpg";
@@ -219,6 +221,15 @@ void Output::CreatePlayToolBar() const
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 
 	///TODO: write code to create Play mode menu
+}
+void Output::playOnToolbar(string path, int place)
+{
+	switch (place)
+	{
+	case ITM_DRAW: pWind->DrawImage(path, 0, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight); break;
+	case ITM_COL_CLR:pWind->DrawImage(path, (10)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight); break;
+	case ITM_COL_SHP:pWind->DrawImage(path, (12)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight); break;
+	}
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 

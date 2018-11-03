@@ -35,6 +35,7 @@ public:
 	int getCrntPenWidth() const;		//get current pen width
 
 	void drawOnToolbar(string , int );
+	void playOnToolbar(string, int);
 	
 	void drawColorMenu();
 	void deleteolorMenu();

@@ -187,6 +187,7 @@ int main()
 
 		case TO_DRAW:
 				pOut->PrintMessage("Action: Switch to Draw Mode, creating simualtion tool bar");
+				pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
 				pOut->CreateDrawToolBar();
 				break;
 
@@ -198,7 +199,18 @@ int main()
 				pOut->CreatePlayToolBar();
 				//TODO: Temporary Commenting until we build it
 				break;
+		case COL_CLR:
+			pOut->CreatePlayToolBar();
+			pOut->PrintMessage("Action: Collecting by color");
 
+			pOut->playOnToolbar("images\\MenuItems\\col_clr_selected.jpg", ITM_COL_CLR);
+			break;
+		case COL_SHP:
+			pOut->CreatePlayToolBar();
+			pOut->PrintMessage("Action: Collecting by Shape");
+
+			pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);
+			break;
 
 		case EXIT:				
 				break;
