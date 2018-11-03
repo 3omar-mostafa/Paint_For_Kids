@@ -90,7 +90,7 @@ int main()
 						}
 
 					pOut->DrawLine(P1, P2, gfxInfo, false);
-					
+					pOut->CreateDrawToolBar();
 					break;
 				}
 				break;
@@ -267,7 +267,7 @@ int main()
 				break;
 		}
 		pOut->PrintMessage("Action performed! Click anywhere.");
-		pOut->CreateDrawToolBar();
+		
 	}while(ActType != EXIT);
 
 
