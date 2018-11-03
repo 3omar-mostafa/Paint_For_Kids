@@ -35,18 +35,31 @@ int main()
 		case DRAW_RECT:
 				pOut->CreateDrawToolBar();
 				pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
-			    pOut->PrintMessage("Action: Draw a Rectangle, Click 2");
+			    pOut->PrintMessage("Action: Draw a Rectangle, Click 2 Points");
 
 				while (true)
 				{
 					pIn->GetPointClicked(P1.x, P1.y);
-					if (P1.y < UI.ToolBarHeight) {
-						break;
+					if (P1.y < UI.ToolBarHeight) break;
+					while (P1.y > UI.height - UI.StatusBarHeight) 
+					{
+						pOut->PrintMessage("Choose a valid point");
+						pIn->GetPointClicked(P1.x, P1.y);
 					}
+
+					pOut->PrintMessage("Click point 2");
 
 					pIn->GetPointClicked(P2.x, P2.y);
 					if (P2.y < UI.ToolBarHeight) break;
+					while (P2.y > UI.height - UI.StatusBarHeight)
+					{
+						pOut->PrintMessage("Choose a valid point");
+						pIn->GetPointClicked(P2.x, P2.y);
+					} 
+
 					pOut->DrawRect(P1, P2, gfxInfo, false);
+					pOut->CreateDrawToolBar();
+					break;
 				}
 
 				break;
@@ -59,15 +72,26 @@ int main()
 				while (true)
 				{
 					pIn->GetPointClicked(P1.x, P1.y);
-					if (P1.y < UI.ToolBarHeight) {
-						break;
-					}
+					if (P1.y < UI.ToolBarHeight) break;
+					while (P1.y > UI.height - UI.StatusBarHeight)
+					{
+						pOut->PrintMessage("Choose a valid point");
+						pIn->GetPointClicked(P1.x, P1.y);
+					} 
+
+					pOut->PrintMessage("Click point 2");
 
 					pIn->GetPointClicked(P2.x, P2.y);
-					if (P2.y < UI.ToolBarHeight) {
-						break;
-					}
+					if (P2.y < UI.ToolBarHeight) break;
+					while (P2.y > UI.height - UI.StatusBarHeight)
+						{
+						pOut->PrintMessage("Choose a valid point");
+						pIn->GetPointClicked(P2.x, P2.y);
+						}
+
 					pOut->DrawLine(P1, P2, gfxInfo, false);
+					
+					break;
 				}
 				break;
 
@@ -79,10 +103,16 @@ int main()
 				while (true)
 				{
 					pIn->GetPointClicked(P1.x, P1.y);
-					if (P1.y < UI.ToolBarHeight) {
-						break;
-					}
+					if (P1.y < UI.ToolBarHeight) break;
+					while (P1.y > UI.height - (UI.StatusBarHeight+100))
+					{
+						pOut->PrintMessage("Choose a valid point(Higher)");
+						pIn->GetPointClicked(P1.x, P1.y);
+					} 
+					
 					pOut->DrawRhombus(P1, gfxInfo, false);
+					pOut->CreateDrawToolBar();
+					break;
 				}
 				
 				break;
@@ -95,10 +125,16 @@ int main()
 				while (true)
 				{
 					pIn->GetPointClicked(P1.x, P1.y);
-					if (P1.y < UI.ToolBarHeight) {
-						break;
-					}
+					if (P1.y < UI.ToolBarHeight) break;
+					while (P1.y > UI.height - (UI.StatusBarHeight+80))
+						 {
+							pOut->PrintMessage("Choose a valid point(Higher)");
+							pIn->GetPointClicked(P1.x, P1.y);
+						} 
+
 					pOut->DrawEllipse(P1, gfxInfo, false);
+					pOut->CreateDrawToolBar();
+					break;
 				}
 				break;
 
@@ -110,19 +146,36 @@ int main()
 				while (true)
 				{
 					pIn->GetPointClicked(P1.x, P1.y);
-					if (P1.y < UI.ToolBarHeight) {
-						break;
-					}
+					if (P1.y < UI.ToolBarHeight) break;
+					while (P1.y > UI.height - UI.StatusBarHeight)
+					{
+						pOut->PrintMessage("Choose a valid point");
+						pIn->GetPointClicked(P1.x, P1.y);
+					} 
+
+					pOut->PrintMessage("Click point 2");
 
 					pIn->GetPointClicked(P2.x, P2.y);
-					if (P2.y < UI.ToolBarHeight) {
-						break;
-					}
+					if (P2.y < UI.ToolBarHeight) break;
+					while (P2.y > UI.height - UI.StatusBarHeight)
+					{
+						pOut->PrintMessage("Choose a valid point");
+						pIn->GetPointClicked(P2.x, P2.y);
+					} 
+
+					pOut->PrintMessage("Click point 3");
+
 					pIn->GetPointClicked(P3.x, P3.y);
-					if (P3.y < UI.ToolBarHeight) {
-						break;
-					}
+					if (P3.y < UI.ToolBarHeight) break;
+					while (P3.y > UI.height - UI.StatusBarHeight)
+					{
+						pOut->PrintMessage("Choose a valid point");
+						pIn->GetPointClicked(P3.x, P3.y);
+					} 
+
 					pOut->DrawTriangle(P1, P2, P3, gfxInfo, false);
+					pOut->CreateDrawToolBar();
+					break;
 				}
 				break;
 
@@ -197,7 +250,6 @@ int main()
 
 		case TO_DRAW:
 				pOut->PrintMessage("Action: Switch to Draw Mode, creating simualtion tool bar");
-				pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
 				pOut->CreateDrawToolBar();
 				break;
 
@@ -209,23 +261,13 @@ int main()
 				pOut->CreatePlayToolBar();
 				//TODO: Temporary Commenting until we build it
 				break;
-		case COL_CLR:
-			pOut->CreatePlayToolBar();
-			pOut->PrintMessage("Action: Collecting by color");
 
-			pOut->playOnToolbar("images\\MenuItems\\col_clr_selected.jpg", ITM_COL_CLR);
-			break;
-		case COL_SHP:
-			pOut->CreatePlayToolBar();
-			pOut->PrintMessage("Action: Collecting by Shape");
-
-			pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);
-			break;
 
 		case EXIT:				
 				break;
 		}
 		pOut->PrintMessage("Action performed! Click anywhere.");
+		pOut->CreateDrawToolBar();
 	}while(ActType != EXIT);
 
 
