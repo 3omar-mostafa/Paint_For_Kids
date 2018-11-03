@@ -45,6 +45,7 @@ int main()
 					}
 
 					pIn->GetPointClicked(P2.x, P2.y);
+					if (P2.y < UI.ToolBarHeight) break;
 					pOut->DrawRect(P1, P2, gfxInfo, false);
 				}
 
@@ -63,6 +64,9 @@ int main()
 					}
 
 					pIn->GetPointClicked(P2.x, P2.y);
+					if (P2.y < UI.ToolBarHeight) {
+						break;
+					}
 					pOut->DrawLine(P1, P2, gfxInfo, false);
 				}
 				break;
@@ -111,7 +115,13 @@ int main()
 					}
 
 					pIn->GetPointClicked(P2.x, P2.y);
+					if (P2.y < UI.ToolBarHeight) {
+						break;
+					}
 					pIn->GetPointClicked(P3.x, P3.y);
+					if (P3.y < UI.ToolBarHeight) {
+						break;
+					}
 					pOut->DrawTriangle(P1, P2, P3, gfxInfo, false);
 				}
 				break;
