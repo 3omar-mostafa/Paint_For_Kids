@@ -40,6 +40,8 @@ public:
 	void drawColorMenu();
 	void deleteolorMenu();
 
+	void drawDefaultFillColor();
+
 	void selectColor(Point, color &, bool & );
 
 	~Output();

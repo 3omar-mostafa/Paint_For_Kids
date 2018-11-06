@@ -33,8 +33,8 @@ Output::Output()
 
 
 	CreateDrawToolBar();
-	// draw fill color icon
-	pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", 9*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+	// draw default black fill color icon
+	drawDefaultFillColor();
 	CreateStatusBar();
 }
 
@@ -83,8 +83,6 @@ void Output::CreateDrawToolBar() const
 	//First prepare List of images for each menu item
 	//To control the order of these images in the menu, 
 	//reoder them in UI_Info.h ==> enum DrawMenuItem
-	string nul = "images\\MenuItems\\clean.jpg";
-	pWind->DrawImage(nul, 0, 0, UI.width, UI.ToolBarHeight);
 	string MenuItemImages[DRAW_ITM_COUNT];
 	MenuItemImages[ITM_GAME] = "images\\MenuItems\\Menu_game.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\MenuItems\\Menu_save.jpg";
@@ -124,13 +122,17 @@ void Output::CreateDrawToolBar() const
 	for (int i = 0; i < DRAW_ITM_COUNT-DRAW_ACTION_COUNT -1 ; i++)
 		pWind->DrawImage(MenuItemImages[ITM_RECT + i], (DRAW_ACTION_COUNT + 1) *UI.MenuActionWidth + i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight-3);
 
+	pWind->DrawImage("images\\MenuItems\\clean.jpg", 1150, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
+
 	//Draw a line under the toolbar
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight-1.5, UI.width, UI.ToolBarHeight-1.5);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-
+void Output::drawDefaultFillColor() {
+	pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", 9 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+}
 void Output::drawOnToolbar(string path , int place)
 {
 	if (place == 0) {
@@ -212,13 +214,14 @@ void Output::CreatePlayToolBar() const
 	PlayItemImages[ITM_COL_CLR] = "images\\MenuItems\\col_clr.jpg";
 	PlayItemImages[ITM_COL_SHP] = "images\\MenuItems\\col_shp.jpg";
 	PlayItemImages[ITM_EXIT1] = "images\\MenuItems\\EXIT1.jpg";
+
 	pWind->DrawImage(PlayItemImages[ITM_DRAW], 0, 0, UI.MenuActionWidth+30, UI.ToolBarHeight);
-	//for (int i = 1; i < PLAY_ITM_COUNT; i++)
-		pWind->DrawImage(PlayItemImages[ITM_COL_CLR], (10)*UI.MenuActionWidth, 0, UI.MenuActionWidth+30, UI.ToolBarHeight);
-		pWind->DrawImage(PlayItemImages[ITM_COL_SHP], (12)*UI.MenuActionWidth, 0, UI.MenuActionWidth+30, UI.ToolBarHeight);
-		pWind->DrawImage(PlayItemImages[ITM_EXIT1], (22)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight);
+	pWind->DrawImage(PlayItemImages[ITM_COL_CLR], (10)*UI.MenuActionWidth, 0, UI.MenuActionWidth+30, UI.ToolBarHeight-3);
+	pWind->DrawImage(PlayItemImages[ITM_COL_SHP], (12)*UI.MenuActionWidth, 0, UI.MenuActionWidth+30, UI.ToolBarHeight-3);
+	pWind->DrawImage(PlayItemImages[ITM_EXIT1], (22)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight-3);
+
 	pWind->SetPen(MIDNIGHTBLUE, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+	pWind->DrawLine(0, UI.ToolBarHeight-1.5, UI.width, UI.ToolBarHeight-1.5);
 
 	///TODO: write code to create Play mode menu
 }
@@ -341,8 +344,8 @@ void Output::DrawRhombus(Point P, GfxInfo RhombusGfxInfo, bool selected) const
 	int X[4];
 	int Y[4];
 	Point P1, P2, P3, P4;
-	P1.x = P.x;        P2.x = P.x + 50;  P3.x = P.x;        P4.x = P.x - 50; 
-	P1.y = P.y + 100;  P2.y = P.y;       P3.y = P.y - 100;  P4.y = P.y;
+	P1.x = P.x;        P2.x = P.x + 100;  P3.x = P.x;        P4.x = P.x - 100; 
+	P1.y = P.y + 50;  P2.y = P.y;       P3.y = P.y - 50;  P4.y = P.y;
 	Point pt[4] = { P1,P2,P3,P4 };
 	for (int i = 0; i < 4; i++) {
 		X[i] = pt[i].x;
@@ -407,9 +410,9 @@ void Output::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected) co
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
 	else
-		DrawingClr = LineGfxInfo.DrawClr;
+		DrawingClr = LineGfxInfo.FillClr;
 
-	pWind->SetPen(DrawingClr, 1);
+	pWind->SetPen(DrawingClr, 3);
 	drawstyle style;
 	style = FRAME;
 	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
