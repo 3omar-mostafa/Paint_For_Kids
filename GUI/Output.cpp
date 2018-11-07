@@ -33,8 +33,6 @@ Output::Output()
 
 
 	CreateDrawToolBar();
-	// draw default black fill color icon
-	drawDefaultFillColor();
 	CreateStatusBar();
 }
 
@@ -110,10 +108,6 @@ void Output::CreateDrawToolBar() const
 	//Draw menu action item one image at a time
 	for (int i = 1; i < DRAW_ACTION_COUNT; i++)
 	{
-		// in order not redraw the fill color icon with black theme
-		// it was initially drawn in the constructor
-		if (i == ITM_FILL_COLOR) continue; 
-
 		pWind->DrawImage(MenuItemImages[i], (i + 1)*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 	}
 		
@@ -130,9 +124,7 @@ void Output::CreateDrawToolBar() const
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-void Output::drawDefaultFillColor() {
-	pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", 9 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-}
+
 void Output::drawOnToolbar(string path , int place)
 {
 	if (place == 0) {
