@@ -294,53 +294,86 @@ int main()
 
 		case CHNG_DRAW_CLR:
 				pOut->PrintMessage("Action: Change Figure's drawing color , Click anywhere");
-				pOut->CreateDrawToolBar();
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_draw_color_Selected.jpg", ITM_DRAW_COLOR);
+				pOut->CreateDrawActionToolBar();
+
+				pOut->drawColorMenu();
+				while (true) {
+					pIn->GetPointClicked(P1.x, P1.y);
+					if (P1.x > UI.MenuActionWidth || P1.y < (DRAW_ACTION_COUNT +1 ) * UI.MenuActionWidth) {
+						pOut->deleteolorMenu();
+						pOut->CreateDrawToolBar();
+						break;
+					}
+					pOut->selectDrawColor(P1, gfxInfo.DrawClr );
+				}
+
 				break;
 
 		case CHNG_FILL_CLR:
 				pOut->PrintMessage("Action: Change Figure's Fill color , Click anywhere");
-				
+				pOut->CreateDrawActionToolBar();
+
+				pOut->drawColorMenu();
+				while (true) {
+					pIn->GetPointClicked(P1.x, P1.y);
+					if (P1.x > UI.MenuActionWidth || P1.y < (DRAW_ACTION_COUNT + 1) * UI.MenuActionWidth) {
+						pOut->deleteolorMenu();
+						pOut->CreateDrawToolBar();
+						break;
+					}
+					pOut->selectFillColor(P1, gfxInfo.FillClr, gfxInfo.isFilled);
+				}
 				break;
 
 		case STATUS:
 				pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
 				break;
+		case LOAD:
+			pOut->PrintMessage("Action: load, Click anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawOnActionbar("images\\MenuItems\\Menu_Load_Selected.jpg", ITM_LOAD);
+			break;
+		case SAVE:
+			pOut->PrintMessage("Action: save, Click anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawOnActionbar("images\\MenuItems\\Menu_save_Selected.jpg", ITM_SAVE);
+			break;
+		case SAVE_BY_TYPE:
+			pOut->PrintMessage("Action: save by type, Click anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawOnActionbar("images\\MenuItems\\Menu_save_type_Selected.jpg", ITM_SAVE_TYPE);
+			break;
 		case COPY:
 				pOut->PrintMessage("Action: copy , Click anywhere");
-				pOut->CreateDrawToolBar();
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_copy_Selected.jpg", ITM_COPY);
+				pOut->CreateDrawActionToolBar();
+				pOut->drawOnActionbar("images\\MenuItems\\Menu_copy_Selected.jpg", ITM_COPY);
 				break;
 		case CUT:
 				pOut->PrintMessage("Action: cut , Click anywhere");
-				pOut->CreateDrawToolBar();
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_Cut_Selected.jpg", ITM_CUT);
+				pOut->CreateDrawActionToolBar();
+				pOut->drawOnActionbar("images\\MenuItems\\Menu_Cut_Selected.jpg", ITM_CUT);
 				break;
 		case PASTE:
 				pOut->PrintMessage("Action: paste , Click anywhere");
-				pOut->CreateDrawToolBar();
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_Paste_Selected.jpg", ITM_PASTE);
+				pOut->CreateDrawActionToolBar();
+				pOut->drawOnActionbar("images\\MenuItems\\Menu_Paste_Selected.jpg", ITM_PASTE);
 				break;
 		case DEL:
 				pOut->PrintMessage("Action: delete, Click anywhere");
-				pOut->CreateDrawToolBar();
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
+				pOut->CreateDrawActionToolBar();
+				pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
 				break;
 		case CLEAR:
 				pOut->PrintMessage("Action: Clear Drawing Area");
-				pOut->CreateDrawToolBar();
+				pOut->CreateDrawActionToolBar();
 				pOut->ClearDrawArea();
 				break;
-		case SAVE:
-				pOut->PrintMessage("Action: save, Click anywhere");
-				pOut->CreateDrawToolBar();
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_save_Selected.jpg", ITM_SAVE);
-				break;
+
 
 		case SELECT:
 				pOut->PrintMessage("Action: select , Click anywhere");
-				pOut->CreateDrawToolBar();
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_select_Selected.jpg", ITM_SELECT);
+				pOut->CreateDrawActionToolBar();
+				pOut->drawOnActionbar("images\\MenuItems\\Menu_select_Selected.jpg", ITM_SELECT);
 				break;
  
 		case DRAWING_AREA:
@@ -355,13 +388,15 @@ int main()
 				pOut->PrintMessage("Action: Switch to Draw Mode, creating simualtion tool bar");
 				pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
 				pOut->CreateDrawToolBar();
+				pOut->CreateDrawActionToolBar();
+				pOut->CreateColorIcons();
 				break;
 
 		case TO_PLAY:
 				pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
 				
 				pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
-
+				pOut->removeDrawActionToolBar();
 				pOut->CreatePlayToolBar();
 				//TODO: Temporary Commenting until we build it
 				break;

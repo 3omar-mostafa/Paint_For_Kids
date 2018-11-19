@@ -11,6 +11,8 @@ public:
 
 	window* CreateWind(int, int, int , int) const; //creates the application window
 	void CreateDrawToolBar() const;	//creates Draw mode toolbar & menu
+	void CreateDrawActionToolBar() ; // creates Draw mode Action bar
+	void removeDrawActionToolBar(); // deletes Draw mode Action bar
 	void CreatePlayToolBar() const;	//creates Play mode toolbar & menu
 	void CreateStatusBar() const;	//create the status bar
 
@@ -35,12 +37,15 @@ public:
 	int getCrntPenWidth() const;		//get current pen width
 
 	void drawOnToolbar(string , int );
+	void drawOnActionbar(string, int);
 	void playOnToolbar(string, int);
 	
+	void CreateColorIcons();
 	void drawColorMenu();
 	void deleteolorMenu();
 
-	void selectColor(Point, color &, bool & );
+	void selectFillColor(Point, color &, bool & );
+	void selectDrawColor(Point, color &);
 
 	~Output();
 };

@@ -46,51 +46,44 @@ ActionType Input::GetUserAction() const
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
 
-			//ClickedItemOrder = (x / UI.MenuItemWidth);
+			int ClickedItemOrder = (x / UI.MenuItemWidth);
 
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
-			// Omar :
-			// I've changed this logic because I made buttons that have different widths
-
-
-			if (x < UI.MenuItemWidth)
-				return TO_PLAY;
-			else if (x < DRAW_ACTION_COUNT * UI.MenuActionWidth + 50)
+			switch (ClickedItemOrder)
 			{
-				int ClickedItemOrder = ((x - 50) / UI.MenuActionWidth);
-				switch (ClickedItemOrder)
-				{
-				case ITM_SAVE:return SAVE;
-				case ITM_COPY:return COPY;
-				case ITM_CUT:return CUT;
-				case ITM_PASTE:return PASTE;
-				case ITM_DELETE:return DEL;
-				case ITM_CLEAR:return CLEAR;
-				case ITM_SELECT:return SELECT;
-				case ITM_FILL_COLOR:return CHNG_FILL_CLR;
-				case ITM_DRAW_COLOR:return CHNG_DRAW_CLR;
+			case ITM_GAME: return TO_PLAY;
+			case ITM_RECT: return DRAW_RECT;
+			case ITM_EXIT: return EXIT;
+			case ITM_TRIANGLE: return DRAW_TRI;
+			case ITM_CIRCLE:   return DRAW_ELLIPSE;
+			case ITM_RHOMBUS:  return DRAW_RHOMBUS;
+			case ITM_LINE:	   return DRAW_LINE;
 
-				default: return EMPTY;	//A click on empty place in desgin toolbar
-				}
+			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
-			else
+		}
+		else if (x >= 0 && x < UI.MenuActionWidth) {
+			int ClickedItemOrder = (y / UI.MenuActionWidth) - 1;
+
+			switch (ClickedItemOrder)
 			{
-				int ClickedItemOrder = (DRAW_ACTION_COUNT + 1 + (x - 50 - DRAW_ACTION_COUNT * UI.MenuActionWidth) / UI.MenuItemWidth);
+			case ITM_LOAD:return LOAD;
+			case ITM_SAVE:return SAVE;
+			case ITM_SAVE_TYPE:return SAVE_BY_TYPE;
+			case ITM_COPY:return COPY;
+			case ITM_CUT:return CUT;
+			case ITM_PASTE:return PASTE;
+			case ITM_DELETE:return DEL;
+			case ITM_CLEAR:return CLEAR;
+			case ITM_SELECT:return SELECT;
+			case ITM_FILL_COLOR:return CHNG_FILL_CLR;
+			case ITM_DRAW_COLOR:return CHNG_DRAW_CLR;
 
-				switch (ClickedItemOrder)
-				{
-				case ITM_RECT: return DRAW_RECT;
-				case ITM_EXIT: return EXIT;
-				case ITM_TRIANGLE: return DRAW_TRI;
-				case ITM_CIRCLE:   return DRAW_ELLIPSE;
-				case ITM_RHOMBUS:  return DRAW_RHOMBUS;
-				case ITM_LINE:	   return DRAW_LINE;
-
-				default: return EMPTY;	//A click on empty place in desgin toolbar
-				}
+			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
+
 		}
 
 		//[2] User clicks on the drawing area
