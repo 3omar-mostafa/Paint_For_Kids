@@ -21,7 +21,7 @@ int main()
 	//			This has already been done through the constrcutor of class Output
 	///////////////////////////////////////////////////////////////////////////////////
 
-	pOut->PrintMessage("TEST1: Drawing Tool bar and Status bar, Click anywhere to continue");
+	pOut->PrintMessage("TEST1: Drawing Toolbar and Status bar, Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 
 
@@ -31,11 +31,17 @@ int main()
 	//			Non-filled, Filled, and highlighted in both cases			
 	///////////////////////////////////////////////////////////////////////////////////
 
-	pOut->PrintMessage("TEST2: Now we will show that Output class can draw any figure in any state, Click anywhere to continue");
+	pOut->PrintMessage("TEST2: Now we will show that the Output class can draw any figure in any state, Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 
 	GfxInfo gfxInfo; //to be used with draw function of the class Ouput
 	Point P1, P2, P3;
+
+	gfxInfo.BorderWdth = 12;
+	gfxInfo.DrawClr = BLACK;			//any color for border
+	gfxInfo.FillClr = MEDIUMAQUAMARINE;	//any color for filling
+
+
 
 	/// 2.1- Rectangle Test ///
 	/// =================== 
@@ -45,12 +51,7 @@ int main()
 	// 2.1.1 - Drawing filled rectangle
 	//pOut->PrintMessage("Drawing a Rectangle ==> non-filled,  Click two points");  ***Commented this line and removed all similar lines to keep the status bar statements consistent
 	pOut->PrintMessage("Click 2 Points, Filled");
-
-	gfxInfo.BorderWdth = 12;
-	gfxInfo.DrawClr = BLACK;	 //any color for border
-	gfxInfo.FillClr = MEDIUMAQUAMARINE; //any color for filling
 	gfxInfo.isFilled = true;	//Figure is filled
-
 	pIn->GetPointClicked(P1.x, P1.y);
 	pIn->GetPointClicked(P2.x, P2.y);
 	pOut->DrawRect(P1, P2, gfxInfo, false);
@@ -77,11 +78,12 @@ int main()
 	pIn->GetPointClicked(P2.x, P2.y);
 	pOut->DrawRect(P1, P2, gfxInfo, true);
 
-
-
+		
 	pOut->PrintMessage("Drawing a Rectangle Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
+
+
 
 	/// 2.2- Line Test ///
 	/// ============== 
@@ -102,9 +104,9 @@ int main()
 	pIn->GetPointClicked(P2.x, P2.y);
 	pOut->DrawLine(P1, P2, gfxInfo, true);
 
+		
 	pOut->PrintMessage("Drawing a Line Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
-
 	pOut->ClearDrawArea();
 
 
@@ -147,9 +149,12 @@ int main()
 	pIn->GetPointClicked(P3.x, P3.y);
 	pOut->DrawTriangle(P1, P2, P3, gfxInfo, true);
 
+		
 	pOut->PrintMessage("Drawing a Triangle Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
+
+
 
 	/// 2.4- Rhombus Test ///
 	/// =================== 
@@ -180,12 +185,13 @@ int main()
 	gfxInfo.isFilled = false;
 	pIn->GetPointClicked(P1.x, P1.y);
 	pOut->DrawRhombus(P1, gfxInfo, true);
-
-
-
+		
+	
 	pOut->PrintMessage("Drawing a Rhombus Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
+
+
 
 	/// 2.5- Ellipse Test ///
 	/// =================== 
@@ -217,32 +223,37 @@ int main()
 	pIn->GetPointClicked(P1.x, P1.y);
 	pOut->DrawEllipse(P1, gfxInfo, true);
 
+		
 	pOut->PrintMessage("Drawing a Ellipse Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
+
+	
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// TEST 3: 
 	//			Input Class: Read strings from the user
 	///////////////////////////////////////////////////////////////////////////////////
-	pOut->PrintMessage("TEST3: Now Time to test class Input, Click anywhere to continue");
+	pOut->PrintMessage("TEST3: Now, time to test the Input class, Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 
-	pOut->PrintMessage("Testing Input ability to read strings");
+	pOut->PrintMessage("Testing the Input class's ability to read strings, Enter a string");
 
 	///TODO: Add code here to 
 	// 1- Read a string from the user on the status bar
 	// 2- After reading the string clear the status bar
 	// 3- Print on the status bar "You Entered" then print the string
-	pOut->PrintMessage("You entered " + pIn->GetString(pOut) + ".");
+	pOut->PrintMessage("You entered " + pIn->GetString(pOut) + ",  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
+
+	
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// TEST 4: 
 	//			Input Class : Check for the user action
 	///////////////////////////////////////////////////////////////////////////////////
-	pOut->PrintMessage("TEST4: Testing Input ability to detect User Action, click anywhere");
+	pOut->PrintMessage("TEST4: Testing the Input class's ability to detect User Action, Click anywhere");
 
 	ActionType ActType;
 
@@ -258,169 +269,165 @@ int main()
 		case DRAW_RECT:
 			pOut->CreateDrawToolBar();
 			pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
-			pOut->PrintMessage("Action: Draw a Rectangle, Click 2 Points");
-
+			pOut->PrintMessage("Action: Draw a Rectangle, Click Anywhere");
 			break;
 
 		case DRAW_LINE:
 			pOut->CreateDrawToolBar();
 			pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
-			pOut->PrintMessage("Action: Draw a Line, Click 2 Points");
-
+			pOut->PrintMessage("Action: Draw a Line, Click Anywhere");
 			break;
 
 		case DRAW_RHOMBUS:
 			pOut->CreateDrawToolBar();
 			pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
-			pOut->PrintMessage("Action: Draw a Rhombus, Click 1 Point");
-
+			pOut->PrintMessage("Action: Draw a Rhombus, Click Anywhere");
 			break;
 
 		case DRAW_ELLIPSE:
 			pOut->CreateDrawToolBar();
 			pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
-			pOut->PrintMessage("Action: Draw an Ellipse, Click 1 Point");
-
-
+			pOut->PrintMessage("Action: Draw an Ellipse, Click Anywhere");
 			break;
 
 		case DRAW_TRI:
 			pOut->CreateDrawToolBar();
 			pOut->drawOnToolbar("images\\MenuItems\\Menu_Triangle_Selected.jpg", ITM_TRIANGLE);
-			pOut->PrintMessage("Action: Draw a Triangle, Click 3 Points");
-
-
+			pOut->PrintMessage("Action: Draw a Triangle, Click Anywhere");
 			break;
 
 		case CHNG_DRAW_CLR:
-				pOut->PrintMessage("Action: Change Figure's drawing color , Click anywhere");
-				pOut->CreateDrawActionToolBar();
-
-				pOut->drawColorMenu();
-				while (true) {
-					pIn->GetPointClicked(P1.x, P1.y);
-					if (P1.x > UI.MenuActionWidth || P1.y < (DRAW_ACTION_COUNT +1 ) * UI.MenuActionWidth) {
-						pOut->deleteolorMenu();
-						pOut->CreateDrawToolBar();
-						break;
-					}
-					pOut->selectDrawColor(P1, gfxInfo.DrawClr );
+			pOut->PrintMessage("Action: Change Figure's drawing color, Click Anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawColorMenu();
+			while (true) {
+				pIn->GetPointClicked(P1.x, P1.y);
+				if (P1.x > UI.MenuActionWidth || P1.y < (DRAW_ACTION_COUNT +1) * UI.MenuActionWidth) {
+					pOut->deleteColorMenu();
+					pOut->CreateDrawToolBar();
+					break;
 				}
-
-				break;
+				pOut->selectDrawColor(P1, gfxInfo.DrawClr );
+			}
+			break;
 
 		case CHNG_FILL_CLR:
-				pOut->PrintMessage("Action: Change Figure's Fill color , Click anywhere");
-				pOut->CreateDrawActionToolBar();
-
-				pOut->drawColorMenu();
-				while (true) {
-					pIn->GetPointClicked(P1.x, P1.y);
-					if (P1.x > UI.MenuActionWidth || P1.y < (DRAW_ACTION_COUNT + 1) * UI.MenuActionWidth) {
-						pOut->deleteolorMenu();
-						pOut->CreateDrawToolBar();
-						break;
-					}
-					pOut->selectFillColor(P1, gfxInfo.FillClr, gfxInfo.isFilled);
+			pOut->PrintMessage("Action: Change Figure's fill color, Click Anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawColorMenu();
+			while (true) {
+				pIn->GetPointClicked(P1.x, P1.y);
+				if (P1.x > UI.MenuActionWidth || P1.y < (DRAW_ACTION_COUNT + 1) * UI.MenuActionWidth) {
+					pOut->deleteColorMenu();
+					pOut->CreateDrawToolBar();
+					break;
 				}
-				break;
+				pOut->selectFillColor(P1, gfxInfo.FillClr, gfxInfo.isFilled);
+			}
+			break;
 
 		case STATUS:
-				pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
-				break;
+			pOut->PrintMessage("Action: A Click on the Status Bar, Click Anywhere");
+			break;
+
 		case LOAD:
-			pOut->PrintMessage("Action: load, Click anywhere");
+			pOut->PrintMessage("Action: Load, Click Anywhere");
 			pOut->CreateDrawActionToolBar();
 			pOut->drawOnActionbar("images\\MenuItems\\Menu_Load_Selected.jpg", ITM_LOAD);
 			break;
+
 		case SAVE:
-			pOut->PrintMessage("Action: save, Click anywhere");
+			pOut->PrintMessage("Action: Save, Click Anywhere");
 			pOut->CreateDrawActionToolBar();
 			pOut->drawOnActionbar("images\\MenuItems\\Menu_save_Selected.jpg", ITM_SAVE);
 			break;
+
 		case SAVE_BY_TYPE:
-			pOut->PrintMessage("Action: save by type, Click anywhere");
+			pOut->PrintMessage("Action: Save by Type, Click Anywhere");
 			pOut->CreateDrawActionToolBar();
 			pOut->drawOnActionbar("images\\MenuItems\\Menu_save_type_Selected.jpg", ITM_SAVE_TYPE);
 			break;
+
 		case COPY:
-				pOut->PrintMessage("Action: copy , Click anywhere");
-				pOut->CreateDrawActionToolBar();
-				pOut->drawOnActionbar("images\\MenuItems\\Menu_copy_Selected.jpg", ITM_COPY);
-				break;
+			pOut->PrintMessage("Action: Copy, Click Anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawOnActionbar("images\\MenuItems\\Menu_copy_Selected.jpg", ITM_COPY);
+			break;
+
 		case CUT:
-				pOut->PrintMessage("Action: cut , Click anywhere");
-				pOut->CreateDrawActionToolBar();
-				pOut->drawOnActionbar("images\\MenuItems\\Menu_Cut_Selected.jpg", ITM_CUT);
-				break;
+			pOut->PrintMessage("Action: Cut, Click Anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawOnActionbar("images\\MenuItems\\Menu_Cut_Selected.jpg", ITM_CUT);
+			break;
+
 		case PASTE:
-				pOut->PrintMessage("Action: paste , Click anywhere");
-				pOut->CreateDrawActionToolBar();
-				pOut->drawOnActionbar("images\\MenuItems\\Menu_Paste_Selected.jpg", ITM_PASTE);
-				break;
+			pOut->PrintMessage("Action: Paste, Click Anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawOnActionbar("images\\MenuItems\\Menu_Paste_Selected.jpg", ITM_PASTE);
+			break;
 		case DEL:
-				pOut->PrintMessage("Action: delete, Click anywhere");
-				pOut->CreateDrawActionToolBar();
-				pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
-				break;
+			pOut->PrintMessage("Action: Delete, Click Anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
+			break;
+
 		case CLEAR:
-				pOut->PrintMessage("Action: Clear Drawing Area");
-				pOut->CreateDrawActionToolBar();
-				pOut->ClearDrawArea();
-				break;
+			pOut->PrintMessage("Action: Clear Drawing Area, Click Anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->ClearDrawArea();
+			break;
 
 
 		case SELECT:
-				pOut->PrintMessage("Action: select , Click anywhere");
-				pOut->CreateDrawActionToolBar();
-				pOut->drawOnActionbar("images\\MenuItems\\Menu_select_Selected.jpg", ITM_SELECT);
-				break;
+			pOut->PrintMessage("Action: Select, Click Anywhere");
+			pOut->CreateDrawActionToolBar();
+			pOut->drawOnActionbar("images\\MenuItems\\Menu_select_Selected.jpg", ITM_SELECT);
+			break;
  
 		case DRAWING_AREA:
-				pOut->PrintMessage("Action: a click on the Drawing Area, Click anywhere");
-				break;
+			pOut->PrintMessage("Action: A Click on the Drawing Area, Click Anywhere");
+			break;
 
 		case EMPTY:
-				pOut->PrintMessage("Action: a click on empty area in the Design Tool Bar, Click anywhere");
-				break;
+			pOut->PrintMessage("Action: A Click on an Empty Area in the Design Toolbar, Click Anywhere");
+			break;
 
 		case TO_DRAW:
-				pOut->PrintMessage("Action: Switch to Draw Mode, creating simualtion tool bar");
-				pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
-				pOut->CreateDrawToolBar();
-				pOut->CreateDrawActionToolBar();
-				pOut->CreateColorIcons();
-				break;
+			pOut->PrintMessage("Action: Switch to Draw Mode, Creating Simulation Toolbar");
+			pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
+			pOut->CreateDrawToolBar();
+			pOut->CreateDrawActionToolBar();
+			pOut->CreateColorIcons();
+			break;
 
 		case TO_PLAY:
-				pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
-				
-				pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
-				pOut->removeDrawActionToolBar();
-				pOut->CreatePlayToolBar();
-				//TODO: Temporary Commenting until we build it
-				break;
+			pOut->PrintMessage("Action: Switch to Play Mode, Creating Design Toolbar");				
+			pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
+			pOut->removeDrawActionToolBar();
+			pOut->CreatePlayToolBar();
+			//TODO: Temporary Commenting until we build it
+			break;
+
 		case COL_CLR:
 			pOut->CreatePlayToolBar();
-			pOut->PrintMessage("Action: Collecting by color");
-
+			pOut->PrintMessage("Action: Collecting by Color, Click Anywhere");
 			pOut->playOnToolbar("images\\MenuItems\\col_clr_selected.jpg", ITM_COL_CLR);
 			break;
+
 		case COL_SHP:
 			pOut->CreatePlayToolBar();
-			pOut->PrintMessage("Action: Collecting by Shape");
-
+			pOut->PrintMessage("Action: Collecting by Shape, Click Anywhere");
 			pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);
 			break;
 
 		case EXIT:				
-				break;
+			break;
 		}
-	}while(ActType != EXIT);
+	} while(ActType != EXIT);
 
 
 	/// Exiting
-	pOut->PrintMessage("Action: EXIT, test is finished, click anywhere to exit");
+	pOut->PrintMessage("Action: EXIT, Click Anywhere to Exit");
 	pIn->GetPointClicked(x,y);
 
 

@@ -159,7 +159,7 @@ void Output::drawColorMenu()
 	pWind->DrawImage("images\\MenuItems\\colors.jpg", 0 , UI.ToolBarHeight * (DRAW_ACTION_COUNT +1) , UI.MenuActionWidth -3, 7* UI.ToolBarHeight);
 }
 
-void Output::deleteolorMenu()
+void Output::deleteColorMenu()
 {
 	pWind->DrawImage("images\\MenuItems\\clean.jpg", 0, UI.ToolBarHeight * (DRAW_ACTION_COUNT + 1), UI.MenuActionWidth -3, 7 * UI.ToolBarHeight);
 }
