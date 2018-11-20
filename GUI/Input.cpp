@@ -50,19 +50,26 @@ ActionType Input::GetUserAction() const
 
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
-
+		   if (x < (25 * UI.MenuActionWidth + 40) && x > 24 * UI.MenuActionWidth)
+				return EXIT;
+		   else if(x < (ITM_FILL_COLOR)*UI.MenuItemWidth+50 && x > (ITM_FILL_COLOR)*UI.MenuItemWidth)
+			   return CHNG_FILL_CLR;
+		   else if(x < (ITM_DRAW_COLOR)*UI.MenuItemWidth && x > (ITM_DRAW_COLOR)*UI.MenuItemWidth-50)
+			   return CHNG_DRAW_CLR;
+		   else{
 			switch (ClickedItemOrder)
 			{
-			case ITM_GAME: return TO_PLAY;
-			case ITM_RECT: return DRAW_RECT;
-			case ITM_EXIT: return EXIT;
-			case ITM_TRIANGLE: return DRAW_TRI;
-			case ITM_CIRCLE:   return DRAW_ELLIPSE;
-			case ITM_RHOMBUS:  return DRAW_RHOMBUS;
-			case ITM_LINE:	   return DRAW_LINE;
-
+			case ITM_GAME:      return TO_PLAY;
+			case ITM_RECT:      return DRAW_RECT;
+			case ITM_TRIANGLE:  return DRAW_TRI;
+			case ITM_CIRCLE:    return DRAW_ELLIPSE;
+			case ITM_RHOMBUS:   return DRAW_RHOMBUS;
+			case ITM_LINE:	    return DRAW_LINE;
+			
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
+		      }
+		   
 		}
 		else if (x >= 0 && x < UI.MenuActionWidth) {
 			int ClickedItemOrder = (y / UI.MenuActionWidth) - 1;
@@ -78,8 +85,7 @@ ActionType Input::GetUserAction() const
 			case ITM_DELETE:return DEL;
 			case ITM_CLEAR:return CLEAR;
 			case ITM_SELECT:return SELECT;
-			case ITM_FILL_COLOR:return CHNG_FILL_CLR;
-			case ITM_DRAW_COLOR:return CHNG_DRAW_CLR;
+			
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
