@@ -302,7 +302,7 @@ int main()
 			pOut->drawColorMenu();
 			while (true) {
 				pIn->GetPointClicked(P1.x, P1.y);
-				if (P1.x > UI.MenuActionWidth || P1.y < (DRAW_ACTION_COUNT +1) * UI.MenuActionWidth) {
+				if (P1.y > UI.ToolBarHeight || P1.x < (DRAW_ITM_COUNT-2) * UI.MenuActionWidth) {
 					pOut->deleteColorMenu();
 					pOut->CreateDrawToolBar();
 					break;
@@ -317,7 +317,7 @@ int main()
 			pOut->drawColorMenu();
 			while (true) {
 				pIn->GetPointClicked(P1.x, P1.y);
-				if (P1.x > UI.MenuActionWidth || P1.y < (DRAW_ACTION_COUNT + 1) * UI.MenuActionWidth) {
+				if (P1.y > UI.ToolBarHeight || P1.x < (DRAW_ITM_COUNT -2) * UI.MenuActionWidth) {
 					pOut->deleteColorMenu();
 					pOut->CreateDrawToolBar();
 					break;
