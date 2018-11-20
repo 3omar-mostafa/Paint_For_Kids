@@ -35,7 +35,7 @@ int main()
 	pIn->GetPointClicked(x, y);	//Wait for any click
 
 	GfxInfo gfxInfo; //to be used with draw function of the class Ouput
-	Point P1;
+	Point P1, P2, P3;
 
 	gfxInfo.BorderWdth = 12;
 	gfxInfo.DrawClr = BLACK;			//any color for border
@@ -52,17 +52,17 @@ int main()
 	//pOut->PrintMessage("Drawing a Rectangle ==> non-filled,  Click two points");  ***Commented this line and removed all similar lines to keep the status bar statements consistent
 	pOut->PrintMessage("Click 2 Points, Filled");
 	gfxInfo.isFilled = true;	//Figure is filled
-	pOut->DrawRect(gfxInfo, false);
+	pOut->DrawRect( gfxInfo, false);
 
 	// 2.1.2 - Drawing non-filled rectangle
 	pOut->PrintMessage("Click 2 Points, Non-Filled");
 	gfxInfo.isFilled = false;
-	pOut->DrawRect(gfxInfo, false);
+	pOut->DrawRect( gfxInfo, false);
 
 	// 2.1.3 - Drawing a highlighted filled rectangle
 	pOut->PrintMessage("Click 2 Points, Highlighted Filled");
 	gfxInfo.isFilled = true;
-	pOut->DrawRect(gfxInfo, true);
+	pOut->DrawRect( gfxInfo, true);
 
 
 	// 2.1.4 - Drawing a highlighted non-filled rectangle
@@ -70,7 +70,7 @@ int main()
 	gfxInfo.isFilled = false;
 	pOut->DrawRect(gfxInfo, true);
 
-
+		
 	pOut->PrintMessage("Drawing a Rectangle Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
@@ -86,13 +86,13 @@ int main()
 	///TODO: Add code to draw Line, Normal and Highlighted
 	// 2.2.1 - Drawing a normal line
 	pOut->PrintMessage("Click 2 Points, Normal");
-	pOut->DrawLine(gfxInfo, false);
+	pOut->DrawLine( gfxInfo, false);
 
 	// 2.2.2 - Drawing a highlighted line
 	pOut->PrintMessage("Click 2 Points, Highlighted");
-	pOut->DrawLine(gfxInfo, true);
+	pOut->DrawLine( gfxInfo, true);
 
-
+		
 	pOut->PrintMessage("Drawing a Line Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
@@ -108,24 +108,24 @@ int main()
 	// 2.3.1 - Drawing a filled triangle
 	pOut->PrintMessage("Click 3 Points, Filled");
 	gfxInfo.isFilled = true;
-	pOut->DrawTriangle(gfxInfo, false);
+	pOut->DrawTriangle( gfxInfo, false);
 
 	// 2.3.2 - Drawing a non-filled triangle
 	pOut->PrintMessage("Click 3 Points, Non-Filled");
 	gfxInfo.isFilled = false;
-	pOut->DrawTriangle(gfxInfo, false);
+	pOut->DrawTriangle( gfxInfo, false);
 
 	// 2.3.3 - Drawing a highlighted filled triangle
 	pOut->PrintMessage("Click 3 Points, Highlighted Filled");
 	gfxInfo.isFilled = true;
-	pOut->DrawTriangle(gfxInfo, true);
+	pOut->DrawTriangle( gfxInfo, true);
 
 	// 2.3.4 - Drawing a highlighted non-filled triangle
 	pOut->PrintMessage("Click 3 Points, Highlighted Non-Filled");
 	gfxInfo.isFilled = false;
-	pOut->DrawTriangle(gfxInfo, true);
+	pOut->DrawTriangle( gfxInfo, true);
 
-
+		
 	pOut->PrintMessage("Drawing a Triangle Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
@@ -157,8 +157,8 @@ int main()
 	pOut->PrintMessage("Click 1 Point, Highlighted Non-Filled");
 	gfxInfo.isFilled = false;
 	pOut->DrawRhombus(gfxInfo, true);
-
-
+		
+	
 	pOut->PrintMessage("Drawing a Rhombus Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
@@ -191,12 +191,12 @@ int main()
 	gfxInfo.isFilled = false;
 	pOut->DrawEllipse(gfxInfo, true);
 
-
+		
 	pOut->PrintMessage("Drawing a Ellipse Test ==> OK,  Click anywhere to continue");
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
 
-
+	
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// TEST 3: 
@@ -215,7 +215,7 @@ int main()
 	pIn->GetPointClicked(x, y);	//Wait for any click
 	pOut->ClearDrawArea();
 
-
+	
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// TEST 4: 
@@ -270,12 +270,12 @@ int main()
 			pOut->drawColorMenu();
 			while (true) {
 				pIn->GetPointClicked(P1.x, P1.y);
-				if (P1.y > UI.ToolBarHeight || P1.x < (DRAW_ITM_COUNT-2) * UI.MenuItemWidth) {
+				if (P1.x > UI.MenuActionWidth || P1.y < (ITM_SAVE_TYPE + 1) * UI.MenuActionWidth || P1.y >(ITM_FILL_COLOR + 1) * UI.MenuActionWidth) {
 					pOut->deleteColorMenu();
 					pOut->CreateDrawToolBar();
 					break;
 				}
-				pOut->selectDrawColor(P1, gfxInfo.DrawClr );
+				pOut->selectDrawColor(P1, gfxInfo.DrawClr);
 			}
 			break;
 
@@ -285,7 +285,7 @@ int main()
 			pOut->drawColorMenu();
 			while (true) {
 				pIn->GetPointClicked(P1.x, P1.y);
-				if (P1.y > UI.ToolBarHeight || P1.x < (DRAW_ITM_COUNT -2) * UI.MenuItemWidth) {
+				if (P1.x > UI.MenuActionWidth || P1.y < (ITM_SAVE_TYPE + 1)* UI.MenuActionWidth || P1.y >(ITM_FILL_COLOR + 1) * UI.MenuActionWidth) {
 					pOut->deleteColorMenu();
 					pOut->CreateDrawToolBar();
 					break;
