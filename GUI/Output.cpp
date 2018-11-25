@@ -321,13 +321,8 @@ int Output::getCrntPenWidth() const		//get current pen width
 //								Figures Drawing Functions								//
 //======================================================================================//
 
-void Output::DrawRect(GfxInfo RectGfxInfo, bool selected) const
+void Output::DrawRect(Point P1 , Point P2 ,GfxInfo RectGfxInfo, bool selected) const
 {
-	Point P1 = getValidPoint();
-
-	PrintMessage("Action: Draw a Rectangle, Remaining 1 Point");
-	Point P2 = getValidPoint();
-
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
@@ -371,9 +366,8 @@ void Output::DrawCircle(Point P1, Point P2, GfxInfo CircleGfxInfo, bool selected
 	pWind->DrawCircle(P1.x, P1.y, radius, style);
 
 }
-void Output::DrawRhombus(GfxInfo RhombusGfxInfo, bool selected) const
+void Output::DrawRhombus(Point P,GfxInfo RhombusGfxInfo, bool selected) const
 {
-	Point P = getValidRhombusPoint();
 
 	color DrawingClr;
 	if (selected)
@@ -406,9 +400,8 @@ void Output::DrawRhombus(GfxInfo RhombusGfxInfo, bool selected) const
 
 }
 
-void Output::DrawEllipse(GfxInfo ElipseGfxInfo, bool selected) const
+void Output::DrawEllipse(Point P,GfxInfo ElipseGfxInfo, bool selected) const
 {
-	Point P = getValidEllipsePoint();
 
 	color DrawingClr;
 	if (selected)
@@ -433,15 +426,8 @@ void Output::DrawEllipse(GfxInfo ElipseGfxInfo, bool selected) const
 
 }
 
-void Output::DrawTriangle(GfxInfo TriGfxInfo, bool selected) const
+void Output::DrawTriangle(Point P1, Point P2, Point P3,GfxInfo TriGfxInfo, bool selected) const
 {
-	Point P1 = getValidPoint();
-
-	PrintMessage("Action: Draw a Triangle, Remaining 2 Points");
-	Point P2 = getValidPoint();
-
-	PrintMessage("Action: Draw a Triangle, Remaining 1 Point");
-	Point P3 = getValidPoint();
 
 	color DrawingClr;
 	if (selected)
@@ -463,13 +449,8 @@ void Output::DrawTriangle(GfxInfo TriGfxInfo, bool selected) const
 	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
 
 }
-void Output::DrawLine(GfxInfo LineGfxInfo, bool selected) const
+void Output::DrawLine(Point P1, Point P2,GfxInfo LineGfxInfo, bool selected) const
 {
-	;
-	Point P1 = getValidPoint();
-
-	PrintMessage("Action: Draw a Line, Remaining 1 Point");
-	Point P2 = getValidPoint();
 
 	color DrawingClr;
 	if (selected)
