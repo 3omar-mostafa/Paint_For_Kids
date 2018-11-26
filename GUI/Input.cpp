@@ -2,7 +2,7 @@
 #include "Output.h"
 
 
-Input::Input(window* pW) 
+Input::Input(window* pW)
 {
 	pWind = pW; //point to the passed window
 }
@@ -16,15 +16,15 @@ string Input::GetString(Output *pO) const
 {
 	string Label;
 	char Key;
-	while(1)
+	while (1)
 	{
 		pWind->WaitKeyPress(Key);
-		if(Key == 27 )	//ESCAPE key is pressed
+		if (Key == 27)	//ESCAPE key is pressed
 			return "";	//returns nothing as user has cancelled label
-		if(Key == 13 )	//ENTER key is pressed
+		if (Key == 13)	//ENTER key is pressed
 			return Label;
-		if((Key == 8) && (Label.size() >= 1))	//BackSpace is pressed
-			Label.resize(Label.size() -1 );			
+		if ((Key == 8) && (Label.size() >= 1))	//BackSpace is pressed
+			Label.resize(Label.size() - 1);
 		else
 			Label += Key;
 		if (pO)
@@ -50,26 +50,26 @@ ActionType Input::GetUserAction() const
 
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
-		   if (x < (25 * UI.MenuActionWidth + 40) && x > 24 * UI.MenuActionWidth)
+			if (x < (25 * UI.MenuActionWidth + 40) && x > 24 * UI.MenuActionWidth)
 				return EXIT;
-		   else if(x < (ITM_FILL_COLOR)*UI.MenuItemWidth+50 && x > (ITM_FILL_COLOR)*UI.MenuItemWidth)
-			   return CHNG_FILL_CLR;
-		   else if(x < (ITM_DRAW_COLOR)*UI.MenuItemWidth && x > (ITM_DRAW_COLOR)*UI.MenuItemWidth-50)
-			   return CHNG_DRAW_CLR;
-		   else{
-			switch (ClickedItemOrder)
-			{
-			case ITM_GAME:      return TO_PLAY;
-			case ITM_RECT:      return DRAW_RECT;
-			case ITM_TRIANGLE:  return DRAW_TRI;
-			case ITM_CIRCLE:    return DRAW_ELLIPSE;
-			case ITM_RHOMBUS:   return DRAW_RHOMBUS;
-			case ITM_LINE:	    return DRAW_LINE;
-			
-			default: return EMPTY;	//A click on empty place in desgin toolbar
+			else if (x < (ITM_FILL_COLOR)*UI.MenuItemWidth + 50 && x >(ITM_FILL_COLOR)*UI.MenuItemWidth)
+				return CHNG_FILL_CLR;
+			else if (x < (ITM_DRAW_COLOR)*UI.MenuItemWidth && x >(ITM_DRAW_COLOR)*UI.MenuItemWidth - 50)
+				return CHNG_DRAW_CLR;
+			else {
+				switch (ClickedItemOrder)
+				{
+				case ITM_GAME:      return TO_PLAY;
+				case ITM_RECT:      return DRAW_RECT;
+				case ITM_TRIANGLE:  return DRAW_TRI;
+				case ITM_CIRCLE:    return DRAW_ELLIPSE;
+				case ITM_RHOMBUS:   return DRAW_RHOMBUS;
+				case ITM_LINE:	    return DRAW_LINE;
+
+				default: return EMPTY;	//A click on empty place in desgin toolbar
+				}
 			}
-		      }
-		   
+
 		}
 		else if (x >= 0 && x < UI.MenuActionWidth) {
 			int ClickedItemOrder = (y / UI.MenuActionWidth) - 1;
@@ -85,7 +85,7 @@ ActionType Input::GetUserAction() const
 			case ITM_DELETE:return DEL;
 			case ITM_CLEAR:return CLEAR;
 			case ITM_SELECT:return SELECT;
-			
+
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -105,15 +105,15 @@ ActionType Input::GetUserAction() const
 	{
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
-			if (x < UI.MenuItemWidth-20)
+			if (x < UI.MenuItemWidth - 20)
 				return TO_DRAW;
-			else if (x < (10 * UI.MenuActionWidth +80) && x>10 * UI.MenuActionWidth)
+			else if (x < (10 * UI.MenuActionWidth + 80) && x>10 * UI.MenuActionWidth)
 				return COL_CLR;
 			else if (x < (12 * UI.MenuActionWidth + 80) && x>12 * UI.MenuActionWidth)
 				return COL_SHP;
 			else if (x < (22 * UI.MenuActionWidth + 80) && x > 22 * UI.MenuActionWidth)
 				return EXIT;
-			
+
 			{
 
 				///TODO:
@@ -129,7 +129,7 @@ ActionType Input::GetUserAction() const
 	}
 }
 /////////////////////////////////
-	
+
 Input::~Input()
 {
 }

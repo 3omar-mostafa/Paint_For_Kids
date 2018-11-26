@@ -1,5 +1,5 @@
-#ifndef CRECT_H
-#define CRECT_H
+#ifndef CRHOM_H
+#define CRHOM_H
 
 #include "CFigure.h"
 
