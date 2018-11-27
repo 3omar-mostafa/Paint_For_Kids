@@ -3,7 +3,8 @@
 #include "Actions\AddTriAction.h"
 #include "Actions\AddElpsAction.h"
 #include "Actions\AddRhomAction.h"
-
+#include "Actions\AddLineAction.h"
+#include "Actions\ExitAction.h"
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -13,6 +14,7 @@ ApplicationManager::ApplicationManager()
 	pIn = pOut->CreateInput();
 
 	FigCount = 0;
+	
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
@@ -32,37 +34,66 @@ ActionType ApplicationManager::GetUserAction() const
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
 	Action* pAct = NULL;
-
+	GfxInfo gfxInfo;
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
 	case DRAW_RECT:
+		pOut->CreateDrawToolBar();
+		pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
 		pAct = new AddRectAction(this);
 		break;
 
 	case DRAW_TRI:
+		pOut->CreateDrawToolBar();
+		pOut->drawOnToolbar("images\\MenuItems\\Menu_Triangle_Selected.jpg", ITM_TRIANGLE);
 		pAct = new AddTriAction(this);
 		break;
 
 	case DRAW_ELLIPSE:
+		pOut->CreateDrawToolBar();
+		pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
 		pAct = new AddElpsAction(this);
 		break;
 
 	case DRAW_RHOMBUS:
-		pAct = new AddRhomAction(this);
+		pOut->CreateDrawToolBar();
+		pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
+		
+			pAct = new AddRhomAction(this);
+		
 		break;
 
 	case DRAW_LINE:
-		///create AddLineAction here
+		pOut->CreateDrawToolBar();
+		pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
+		pAct = new AddLineAction(this);
+		break;
 
+	case TO_DRAW:
+		pOut->PrintMessage("Action: Switch to Draw Mode, Creating Simulation Toolbar");
+		pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
+		pOut->CreateDrawToolBar();
+		pOut->CreateDrawActionToolBar();
+		pOut->CreateColorIcons();
+		break;
+
+	case TO_PLAY:
+		pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
+
+		pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
+
+		pOut->CreatePlayToolBar();
+
+		//TODO: Temporary Commenting until we build it
 		break;
 
 	case EXIT:
-		///create ExitAction here
-
+		//pAct = new ExitAction(this);
 		break;
 
 	case STATUS:	//a click on the status bar ==> no action
+		pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
 		return;
 	}
 
@@ -84,6 +115,16 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 	if (FigCount < MaxFigCount)
 		FigList[FigCount++] = pFig;
 }
+void ApplicationManager::Exit()
+{
+	
+	delete pOut; delete pIn;
+	pIn = NULL; pOut = NULL;
+	
+
+
+}
+
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {
