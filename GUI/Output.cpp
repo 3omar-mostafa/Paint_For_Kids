@@ -384,17 +384,11 @@ void Output::DrawRhombus(Point P, GfxInfo RhomGfxInfo, bool selected) const
 	}
 	else
 		style = FRAME;
+
 	int X[4];
 	int Y[4];
-	Point P1, P2, P3, P4;
-	P1.x = P.x;			P2.x = P.x + 150;	P3.x = P.x;			P4.x = P.x - 150;
-	P1.y = P.y + 80;	P2.y = P.y;			P3.y = P.y - 80;	P4.y = P.y;
-	Point pt[4] = { P1,P2,P3,P4 };
-	for (int i = 0; i < 4; i++) {
-		X[i] = pt[i].x;
-		Y[i] = pt[i].y;
-	}
-
+	X[0] = P.x;			X[1] = P.x + 150;	X[2] = P.x;			X[3] = P.x - 150;
+	Y[0] = P.y + 80;	Y[1] = P.y;			Y[2] = P.y - 80;	Y[3] = P.y;
 
 	pWind->DrawPolygon(X, Y, 4, style);
 
