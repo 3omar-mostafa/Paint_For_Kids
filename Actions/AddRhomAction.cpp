@@ -17,7 +17,7 @@ void AddRhomAction::ReadActionParameters()
 
 	pOut->PrintMessage("New Rhombus: Click at the center");
 	//Read center and store in P
-	pIn->GetPointClicked(P.x, P.y);
+	pOut->getValidRhombusPoint(P);
 
 	RhomGfxInfo.isFilled = false;	//default is not filled
 	//get drawing, filling colors and pen width from the interface

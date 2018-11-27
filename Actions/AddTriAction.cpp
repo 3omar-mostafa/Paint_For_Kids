@@ -17,15 +17,15 @@ void AddTriAction::ReadActionParameters()
 
 	pOut->PrintMessage("New Triangle: Click at the first point");
 	//Read 1st point and store in P1
-	pIn->GetPointClicked(P1.x, P1.y);
+	pOut->getValidPoint(P1);
 
 	pOut->PrintMessage("New Triangle: Click at the second point");
 	//Read 2nd point and store in P2
-	pIn->GetPointClicked(P2.x, P2.y);
+	pOut->getValidPoint(P2);
 
 	pOut->PrintMessage("New Triangle: Click at the third point");
 	//Read 3rd point and store in P3
-	pIn->GetPointClicked(P3.x, P3.y);
+	pOut->getValidPoint(P3);
 
 	TriGfxInfo.isFilled = false;	//default is not filled
 	//get drawing, filling colors and pen width from the interface

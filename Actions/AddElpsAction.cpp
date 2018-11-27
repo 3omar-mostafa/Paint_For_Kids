@@ -17,7 +17,7 @@ void AddElpsAction::ReadActionParameters()
 
 	pOut->PrintMessage("New Ellipse: Click at the center");
 	//Read center and store in P
-	pIn->GetPointClicked(P.x, P.y);
+	pOut->getValidEllipsePoint(P);
 
 	ElpsGfxInfo.isFilled = false;	//default is not filled
 	//get drawing, filling colors and pen width from the interface

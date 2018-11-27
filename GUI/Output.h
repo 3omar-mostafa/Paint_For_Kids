@@ -44,9 +44,9 @@ public:
 	void drawColorMenu() const;
 	void deleteColorMenu() const;
 
-	Point getValidPoint() const;
-	Point getValidEllipsePoint() const;
-	Point getValidRhombusPoint() const;
+	void getValidPoint(Point&) const;
+	void getValidEllipsePoint(Point&) const;
+	void getValidRhombusPoint(Point&) const;
 
 	void selectFillColor(Point, color &, bool &) const;
 	void selectDrawColor(Point, color &) const;

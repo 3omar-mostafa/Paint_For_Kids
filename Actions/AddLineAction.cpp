@@ -17,12 +17,11 @@ void AddLineAction::ReadActionParameters()
 
 	pOut->PrintMessage("New Line: Click at first point");
 	//Read 1st point and store in point P1
-	pIn->GetPointClicked(P1.x, P1.y);
+	pOut->getValidPoint(P1);
 
 	pOut->PrintMessage("New Line: Click at second point");
 	//Read 2nd point and store in point P2
-	pIn->GetPointClicked(P2.x, P2.y);
-
+	pOut->getValidPoint(P2);
 	
 	//get drawing color and pen width from the interface
 	LineGfxInfo.DrawClr = pOut->getCrntDrawColor();

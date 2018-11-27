@@ -5,6 +5,7 @@
 #include "Actions\AddRhomAction.h"
 #include "Actions\AddLineAction.h"
 #include "Actions\ExitAction.h"
+#include "Actions\ClearAction.h"
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -59,11 +60,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DRAW_RHOMBUS:
 		pOut->CreateDrawToolBar();
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
-		
-			pAct = new AddRhomAction(this);
-		
+		pAct = new AddRhomAction(this);		
 		break;
 
+	case CLEAR:
+		pAct = new ClearAction(this);
+		break;
+	
 	case DRAW_LINE:
 		pOut->CreateDrawToolBar();
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
@@ -80,16 +83,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	case TO_PLAY:
 		pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
-
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
-
 		pOut->CreatePlayToolBar();
 
 		//TODO: Temporary Commenting until we build it
 		break;
 
 	case EXIT:
-		//pAct = new ExitAction(this);
+		pAct = new ExitAction(this);
 		break;
 
 	case STATUS:	//a click on the status bar ==> no action
@@ -100,8 +101,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	//Execute the created action
 	if (pAct != NULL)
 	{
-		pAct->Execute();//Execute
-		delete pAct;	//Action is not needed any more ==> delete it
+		pAct->Execute();	//Execute
+		delete pAct;		//Action is not needed any more ==> delete it
 		pAct = NULL;
 	}
 }
@@ -115,6 +116,16 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 	if (FigCount < MaxFigCount)
 		FigList[FigCount++] = pFig;
 }
+
+void ApplicationManager::ClearFigures()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		delete FigList[i];
+		FigList[i] = NULL;
+	}
+}
+
 void ApplicationManager::Exit()
 {
 	
@@ -145,7 +156,8 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 void ApplicationManager::UpdateInterface() const
 {
 	for (int i = 0; i < FigCount; i++)
-		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
+		if(FigList[i]!=NULL)
+			FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

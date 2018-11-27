@@ -465,9 +465,8 @@ void Output::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected) co
 
 }
 
-Point Output::getValidPoint() const {
+void Output::getValidPoint(Point& P) const {
 	Input* pIn = new Input(pWind);
-	Point P;
 	while (true) {
 		pIn->GetPointClicked(P.x, P.y);
 
@@ -475,13 +474,12 @@ Point Output::getValidPoint() const {
 			PrintMessage("Please Select a Valid Point");
 		}
 		else
-			return P;
+			break;
 	}
 }
 
-Point Output::getValidEllipsePoint() const {
+void Output::getValidEllipsePoint(Point& P) const {
 	Input* pIn = new Input(pWind);
-	Point P;
 	while (true) {
 		pIn->GetPointClicked(P.x, P.y);
 
@@ -489,21 +487,20 @@ Point Output::getValidEllipsePoint() const {
 			PrintMessage("Please Select a Valid Point");
 		}
 		else
-			return P;
+			break;
 	}
 }
 
-Point Output::getValidRhombusPoint() const {
+void Output::getValidRhombusPoint(Point& P) const {
 	Input* pIn = new Input(pWind);
-	Point P;
 	while (true) {
 		pIn->GetPointClicked(P.x, P.y);
 
-		if (P.y < UI.ToolBarHeight + 50 || P.x < UI.MenuActionWidth + 100) {
+		if (P.y < UI.ToolBarHeight + 80 || P.x < UI.MenuActionWidth + 150) {
 			PrintMessage("Please Select a Valid Point");
 		}
 		else
-			return P;
+			break;
 	}
 }
 
