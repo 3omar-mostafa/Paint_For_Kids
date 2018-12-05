@@ -19,7 +19,7 @@ void AddRhomAction::ReadActionParameters()
 	//Read center and store in P
 	pOut->getValidRhombusPoint(P);
 
-	RhomGfxInfo.isFilled = false;	//default is not filled
+	RhomGfxInfo.isFilled = pOut->isFilled();	//default is filled
 	//get drawing, filling colors and pen width from the interface
 	RhomGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	RhomGfxInfo.FillClr = pOut->getCrntFillColor();

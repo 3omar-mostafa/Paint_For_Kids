@@ -17,15 +17,15 @@ Output::Output()
 	UI.MenuItemWidth = 100;
 	UI.MenuActionWidth = 50;
 
-	UI.DrawColor = BLUE;	//Drawing color
-	UI.FillColor = GREEN;	//Filling color
+	UI.DrawColor = BLACK;	//Drawing color
+	UI.FillColor = BLACK;	//Filling color
 	UI.MsgColor = WHITESMOKE;		//Messages color
 	UI.BkGrndColor = GAINSBORO;	//Background color
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
 	UI.StatusBarColor = STEELBLUE;
 	UI.PenWidth = 3;	//width of the figures frames
 
-
+	filled = true;
 	//Create the output window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	//Change the title
@@ -139,10 +139,13 @@ void Output::removeDrawActionToolBar() const
 	pWind->SetBrush(UI.BkGrndColor);
 	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.MenuActionWidth, UI.height - UI.StatusBarHeight);
 }
-void Output::CreateColorIcons() const
+void Output::CreateColorIcons()
 {
 	pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 	pWind->DrawImage("images\\MenuItems\\Menu_draw_color_black.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+	UI.FillColor = BLACK;
+	UI.DrawColor = BLACK;
+	filled = true;
 }
 
 void Output::drawOnToolbar(string path, int place) const
@@ -155,9 +158,14 @@ void Output::drawOnActionbar(string path, int place) const
 	pWind->DrawImage(path, 0, (place + 1) * UI.MenuActionWidth, UI.MenuActionWidth - 3, UI.ToolBarHeight);
 }
 
-void Output::drawColorMenu() const
+void Output::drawFillColorMenu() const
 {
-	pWind->DrawImage("images\\MenuItems\\colors.jpg", UI.MenuActionWidth* (DRAW_ITM_COUNT + 5), 0, UI.MenuActionWidth * 7, UI.ToolBarHeight - 3);
+	pWind->DrawImage("images\\MenuItems\\colors_fill.jpg", UI.MenuActionWidth* (DRAW_ITM_COUNT + 5), 0, UI.MenuActionWidth * 7, UI.ToolBarHeight - 3);
+}
+
+void Output::drawDrawingColorMenu() const
+{
+	pWind->DrawImage("images\\MenuItems\\colors_draw.jpg", UI.MenuActionWidth* (DRAW_ITM_COUNT + 5), 0, UI.MenuActionWidth * 6, UI.ToolBarHeight - 3);
 }
 
 void Output::deleteColorMenu() const
@@ -165,7 +173,7 @@ void Output::deleteColorMenu() const
 	pWind->DrawImage("images\\MenuItems\\clean.jpg", UI.MenuActionWidth * (DRAW_ITM_COUNT + 5), 0, UI.MenuActionWidth * 7, UI.ToolBarHeight - 3);
 }
 
-void Output::selectFillColor(Point p, color & fillColor, bool & isFilled)  const {
+color Output::selectFillColor(Point p)   {
 
 	if (p.y > 0 && p.y < UI.ToolBarHeight) {
 		int selectedColor = ((p.x - (DRAW_ITM_COUNT + 4) * UI.MenuActionWidth) / UI.MenuActionWidth);
@@ -173,43 +181,47 @@ void Output::selectFillColor(Point p, color & fillColor, bool & isFilled)  const
 		switch (selectedColor) {
 		case 1:
 			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.FillColor = fillColor = BLACK;
-			isFilled = true;
-			return;
+			UI.FillColor = BLACK;
+			filled = true;
+			return BLACK;
 		case 2:
 			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_white.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.FillColor = fillColor = WHITE;
-			isFilled = true;
-			return;
+			UI.FillColor  = WHITE;
+			filled = true;
+			return WHITE;
 		case 3:
 			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_red.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.FillColor = fillColor = RED;
-			isFilled = true;
-			return;
+			UI.FillColor = RED;
+			filled = true;
+			return RED;
 		case 4:
 			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_yellow.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.FillColor = fillColor = YELLOW;
-			isFilled = true;
-			return;
+			UI.FillColor = YELLOW;
+			filled = true;
+			return YELLOW;
 		case 5:
 			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_green.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.FillColor = fillColor = GREEN;
-			isFilled = true;
-			return;
+			UI.FillColor = GREEN;
+			filled = true;
+			return GREEN;
 		case 6:
 			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_blue.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.FillColor = fillColor = BLUE;
-			isFilled = true;
-			return;
+			UI.FillColor = BLUE;
+			filled = true;
+			return BLUE;
 		case 7:
 			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_No.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			isFilled = false;
-			return;
+			filled = false;
+			return NOFILL;
 		}
 	}
 }
 
-void Output::selectDrawColor(Point p, color & drawColor) const {
+bool Output::isFilled() {
+	return filled;
+}
+
+color Output::selectDrawColor(Point p)  {
 
 	if (p.y > 0 && p.y < UI.ToolBarHeight) {
 		int selectedColor = ((p.x - (DRAW_ACTION_COUNT + 4) * UI.MenuActionWidth) / UI.MenuActionWidth);
@@ -217,34 +229,92 @@ void Output::selectDrawColor(Point p, color & drawColor) const {
 		switch (selectedColor) {
 		case 1:
 			pWind->DrawImage("images\\MenuItems\\Menu_draw_color_black.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.DrawColor = drawColor = BLACK;
-			return;
+			UI.DrawColor = BLACK;
+			return BLACK;
 		case 2:
 			pWind->DrawImage("images\\MenuItems\\Menu_draw_color_white.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.DrawColor = drawColor = WHITE;
-			return;
+			UI.DrawColor = WHITE;
+			return WHITE;
 		case 3:
 			pWind->DrawImage("images\\MenuItems\\Menu_draw_color_red.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.DrawColor = drawColor = RED;
-			return;
+			UI.DrawColor = RED;
+			return RED;
 		case 4:
 			pWind->DrawImage("images\\MenuItems\\Menu_draw_color_yellow.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.DrawColor = drawColor = YELLOW;
-			return;
+			UI.DrawColor = YELLOW;
+			return YELLOW;
 		case 5:
 			pWind->DrawImage("images\\MenuItems\\Menu_draw_color_green.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.DrawColor = drawColor = GREEN;
-			return;
+			UI.DrawColor = GREEN;
+			return GREEN;
 		case 6:
 			pWind->DrawImage("images\\MenuItems\\Menu_draw_color_blue.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			UI.DrawColor = drawColor = BLUE;
-			return;
-		case 7:
-			pWind->DrawImage("images\\MenuItems\\Menu_draw_color_No.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-			return;
+			UI.DrawColor = BLUE;
+			return BLUE;
 		}
 	}
 }
+
+void Output::changeFillColorIcon( color c , bool filled) {
+	if (!filled) {
+		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_No.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		filled = false;
+	}
+	else if (c == BLACK) {
+		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.FillColor = BLACK;
+	}
+	else if (c == WHITE) {
+		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_white.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.FillColor = WHITE;
+
+	}
+	else if (c == RED) {
+		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_red.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.FillColor = RED;
+
+	}
+	else if (c == YELLOW) {
+		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_yellow.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.FillColor = YELLOW;
+	}
+	else if (c == GREEN) {
+		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_green.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.FillColor = GREEN;
+	}
+	else if (c == BLUE) {
+		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_blue.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.FillColor = BLUE;
+	}
+}
+
+void Output::changeDrawColorIcon(color c ) {
+	if (c == BLACK) {
+		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_black.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.DrawColor = BLACK;
+	}
+	else if (c == WHITE) {
+		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_white.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.DrawColor = WHITE;
+	}
+	else if (c == RED) {
+		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_red.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.DrawColor = RED;
+	}
+	else if (c == YELLOW) {
+		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_yellow.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.DrawColor = YELLOW;
+	}
+	else if (c == GREEN) {
+		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_green.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.DrawColor = GREEN;
+	}
+	else if (c == BLUE) {
+		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_blue.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.DrawColor = BLUE;
+	}
+}
+
 
 void Output::CreatePlayToolBar() const
 {
@@ -464,7 +534,7 @@ void Output::getValidPoint(Point& P) const {
 	while (true) {
 		pIn->GetPointClicked(P.x, P.y);
 
-		if (P.y < UI.ToolBarHeight || P.x < UI.MenuActionWidth) {
+		if (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight || P.x < UI.MenuActionWidth) {
 			PrintMessage("Please Select a Valid Point");
 		}
 		else
@@ -477,7 +547,7 @@ void Output::getValidEllipsePoint(Point& P) const {
 	while (true) {
 		pIn->GetPointClicked(P.x, P.y);
 
-		if (P.y < UI.ToolBarHeight + 80 || P.x < UI.MenuActionWidth + 150) {
+		if (P.y < UI.ToolBarHeight + 80 || P.y > UI.height - UI.StatusBarHeight -80 || P.x < UI.MenuActionWidth + 150) {
 			PrintMessage("Please Select a Valid Point");
 		}
 		else
@@ -490,7 +560,7 @@ void Output::getValidRhombusPoint(Point& P) const {
 	while (true) {
 		pIn->GetPointClicked(P.x, P.y);
 
-		if (P.y < UI.ToolBarHeight + 80 || P.x < UI.MenuActionWidth + 150) {
+		if (P.y < UI.ToolBarHeight + 80 || P.y > UI.height - UI.StatusBarHeight -80 || P.x < UI.MenuActionWidth + 150) {
 			PrintMessage("Please Select a Valid Point");
 		}
 		else

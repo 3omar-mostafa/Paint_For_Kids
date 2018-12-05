@@ -19,7 +19,7 @@ void AddElpsAction::ReadActionParameters()
 	//Read center and store in P
 	pOut->getValidEllipsePoint(P);
 
-	ElpsGfxInfo.isFilled = false;	//default is not filled
+	ElpsGfxInfo.isFilled = pOut->isFilled();	//default is filled
 	//get drawing, filling colors and pen width from the interface
 	ElpsGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	ElpsGfxInfo.FillClr = pOut->getCrntFillColor();

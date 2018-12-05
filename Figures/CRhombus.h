@@ -10,6 +10,8 @@ private:
 public:
 	CRhombus(Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
+	Point getCenter();
+	bool doesItContain(int x, int y);
 };
 
 #endif

@@ -6,6 +6,7 @@ class Output	//The application manager should have a pointer to this class
 {
 private:
 	window* pWind;	//Pointer to the Graphics Window
+	bool filled;
 public:
 	Output();
 
@@ -40,16 +41,22 @@ public:
 	void drawOnActionbar(string, int) const;
 	void playOnToolbar(string, int) const;
 
-	void CreateColorIcons() const;
-	void drawColorMenu() const;
+	void CreateColorIcons() ;
+	void drawFillColorMenu() const;
+	void drawDrawingColorMenu() const;
 	void deleteColorMenu() const;
 
 	void getValidPoint(Point&) const;
 	void getValidEllipsePoint(Point&) const;
 	void getValidRhombusPoint(Point&) const;
 
-	void selectFillColor(Point, color &, bool &) const;
-	void selectDrawColor(Point, color &) const;
+	color selectFillColor(Point) ;
+	color selectDrawColor(Point) ;
+
+	void changeFillColorIcon(color, bool);
+	void changeDrawColorIcon(color);
+
+	bool isFilled();
 
 	~Output();
 };

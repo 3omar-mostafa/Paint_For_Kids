@@ -2,6 +2,7 @@
 #define ELPS_H
 
 #include "CFigure.h"
+#include "..\GUI\Output.h"
 
 class CEllipse : public CFigure
 {
@@ -10,6 +11,8 @@ private:
 public:
 	CEllipse(Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
+	Point getCenter();
+	bool doesItContain(int x, int y);
 };
 
 #endif

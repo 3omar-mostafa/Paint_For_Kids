@@ -1,12 +1,4 @@
 #include "ApplicationManager.h"
-#include "Actions\AddRectAction.h"
-#include "Actions\AddTriAction.h"
-#include "Actions\AddElpsAction.h"
-#include "Actions\AddRhomAction.h"
-#include "Actions\AddLineAction.h"
-#include "Actions\ExitAction.h"
-#include "Actions\ClearAction.h"
-
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -15,7 +7,10 @@ ApplicationManager::ApplicationManager()
 	pIn = pOut->CreateInput();
 
 	FigCount = 0;
-	
+
+	SelectedFig = NULL ;
+	lastSelected = NULL ;
+	Clipboard = NULL ;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
@@ -60,19 +55,41 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DRAW_RHOMBUS:
 		pOut->CreateDrawToolBar();
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
-		pAct = new AddRhomAction(this);		
+		pAct = new AddRhomAction(this);
 		break;
 
 	case CLEAR:
 		pAct = new ClearAction(this);
 		break;
-	
+
 	case DRAW_LINE:
 		pOut->CreateDrawToolBar();
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
 		pAct = new AddLineAction(this);
 		break;
+	case CHNG_DRAW_CLR:
+		pOut->PrintMessage("Action: Change Figure's drawing color, Click Anywhere");
+		pOut->CreateDrawToolBar();
+		pAct = new ChangeDrawColor(this);
+		break;
+	case CHNG_FILL_CLR:
+		pOut->PrintMessage("Action: Change Figure's fill color, Click Anywhere");
+		pOut->CreateDrawToolBar();
+		pAct = new ChangeFillColor(this);
+		break;
 
+	case SELECT:
+		pOut->PrintMessage("Action: select , Click anywhere");
+		pOut->CreateDrawActionToolBar();
+		pOut->drawOnActionbar("images\\MenuItems\\Menu_select_Selected.jpg", ITM_SELECT);
+		pAct = new selectShapeAction(this);
+		break;
+
+	case DEL :
+		pOut->CreateDrawActionToolBar();
+		pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
+		pAct = new deleteAction(this);
+		break;
 	case TO_DRAW:
 		pOut->PrintMessage("Action: Switch to Draw Mode, Creating Simulation Toolbar");
 		pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
@@ -85,6 +102,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
 		pOut->CreatePlayToolBar();
+		pOut->removeDrawActionToolBar();
 
 		//TODO: Temporary Commenting until we build it
 		break;
@@ -117,6 +135,12 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 		FigList[FigCount++] = pFig;
 }
 
+/*
+int ApplicationManager::getFigureCount() {
+	return FigCount;
+}
+*/
+
 void ApplicationManager::ClearFigures()
 {
 	for (int i = 0; i < FigCount; i++)
@@ -124,6 +148,7 @@ void ApplicationManager::ClearFigures()
 		delete FigList[i];
 		FigList[i] = NULL;
 	}
+	FigCount = 0;
 }
 
 void ApplicationManager::Exit()
@@ -146,6 +171,13 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	//Add your code here to search for a figure given a point x,y	
 	//Remember that ApplicationManager only calls functions do NOT implement it.
 
+	//started from last to first because if two shapes overlapped on same point,I should choose the top one
+	for (int i = FigCount - 1; i >= 0; i--) {
+		if (FigList[i]->doesItContain(x, y)) {
+			return FigList[i];
+		}
+	}
+
 	return NULL;
 }
 //==================================================================================//
@@ -155,6 +187,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {
+	pOut->ClearDrawArea();
 	for (int i = 0; i < FigCount; i++)
 		if(FigList[i]!=NULL)
 			FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
@@ -170,6 +203,33 @@ Output *ApplicationManager::GetOutput() const
 {
 	return pOut;
 }
+void ApplicationManager::setSelectedFigure(CFigure* fig){
+	SelectedFig = fig;
+}
+
+CFigure* ApplicationManager::getSelectedFigure() {
+	return SelectedFig;
+}
+
+void ApplicationManager::setLastSelected(CFigure* fig) {
+	lastSelected = fig;
+}
+
+CFigure* ApplicationManager::getLastSelected() {
+	return lastSelected;
+}
+
+void  ApplicationManager::setFigureCount(int x){
+	FigCount = x;
+}
+int  ApplicationManager::getFigureCount(){
+	return FigCount;
+}
+
+CFigure** ApplicationManager::getFigureArray() {
+	return FigList;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////
 //Destructor
 ApplicationManager::~ApplicationManager()

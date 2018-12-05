@@ -11,6 +11,10 @@ private:
 public:
 	CRectangle(Point, Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
+
+	Point getP1();
+	Point getP2();
+	bool doesItContain(int x, int y);
 };
 
 #endif
