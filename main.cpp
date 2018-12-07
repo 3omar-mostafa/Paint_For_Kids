@@ -17,9 +17,8 @@ int main()
 		AppManager.ExecuteAction(ActType);
 
 		//Update the interface
-		AppManager.UpdateInterface();
-		//TODO: bug fix, when drawing any shape then EXIT
-		//the program cannot update the interface because window pointer is deleted (I assume so)
+		if(ActType != EXIT)
+			AppManager.UpdateInterface();
 
 	}while(ActType != EXIT);
 	
