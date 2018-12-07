@@ -16,6 +16,7 @@ public:
 	Point getP1();
 	Point getP2();
 	bool doesItContain(int x, int y);
+	string getInfo();
 
 private:
 	double getTriangularArea(int x, int y);

@@ -12,6 +12,7 @@ public:
 	virtual void Draw(Output* pOut) const;
 	Point getCenter();
 	bool doesItContain(int x, int y);
+	string getInfo();
 };
 
 #endif

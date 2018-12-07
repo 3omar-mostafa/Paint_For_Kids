@@ -74,3 +74,9 @@ bool CTriangle::doesItContain(int x, int y) {
 	}
 	return false;
 }
+
+string CTriangle::getInfo() {
+	string s;
+	s = "ID :" + to_string(ID) + " Points : ( " + to_string(P1.x) + " , " + to_string(P1.y) + " ) , ( " + to_string(P2.x) + " , " + to_string(P2.y) + " ) , ( "  +to_string(P3.x) + " , " + to_string(P3.y) + " ) ";
+	return s;
+}

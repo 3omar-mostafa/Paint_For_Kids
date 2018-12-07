@@ -15,6 +15,7 @@ public:
 	Point getP2();
 	Point getP3();
 	bool doesItContain(int x, int y);
+	string getInfo();
 private:
 	double getTriangularArea(Point p1, Point p2, Point p3);
 	bool isColinear(Point p1, Point p2, Point p3);

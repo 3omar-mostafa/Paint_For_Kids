@@ -50,3 +50,9 @@ bool CRhombus::doesItContain(int x, int y) {
 	}
 	return false;
 }
+
+string CRhombus::getInfo() {
+	string s;
+	s = "ID : " + to_string(ID) + " Center Point : ( " + to_string(Center.x) + " , " + to_string(Center.y) + " )";
+	return s;
+}

@@ -135,12 +135,6 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 		FigList[FigCount++] = pFig;
 }
 
-/*
-int ApplicationManager::getFigureCount() {
-	return FigCount;
-}
-*/
-
 void ApplicationManager::ClearFigures()
 {
 	for (int i = 0; i < FigCount; i++)

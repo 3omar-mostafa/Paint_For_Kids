@@ -23,8 +23,11 @@ void selectShapeAction::ReadActionParameters() {
 void selectShapeAction::Execute() {
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
-	if (pManager->getLastSelected() == pManager->getSelectedFigure() && pManager->getSelectedFigure()!= NULL)
+	if (pManager->getLastSelected() == pManager->getSelectedFigure() && pManager->getSelectedFigure() != NULL) {
 		pManager->getSelectedFigure()->toggleSelection();
+		if (pManager->getSelectedFigure()->IsSelected())
+			pOut->PrintMessage(pManager->getSelectedFigure()->getInfo());
+	}
 	else {
 		if (pManager->getLastSelected() != NULL) {
 			pManager->getLastSelected()->SetSelected(false);
@@ -36,6 +39,8 @@ void selectShapeAction::Execute() {
 			pOut->changeFillColorIcon(pManager->getSelectedFigure()->getFillColor(), pManager->getSelectedFigure()->isFilled());
 			if (!pManager->getSelectedFigure()->IsSelected())
 				pManager->getSelectedFigure()->SetSelected(NULL);
+			else
+				pOut->PrintMessage(pManager->getSelectedFigure()->getInfo());
 		}
 		else if (pManager->getLastSelected() != NULL) {
 			pManager->getLastSelected()->SetSelected(false);
