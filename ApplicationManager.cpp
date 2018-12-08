@@ -8,9 +8,9 @@ ApplicationManager::ApplicationManager()
 
 	FigCount = 0;
 
-	SelectedFig = NULL ;
-	lastSelected = NULL ;
-	Clipboard = NULL ;
+	SelectedFig = NULL;
+	lastSelected = NULL;
+	Clipboard = NULL;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
@@ -85,7 +85,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new selectShapeAction(this);
 		break;
 
-	case DEL :
+	case DEL:
 		pOut->CreateDrawActionToolBar();
 		pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
 		pAct = new deleteAction(this);
@@ -162,20 +162,62 @@ void ApplicationManager::WriteFigures(ofstream& OutFile)
 
 void ApplicationManager::ReadFigures(ifstream& InFile)
 {
-	while (!InFile.eof())
+	while (true)
 	{
 		CFigure* NewFig;
+		int Cast;
+		InFile >> Cast;	//Added a function to overload the operator in defs.h, I will refactor this later
+		if (Cast > 4 || Cast < 0)
+			break;
+		Type TYPE = Type(Cast);
+		if (TYPE == BAD_TYPE)
+			break;
+		SetFigureType(NewFig, TYPE);
 		NewFig->Load(InFile);
 		AddFigure(NewFig);
 	}
 }
 
+void ApplicationManager::SetFigureType(CFigure*& FP, Type T)
+{
+	Point P1, P2, P3;
+	P1 = P2 = P3 = { 400,400 };
+	GfxInfo dummy;
+	switch (T)
+	{
+	case LINE:
+		//FP = (CLine*)(FP);
+		FP = new CLine(P1, P2, dummy);
+		break;
+
+	case RECTANGLE:
+		//FP = (CRectangle*)(FP);
+		FP = new CRectangle(P1, P2, dummy);
+		break;
+
+	case TRIANGLE:
+		//FP = (CTriangle*)(FP);
+		FP = new CTriangle(P1, P2, P3, dummy);
+		break;
+
+	case RHOMBUS:
+		//FP = (CRhombus*)(FP);
+		FP = new CRhombus(P1, dummy);
+		break;
+
+	case ELLIPSE:
+		//FP = (CEllipse*)(FP);
+		FP = new CEllipse(P1, dummy);
+		break;
+	}
+}
+
 void ApplicationManager::Exit()
 {
-	
+
 	delete pOut; delete pIn;
 	pIn = NULL; pOut = NULL;
-	
+
 
 
 }
@@ -208,7 +250,7 @@ void ApplicationManager::UpdateInterface() const
 {
 	pOut->ClearDrawArea();
 	for (int i = 0; i < FigCount; i++)
-		if(FigList[i]!=NULL)
+		if (FigList[i] != NULL)
 			FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -222,7 +264,7 @@ Output *ApplicationManager::GetOutput() const
 {
 	return pOut;
 }
-void ApplicationManager::setSelectedFigure(CFigure* fig){
+void ApplicationManager::setSelectedFigure(CFigure* fig) {
 	SelectedFig = fig;
 }
 
@@ -238,10 +280,10 @@ CFigure* ApplicationManager::getLastSelected() {
 	return lastSelected;
 }
 
-void  ApplicationManager::setFigureCount(int x){
+void  ApplicationManager::setFigureCount(int x) {
 	FigCount = x;
 }
-int  ApplicationManager::getFigureCount(){
+int  ApplicationManager::getFigureCount() {
 	return FigCount;
 }
 

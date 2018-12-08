@@ -1,9 +1,12 @@
 #pragma once
 #include "Action.h"
-class saveAction :public Action
+class SaveAction :public Action
 {
+	ActionType ThisAction;
 public:
-	saveAction(ApplicationManager*);
-	~saveAction();
+	SaveAction(ApplicationManager*);
+	virtual void ReadActionParameters();
+	virtual void Execute();
+	~SaveAction();
 };
 

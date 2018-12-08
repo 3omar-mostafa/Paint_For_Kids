@@ -3,6 +3,7 @@
 CRhombus::CRhombus(Point P, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Center = P;
+	ID = RHOMBUS;
 }
 
 Point CRhombus::getCenter() {
@@ -54,7 +55,10 @@ bool CRhombus::doesItContain(int x, int y) {
 string CRhombus::getInfo() {
 	string s;
 	s = "ID : " + to_string(ID) + " Center Point : ( " + to_string(Center.x) + " , " + to_string(Center.y) + " )";
-	return s;
+	
+	string sshort = to_string(ID) + " " + Center.Data() + " ";
+	sshort += FigGfxInfo.Data();
+	return sshort;
 }
 
 void CRhombus::Save(ofstream &OutFile)
@@ -65,4 +69,11 @@ void CRhombus::Save(ofstream &OutFile)
 
 void CRhombus::Load(ifstream &InFile)
 {
+	Point P;
+	GfxInfo RhomGfxInfo;
+	//InFile >> P;
+	//InFile >> RhomGfxInfo;
+	P.Read(InFile);
+	RhomGfxInfo.Read(InFile);
+	*this = CRhombus(P, FigGfxInfo);
 }

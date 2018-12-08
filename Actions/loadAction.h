@@ -1,9 +1,12 @@
 #pragma once
 #include "Action.h"
-class loadAction :public Action
+class LoadAction :public Action
 {
+	ActionType ThisAction;
 public:
-	loadAction(ApplicationManager*);
-	~loadAction();
+	LoadAction(ApplicationManager*);
+	virtual void ReadActionParameters();
+	virtual void Execute();
+	~LoadAction();
 };
 

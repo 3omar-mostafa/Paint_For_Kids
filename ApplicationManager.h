@@ -59,7 +59,9 @@ public:
 	void ClearFigures();		//Added a function to remove all figures
 	void WriteFigures(ofstream&);
 	void ReadFigures(ifstream&);
+	void SetFigureType(CFigure*&, Type);
 	void Exit();
+
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output

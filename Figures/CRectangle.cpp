@@ -4,13 +4,14 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 {
 	Corner1 = P1;
 	Corner2 = P2;
+	ID = RECTANGLE;
 }
 
-Point CRectangle::getP1(){
-	return Corner1 ;
+Point CRectangle::getP1() {
+	return Corner1;
 }
-Point CRectangle::getP2(){
-	return Corner2 ;
+Point CRectangle::getP2() {
+	return Corner2;
 }
 
 void CRectangle::Draw(Output* pOut) const
@@ -47,7 +48,10 @@ string CRectangle::getInfo() {
 	string s;
 	s = "ID :" + to_string(ID) + " Points : ( " + to_string(Corner1.x) + " , " + to_string(Corner1.y) + " ) , ( " + to_string(Corner2.x) + " , " + to_string(Corner2.y) + " ) , ";
 	s += "Length : " + to_string(abs(Corner1.x - Corner2.x)) + " Width : " + to_string(abs(Corner1.y - Corner2.y));
-	return s;
+	
+	string sshort = to_string(ID) + " " + Corner1.Data() + " " + Corner2.Data() + " ";
+	sshort += FigGfxInfo.Data();
+	return sshort;
 }
 
 void CRectangle::Save(ofstream &OutFile)
@@ -58,5 +62,12 @@ void CRectangle::Save(ofstream &OutFile)
 
 void CRectangle::Load(ifstream &InFile)
 {
-
+	Point P1, P2;
+	GfxInfo RectGfxInfo;
+	//InFile >> P1 >> P2;
+	//InFile >> RectGfxInfo;
+	P1.Read(InFile);
+	P2.Read(InFile);
+	RectGfxInfo.Read(InFile);
+	*this = CRectangle(P1, P2, FigGfxInfo);
 }

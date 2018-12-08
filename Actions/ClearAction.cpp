@@ -1,6 +1,5 @@
 #include "ClearAction.h"
 #include "..\ApplicationManager.h"
-
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
@@ -21,8 +20,8 @@ void ClearAction::ReadActionParameters()
 void ClearAction::Execute()
 {
 	ReadActionParameters();
-	if (ThisAction == CLEAR)
-		pManager->ClearFigures();
-	Output* pOut = pManager->GetOutput();
-	pOut->ClearDrawArea();
+	if (ThisAction != CLEAR)
+		return;
+	pManager->ClearFigures();	
+	pManager->GetOutput()->ClearDrawArea();
 }

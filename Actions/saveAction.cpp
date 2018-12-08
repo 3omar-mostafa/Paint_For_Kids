@@ -1,11 +1,34 @@
-#include "saveAction.h"
+#include "SaveAction.h"
+#include "..\ApplicationManager.h"
+#include "..\GUI\input.h"
+#include "..\GUI\Output.h"
 
 
 
-saveAction::saveAction(ApplicationManager * pApp) :Action(pApp)
+SaveAction::SaveAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-
-saveAction::~saveAction()
+void SaveAction::ReadActionParameters()
 {
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+	pOut->PrintMessage("Save Figures, click on the icon again to save to FigureList.txt");
+	ThisAction = pIn->GetUserAction();
+	pOut->ClearStatusBar();
 }
+
+void SaveAction::Execute()
+{
+	ReadActionParameters();
+	if (ThisAction != SAVE)
+		return;
+	ofstream OutFile;
+	OutFile.open("FigureList.txt");
+	pManager->WriteFigures(OutFile);	
+	OutFile << "Don't forget to rename this file and delete this line!";
+	OutFile.close();
+	pManager->GetOutput()->PrintMessage("Saved Successfully! Open FigureList.txt for further instructions.");
+}
+
+SaveAction::~SaveAction()
+{}

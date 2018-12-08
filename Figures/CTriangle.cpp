@@ -5,6 +5,7 @@ CTriangle::CTriangle(Point A, Point B, Point C, GfxInfo FigureGfxInfo) :CFigure(
 	P1 = A;
 	P2 = B;
 	P3 = C;
+	ID = TRIANGLE;
 }
 
 Point CTriangle::getP1(){
@@ -78,7 +79,10 @@ bool CTriangle::doesItContain(int x, int y) {
 string CTriangle::getInfo() {
 	string s;
 	s = "ID :" + to_string(ID) + " Points : ( " + to_string(P1.x) + " , " + to_string(P1.y) + " ) , ( " + to_string(P2.x) + " , " + to_string(P2.y) + " ) , ( "  +to_string(P3.x) + " , " + to_string(P3.y) + " ) ";
-	return s;
+	
+	string sshort = to_string(ID) + " " + P1.Data() + " " + P2.Data() + " " + P3.Data() + " ";
+	sshort += FigGfxInfo.Data();
+	return sshort;
 }
 
 void CTriangle::Save(ofstream &OutFile)
@@ -89,4 +93,13 @@ void CTriangle::Save(ofstream &OutFile)
 
 void CTriangle::Load(ifstream &InFile)
 {
+	Point P1, P2, P3;
+	GfxInfo TriGfxInfo;
+	//InFile >> P1 >> P2 >> P3;	//Another operator overloading
+	//InFile >> TriGfxInfo;
+	P1.Read(InFile);
+	P2.Read(InFile);
+	P3.Read(InFile);
+	TriGfxInfo.Read(InFile);
+	*this = CTriangle(P1, P2, P3, FigGfxInfo);
 }

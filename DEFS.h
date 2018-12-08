@@ -26,8 +26,6 @@ enum ActionType //The actions supported (you can add more if needed)
 	CUT,
 	PASTE,
 	SELECT,
-
-
 	DRAWING_AREA,	//A click on the drawing area
 	STATUS,			//A click on the status bar
 	EMPTY,          //A click on empty place in the toolbar
@@ -44,6 +42,7 @@ enum Type
 	RECTANGLE,
 	TRIANGLE,
 	RHOMBUS,
+	BAD_TYPE,
 	ELLIPSE,
 	LINE
 };
@@ -51,6 +50,19 @@ enum Type
 struct Point	//To be used for figures points
 {
 	int x, y;
+	string Data()
+	{
+		string Data;
+		Data += to_string(x) + " " + to_string(y);
+		return Data;
+	}
+	void Read(ifstream& in)
+	{
+		int X, Y;
+		in >> X >> Y;
+		x = X;
+		y = Y;
+	}
 };
 
 struct GfxInfo	//Graphical info of each figure (you may add more members)
@@ -59,7 +71,25 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	color FillClr;	//Fill color of the figure
 	bool isFilled;	//Figure Filled or not
 	int BorderWdth;	//Width of figure borders
-
+	string Data()
+	{
+		string Data;
+		Data += to_string(DrawClr.ucRed) + " " + to_string(DrawClr.ucGreen) + " " + to_string(DrawClr.ucBlue) + " ";
+		Data += to_string(FillClr.ucRed) + " " + to_string(FillClr.ucGreen) + " " + to_string(FillClr.ucBlue) + " ";
+		Data += to_string(isFilled) + " " + to_string(BorderWdth);
+		return Data;
+	}
+	void Read(ifstream& in)
+	{
+		unsigned char DR, DB, DG, FR, FB, FG;
+		bool Filled;
+		int Width;
+		in >> DR >> DB >> DG >> FR >> FB >> FG >> Filled >> Width;
+		DrawClr = color(DR, DB, DG);
+		FillClr = color(FR, FB, FG);
+		isFilled = Filled;
+		BorderWdth = Width;
+	}
 };
 
 #endif
