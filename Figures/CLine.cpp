@@ -51,3 +51,13 @@ string CLine::getInfo() {
 	s += "Length : " + to_string( sqrt((P2.x - P1.x)*(P2.x - P1.x) + (P2.y - P1.y)*(P2.y - P1.y) ) );
 	return s;
 }
+
+void CLine::Save(ofstream &OutFile)
+{
+	string Info = getInfo();
+	OutFile << Info << endl;
+}
+
+void CLine::Load(ifstream &InFile)
+{
+}

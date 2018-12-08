@@ -90,6 +90,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
 		pAct = new deleteAction(this);
 		break;
+
+	case SAVE:
+		pAct = new SaveAction(this);
+		break;
+
+	case LOAD:
+		pAct = new LoadAction(this);
+		break;
+
 	case TO_DRAW:
 		pOut->PrintMessage("Action: Switch to Draw Mode, Creating Simulation Toolbar");
 		pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
@@ -143,6 +152,22 @@ void ApplicationManager::ClearFigures()
 		FigList[i] = NULL;
 	}
 	FigCount = 0;
+}
+
+void ApplicationManager::WriteFigures(ofstream& OutFile)
+{
+	for (int i = 0; i < FigCount; i++)
+		FigList[i]->Save(OutFile);
+}
+
+void ApplicationManager::ReadFigures(ifstream& InFile)
+{
+	while (!InFile.eof())
+	{
+		CFigure* NewFig;
+		NewFig->Load(InFile);
+		AddFigure(NewFig);
+	}
 }
 
 void ApplicationManager::Exit()

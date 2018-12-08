@@ -4,6 +4,7 @@
 #include "CFigure.h"
 #include "..\GUI\Output.h"
 
+
 class CEllipse : public CFigure
 {
 private:
@@ -14,6 +15,8 @@ public:
 	Point getCenter();
 	bool doesItContain(int x, int y);
 	string getInfo();
+	virtual void Save(ofstream &OutFile);
+	virtual void Load(ifstream &Infile);
 };
 
 #endif

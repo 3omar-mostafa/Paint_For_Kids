@@ -2,6 +2,9 @@
 #define DEFS_H
 
 #include "CMUgraphicsLib\CMUgraphics.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 //This file contains some global constants and definitions to be used in the project.
 enum ActionType //The actions supported (you can add more if needed)
@@ -34,6 +37,15 @@ enum ActionType //The actions supported (you can add more if needed)
 	TO_PLAY			//Switch interface to Play mode
 
 	///TODO: Add more action types (if needed)
+};
+
+enum Type
+{
+	RECTANGLE,
+	TRIANGLE,
+	RHOMBUS,
+	ELLIPSE,
+	LINE
 };
 
 struct Point	//To be used for figures points

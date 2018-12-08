@@ -49,3 +49,14 @@ string CRectangle::getInfo() {
 	s += "Length : " + to_string(abs(Corner1.x - Corner2.x)) + " Width : " + to_string(abs(Corner1.y - Corner2.y));
 	return s;
 }
+
+void CRectangle::Save(ofstream &OutFile)
+{
+	string Info = getInfo();
+	OutFile << Info << endl;
+}
+
+void CRectangle::Load(ifstream &InFile)
+{
+
+}

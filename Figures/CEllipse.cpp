@@ -38,3 +38,13 @@ string CEllipse::getInfo() {
 	s = "ID : " + to_string(ID) +  " Center Point : ( " + to_string( Center.x ) + " , " + to_string(Center.y) + " )" ;
 	return s;
 }
+
+void CEllipse::Save(ofstream &OutFile)
+{
+	string Info = getInfo();
+	OutFile << Info << endl;
+}
+
+void CEllipse::Load(ifstream &InFile)
+{
+}

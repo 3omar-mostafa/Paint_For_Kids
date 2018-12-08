@@ -18,6 +18,9 @@ public:
 	bool doesItContain(int x, int y);
 	string getInfo();
 
+	virtual void Save(ofstream &OutFile);
+	virtual void Load(ifstream &Infile);
+
 private:
 	double getTriangularArea(int x, int y);
 };

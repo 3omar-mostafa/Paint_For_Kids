@@ -19,8 +19,8 @@
 #include "Actions\copyAction.h"
 #include "Actions\cutAction.h"
 #include "Actions\pasteAction.h"
-#include "Actions\loadAction.h"
-#include "Actions\saveAction.h"
+#include "Actions\LoadAction.h"
+#include "Actions\SaveAction.h"
 #include "Actions\saveByTypeAction.h"
 #include "Actions\selectShapeAction.h"
 #include "Actions\deleteAction.h"
@@ -57,6 +57,8 @@ public:
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	void ClearFigures();		//Added a function to remove all figures
+	void WriteFigures(ofstream&);
+	void ReadFigures(ifstream&);
 	void Exit();
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input

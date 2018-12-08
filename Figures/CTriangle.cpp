@@ -80,3 +80,13 @@ string CTriangle::getInfo() {
 	s = "ID :" + to_string(ID) + " Points : ( " + to_string(P1.x) + " , " + to_string(P1.y) + " ) , ( " + to_string(P2.x) + " , " + to_string(P2.y) + " ) , ( "  +to_string(P3.x) + " , " + to_string(P3.y) + " ) ";
 	return s;
 }
+
+void CTriangle::Save(ofstream &OutFile)
+{
+	string Info = getInfo();
+	OutFile << Info << endl;
+}
+
+void CTriangle::Load(ifstream &InFile)
+{
+}
