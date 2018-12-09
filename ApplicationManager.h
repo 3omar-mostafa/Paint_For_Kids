@@ -7,25 +7,26 @@
 #include "Figures/CRectangle.h"
 #include "Figures/CRhombus.h"
 #include "Figures/CTriangle.h"
-#include "GUI\input.h"
-#include "GUI\output.h"
-#include "Actions\AddRectAction.h"
-#include "Actions\AddTriAction.h"
-#include "Actions\AddElpsAction.h"
-#include "Actions\AddRhomAction.h"
-#include "Actions\AddLineAction.h"
-#include "Actions\ChangeDrawColor.h"
-#include "Actions\ChangeFillColor.h"
-#include "Actions\copyAction.h"
-#include "Actions\cutAction.h"
-#include "Actions\pasteAction.h"
-#include "Actions\LoadAction.h"
-#include "Actions\SaveAction.h"
-#include "Actions\saveByTypeAction.h"
-#include "Actions\selectShapeAction.h"
-#include "Actions\deleteAction.h"
-#include "Actions\ExitAction.h"
-#include "Actions\ClearAction.h"
+#include "GUI/input.h"
+#include "GUI/output.h"
+#include "Actions/AddRectAction.h"
+#include "Actions/AddTriAction.h"
+#include "Actions/AddElpsAction.h"
+#include "Actions/AddRhomAction.h"
+#include "Actions/AddLineAction.h"
+#include "Actions/ChangeDrawColor.h"
+#include "Actions/ChangeFillColor.h"
+#include "Actions/copyAction.h"
+#include "Actions/cutAction.h"
+#include "Actions/pasteAction.h"
+#include "Actions/LoadAction.h"
+#include "Actions/SaveAction.h"
+#include "Actions/saveByTypeAction.h"
+#include "Actions/selectShapeAction.h"
+#include "Actions/deleteAction.h"
+#include "Actions/ExitAction.h"
+#include "Actions/ClearAction.h"
+#include "Actions/ByShapeAction.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -56,10 +57,14 @@ public:
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
+	void DeleteFigure(CFigure*);	//To Be Added
 	void ClearFigures();		//Added a function to remove all figures
 	void WriteFigures(ofstream&);
 	void ReadFigures(ifstream&);
-	void SetFigureType(CFigure*&, Type);
+	FigureType RandomFigure();
+	void SetFigureType(CFigure*&, FigureType);
+	bool Empty();
+	bool HasFigure(FigureType);
 	void Exit();
 
 	// -- Interface Management Functions

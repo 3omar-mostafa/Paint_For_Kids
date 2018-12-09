@@ -37,13 +37,13 @@ enum ActionType //The actions supported (you can add more if needed)
 	///TODO: Add more action types (if needed)
 };
 
-enum Type
+enum FigureType
 {
+	EMPTY_TYPE,
 	RECTANGLE,
 	TRIANGLE,
-	RHOMBUS,
-	BAD_TYPE,
 	ELLIPSE,
+	RHOMBUS,
 	LINE
 };
 
@@ -70,7 +70,7 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	color DrawClr;	//Draw color of the figure
 	color FillClr;	//Fill color of the figure
 	bool isFilled;	//Figure Filled or not
-	int BorderWdth;	//Width of figure borders
+	int BorderWdth = 8;	//Width of figure borders
 	string Data()
 	{
 		string Data;

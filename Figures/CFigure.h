@@ -8,7 +8,7 @@
 class CFigure
 {
 protected:
-	Type ID;		//Each figure has an ID
+	FigureType ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
 
@@ -17,7 +17,8 @@ protected:
 public:
 	CFigure(GfxInfo FigureGfxInfo);
 
-	void setID(Type);
+	void setID(FigureType);
+	FigureType getID() const;
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
 	void toggleSelection();

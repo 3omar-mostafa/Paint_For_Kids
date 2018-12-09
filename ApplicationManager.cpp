@@ -115,6 +115,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		//TODO: Temporary Commenting until we build it
 		break;
+	
+	case COL_SHP:
+		pAct = new ByShapeAction(this);
+		break;
 
 	case EXIT:
 		pAct = new ExitAction(this);
@@ -167,18 +171,27 @@ void ApplicationManager::ReadFigures(ifstream& InFile)
 		CFigure* NewFig;
 		int Cast;
 		InFile >> Cast;	//Added a function to overload the operator in defs.h, I will refactor this later
-		if (Cast > 4 || Cast < 0)
-			break;
-		Type TYPE = Type(Cast);
-		if (TYPE == BAD_TYPE)
-			break;
-		SetFigureType(NewFig, TYPE);
+		if (Cast > 5 || Cast < 1)
+			return;
+		FigureType FIG_TYPE = FigureType(Cast);
+		if (FIG_TYPE == EMPTY_TYPE)
+			return;
+		SetFigureType(NewFig, FIG_TYPE);
 		NewFig->Load(InFile);
 		AddFigure(NewFig);
+		FIG_TYPE = EMPTY_TYPE;
 	}
 }
 
-void ApplicationManager::SetFigureType(CFigure*& FP, Type T)
+FigureType ApplicationManager::RandomFigure()
+{
+	FigureType TYPE;
+	int idx = abs(rand()) % FigCount;
+	TYPE = FigList[idx]->getID();
+	return TYPE;
+}
+
+void ApplicationManager::SetFigureType(CFigure*& FP, FigureType T)
 {
 	Point P1, P2, P3;
 	P1 = P2 = P3 = { 400,400 };
@@ -212,17 +225,22 @@ void ApplicationManager::SetFigureType(CFigure*& FP, Type T)
 	}
 }
 
-void ApplicationManager::Exit()
+bool ApplicationManager::Empty()
 {
-
-	delete pOut; delete pIn;
-	pIn = NULL; pOut = NULL;
-
-
-
+	for (int i = 0; i < FigCount; i++)
+		if (FigList[i])
+			return false;
+	return true;
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+bool ApplicationManager::HasFigure(FigureType FIG_TYPE)
+{
+	for (int i = 0; i < FigCount; i++)
+		if (FigList[i]->getID() == FIG_TYPE)
+			return true;
+	return false;
+}
+
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {
 	//If a figure is found return a pointer to it.
@@ -240,6 +258,20 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	}
 
 	return NULL;
+}
+void ApplicationManager::DeleteFigure(CFigure* Deleted)
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i] == Deleted)
+		{
+			delete FigList[i];
+			FigList[i] = NULL;
+			FigList[i] = FigList[--FigCount];
+			FigList[FigCount] = NULL;
+			return;
+		}
+	}
 }
 //==================================================================================//
 //							Interface Management Functions							//
@@ -290,6 +322,13 @@ int  ApplicationManager::getFigureCount() {
 CFigure** ApplicationManager::getFigureArray() {
 	return FigList;
 }
+
+void ApplicationManager::Exit()
+{
+	delete pOut; delete pIn;
+	pIn = NULL; pOut = NULL;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 //Destructor

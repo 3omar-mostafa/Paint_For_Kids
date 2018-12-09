@@ -25,7 +25,7 @@ void SaveAction::Execute()
 	ofstream OutFile;
 	OutFile.open("FigureList.txt");
 	pManager->WriteFigures(OutFile);	
-	OutFile << "Don't forget to rename this file and delete this line!";
+	OutFile << 0;
 	OutFile.close();
 	pManager->GetOutput()->PrintMessage("Saved Successfully! Open FigureList.txt for further instructions.");
 }

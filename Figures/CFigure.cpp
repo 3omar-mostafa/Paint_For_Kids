@@ -6,9 +6,14 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	Selected = false;
 }
 
-void CFigure::setID(Type T)
+void CFigure::setID(FigureType T)
 {
 	ID = T;
+}
+
+FigureType CFigure::getID() const
+{
+	return ID;
 }
 
 void CFigure::SetSelected(bool s)
