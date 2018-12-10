@@ -7,6 +7,7 @@ public:
 	LoadAction(ApplicationManager*);
 	virtual void ReadActionParameters();
 	virtual void Execute();
+	void QuickLoad();
 	~LoadAction();
 };
 

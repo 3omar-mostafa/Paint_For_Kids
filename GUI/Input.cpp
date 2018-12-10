@@ -35,7 +35,14 @@ string Input::GetString(Output *pO) const
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction() const
 {
-	int x, y;
+	Point P;
+	return GetUserAction(P);
+}
+
+ActionType Input::GetUserAction(Point & P) const
+{
+	int &x = P.x;
+	int &y = P.y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 
 	if (UI.InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
@@ -115,7 +122,6 @@ ActionType Input::GetUserAction() const
 				return EXIT;
 
 			{
-
 				///TODO:
 				//perform checks similar to Draw mode checks above
 				//and return the correspoding action
@@ -123,9 +129,6 @@ ActionType Input::GetUserAction() const
 			}
 
 		}
-
-
-
 	}
 }
 /////////////////////////////////

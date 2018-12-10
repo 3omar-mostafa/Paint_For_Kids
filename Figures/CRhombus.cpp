@@ -3,7 +3,7 @@
 CRhombus::CRhombus(Point P, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Center = P;
-	ID = RHOMBUS;
+	FigType = RHOMBUS;
 }
 
 Point CRhombus::getCenter() {
@@ -56,7 +56,7 @@ string CRhombus::getInfo() {
 	string s;
 	s = "ID : " + to_string(ID) + " Center Point : ( " + to_string(Center.x) + " , " + to_string(Center.y) + " )";
 	
-	string sshort = to_string(ID) + " " + Center.Data() + " ";
+	string sshort = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " ";
 	sshort += FigGfxInfo.Data();
 	return sshort;
 }
@@ -71,9 +71,8 @@ void CRhombus::Load(ifstream &InFile)
 {
 	Point P;
 	GfxInfo RhomGfxInfo;
-	//InFile >> P;
-	//InFile >> RhomGfxInfo;
+	InFile >> ID;
 	P.Read(InFile);
 	RhomGfxInfo.Read(InFile);
-	*this = CRhombus(P, FigGfxInfo);
+	*this = CRhombus(P, RhomGfxInfo);
 }

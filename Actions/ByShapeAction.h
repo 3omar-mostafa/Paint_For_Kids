@@ -4,12 +4,12 @@ class ByShapeAction :public Action
 {
 	int Correct, Wrong;
 	FigureType FIG_TYPE;
-	//Output* pOut;
-	//Input* pIn;
+	bool Terminate;
+	
 public:
 	ByShapeAction(ApplicationManager *pApp);
 	virtual void ReadActionParameters();
-	void Play();
+	bool Play();
+	void Reset();
 	virtual void Execute();
-
 };

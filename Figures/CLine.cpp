@@ -4,7 +4,7 @@ CLine::CLine(Point P_1, Point P_2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo
 {
 	P1 = P_1;
 	P2 = P_2;
-	ID = LINE;
+	FigType = LINE;
 }
 
 Point CLine::getP1(){
@@ -51,7 +51,8 @@ string CLine::getInfo() {
 	s = "ID :" + to_string(ID) + " Points : ( " + to_string(P1.x) + " , " + to_string(P1.y) + " ) , ( " + to_string(P2.x) + " , " + to_string(P2.y) + " ) , " ;
 	s += "Length : " + to_string( sqrt((P2.x - P1.x)*(P2.x - P1.x) + (P2.y - P1.y)*(P2.y - P1.y) ) );
 	
-	string sshort = to_string(ID) + " " + P1.Data() + " " + P2.Data();
+	string sshort = StoreType(FigType) + " " + to_string(ID) + " " + P1.Data() + " " + P2.Data() + " ";
+	sshort += FigGfxInfo.Data();
 	return sshort;
 }
 
@@ -64,9 +65,11 @@ void CLine::Save(ofstream &OutFile)
 void CLine::Load(ifstream &InFile)
 {
 	Point Pi, Pf;
-	//InFile >> P1 >> P2;
-	//InFile >> LineGfxInfo;
+	GfxInfo LineGfxInfo;
+	InFile >> ID;
 	Pi.Read(InFile);
 	Pf.Read(InFile);
-	*this = CLine(Pi, Pf, FigGfxInfo);
+	LineGfxInfo.Read(InFile);
+	LineGfxInfo.isFilled = false;
+	*this = CLine(Pi, Pf, LineGfxInfo);
 }

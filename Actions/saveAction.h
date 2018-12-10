@@ -7,6 +7,7 @@ public:
 	SaveAction(ApplicationManager*);
 	virtual void ReadActionParameters();
 	virtual void Execute();
+	void QuickSave();
 	~SaveAction();
 };
 

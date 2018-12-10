@@ -17,6 +17,7 @@ public:
 	string GetString(Output* pO) const;	 //Returns a string entered by the user
 
 	ActionType GetUserAction() const; //Read the user click and map to an action
+	ActionType GetUserAction(Point &P) const;	//Added to replace GetPointClicked
 
 	~Input();
 };

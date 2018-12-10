@@ -160,6 +160,8 @@ void ApplicationManager::ClearFigures()
 
 void ApplicationManager::WriteFigures(ofstream& OutFile)
 {
+	OutFile << ColorData(UI.DrawColor) << " " << ColorData(UI.FillColor) << endl;
+	OutFile << FigCount << " " << endl;
 	for (int i = 0; i < FigCount; i++)
 		FigList[i]->Save(OutFile);
 }
@@ -169,11 +171,9 @@ void ApplicationManager::ReadFigures(ifstream& InFile)
 	while (true)
 	{
 		CFigure* NewFig;
-		int Cast;
-		InFile >> Cast;	//Added a function to overload the operator in defs.h, I will refactor this later
-		if (Cast > 5 || Cast < 1)
-			return;
-		FigureType FIG_TYPE = FigureType(Cast);
+		string Cast;
+		InFile >> Cast;
+		FigureType FIG_TYPE = ReadType(Cast);
 		if (FIG_TYPE == EMPTY_TYPE)
 			return;
 		SetFigureType(NewFig, FIG_TYPE);
@@ -187,7 +187,7 @@ FigureType ApplicationManager::RandomFigure()
 {
 	FigureType TYPE;
 	int idx = abs(rand()) % FigCount;
-	TYPE = FigList[idx]->getID();
+	TYPE = FigList[idx]->getType();
 	return TYPE;
 }
 
@@ -199,27 +199,22 @@ void ApplicationManager::SetFigureType(CFigure*& FP, FigureType T)
 	switch (T)
 	{
 	case LINE:
-		//FP = (CLine*)(FP);
 		FP = new CLine(P1, P2, dummy);
 		break;
 
 	case RECTANGLE:
-		//FP = (CRectangle*)(FP);
 		FP = new CRectangle(P1, P2, dummy);
 		break;
 
 	case TRIANGLE:
-		//FP = (CTriangle*)(FP);
 		FP = new CTriangle(P1, P2, P3, dummy);
 		break;
 
 	case RHOMBUS:
-		//FP = (CRhombus*)(FP);
 		FP = new CRhombus(P1, dummy);
 		break;
 
 	case ELLIPSE:
-		//FP = (CEllipse*)(FP);
 		FP = new CEllipse(P1, dummy);
 		break;
 	}
@@ -236,7 +231,7 @@ bool ApplicationManager::Empty()
 bool ApplicationManager::HasFigure(FigureType FIG_TYPE)
 {
 	for (int i = 0; i < FigCount; i++)
-		if (FigList[i]->getID() == FIG_TYPE)
+		if (FigList[i]->getType() == FIG_TYPE)
 			return true;
 	return false;
 }
@@ -339,4 +334,65 @@ ApplicationManager::~ApplicationManager()
 	delete pIn;
 	delete pOut;
 
+}
+
+// Additional Functions:
+string StoreType(FigureType T)
+{
+	switch (T)
+	{
+	case RECTANGLE:
+		return "RECTANGLE";
+		break;
+	case TRIANGLE:
+		return "TRIANGLE";
+		break;
+	case ELLIPSE:
+		return "ELLIPSE";
+		break;
+	case RHOMBUS:
+		return "RHOMBUS";
+		break;
+	case LINE:
+		return "LINE";
+		break;
+	}
+	return "";
+}
+
+FigureType ReadType(string Str)
+{
+	switch (Str[1])
+	{
+	case 'E':
+		return RECTANGLE;
+		break;
+	case 'R':
+		return TRIANGLE;
+		break;
+	case 'L':
+		return ELLIPSE;
+		break;
+	case 'H':
+		return RHOMBUS;
+		break;
+	case 'I':
+		return LINE;
+		break;
+	}
+	return EMPTY_TYPE;
+}
+
+string ColorData(color C)
+{
+	string Data;
+	Data += to_string(int(C.ucRed)) + " " + to_string(int(C.ucGreen)) + " " + to_string(int(C.ucBlue));
+	return Data;
+}
+
+color ReadColor(ifstream& in)
+{
+	int Red, Green, Blue;
+	in >> Red >> Green >> Blue;
+	return color(Red, Green, Blue);
 }

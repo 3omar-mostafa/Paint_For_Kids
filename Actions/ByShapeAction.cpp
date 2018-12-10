@@ -8,30 +8,27 @@ ByShapeAction::ByShapeAction(ApplicationManager * pApp) :Action(pApp)
 	Correct = 0;
 	Wrong = 0;
 	FIG_TYPE = EMPTY_TYPE;
+	Terminate = 0;
 	
 	// Auto-saving:
-	ofstream OutFile;
-	OutFile.open("Current.txt");
-	pManager->WriteFigures(OutFile);
-	OutFile << 0;
-	OutFile.close();
-
-	//Action* Save = new SaveAction(pManager);
-	//Save->Execute();
-	//pOut = pManager->GetOutput();
-	//pIn = pManager->GetInput();
+	SaveAction* Save = new SaveAction(pManager);
+	Save->QuickSave();
 }
 
 void ByShapeAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	int x, y;
-	pIn->GetPointClicked(x, y);
-	CFigure* Clicked = pManager->GetFigure(x, y);
+	Point P;
+	if (pIn->GetUserAction(P) == COL_SHP)
+	{
+		Terminate = 1;
+		return;
+	}
+	CFigure* Clicked = pManager->GetFigure(P.x, P.y);
 	if (!Clicked)
 		return;
-	if (Clicked->getID() == FIG_TYPE)
+	if (Clicked->getType() == FIG_TYPE)
 	{
 		Correct++;
 		pManager->DeleteFigure(Clicked);
@@ -41,36 +38,48 @@ void ByShapeAction::ReadActionParameters()
 		Wrong++;
 }
 
-void ByShapeAction::Play()
+bool ByShapeAction::Play()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	FIG_TYPE = pManager->RandomFigure();
-	pOut->PrintMessage("Pick " + to_string(FIG_TYPE));
+	pOut->PrintMessage("Pick " + Display(FIG_TYPE));
 	pIn->GetUserAction();
 	pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	while (pManager->HasFigure(FIG_TYPE))
 	{
 		ReadActionParameters();
+		if(Terminate)
+			return false;
 		pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	}
+	return true;
+}
+
+void ByShapeAction::Reset()
+{
+	Output* pOut = pManager->GetOutput();
+	pOut->PrintMessage("Game Restarted!");
+	pManager->ClearFigures();
+	LoadAction* Load = new LoadAction(pManager);
+	Load->QuickLoad();	
 }
 
 void ByShapeAction::Execute()
 {
-	//ReadActionParameters();
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	
 	pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);	
-	while(!pManager->Empty())
-		Play();
+	while (!pManager->Empty())
+		if (!Play())
+		{
+			Reset();
+			return;
+		}
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	
 	// Auto-Loading:
-	//pIn->GetUserAction();
-	ifstream InFile;
-	InFile.open("Current.txt");
-	pManager->ReadFigures(InFile);
-	InFile.close();
+	LoadAction* Load = new LoadAction(pManager);
+	Load->QuickLoad();
 }

@@ -47,6 +47,13 @@ enum FigureType
 	LINE
 };
 
+//	Additional Functions:
+string StoreType(FigureType T);		//Stores the type of a figure into a string format
+const auto Display = StoreType;		//Alias for the function StoreType
+FigureType ReadType(string Str);	//Determines the type of a figure from a string format
+string ColorData(color C);			//Stores the information for a color into a string
+color ReadColor(ifstream& in);		//Reads a color's info
+
 struct Point	//To be used for figures points
 {
 	int x, y;
@@ -74,19 +81,18 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	string Data()
 	{
 		string Data;
-		Data += to_string(DrawClr.ucRed) + " " + to_string(DrawClr.ucGreen) + " " + to_string(DrawClr.ucBlue) + " ";
-		Data += to_string(FillClr.ucRed) + " " + to_string(FillClr.ucGreen) + " " + to_string(FillClr.ucBlue) + " ";
-		Data += to_string(isFilled) + " " + to_string(BorderWdth);
+		Data += ColorData(DrawClr) + " " + ColorData(FillClr) + " ";
+		Data += to_string((isFilled) ? 1 : 0);
+		Data += " " + to_string(BorderWdth);
 		return Data;
 	}
 	void Read(ifstream& in)
 	{
-		unsigned char DR, DB, DG, FR, FB, FG;
-		bool Filled;
+		int Filled;
 		int Width;
-		in >> DR >> DB >> DG >> FR >> FB >> FG >> Filled >> Width;
-		DrawClr = color(DR, DB, DG);
-		FillClr = color(FR, FB, FG);
+		DrawClr = ReadColor(in);
+		FillClr = ReadColor(in);
+		in >> Filled >> Width;
 		isFilled = Filled;
 		BorderWdth = Width;
 	}

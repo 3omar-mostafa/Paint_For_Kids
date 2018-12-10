@@ -3,7 +3,7 @@
 CEllipse::CEllipse(Point P, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Center = P;
-	ID = ELLIPSE;
+	FigType = ELLIPSE;
 }
 
 Point CEllipse::getCenter(){
@@ -38,7 +38,7 @@ string CEllipse::getInfo() {
 	string s;
 	s = "ID : " + to_string(ID) +  " Center Point : ( " + to_string( Center.x ) + " , " + to_string(Center.y) + " )" ;
 	
-	string sshort = to_string(ID) + " " + Center.Data() + " ";
+	string sshort = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " ";
 	sshort += FigGfxInfo.Data();
 	return sshort;
 }
@@ -53,9 +53,8 @@ void CEllipse::Load(ifstream &InFile)
 {
 	Point P;
 	GfxInfo ElpsGfxInfo;
-	//InFile >> P;
-	//InFile >> ElpsGfxInfo;
+	InFile >> ID;
 	P.Read(InFile);
 	ElpsGfxInfo.Read(InFile);
-	*this = CEllipse(P, FigGfxInfo);
+	*this = CEllipse(P, ElpsGfxInfo);
 }

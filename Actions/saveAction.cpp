@@ -20,14 +20,23 @@ void SaveAction::ReadActionParameters()
 void SaveAction::Execute()
 {
 	ReadActionParameters();
-	if (ThisAction != SAVE)
+	if (ThisAction != SAVE && ThisAction != COL_SHP)
 		return;
 	ofstream OutFile;
 	OutFile.open("FigureList.txt");
-	pManager->WriteFigures(OutFile);	
-	OutFile << 0;
+	pManager->WriteFigures(OutFile);
+	OutFile << "END";
 	OutFile.close();
 	pManager->GetOutput()->PrintMessage("Saved Successfully! Open FigureList.txt for further instructions.");
+}
+
+void SaveAction::QuickSave()
+{
+	ofstream qout;
+	qout.open("SaveGame.txt");
+	pManager->WriteFigures(qout);
+	qout << "END";
+	qout.close();
 }
 
 SaveAction::~SaveAction()

@@ -19,7 +19,7 @@ void LoadAction::ReadActionParameters()
 void LoadAction::Execute()
 {
 	ReadActionParameters();
-	if (ThisAction != LOAD)
+	if (ThisAction != LOAD && ThisAction != COL_SHP)
 		return;
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
@@ -27,9 +27,23 @@ void LoadAction::Execute()
 	string FileName = pIn->GetString(pOut);
 	ifstream InFile;
 	InFile.open(FileName);
+	UI.DrawColor = ReadColor(InFile);
+	UI.FillColor = ReadColor(InFile);
+	int temp; InFile >> temp;
 	pManager->ReadFigures(InFile);
 	InFile.close();
 	pOut->PrintMessage("Loaded Successfully!");
+}
+
+void LoadAction::QuickLoad()
+{
+	ifstream qin;
+	qin.open("SaveGame.txt");
+	UI.DrawColor = ReadColor(qin);
+	UI.FillColor = ReadColor(qin);
+	int temp; qin >> temp;
+	pManager->ReadFigures(qin);
+	qin.close();
 }
 
 LoadAction::~LoadAction()
