@@ -18,6 +18,7 @@ protected:
 public:
 	CFigure(GfxInfo FigureGfxInfo);
 
+	void setID(int);
 	void setType(FigureType);
 	FigureType getType() const;
 	void SetSelected(bool s);	//select/unselect the figure

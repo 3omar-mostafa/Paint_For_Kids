@@ -41,7 +41,7 @@ public:
 	void drawOnActionbar(string, int) const;
 	void playOnToolbar(string, int) const;
 
-	void CreateColorIcons() ;
+	void CreateColorIcons();
 	void drawFillColorMenu() const;
 	void drawDrawingColorMenu() const;
 	void deleteColorMenu() const;
@@ -50,8 +50,8 @@ public:
 	void getValidEllipsePoint(Point&) const;
 	void getValidRhombusPoint(Point&) const;
 
-	color selectFillColor(Point) ;
-	color selectDrawColor(Point) ;
+	color selectFillColor(Point);
+	color selectDrawColor(Point);
 
 	void changeFillColorIcon(color, bool);
 	void changeDrawColorIcon(color);

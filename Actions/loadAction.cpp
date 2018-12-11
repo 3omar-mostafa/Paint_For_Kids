@@ -28,9 +28,11 @@ void LoadAction::Execute()
 	FileName = (FileName != "") ? FileName : "FigureList.txt";
 	ifstream InFile;
 	InFile.open(FileName);
-	UI.DrawColor = ReadColor(InFile);
-	UI.FillColor = ReadColor(InFile);
-	int temp; InFile >> temp;
+	color DrawClr = ReadColor(InFile);
+	color FillClr = ReadColor(InFile);
+	pOut->changeDrawColorIcon(DrawClr);
+	pOut->changeFillColorIcon(FillClr, (FillClr != NOFILL) ? 1 : 0);
+	int NoOfFigures; InFile >> NoOfFigures;
 	pManager->ReadFigures(InFile);
 	InFile.close();
 	pOut->PrintMessage("Loaded Successfully!");
@@ -42,7 +44,7 @@ void LoadAction::QuickLoad()
 	qin.open("SaveGame.txt");
 	UI.DrawColor = ReadColor(qin);
 	UI.FillColor = ReadColor(qin);
-	int temp; qin >> temp;
+	int NoOfFigures; qin >> NoOfFigures;
 	pManager->ReadFigures(qin);
 	qin.close();
 }

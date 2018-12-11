@@ -6,6 +6,11 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	Selected = false;
 }
 
+void CFigure::setID(int ID)
+{
+	this->ID = ID;
+}
+
 void CFigure::setType(FigureType T)
 {
 	FigType = T;

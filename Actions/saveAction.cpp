@@ -30,7 +30,6 @@ void SaveAction::Execute()
 	ofstream OutFile;
 	OutFile.open(FileName);
 	pManager->WriteFigures(OutFile);
-	//OutFile << "END";
 	OutFile.close();
 	pManager->GetOutput()->PrintMessage("Saved Successfully to " + FileName + "!");
 }
@@ -40,7 +39,6 @@ void SaveAction::QuickSave()
 	ofstream qout;
 	qout.open("SaveGame.txt");
 	pManager->WriteFigures(qout);
-	//qout << "END";
 	qout.close();
 }
 

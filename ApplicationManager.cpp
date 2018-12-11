@@ -5,6 +5,7 @@ ApplicationManager::ApplicationManager()
 	//Create Input and output
 	pOut = new Output;
 	pIn = pOut->CreateInput();
+	pOut->PrintMessage("Welcome to Paint for Kids!");
 
 	FigCount = 0;
 
@@ -88,7 +89,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DEL:
 		pOut->CreateDrawActionToolBar();
 		pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
-		pAct = new deleteAction(this);
+		pAct = new DeleteAction(this);
 		break;
 
 	case SAVE:
@@ -145,7 +146,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
 	if (FigCount < MaxFigCount)
+	{
 		FigList[FigCount++] = pFig;
+		pFig->setID(FigCount);
+	}
 }
 
 void ApplicationManager::ClearFigures()
@@ -260,8 +264,12 @@ void ApplicationManager::DeleteFigure(CFigure* Deleted)
 		if (FigList[i] == Deleted)
 		{
 			delete FigList[i];
-			FigList[i] = NULL;
-			FigList[i] = FigList[--FigCount];
+			FigCount--;
+			while (i < FigCount)
+			{
+				FigList[i++] = FigList[i + 1];
+				FigList[i]->setID(i);
+			}
 			FigList[FigCount] = NULL;
 			return;
 		}

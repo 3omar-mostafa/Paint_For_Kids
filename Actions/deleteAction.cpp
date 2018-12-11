@@ -1,12 +1,12 @@
 #include "deleteAction.h"
 
-deleteAction::deleteAction(ApplicationManager * pApp) :Action(pApp)
+DeleteAction::DeleteAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void deleteAction::ReadActionParameters(){
+void DeleteAction::ReadActionParameters() {
 	deletedFigure = pManager->getSelectedFigure();
 }
-void deleteAction::Execute() {
+void DeleteAction::Execute() {
 	ReadActionParameters();
 
 	Output* pOut = pManager->GetOutput();
@@ -14,21 +14,6 @@ void deleteAction::Execute() {
 
 	if (deletedFigure == NULL)
 		pOut->PrintMessage("Please Select a Figure to delete");
-	else {
-		int count = pManager->getFigureCount();
-		FigList = pManager->getFigureArray();
-		int i ;
-
-		for ( i = 0; i < count; i++){
-			if (FigList[i] == deletedFigure)
-				break;
-		}
-
-		for ( i ; i < count -1 ; i++){
-			FigList[i] = FigList[i+1];
-		}
-		pManager->setSelectedFigure(NULL);
-		pManager->setFigureCount(--count);
-		FigList[count] = NULL;
-	}
+	else 
+		pManager->DeleteFigure(deletedFigure);
 }
