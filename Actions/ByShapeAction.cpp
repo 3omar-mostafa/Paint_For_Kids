@@ -9,7 +9,7 @@ ByShapeAction::ByShapeAction(ApplicationManager * pApp) :Action(pApp)
 	Wrong = 0;
 	FIG_TYPE = EMPTY_TYPE;
 	Terminate = 0;
-	
+
 	// Auto-saving:
 	SaveAction* Save = new SaveAction(pManager);
 	Save->QuickSave();
@@ -43,13 +43,13 @@ bool ByShapeAction::Play()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	FIG_TYPE = pManager->RandomFigure();
-	pOut->PrintMessage("Pick " + Display(FIG_TYPE));
+	pOut->PrintMessage("Pick " + Display(FIG_TYPE) + ", Click to start!");
 	pIn->GetUserAction();
 	pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	while (pManager->HasFigure(FIG_TYPE))
 	{
 		ReadActionParameters();
-		if(Terminate)
+		if (Terminate)
 			return false;
 		pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	}
@@ -62,15 +62,15 @@ void ByShapeAction::Reset()
 	pOut->PrintMessage("Game Restarted!");
 	pManager->ClearFigures();
 	LoadAction* Load = new LoadAction(pManager);
-	Load->QuickLoad();	
+	Load->QuickLoad();
 }
 
 void ByShapeAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	
-	pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);	
+
+	pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);
 	while (!pManager->Empty())
 		if (!Play())
 		{
@@ -78,7 +78,7 @@ void ByShapeAction::Execute()
 			return;
 		}
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
-	
+
 	// Auto-Loading:
 	LoadAction* Load = new LoadAction(pManager);
 	Load->QuickLoad();

@@ -46,18 +46,15 @@ bool CRectangle::doesItContain(int x, int y) {
 
 string CRectangle::getInfo() {
 	string s;
-	s = "ID :" + to_string(ID) + " Points : ( " + to_string(Corner1.x) + " , " + to_string(Corner1.y) + " ) , ( " + to_string(Corner2.x) + " , " + to_string(Corner2.y) + " ) , ";
-	s += "Length : " + to_string(abs(Corner1.x - Corner2.x)) + " Width : " + to_string(abs(Corner1.y - Corner2.y));
-	
-	string sshort = StoreType(FigType) + " " + to_string(ID) + " " + Corner1.Data() + " " + Corner2.Data() + " ";
-	sshort += FigGfxInfo.Data();
-	return sshort;
+	s = "ID: " + to_string(ID) + "    Points: (" + to_string(Corner1.x) + ", " + to_string(Corner1.y) + "), (" + to_string(Corner2.x) + ", " + to_string(Corner2.y) + ")    ";
+	s += "Length: " + to_string(abs(Corner1.x - Corner2.x)) + "    Width: " + to_string(abs(Corner1.y - Corner2.y));
+	return s;
 }
 
 void CRectangle::Save(ofstream &OutFile)
 {
-	string Info = getInfo();
-	OutFile << Info << endl;
+	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Corner1.Data() + " " + Corner2.Data() + " "+ FigGfxInfo.Data();
+	OutFile << endl << Info;
 }
 
 void CRectangle::Load(ifstream &InFile)

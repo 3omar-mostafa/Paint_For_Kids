@@ -36,17 +36,14 @@ bool CEllipse::doesItContain(int x, int y) {
 
 string CEllipse::getInfo() {
 	string s;
-	s = "ID : " + to_string(ID) +  " Center Point : ( " + to_string( Center.x ) + " , " + to_string(Center.y) + " )" ;
-	
-	string sshort = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " ";
-	sshort += FigGfxInfo.Data();
-	return sshort;
+	s = "ID: " + to_string(ID) +  "    Center Point: (" + to_string( Center.x ) + ", " + to_string(Center.y) + ")" ;
+	return s;
 }
 
 void CEllipse::Save(ofstream &OutFile)
 {
-	string Info = getInfo();
-	OutFile << Info << endl;
+	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " " + FigGfxInfo.Data();
+	OutFile << endl << Info;
 }
 
 void CEllipse::Load(ifstream &InFile)

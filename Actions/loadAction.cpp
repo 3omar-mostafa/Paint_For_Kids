@@ -11,7 +11,7 @@ void LoadAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Load Figures, click on the icon again to load.");
+	pOut->PrintMessage("Load Figures, click on the icon again to confirm.");
 	ThisAction = pIn->GetUserAction();
 	pOut->ClearStatusBar();
 }
@@ -19,12 +19,13 @@ void LoadAction::ReadActionParameters()
 void LoadAction::Execute()
 {
 	ReadActionParameters();
-	if (ThisAction != LOAD && ThisAction != COL_SHP)
+	if (ThisAction != LOAD)
 		return;
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Enter the name of the file.");
+	pOut->PrintMessage("Enter the name of the file  OR  Press [ENTER] to load from FigureList.txt");
 	string FileName = pIn->GetString(pOut);
+	FileName = (FileName != "") ? FileName : "FigureList.txt";
 	ifstream InFile;
 	InFile.open(FileName);
 	UI.DrawColor = ReadColor(InFile);

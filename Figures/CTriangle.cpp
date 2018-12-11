@@ -78,17 +78,14 @@ bool CTriangle::doesItContain(int x, int y) {
 
 string CTriangle::getInfo() {
 	string s;
-	s = "ID :" + to_string(ID) + " Points : ( " + to_string(P1.x) + " , " + to_string(P1.y) + " ) , ( " + to_string(P2.x) + " , " + to_string(P2.y) + " ) , ( "  +to_string(P3.x) + " , " + to_string(P3.y) + " ) ";
-	
-	string sshort = StoreType(FigType) + " " + to_string(ID) + " " + P1.Data() + " " + P2.Data() + " " + P3.Data() + " ";
-	sshort += FigGfxInfo.Data();
-	return sshort;
+	s = "ID: " + to_string(ID) + "    Points: (" + to_string(P1.x) + ", " + to_string(P1.y) + "), (" + to_string(P2.x) + ", " + to_string(P2.y) + "), ("  +to_string(P3.x) + ", " + to_string(P3.y) + ") ";
+	return s;
 }
 
 void CTriangle::Save(ofstream &OutFile)
 {
-	string Info = getInfo();
-	OutFile << Info << endl;
+	string Info = StoreType(FigType) + " " + to_string(ID) + " " + P1.Data() + " " + P2.Data() + " " + P3.Data() + " " + FigGfxInfo.Data();
+	OutFile << endl << Info;
 }
 
 void CTriangle::Load(ifstream &InFile)

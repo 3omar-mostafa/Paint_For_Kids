@@ -161,14 +161,14 @@ void ApplicationManager::ClearFigures()
 void ApplicationManager::WriteFigures(ofstream& OutFile)
 {
 	OutFile << ColorData(UI.DrawColor) << " " << ColorData(UI.FillColor) << endl;
-	OutFile << FigCount << " " << endl;
+	OutFile << FigCount;
 	for (int i = 0; i < FigCount; i++)
 		FigList[i]->Save(OutFile);
 }
 
 void ApplicationManager::ReadFigures(ifstream& InFile)
 {
-	while (true)
+	while (!InFile.eof())
 	{
 		CFigure* NewFig;
 		string Cast;
@@ -179,7 +179,6 @@ void ApplicationManager::ReadFigures(ifstream& InFile)
 		SetFigureType(NewFig, FIG_TYPE);
 		NewFig->Load(InFile);
 		AddFigure(NewFig);
-		FIG_TYPE = EMPTY_TYPE;
 	}
 }
 

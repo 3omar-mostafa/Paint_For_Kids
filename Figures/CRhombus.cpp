@@ -54,17 +54,14 @@ bool CRhombus::doesItContain(int x, int y) {
 
 string CRhombus::getInfo() {
 	string s;
-	s = "ID : " + to_string(ID) + " Center Point : ( " + to_string(Center.x) + " , " + to_string(Center.y) + " )";
-	
-	string sshort = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " ";
-	sshort += FigGfxInfo.Data();
-	return sshort;
+	s = "ID: " + to_string(ID) + "    Center Point: (" + to_string(Center.x) + ", " + to_string(Center.y) + ")";
+	return s;
 }
 
 void CRhombus::Save(ofstream &OutFile)
 {
-	string Info = getInfo();
-	OutFile << Info << endl;
+	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " " + FigGfxInfo.Data();
+	OutFile << endl << Info;
 }
 
 void CRhombus::Load(ifstream &InFile)
