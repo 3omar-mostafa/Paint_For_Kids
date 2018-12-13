@@ -215,6 +215,8 @@ color Output::selectFillColor(Point p)   {
 			return NOFILL;
 		}
 	}
+
+	return (filled) ? UI.FillColor : NOFILL;
 }
 
 bool Output::isFilled() {
@@ -253,6 +255,8 @@ color Output::selectDrawColor(Point p)  {
 			return BLUE;
 		}
 	}
+
+	return UI.DrawColor;
 }
 
 void Output::changeFillColorIcon( color c , bool filled) {

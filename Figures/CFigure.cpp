@@ -4,6 +4,7 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 {
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	Selected = false;
+	cut = false;
 }
 
 void CFigure::setID(int ID)
@@ -30,6 +31,17 @@ bool CFigure::IsSelected() const
 {
 	return Selected;
 }
+
+void CFigure::SetCut(bool c)
+{
+	cut = c;
+}
+
+bool CFigure::IsCut() const
+{
+	return cut;
+}
+
 void CFigure::toggleSelection(){
 	Selected = !Selected;
 }

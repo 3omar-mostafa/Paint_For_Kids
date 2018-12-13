@@ -13,6 +13,7 @@ protected:
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
 
+	bool cut;
 	/// Add more parameters if needed.
 
 public:
@@ -21,9 +22,13 @@ public:
 	void setID(int);
 	void setType(FigureType);
 	FigureType getType() const;
+
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
 	void toggleSelection();
+
+	void SetCut(bool);
+	bool IsCut() const;
 
 	virtual void Draw(Output* pOut) const = 0;		//Draw the figure
 

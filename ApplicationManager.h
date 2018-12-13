@@ -39,6 +39,8 @@ private:
 
 	CFigure* SelectedFig; //Pointer to the selected figure
 	CFigure* lastSelected;
+	CFigure* lastCut;
+	color lastdrawclr, lastfillclr;
 	CFigure* Clipboard;   //Pointer to the copied/cut figure
 
 	//Pointers to Input and Output classes
@@ -75,12 +77,19 @@ public:
 	void setSelectedFigure(CFigure*);
 	CFigure* getSelectedFigure();
 
-	void setFigureCount(int);
-	int getFigureCount();
-
-	CFigure** getFigureArray();
 	void setLastSelected(CFigure*);
 	CFigure* getLastSelected();
+
+	void setClipboard(CFigure*);
+	CFigure* getClipboard();
+
+	color getLastDrawClr();
+	color getLastFillClr();
+	void setLastDrawClr(color);
+	void setLastFillClr(color);
+
+	void setLastCut(CFigure*);
+	CFigure* getLastCut();
 };
 
 #endif

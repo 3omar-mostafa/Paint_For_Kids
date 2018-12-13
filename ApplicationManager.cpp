@@ -12,6 +12,7 @@ ApplicationManager::ApplicationManager()
 	SelectedFig = NULL;
 	lastSelected = NULL;
 	Clipboard = NULL;
+	lastCut = NULL;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
@@ -36,25 +37,21 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 	case DRAW_RECT:
-		pOut->CreateDrawToolBar();
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
 		pAct = new AddRectAction(this);
 		break;
 
 	case DRAW_TRI:
-		pOut->CreateDrawToolBar();
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_Triangle_Selected.jpg", ITM_TRIANGLE);
 		pAct = new AddTriAction(this);
 		break;
 
 	case DRAW_ELLIPSE:
-		pOut->CreateDrawToolBar();
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
 		pAct = new AddElpsAction(this);
 		break;
 
 	case DRAW_RHOMBUS:
-		pOut->CreateDrawToolBar();
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
 		pAct = new AddRhomAction(this);
 		break;
@@ -64,18 +61,17 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 
 	case DRAW_LINE:
-		pOut->CreateDrawToolBar();
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
 		pAct = new AddLineAction(this);
 		break;
+
 	case CHNG_DRAW_CLR:
 		pOut->PrintMessage("Action: Change Figure's drawing color, Click Anywhere");
-		pOut->CreateDrawToolBar();
 		pAct = new ChangeDrawColor(this);
 		break;
+
 	case CHNG_FILL_CLR:
 		pOut->PrintMessage("Action: Change Figure's fill color, Click Anywhere");
-		pOut->CreateDrawToolBar();
 		pAct = new ChangeFillColor(this);
 		break;
 
@@ -104,8 +100,26 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pOut->PrintMessage("Action: Switch to Draw Mode, Creating Simulation Toolbar");
 		pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
 		pOut->CreateDrawToolBar();
-		pOut->CreateDrawActionToolBar();
 		pOut->CreateColorIcons();
+		pOut->CreateDrawActionToolBar();
+		break;
+
+	case COPY:
+		pOut->PrintMessage("Action:Copy, Selected Figure copied to clipboard");
+		pOut->drawOnActionbar("images\\MenuItems\\Menu_copy_Selected.jpg", ITM_COPY);
+		pAct = new copyAction(this);
+		break;
+
+	case CUT:
+		pOut->PrintMessage("Action:Cut, Selected Figure copied to clipboard");
+		pOut->drawOnActionbar("images\\MenuItems\\Menu_Cut_Selected.jpg", ITM_CUT);
+		pAct = new cutAction(this);
+		break;
+
+	case PASTE:
+		pOut->PrintMessage("Action:Paste, Pasting copied figure");
+		pOut->drawOnActionbar("images\\MenuItems\\Menu_Paste_Selected.jpg", ITM_PASTE);
+		pAct = new pasteAction(this);
 		break;
 
 	case TO_PLAY:
@@ -136,6 +150,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct->Execute();	//Execute
 		delete pAct;		//Action is not needed any more ==> delete it
 		pAct = NULL;
+		if (ActType != TO_PLAY && ActType != EXIT) {
+			pOut->CreateDrawToolBar();
+			pOut->CreateDrawActionToolBar();
+			if(ActType == COL_SHP || ActType == COL_CLR)
+				pOut->CreateColorIcons();
+		}
 	}
 }
 //==================================================================================//
@@ -314,23 +334,43 @@ CFigure* ApplicationManager::getLastSelected() {
 	return lastSelected;
 }
 
-void  ApplicationManager::setFigureCount(int x) {
-	FigCount = x;
-}
-int  ApplicationManager::getFigureCount() {
-	return FigCount;
-}
-
-CFigure** ApplicationManager::getFigureArray() {
-	return FigList;
-}
-
 void ApplicationManager::Exit()
 {
 	delete pOut; delete pIn;
 	pIn = NULL; pOut = NULL;
 }
 
+void ApplicationManager::setClipboard(CFigure* fig) {
+	Clipboard = fig;
+}
+
+CFigure* ApplicationManager::getClipboard() {
+	return Clipboard;
+}
+
+color ApplicationManager::getLastDrawClr() {
+	return lastdrawclr;
+}
+
+color ApplicationManager::getLastFillClr() {
+	return lastfillclr;
+}
+
+void ApplicationManager::setLastDrawClr(color c) {
+	lastdrawclr = c;
+}
+
+void ApplicationManager::setLastFillClr(color clr) {
+	lastfillclr = clr;
+
+}
+void ApplicationManager::setLastCut(CFigure* fig) {
+	lastCut = fig;
+}
+
+CFigure* ApplicationManager::getLastCut() {
+	return lastCut;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 //Destructor
