@@ -103,7 +103,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case COL_SHP:
 		pAct = new ByShapeAction(this);
 		break;
-
+	case COL_CLR:
+		pAct = new ByColorAction(this);
+		break;
 	case EXIT:
 		pAct = new ExitAction(this);
 		break;
@@ -194,6 +196,14 @@ FigureType ApplicationManager::RandomFigure()
 	TYPE = FigList[idx]->getType();
 	return TYPE;
 }
+color ApplicationManager::Randomcolor()
+{
+	color COLOR;
+	int idx = abs(rand()) % FigCount;
+	COLOR= FigList[idx]->getFillColor();
+	return COLOR;
+}
+
 
 bool ApplicationManager::Empty()
 {
@@ -207,6 +217,13 @@ bool ApplicationManager::HasFigure(FigureType FIG_TYPE)
 {
 	for (int i = 0; i < FigCount; i++)
 		if (FigList[i]->getType() == FIG_TYPE)
+			return true;
+	return false;
+}
+bool ApplicationManager::HasColor(color FIG_COLOR)
+{
+	for (int i = 0; i < FigCount; i++)
+		if (FigList[i]->getFillColor() == FIG_COLOR)
 			return true;
 	return false;
 }

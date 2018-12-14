@@ -1,27 +1,26 @@
-#include "ByShapeAction.h"
+#include "ByColorAction.h"
 #include "..\ApplicationManager.h"
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
+
 //constructor
-ByShapeAction::ByShapeAction(ApplicationManager * pApp) :Action(pApp)
+ByColorAction::ByColorAction(ApplicationManager * pApp) :Action(pApp)
 {
 	Correct = 0;
 	Wrong = 0;
-	FIG_TYPE = EMPTY_TYPE;
 	Terminate = 0;
-
+	FIG_COLOR = NOFILL;
 	// Auto-saving:
 	SaveAction* Save = new SaveAction(pManager);
 	Save->QuickSave();
 }
-//functions of ByShapeAction are very close to ByColorAction 
 //function ReadActionParameters gets user actions and analyze them
-void ByShapeAction::ReadActionParameters()
+void ByColorAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	Point P;
-	if (pIn->GetUserAction(P) == COL_SHP)
+	if (pIn->GetUserAction(P) == COL_CLR)
 	{
 		Terminate = 1;
 		return;
@@ -29,7 +28,7 @@ void ByShapeAction::ReadActionParameters()
 	CFigure* Clicked = pManager->GetFigure(P.x, P.y);
 	if (!Clicked)
 		return;
-	if (Clicked->getType() == FIG_TYPE)
+	if (Clicked->getFillColor() == FIG_COLOR)
 	{
 		Correct++;
 		pManager->DeleteFigure(Clicked);
@@ -40,19 +39,18 @@ void ByShapeAction::ReadActionParameters()
 	{
 		Wrong++;
 		PlaySound(TEXT("Sounds/WrongAnswer.wav"), NULL, SND_FILENAME);
-
 	}
 }
 //function Play tells the user which color he should pick and analyzes his action
-bool ByShapeAction::Play()
+bool ByColorAction::Play()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	FIG_TYPE = pManager->RandomFigure();
-	pOut->PrintMessage("Pick " + Display(FIG_TYPE) + ", Click to start!");
+	FIG_COLOR = pManager->Randomcolor();
+	pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + ", Click to start!");
 	pIn->GetUserAction();
 	pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
-	while (pManager->HasFigure(FIG_TYPE))
+	while (pManager->HasColor(FIG_COLOR))
 	{
 		ReadActionParameters();
 		if (Terminate)
@@ -60,9 +58,10 @@ bool ByShapeAction::Play()
 		pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	}
 	return true;
+
 }
 //function Reset resets the game
-void ByShapeAction::Reset()
+void ByColorAction::Reset()
 {
 	Output* pOut = pManager->GetOutput();
 	pOut->PrintMessage("Game Restarted!");
@@ -71,12 +70,12 @@ void ByShapeAction::Reset()
 	Load->QuickLoad();
 }
 //function Execute redraws playtoolbar, calls Play until the game ends
-void ByShapeAction::Execute()
+void ByColorAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	pOut->CreatePlayToolBar();
-	pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);
+	pOut->playOnToolbar("images\\MenuItems\\col_clr_selected.jpg", ITM_COL_CLR);
 	while (!pManager->Empty())
 		if (!Play())
 		{
@@ -85,8 +84,18 @@ void ByShapeAction::Execute()
 		}
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	PlaySound(TEXT("Sounds/GameFinished.wav"), NULL, SND_FILENAME);
-
 	// Auto-Loading:
 	LoadAction* Load = new LoadAction(pManager);
 	Load->QuickLoad();
+}
+//function colorname gets the color name from its RGB
+string ByColorAction::colorname(color c)
+{
+	if (c==BLACK) return "BLACK";
+	else if (c==WHITE) return "WHITE";
+	else if (c==RED) return "RED";
+	else if (c==YELLOW) return "YELLOW";
+	else if (c==GREEN) return "GREEN";
+	else if (c==BLUE) return "BLUE";
+	else return "NOFILL";
 }

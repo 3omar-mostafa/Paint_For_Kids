@@ -27,6 +27,7 @@
 #include "Actions/ExitAction.h"
 #include "Actions/ClearAction.h"
 #include "Actions/ByShapeAction.h"
+#include "Actions/ByColorAction.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -64,8 +65,10 @@ public:
 	void WriteFigures(ofstream&);
 	void WriteFigures(ofstream&, FigureType);
 	FigureType RandomFigure();
+	color Randomcolor();
 	bool Empty();
 	bool HasFigure(FigureType);
+	bool HasColor(color FIG_COLOR);
 	void Exit();
 
 	// -- Interface Management Functions

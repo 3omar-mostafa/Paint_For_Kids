@@ -47,6 +47,7 @@ enum FigureType
 	LINE
 };
 
+
 //	Additional Functions:
 string StoreType(FigureType T);		//Stores the type of a figure into a string format
 const auto Display = StoreType;		//Alias for the function StoreType
