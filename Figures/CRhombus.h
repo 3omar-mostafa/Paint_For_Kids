@@ -12,10 +12,10 @@ public:
 	virtual void Draw(Output* pOut) const;
 	Point getCenter();
 	bool doesItContain(int x, int y);
-	string getInfo();
 
 	virtual void Save(ofstream &OutFile);
 	virtual void Load(ifstream &Infile);
+	virtual void PrintInfo(Output* pOut);
 };
 
 #endif

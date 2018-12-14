@@ -15,10 +15,10 @@ public:
 	Point getP1();
 	Point getP2();
 	bool doesItContain(int x, int y);
-	string getInfo();
 
 	virtual void Save(ofstream &OutFile);
 	virtual void Load(ifstream &Infile);
+	virtual void PrintInfo(Output* pOut);
 };
 
 #endif

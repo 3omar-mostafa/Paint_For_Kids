@@ -76,12 +76,6 @@ bool CTriangle::doesItContain(int x, int y) {
 	return false;
 }
 
-string CTriangle::getInfo() {
-	string s;
-	s = "ID: " + to_string(ID) + "    Points: (" + to_string(P1.x) + ", " + to_string(P1.y) + "), (" + to_string(P2.x) + ", " + to_string(P2.y) + "), ("  +to_string(P3.x) + ", " + to_string(P3.y) + ") ";
-	return s;
-}
-
 void CTriangle::Save(ofstream &OutFile)
 {
 	string Info = StoreType(FigType) + " " + to_string(ID) + " " + P1.Data() + " " + P2.Data() + " " + P3.Data() + " " + FigGfxInfo.Data();
@@ -98,4 +92,11 @@ void CTriangle::Load(ifstream &InFile)
 	P3.Read(InFile);
 	TriGfxInfo.Read(InFile);
 	*this = CTriangle(P1, P2, P3, TriGfxInfo);
+}
+
+void CTriangle::PrintInfo(Output * pOut)
+{
+	string s;
+	s = "ID: " + to_string(ID) + "    Points: (" + to_string(P1.x) + ", " + to_string(P1.y) + "), (" + to_string(P2.x) + ", " + to_string(P2.y) + "), (" + to_string(P3.x) + ", " + to_string(P3.y) + ") ";
+	pOut->PrintMessage(s);
 }

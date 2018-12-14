@@ -15,10 +15,10 @@ public:
 	Point getP2();
 	Point getP3();
 	bool doesItContain(int x, int y);
-	string getInfo();
 
 	virtual void Save(ofstream &OutFile);
 	virtual void Load(ifstream &Infile);
+	virtual void PrintInfo(Output* pOut);
 
 private:
 	double getTriangularArea(Point p1, Point p2, Point p3);

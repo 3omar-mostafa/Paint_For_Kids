@@ -8,7 +8,7 @@ selectShapeAction::selectShapeAction(ApplicationManager * pApp) :Action(pApp) {
 }
 
 
-//Reads rectangle parameters
+//TODO: Comment this properly 
 void selectShapeAction::ReadActionParameters() {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
@@ -24,14 +24,14 @@ void selectShapeAction::ReadActionParameters() {
 	pManager->setSelectedFigure(pManager->GetFigure(x, y));
 }
 
-//Add rectangle to the ApplicationManager
+//TODO: Comment this properly 
 void selectShapeAction::Execute() {
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
 	if (pManager->getLastSelected() == pManager->getSelectedFigure() && pManager->getSelectedFigure() != NULL) {
 		pManager->getSelectedFigure()->toggleSelection();
 		if (pManager->getSelectedFigure()->IsSelected())
-			pOut->PrintMessage(pManager->getSelectedFigure()->getInfo());
+			pManager->getSelectedFigure()->PrintInfo(pOut);
 	}
 	else {
 		if (pManager->getLastSelected() != NULL) {
@@ -45,7 +45,7 @@ void selectShapeAction::Execute() {
 			if (!pManager->getSelectedFigure()->IsSelected())
 				pManager->getSelectedFigure()->SetSelected(NULL);
 			else
-				pOut->PrintMessage(pManager->getSelectedFigure()->getInfo());
+				pManager->getSelectedFigure()->PrintInfo(pOut);
 		}
 		else if (pManager->getLastSelected() != NULL) {
 			pManager->getLastSelected()->SetSelected(false);

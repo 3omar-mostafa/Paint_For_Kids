@@ -46,13 +46,6 @@ bool CLine::doesItContain(int x, int y) {
 	return false;
 }
 
-string CLine::getInfo() {
-	string s;
-	s = "ID: " + to_string(ID) + "    Points: (" + to_string(P1.x) + ", " + to_string(P1.y) + "), (" + to_string(P2.x) + ", " + to_string(P2.y) + ")    " ;
-	s += "Length: " + to_string( sqrt((P2.x - P1.x)*(P2.x - P1.x) + (P2.y - P1.y)*(P2.y - P1.y) ) );
-	return s;
-}
-
 void CLine::Save(ofstream &OutFile)
 {
 	string Info = StoreType(FigType) + " " + to_string(ID) + " " + P1.Data() + " " + P2.Data() + " " + FigGfxInfo.Data();
@@ -69,4 +62,12 @@ void CLine::Load(ifstream &InFile)
 	LineGfxInfo.Read(InFile);
 	LineGfxInfo.isFilled = false;
 	*this = CLine(Pi, Pf, LineGfxInfo);
+}
+
+void CLine::PrintInfo(Output * pOut)
+{
+	string s;
+	s = "ID: " + to_string(ID) + "    Points: (" + to_string(P1.x) + ", " + to_string(P1.y) + "), (" + to_string(P2.x) + ", " + to_string(P2.y) + ")    ";
+	s += "Length: " + to_string(sqrt((P2.x - P1.x)*(P2.x - P1.x) + (P2.y - P1.y)*(P2.y - P1.y)));
+	pOut->PrintMessage(s);
 }

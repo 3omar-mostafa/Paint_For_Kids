@@ -11,7 +11,7 @@ void SaveByTypeAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Save by Figure Type, click on any of the shapes.");
+	pOut->PrintMessage("Save by Figure Type, Click on any of the Figure Icons.");
 	ThisAction = pIn->GetUserAction();
 }
 
