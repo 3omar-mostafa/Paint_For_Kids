@@ -133,6 +133,7 @@
     <ClCompile Include="Actions\AddLineAction.cpp" />
     <ClCompile Include="Actions\AddRhomAction.cpp" />
     <ClCompile Include="Actions\AddTriAction.cpp" />
+    <ClCompile Include="Actions\ByColorAction.cpp" />
     <ClCompile Include="Actions\ByShapeAction.cpp" />
     <ClCompile Include="Actions\ClearAction.cpp" />
     <ClCompile Include="Actions\ExitAction.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Actions\AddLineAction.h" />
     <ClInclude Include="Actions\AddRhomAction.h" />
     <ClInclude Include="Actions\AddTriAction.h" />
+    <ClInclude Include="Actions\ByColorAction.h" />
     <ClInclude Include="Actions\ByShapeAction.h" />
     <ClInclude Include="Actions\ExitAction.h" />
     <ClInclude Include="Actions\ClearAction.h" />
