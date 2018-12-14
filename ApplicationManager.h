@@ -62,9 +62,8 @@ public:
 	void DeleteFigure(CFigure*);	//To Be Added
 	void ClearFigures();		//Added a function to remove all figures
 	void WriteFigures(ofstream&);
-	void ReadFigures(ifstream&);
+	void WriteFigures(ofstream&, FigureType);
 	FigureType RandomFigure();
-	void SetFigureType(CFigure*&, FigureType);
 	bool Empty();
 	bool HasFigure(FigureType);
 	void Exit();

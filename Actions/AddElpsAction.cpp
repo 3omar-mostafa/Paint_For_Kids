@@ -14,6 +14,7 @@ void AddElpsAction::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
 
 	pOut->PrintMessage("New Ellipse: Click at the center");
 	//Read center and store in P

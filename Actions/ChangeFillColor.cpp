@@ -14,6 +14,8 @@ void ChangeFillColor::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	pOut->PrintMessage("Change Figure's Fill Color, Click Anywhere");
+
 	pOut->drawFillColorMenu();
 
 	pIn->GetPointClicked(P.x, P.y);

@@ -14,6 +14,8 @@ void ChangeDrawColor::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	pOut->PrintMessage("Change Figure's Drawing Color, Click Anywhere");
+
 	pOut->drawDrawingColorMenu();
 	pIn->GetPointClicked(P.x, P.y);
 			

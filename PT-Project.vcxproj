@@ -193,6 +193,7 @@
     <ClCompile Include="Actions\saveAction.cpp" />
     <ClCompile Include="Actions\saveByTypeAction.cpp" />
     <ClCompile Include="Actions\selectShapeAction.cpp" />
+    <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddElpsAction.h" />

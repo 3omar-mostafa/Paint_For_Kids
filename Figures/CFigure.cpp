@@ -71,3 +71,4 @@ void CFigure::setFilled( bool filled) {
 bool CFigure::isFilled() {
 	return FigGfxInfo.isFilled;
 }
+

@@ -14,6 +14,7 @@ void AddRhomAction::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
 
 	pOut->PrintMessage("New Rhombus: Click at the center");
 	//Read center and store in P

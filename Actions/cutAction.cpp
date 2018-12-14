@@ -7,6 +7,8 @@ cutAction::cutAction(ApplicationManager * pApp) :Action(pApp)
 void cutAction::ReadActionParameters() {
 
 	Output* pOut = pManager->GetOutput();
+	pOut->PrintMessage("Cut, Selected Figure cut to Clipboard");
+	pOut->drawOnActionbar("images\\MenuItems\\Menu_Cut_Selected.jpg", ITM_CUT);
 
 	//if there was a previous cut we return it to its initial color
 		if (pManager->getLastCut()!= NULL) 

@@ -1,9 +1,13 @@
 #pragma once
 #include "Action.h"
-class saveByTypeAction :public Action
+class SaveByTypeAction :public Action
 {
+	ActionType ThisAction;
 public:
-	saveByTypeAction(ApplicationManager*);
-	~saveByTypeAction();
+	SaveByTypeAction(ApplicationManager*);
+	void ReadActionParameters();
+	FigureType SavedType();
+	void Execute();
+	~SaveByTypeAction();
 };
 

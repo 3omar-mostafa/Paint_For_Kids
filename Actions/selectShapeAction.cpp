@@ -4,7 +4,7 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-selectShapeAction::selectShapeAction(ApplicationManager * pApp) :Action(pApp){
+selectShapeAction::selectShapeAction(ApplicationManager * pApp) :Action(pApp) {
 }
 
 
@@ -13,10 +13,15 @@ void selectShapeAction::ReadActionParameters() {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	int x , y;
+
+	pOut->PrintMessage("Select, Click anywhere");
+	pOut->CreateDrawActionToolBar();
+	pOut->drawOnActionbar("images\\MenuItems\\Menu_select_Selected.jpg", ITM_SELECT);
+
+	int x, y;
 	pIn->GetPointClicked(x, y);
-	pManager->setLastSelected( pManager->getSelectedFigure() );
-	pManager->setSelectedFigure( pManager->GetFigure(x,y) );
+	pManager->setLastSelected(pManager->getSelectedFigure());
+	pManager->setSelectedFigure(pManager->GetFigure(x, y));
 }
 
 //Add rectangle to the ApplicationManager

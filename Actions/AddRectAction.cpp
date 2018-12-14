@@ -14,6 +14,7 @@ void AddRectAction::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
 
 	pOut->PrintMessage("New Rectangle: Click at first corner");
 	//Read 1st corner and store in point P1

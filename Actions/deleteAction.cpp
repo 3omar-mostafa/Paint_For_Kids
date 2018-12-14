@@ -12,6 +12,9 @@ void DeleteAction::Execute() {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
+	pOut->CreateDrawActionToolBar();
+	pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
+
 	if (deletedFigure == NULL)
 		pOut->PrintMessage("Please Select a Figure to delete");
 	else 

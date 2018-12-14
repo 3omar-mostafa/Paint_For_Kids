@@ -54,4 +54,6 @@ public:
 	//virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
 };
 
+void SetFigType(CFigure *& FP, FigureType T);	//Takes a CFigure* and creates a dummy object of a passed FigureType
+
 #endif

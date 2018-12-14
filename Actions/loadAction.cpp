@@ -16,6 +16,21 @@ void LoadAction::ReadActionParameters()
 	pOut->ClearStatusBar();
 }
 
+void LoadAction::ReadFigures(ifstream& InFile)
+{
+	while (!InFile.eof())
+	{
+		CFigure* NewFig;
+		string Cast;
+		InFile >> Cast;
+		FigureType FIG_TYPE = ReadType(Cast);
+		if (FIG_TYPE == EMPTY_TYPE) break;
+		SetFigType(NewFig, FIG_TYPE);
+		NewFig->Load(InFile);
+		pManager->AddFigure(NewFig);
+	}
+}
+
 void LoadAction::Execute()
 {
 	ReadActionParameters();
@@ -23,17 +38,21 @@ void LoadAction::Execute()
 		return;
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	
 	pOut->PrintMessage("Enter the name of the file  OR  Press [ENTER] to load from FigureList.txt");
 	string FileName = pIn->GetString(pOut);
 	FileName = (FileName != "") ? FileName : "FigureList.txt";
 	ifstream InFile;
 	InFile.open(FileName);
+	
 	color DrawClr = ReadColor(InFile);
 	color FillClr = ReadColor(InFile);
 	pOut->changeDrawColorIcon(DrawClr);
 	pOut->changeFillColorIcon(FillClr, (FillClr != NOFILL) ? 1 : 0);
-	int NoOfFigures; InFile >> NoOfFigures;
-	pManager->ReadFigures(InFile);
+	
+	int NoOfFigures; InFile >> NoOfFigures;	
+	ReadFigures(InFile);	
+	
 	InFile.close();
 	pOut->PrintMessage("Loaded Successfully!");
 }
@@ -45,7 +64,7 @@ void LoadAction::QuickLoad()
 	UI.DrawColor = ReadColor(qin);
 	UI.FillColor = ReadColor(qin);
 	int NoOfFigures; qin >> NoOfFigures;
-	pManager->ReadFigures(qin);
+	ReadFigures(qin);
 	qin.close();
 }
 

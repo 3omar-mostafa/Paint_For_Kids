@@ -54,6 +54,7 @@ FigureType ReadType(string Str);	//Determines the type of a figure from a string
 string ColorData(color C);			//Stores the information for a color into a string
 color ReadColor(ifstream& in);		//Reads a color's info
 
+
 struct Point	//To be used for figures points
 {
 	int x, y;

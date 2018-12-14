@@ -7,6 +7,8 @@ copyAction::copyAction(ApplicationManager * pApp) :Action(pApp)
 void copyAction::ReadActionParameters() {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	pOut->PrintMessage("Copy, Selected Figure copied to Clipboard");
+	pOut->drawOnActionbar("images\\MenuItems\\Menu_copy_Selected.jpg", ITM_COPY);
 
 	if (pManager->getClipboard() != NULL) {
 

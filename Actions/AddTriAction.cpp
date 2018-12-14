@@ -14,6 +14,7 @@ void AddTriAction::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	pOut->drawOnToolbar("images\\MenuItems\\Menu_Triangle_Selected.jpg", ITM_TRIANGLE);
 
 	pOut->PrintMessage("New Triangle: Click at the first point");
 	//Read 1st point and store in P1

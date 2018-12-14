@@ -8,6 +8,9 @@ void pasteAction::ReadActionParameters() {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
+	pOut->PrintMessage("Paste, Pasting Figure from Clipboard");
+	pOut->drawOnActionbar("images\\MenuItems\\Menu_Paste_Selected.jpg", ITM_PASTE);
+
 	if (pManager->getClipboard() == NULL) {
 		pOut->PrintMessage("Copy or Cut first then try again");
 		return;

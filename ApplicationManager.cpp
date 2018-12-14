@@ -37,54 +37,42 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 	case DRAW_RECT:
-		pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
 		pAct = new AddRectAction(this);
 		break;
 
 	case DRAW_TRI:
-		pOut->drawOnToolbar("images\\MenuItems\\Menu_Triangle_Selected.jpg", ITM_TRIANGLE);
 		pAct = new AddTriAction(this);
 		break;
 
 	case DRAW_ELLIPSE:
-		pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
 		pAct = new AddElpsAction(this);
 		break;
 
 	case DRAW_RHOMBUS:
-		pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
 		pAct = new AddRhomAction(this);
+		break;
+
+	case DRAW_LINE:
+		pAct = new AddLineAction(this);
 		break;
 
 	case CLEAR:
 		pAct = new ClearAction(this);
 		break;
 
-	case DRAW_LINE:
-		pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
-		pAct = new AddLineAction(this);
-		break;
-
 	case CHNG_DRAW_CLR:
-		pOut->PrintMessage("Action: Change Figure's drawing color, Click Anywhere");
 		pAct = new ChangeDrawColor(this);
 		break;
 
 	case CHNG_FILL_CLR:
-		pOut->PrintMessage("Action: Change Figure's fill color, Click Anywhere");
 		pAct = new ChangeFillColor(this);
 		break;
 
 	case SELECT:
-		pOut->PrintMessage("Action: select , Click anywhere");
-		pOut->CreateDrawActionToolBar();
-		pOut->drawOnActionbar("images\\MenuItems\\Menu_select_Selected.jpg", ITM_SELECT);
 		pAct = new selectShapeAction(this);
 		break;
 
 	case DEL:
-		pOut->CreateDrawActionToolBar();
-		pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
 		pAct = new DeleteAction(this);
 		break;
 
@@ -92,45 +80,26 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new SaveAction(this);
 		break;
 
+	case SAVE_BY_TYPE:
+		pAct = new SaveByTypeAction(this);
+		break;
+
 	case LOAD:
 		pAct = new LoadAction(this);
 		break;
 
-	case TO_DRAW:
-		pOut->PrintMessage("Action: Switch to Draw Mode, Creating Simulation Toolbar");
-		pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
-		pOut->CreateDrawToolBar();
-		pOut->CreateColorIcons();
-		pOut->CreateDrawActionToolBar();
-		break;
-
 	case COPY:
-		pOut->PrintMessage("Action:Copy, Selected Figure copied to clipboard");
-		pOut->drawOnActionbar("images\\MenuItems\\Menu_copy_Selected.jpg", ITM_COPY);
 		pAct = new copyAction(this);
 		break;
 
 	case CUT:
-		pOut->PrintMessage("Action:Cut, Selected Figure copied to clipboard");
-		pOut->drawOnActionbar("images\\MenuItems\\Menu_Cut_Selected.jpg", ITM_CUT);
 		pAct = new cutAction(this);
 		break;
 
 	case PASTE:
-		pOut->PrintMessage("Action:Paste, Pasting copied figure");
-		pOut->drawOnActionbar("images\\MenuItems\\Menu_Paste_Selected.jpg", ITM_PASTE);
 		pAct = new pasteAction(this);
 		break;
 
-	case TO_PLAY:
-		pOut->PrintMessage("Action: Switch to Play Mode, creating Design tool bar");
-		pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
-		pOut->CreatePlayToolBar();
-		pOut->removeDrawActionToolBar();
-
-		//TODO: Temporary Commenting until we build it
-		break;
-	
 	case COL_SHP:
 		pAct = new ByShapeAction(this);
 		break;
@@ -139,8 +108,23 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new ExitAction(this);
 		break;
 
+	case TO_DRAW:
+		pOut->PrintMessage("Switch to Draw Mode, Creating Design Toolbar");
+		pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
+		pOut->CreateDrawToolBar();
+		pOut->CreateColorIcons();
+		pOut->CreateDrawActionToolBar();
+		break;
+
+	case TO_PLAY:
+		pOut->PrintMessage("Switch to Play Mode, Creating Game Toolbar");
+		pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
+		pOut->CreatePlayToolBar();
+		pOut->removeDrawActionToolBar();
+		break;
+
 	case STATUS:	//a click on the status bar ==> no action
-		pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
+		pOut->PrintMessage("A Click on the Status Bar, Click anywhere");
 		return;
 	}
 
@@ -150,10 +134,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct->Execute();	//Execute
 		delete pAct;		//Action is not needed any more ==> delete it
 		pAct = NULL;
-		if (ActType != TO_PLAY && ActType != EXIT) {
+		if (ActType != TO_PLAY && ActType != EXIT && UI.InterfaceMode != MODE_PLAY) {
 			pOut->CreateDrawToolBar();
 			pOut->CreateDrawActionToolBar();
-			if(ActType == COL_SHP || ActType == COL_CLR)
+			if (ActType == COL_SHP || ActType == COL_CLR)
 				pOut->CreateColorIcons();
 		}
 	}
@@ -190,20 +174,17 @@ void ApplicationManager::WriteFigures(ofstream& OutFile)
 		FigList[i]->Save(OutFile);
 }
 
-void ApplicationManager::ReadFigures(ifstream& InFile)
+void ApplicationManager::WriteFigures(ofstream & OutFile, FigureType SavedType)
 {
-	while (!InFile.eof())
-	{
-		CFigure* NewFig;
-		string Cast;
-		InFile >> Cast;
-		FigureType FIG_TYPE = ReadType(Cast);
-		if (FIG_TYPE == EMPTY_TYPE)
-			return;
-		SetFigureType(NewFig, FIG_TYPE);
-		NewFig->Load(InFile);
-		AddFigure(NewFig);
-	}
+	int TypeCount = 0;
+	for (int i = 0; i < FigCount; i++)
+		if (FigList[i]->getType() == SavedType)
+			TypeCount++;
+	OutFile << ColorData(UI.DrawColor) << " " << ColorData(UI.FillColor) << endl;
+	OutFile << TypeCount;
+	for (int i = 0; i < FigCount; i++)
+		if (FigList[i]->getType() == SavedType)
+			FigList[i]->Save(OutFile);
 }
 
 FigureType ApplicationManager::RandomFigure()
@@ -212,35 +193,6 @@ FigureType ApplicationManager::RandomFigure()
 	int idx = abs(rand()) % FigCount;
 	TYPE = FigList[idx]->getType();
 	return TYPE;
-}
-
-void ApplicationManager::SetFigureType(CFigure*& FP, FigureType T)
-{
-	Point P1, P2, P3;
-	P1 = P2 = P3 = { 400,400 };
-	GfxInfo dummy;
-	switch (T)
-	{
-	case LINE:
-		FP = new CLine(P1, P2, dummy);
-		break;
-
-	case RECTANGLE:
-		FP = new CRectangle(P1, P2, dummy);
-		break;
-
-	case TRIANGLE:
-		FP = new CTriangle(P1, P2, P3, dummy);
-		break;
-
-	case RHOMBUS:
-		FP = new CRhombus(P1, dummy);
-		break;
-
-	case ELLIPSE:
-		FP = new CEllipse(P1, dummy);
-		break;
-	}
 }
 
 bool ApplicationManager::Empty()
@@ -383,63 +335,3 @@ ApplicationManager::~ApplicationManager()
 
 }
 
-// Additional Functions:
-string StoreType(FigureType T)
-{
-	switch (T)
-	{
-	case RECTANGLE:
-		return "RECTANGLE";
-		break;
-	case TRIANGLE:
-		return "TRIANGLE";
-		break;
-	case ELLIPSE:
-		return "ELLIPSE";
-		break;
-	case RHOMBUS:
-		return "RHOMBUS";
-		break;
-	case LINE:
-		return "LINE";
-		break;
-	}
-	return "";
-}
-
-FigureType ReadType(string Str)
-{
-	switch (Str[1])
-	{
-	case 'E':
-		return RECTANGLE;
-		break;
-	case 'R':
-		return TRIANGLE;
-		break;
-	case 'L':
-		return ELLIPSE;
-		break;
-	case 'H':
-		return RHOMBUS;
-		break;
-	case 'I':
-		return LINE;
-		break;
-	}
-	return EMPTY_TYPE;
-}
-
-string ColorData(color C)
-{
-	string Data;
-	Data += to_string(int(C.ucRed)) + " " + to_string(int(C.ucGreen)) + " " + to_string(int(C.ucBlue));
-	return Data;
-}
-
-color ReadColor(ifstream& in)
-{
-	int Red, Green, Blue;
-	in >> Red >> Green >> Blue;
-	return color(Red, Green, Blue);
-}

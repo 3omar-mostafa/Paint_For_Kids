@@ -6,6 +6,7 @@ class LoadAction :public Action
 public:
 	LoadAction(ApplicationManager*);
 	virtual void ReadActionParameters();
+	void ReadFigures(ifstream&);
 	virtual void Execute();
 	void QuickLoad();
 	~LoadAction();
