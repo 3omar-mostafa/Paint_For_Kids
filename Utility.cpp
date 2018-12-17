@@ -1,7 +1,11 @@
 #include "DEFS.h"
 #include "ApplicationManager.h"
 
-// Additional Functions:
+//==================================================================================//
+//							Additional Utility Functions							//
+//==================================================================================//
+
+//Stores the type of a figure into a string format
 string StoreType(FigureType T)
 {
 	switch (T)
@@ -25,6 +29,7 @@ string StoreType(FigureType T)
 	return "";
 }
 
+//Determines the type of a figure from a string format
 FigureType ReadType(string Str)
 {
 	switch (Str[1])
@@ -48,6 +53,7 @@ FigureType ReadType(string Str)
 	return EMPTY_TYPE;
 }
 
+//Stores the information for a color into a string
 string ColorData(color C)
 {
 	string Data;
@@ -55,6 +61,7 @@ string ColorData(color C)
 	return Data;
 }
 
+//Reads a color's info from a string
 color ReadColor(ifstream& in)
 {
 	int Red, Green, Blue;
@@ -62,6 +69,7 @@ color ReadColor(ifstream& in)
 	return color(Red, Green, Blue);
 }
 
+//Takes a CFigure* and creates a dummy object of a passed FigureType
 void SetFigType(CFigure *& FP, FigureType T)
 {
 	Point P1, P2, P3;

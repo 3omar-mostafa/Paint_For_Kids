@@ -9,19 +9,27 @@ ClearAction::ClearAction(ApplicationManager * pApp) : Action(pApp)
 
 void ClearAction::ReadActionParameters()
 {
-	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	pOut->PrintMessage("Clear Drawing Area, click on the icon again to clear.");
-	ThisAction = pIn->GetUserAction();
+	Confirm = pIn->GetUserAction();
 	pOut->ClearStatusBar();
 }
 
 void ClearAction::Execute()
 {
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+	
+	// Confirming the action:
 	ReadActionParameters();
-	if (ThisAction != CLEAR)
+	if (Confirm != SAVE)
+	{
+		pOut->PrintMessage("Cancelled!");
 		return;
+	}
+
+	// Deleting all figures and clearing the Drawing Area:
 	pManager->ClearFigures();	
-	pManager->GetOutput()->ClearDrawArea();
+	pOut->ClearDrawArea();
 }

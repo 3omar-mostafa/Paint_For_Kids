@@ -60,12 +60,12 @@ public:
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
-	void DeleteFigure(CFigure*);	//To Be Added
+	void DeleteFigure(CFigure*);	//Deletes a Figure from the List
 	void ClearFigures();		//Added a function to remove all figures
-	void WriteFigures(ofstream&);
-	void WriteFigures(ofstream&, FigureType);
-	FigureType RandomFigure();
-	color Randomcolor();
+	void WriteFigures(ofstream&);	//Saves Figure Information to a text file 
+	void WriteFigures(ofstream&, FigureType);	//Saves Figure Information of a certain Type to a text file 
+	FigureType RandomType();
+	color RandomColor();
 	bool Empty();
 	bool HasFigure(FigureType);
 	bool HasColor(color FIG_COLOR);

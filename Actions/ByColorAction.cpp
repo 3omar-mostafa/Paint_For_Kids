@@ -46,7 +46,7 @@ bool ByColorAction::Play()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	FIG_COLOR = pManager->Randomcolor();
+	FIG_COLOR = pManager->RandomColor();
 	pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + ", Click to start!");
 	pIn->GetUserAction();
 	pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));

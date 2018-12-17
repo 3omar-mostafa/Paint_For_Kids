@@ -21,7 +21,7 @@ void AddElpsAction::ReadActionParameters()
 	pOut->getValidEllipsePoint(P);
 
 	ElpsGfxInfo.isFilled = pOut->isFilled();	//default is filled
-	//get drawing, filling colors and pen width from the interface
+	//Get drawing, filling colors and pen width from the interface
 	ElpsGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	ElpsGfxInfo.FillClr = pOut->getCrntFillColor();
 
@@ -35,9 +35,9 @@ void AddElpsAction::Execute()
 	//This action needs to read some parameters first
 	ReadActionParameters();
 
-	//Create a rhombus with the center from the user
+	//Create an Ellipse with the center from the user
 	CEllipse *El = new CEllipse(P, ElpsGfxInfo);
 
-	//Add the rhombus to the list of figures
+	//Add the Ellipse to the list of figures
 	pManager->AddFigure(El);
 }

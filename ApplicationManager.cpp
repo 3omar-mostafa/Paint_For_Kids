@@ -22,12 +22,13 @@ ApplicationManager::ApplicationManager()
 //==================================================================================//
 //								Actions Related Functions							//
 //==================================================================================//
+
+//Asks the input to get the action from the user
 ActionType ApplicationManager::GetUserAction() const
 {
-	//Ask the input to get the action from the user.
 	return pIn->GetUserAction();
 }
-////////////////////////////////////////////////////////////////////////////////////
+
 //Creates an action and executes it
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
@@ -144,6 +145,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		}
 	}
 }
+
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
@@ -158,6 +160,7 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 	}
 }
 
+//Removes all Figures from the List
 void ApplicationManager::ClearFigures()
 {
 	for (int i = 0; i < FigCount; i++)
@@ -170,33 +173,36 @@ void ApplicationManager::ClearFigures()
 
 void ApplicationManager::WriteFigures(ofstream& OutFile)
 {
-	OutFile << ColorData(UI.DrawColor) << " " << ColorData(UI.FillColor) << endl;
-	OutFile << FigCount;
+	OutFile << ColorData(UI.DrawColor) << " " << ColorData(UI.FillColor) << endl;	//Writing the Draw and Fill colors to the file
+	OutFile << FigCount;	//Writing the number of Figures to the file
 	for (int i = 0; i < FigCount; i++)
-		FigList[i]->Save(OutFile);
+		FigList[i]->Save(OutFile);	//Calling the Save function for each figure
 }
 
 void ApplicationManager::WriteFigures(ofstream & OutFile, FigureType SavedType)
 {
+	// Getting the number of figures of SavedType in the Figure List:
 	int TypeCount = 0;
 	for (int i = 0; i < FigCount; i++)
 		if (FigList[i]->getType() == SavedType)
 			TypeCount++;
-	OutFile << ColorData(UI.DrawColor) << " " << ColorData(UI.FillColor) << endl;
-	OutFile << TypeCount;
+
+	OutFile << ColorData(UI.DrawColor) << " " << ColorData(UI.FillColor) << endl;		//Writing the Fill and Draw colors to the file
+	OutFile << TypeCount;	//Writing the number of figures of SavedType
 	for (int i = 0; i < FigCount; i++)
 		if (FigList[i]->getType() == SavedType)
-			FigList[i]->Save(OutFile);
+			FigList[i]->Save(OutFile);	//Calling the Save function for figures of SavedType
 }
 
-FigureType ApplicationManager::RandomFigure()
+FigureType ApplicationManager::RandomType()
 {
 	FigureType TYPE;
 	int idx = abs(rand()) % FigCount;
 	TYPE = FigList[idx]->getType();
 	return TYPE;
 }
-color ApplicationManager::Randomcolor()
+
+color ApplicationManager::RandomColor()
 {
 	color COLOR;
 	int idx = abs(rand()) % FigCount;
@@ -256,10 +262,10 @@ void ApplicationManager::DeleteFigure(CFigure* Deleted)
 			FigCount--;
 			while (i < FigCount)
 			{
-				FigList[i++] = FigList[i + 1];
-				FigList[i]->setID(i);
+				FigList[i++] = FigList[i + 1];	//Shifting all Figures backwards one place
+				FigList[i]->setID(i);	//Matching the ID to the new spot in the Figure List
 			}
-			FigList[FigCount] = NULL;
+			FigList[FigCount] = NULL;	//Freeing the last pointer
 			return;
 		}
 	}

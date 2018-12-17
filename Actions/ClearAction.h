@@ -7,15 +7,10 @@
 class ClearAction : public Action
 {
 private:
-	int FigCount;
-	ActionType ThisAction;
+	ActionType Confirm;	//An ActionType variable to act as a confirmation for the action
 public:
 	ClearAction(ApplicationManager *pApp);
-
-	//Reads Action parameters
 	virtual void ReadActionParameters();
-
-	//Exit the program
 	virtual void Execute();
 };
 

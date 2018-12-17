@@ -53,7 +53,7 @@ string StoreType(FigureType T);		//Stores the type of a figure into a string for
 const auto Display = StoreType;		//Alias for the function StoreType
 FigureType ReadType(string Str);	//Determines the type of a figure from a string format
 string ColorData(color C);			//Stores the information for a color into a string
-color ReadColor(ifstream& in);		//Reads a color's info
+color ReadColor(ifstream& in);		//Reads a color's info from a string
 
 
 struct Point	//To be used for figures points

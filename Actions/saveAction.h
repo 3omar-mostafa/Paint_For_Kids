@@ -2,12 +2,12 @@
 #include "Action.h"
 class SaveAction :public Action
 {
-	ActionType ThisAction;
+	ActionType Confirm;	//An ActionType variable to act as a confirmation for the action
 public:
-	SaveAction(ApplicationManager*);
+	SaveAction(ApplicationManager*);	
 	virtual void ReadActionParameters();
 	virtual void Execute();
-	void QuickSave();
+	void QuickSave();	//Saves without confirmation or asking for a name for the file
 	~SaveAction();
 };
 

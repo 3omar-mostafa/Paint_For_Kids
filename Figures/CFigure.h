@@ -8,10 +8,10 @@
 class CFigure
 {
 protected:
-	int ID;		//Each figure has an ID
-	FigureType FigType;
-	bool Selected;	//true if the figure is selected.
-	GfxInfo FigGfxInfo;	//Figure graphis info
+	int ID;					//Each figure has an ID
+	FigureType FigType;		//Each figure has a figure type.
+	bool Selected;			//True if the figure is selected.
+	GfxInfo FigGfxInfo;		//Figure graphics info
 
 	bool cut;
 	/// Add more parameters if needed.

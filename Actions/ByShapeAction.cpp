@@ -48,7 +48,7 @@ bool ByShapeAction::Play()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	FIG_TYPE = pManager->RandomFigure();
+	FIG_TYPE = pManager->RandomType();
 	pOut->PrintMessage("Pick " + Display(FIG_TYPE) + ", Click to start!");
 	pIn->GetUserAction();
 	pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));

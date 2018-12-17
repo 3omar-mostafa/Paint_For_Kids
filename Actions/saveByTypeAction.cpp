@@ -12,12 +12,41 @@ void SaveByTypeAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	pOut->PrintMessage("Save by Figure Type, Click on any of the Figure Icons.");
-	ThisAction = pIn->GetUserAction();
+	Confirm = pIn->GetUserAction();
 }
 
-FigureType SaveByTypeAction::SavedType()
+void SaveByTypeAction::Execute()
 {
-	switch (ThisAction)
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	// Confirming the action:
+	ReadActionParameters();
+	FigureType SavedType = SetSavedType();
+	if (SavedType == EMPTY_TYPE)
+	{
+		pOut->PrintMessage("Cancelled!");
+		return;
+	}
+	
+	// Reading and setting the name of the destination file:
+	pOut->PrintMessage("Enter the name of the file including the extension  OR  Press [ENTER] to save to " + StoreType(SavedType) + ".txt");
+	string FileName = pIn->GetString(pOut);
+	FileName = (FileName != "") ? FileName : StoreType(SavedType) + ".txt";
+	
+	// Saving to the file:
+	ofstream OutFile;
+	OutFile.open(FileName);
+	pManager->WriteFigures(OutFile, SavedType);
+	
+	// Finishing up:
+	OutFile.close();
+	pManager->GetOutput()->PrintMessage("Saved Successfully to " + FileName + "!");
+}
+
+FigureType SaveByTypeAction::SetSavedType()
+{
+	switch (Confirm)
 	{
 	case DRAW_RECT:
 		return RECTANGLE;
@@ -38,32 +67,6 @@ FigureType SaveByTypeAction::SavedType()
 		return EMPTY_TYPE;
 	}
 }
-
-void SaveByTypeAction::Execute()
-{
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
-	ReadActionParameters();
-	FigureType Saved = SavedType();
-	if (Saved == EMPTY_TYPE)
-	{
-		pOut->PrintMessage("Cancelled!");
-		return;
-	}
-	
-	pOut->PrintMessage("Enter the name of the file including the extension  OR  Press [ENTER] to save to " + StoreType(Saved) + ".txt");
-	string FileName = pIn->GetString(pOut);
-	FileName = (FileName != "") ? FileName : StoreType(Saved) + ".txt";
-	
-	ofstream OutFile;
-	OutFile.open(FileName);
-	pManager->WriteFigures(OutFile, Saved);
-	
-	OutFile.close();
-	pManager->GetOutput()->PrintMessage("Saved Successfully to " + FileName + "!");
-}
-
 
 SaveByTypeAction::~SaveByTypeAction()
 {}
