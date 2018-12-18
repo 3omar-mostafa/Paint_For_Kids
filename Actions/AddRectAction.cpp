@@ -15,7 +15,7 @@ void AddRectAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
-
+	PlaySound(TEXT("Sounds/Rectangle.wav"), NULL, SND_FILENAME);
 	pOut->PrintMessage("New Rectangle: Click at first corner");
 	//Read 1st corner and store in point P1
 	pOut->getValidPoint(P1);

@@ -32,7 +32,7 @@ void ByColorAction::ReadActionParameters()
 	{
 		Correct++;
 		pManager->DeleteFigure(Clicked);
-		PlaySound(TEXT("Sounds/CorrectAnswer.wav"), NULL, SND_FILENAME);
+		PlaySound(TEXT("Sounds/smb_coin.wav"), NULL, SND_FILENAME);
 		pManager->UpdateInterface();
 	}
 	else
@@ -83,7 +83,7 @@ void ByColorAction::Execute()
 			return;
 		}
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
-	PlaySound(TEXT("Sounds/GameFinished.wav"), NULL, SND_FILENAME);
+	PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
 	// Auto-Loading:
 	LoadAction* Load = new LoadAction(pManager);
 	Load->QuickLoad();

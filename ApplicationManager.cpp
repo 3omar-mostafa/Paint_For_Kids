@@ -114,6 +114,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case TO_DRAW:
 		pOut->PrintMessage("Switch to Draw Mode, Creating Design Toolbar");
 		pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
+		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		pOut->CreateDrawToolBar();
 		pOut->CreateColorIcons();
 		pOut->CreateDrawActionToolBar();
@@ -122,6 +123,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case TO_PLAY:
 		pOut->PrintMessage("Switch to Play Mode, Creating Game Toolbar");
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
+		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		pOut->CreatePlayToolBar();
 		pOut->removeDrawActionToolBar();
 		break;

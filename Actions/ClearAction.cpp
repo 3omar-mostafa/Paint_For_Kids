@@ -23,7 +23,7 @@ void ClearAction::Execute()
 	
 	// Confirming the action:
 	ReadActionParameters();
-	if (Confirm != SAVE)
+	if (Confirm != CLEAR)
 	{
 		pOut->PrintMessage("Cancelled!");
 		return;
