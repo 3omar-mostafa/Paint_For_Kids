@@ -32,6 +32,10 @@ void selectShapeAction::Execute() {
 		pManager->getSelectedFigure()->toggleSelection();
 		if (pManager->getSelectedFigure()->IsSelected())
 			pManager->getSelectedFigure()->PrintInfo(pOut);
+		else {
+			pManager->setLastSelected(NULL);
+			pManager->setSelectedFigure(NULL);
+		}
 	}
 	else {
 		if (pManager->getLastSelected() != NULL) {
