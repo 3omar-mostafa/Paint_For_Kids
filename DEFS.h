@@ -91,7 +91,6 @@ struct Point	//To be used for figures points
 		return *this;
 	}
 };
-};
 
 struct GfxInfo	//Graphical info of each figure (you may add more members)
 {
