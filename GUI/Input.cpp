@@ -95,9 +95,10 @@ ActionType Input::GetUserAction(Point & P) const
 			case ITM_SELECT:return SELECT;
 			case ITM_SEND_TO_BACK:return SEND_TO_BACK;
 			case ITM_BRING_TO_FRONT:return BRING_TO_FRONT;
+			case ITM_RESIZE:return RESIZE;
 
 
-			default: return EMPTY;	//A click on empty place in desgin toolbar
+			default: return EMPTY;	//A click on empty place in design toolbar
 			}
 
 		}

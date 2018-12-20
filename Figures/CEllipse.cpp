@@ -56,6 +56,10 @@ void CEllipse::Resize(float R)
 	C1.x = Center.x + Horizontal * R;
 	C2.x = Center.x - Horizontal * R;
 
+	//Validation:
+	if (C2.y < UI.ToolBarHeight || C1.y > UI.height - UI.StatusBarHeight || C2.x < UI.MenuActionWidth)
+		return;
+
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
 	*this = CEllipse(C1, C2, FigGfxInfo);

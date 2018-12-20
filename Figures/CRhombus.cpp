@@ -66,6 +66,12 @@ void CRhombus::Resize(float R)
 	int b = yArr[0] - Center.y;
 	int Y[4] = { Center.y + b * R, yArr[1], Center.y - b * R , yArr[3] };
 
+	//Validation:
+	if (Y[0] > UI.height - UI.StatusBarHeight || Y[2] < UI.ToolBarHeight)
+		return;
+	if (X[3] < UI.MenuActionWidth)
+		return;
+
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
 	*this = CRhombus(X, Y, FigGfxInfo);

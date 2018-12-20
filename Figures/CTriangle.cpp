@@ -146,6 +146,14 @@ void CTriangle::Resize(float R)
 		C3.y = MP.y - diff * R;
 	}
 
+	//Validation:
+	if (C1.y < UI.ToolBarHeight || C1.y > UI.height - UI.StatusBarHeight || C1.x < UI.MenuActionWidth)
+		return;
+	if (C2.y < UI.ToolBarHeight || C2.y > UI.height - UI.StatusBarHeight || C2.x < UI.MenuActionWidth)
+		return;
+	if (C3.y < UI.ToolBarHeight || C3.y > UI.height - UI.StatusBarHeight || C3.x < UI.MenuActionWidth)
+		return;
+
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
 	*this = CTriangle(C1, C2, C3, FigGfxInfo);

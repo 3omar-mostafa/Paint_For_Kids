@@ -7,10 +7,10 @@ CLine::CLine(Point P_1, Point P_2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo
 	FigType = LINE;
 }
 
-Point CLine::getP1(){
+Point CLine::getP1() {
 	return P1;
 }
-Point CLine::getP2(){
+Point CLine::getP2() {
 	return P2;
 }
 
@@ -32,14 +32,14 @@ double CLine::getTriangularArea(int x, int y) {
 bool CLine::doesItContain(int x, int y) {
 	// I am going to create a triangle using 2 point of the line and the given point
 	// the normal distance between the line and the given point (height) is area/length of line(base)
-			  
+
 	int leftX = (P2.x > P1.x) ? P1.x - 3 : P2.x - 3;
 	int rightX = (P2.x < P1.x) ? P1.x + 3 : P2.x + 3;
 	int upY = (P2.y > P1.y) ? P1.y - 3 : P2.y - 3;
 	int downY = (P2.y < P1.y) ? P1.y + 3 : P2.y + 3;
 	if (x >= leftX && x <= rightX && y >= upY && y <= downY) {
 		double lengthOFLine = sqrt((rightX - leftX)*(rightX - leftX) + (downY - upY)*(downY - upY));
-		if (getTriangularArea(x,y)/ lengthOFLine <= 3) {
+		if (getTriangularArea(x, y) / lengthOFLine <= 3) {
 			return true;
 		}
 	}
@@ -72,12 +72,16 @@ void CLine::Resize(float R)
 	{
 		C1.x = MP.x + Horizontal * R;
 		C2.x = MP.x - Horizontal * R;
-	}				  
-	else			  
-	{				  
+	}
+	else
+	{
 		C1.x = MP.x - Horizontal * R;
 		C2.x = MP.x + Horizontal * R;
 	}
+
+	//Validation:
+	if (C2.y < UI.ToolBarHeight || C1.y > UI.height - UI.StatusBarHeight || C2.x < UI.MenuActionWidth)
+		return;
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;

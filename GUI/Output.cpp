@@ -124,6 +124,7 @@ void Output::CreateDrawActionToolBar()  const
 	MenuActionsImages[ITM_SELECT] = "images\\MenuItems\\Menu_Select.jpg";
 	MenuActionsImages[ITM_SEND_TO_BACK] = "images\\MenuItems\\Menu_send_to_back.jpg";
 	MenuActionsImages[ITM_BRING_TO_FRONT] = "images\\MenuItems\\Menu_bring_to_front.jpg";
+	MenuActionsImages[ITM_RESIZE] = "images\\MenuItems\\Menu_Resize.jpg";
 
 
 	//Draw menu action one image at a time
@@ -158,6 +159,34 @@ void Output::drawOnToolbar(string path, int place) const
 void Output::drawOnActionbar(string path, int place) const
 {
 	pWind->DrawImage(path, 0, (place + 1) * UI.MenuActionWidth, UI.MenuActionWidth - 3, UI.ToolBarHeight);
+}
+
+void Output::drawResizeMenu() const
+{
+	pWind->DrawImage("images\\MenuItems\\sizes.jpg", 0, UI.MenuActionWidth* DRAW_ACTION_COUNT, UI.MenuActionWidth * 7, UI.ToolBarHeight);
+}
+
+void Output::deleteResizeMenu() const
+{
+	pWind->DrawImage("images\\MenuItems\\clean.jpg", 0, UI.MenuActionWidth* DRAW_ACTION_COUNT, UI.MenuActionWidth * 7, UI.ToolBarHeight);
+}
+
+double Output::selectSize(Point p) const {
+	if (p.y < UI.MenuActionWidth* DRAW_ACTION_COUNT  && p.y < UI.MenuActionWidth * (1 + DRAW_ACTION_COUNT)) {
+		int selectSize = (p.x /*- UI.MenuActionWidth*/) / UI.MenuActionWidth;
+		switch (selectSize)
+		{
+		case 1:
+			return 0.25;
+		case 2:
+			return 0.5;
+		case 3:
+			return 2;
+		case 4:
+			return 4;
+		}
+	}
+	return -1;
 }
 
 void Output::drawFillColorMenu() const

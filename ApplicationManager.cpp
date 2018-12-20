@@ -76,8 +76,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SEND_TO_BACK:
 		pAct = new sendToBackAction(this);
 		break;
+
 	case BRING_TO_FRONT:
 		pAct = new bringToFrontAction(this);
+		break;
+
+	case RESIZE:
+		pAct = new ResizeAction(this);
 		break;
 
 	case DEL:

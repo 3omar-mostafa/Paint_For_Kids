@@ -30,6 +30,7 @@
 #include "Actions/ByColorAction.h"
 #include "Actions/sendToBackAction.h"
 #include "Actions/bringToFrontAction.h"
+#include "Actions/ResizeAction.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
