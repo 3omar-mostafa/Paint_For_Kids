@@ -58,21 +58,16 @@ bool CTriangle::doesItContain(int x, int y) {
 
 	// if the point is inside the triangle and we connected it with the vertices
 	// we will have 3 smaller triangles and the sum of their areas MUST equal the bigger one
-	if (isFilled()) {
-		double totalArea = getTriangularArea(P1, P2, P3);
-		double area1 = getTriangularArea(P1, P2, p4);
-		double area2 = getTriangularArea(P1, p4, P3);
-		double area3 = getTriangularArea(p4, P2, P3);
 
-		if (abs(totalArea - (area1 + area2 + area3)) <= 1) {
-			return true;
-		}
+	double totalArea = getTriangularArea(P1, P2, P3);
+	double area1 = getTriangularArea(P1, P2, p4);
+	double area2 = getTriangularArea(P1, p4, P3);
+	double area3 = getTriangularArea(p4, P2, P3);
+
+	if (abs(totalArea - (area1 + area2 + area3)) <= 1) {
+		return true;
 	}
-	else {
-		if (isColinear(P1, P2, p4) || isColinear(P1, P3, p4) || isColinear(P2, P3, p4)) {
-			return true;
-		}
-	}
+	
 	return false;
 }
 

@@ -21,16 +21,10 @@ bool CEllipse::doesItContain(int x, int y) {
 	long long X = x - Center.x;
 	long long Y = y - Center.y;
 
-	if (isFilled()) {
-		if (6400 * X*X + 22500 * Y*Y <= 144000000) {
-			return true;
-		}
+	if (6400 * X*X + 22500 * Y*Y <= 144000000) {
+		return true;
 	}
-	else {
-		if (6400 * X*X + 22500 * Y*Y >= 135000000 && 6400 * X*X + 22500 * Y*Y <= 150000000) {
-			return true;
-		}
-	}
+
 	return false;
 }
 

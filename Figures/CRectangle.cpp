@@ -30,15 +30,8 @@ bool CRectangle::doesItContain(int x, int y) {
 	if (y1 > y2)
 		swap(y1, y2);
 
-	if (isFilled()) {
-		if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
-			return true;
-		}
-	}
-	else {
-		if ((((x >= x1 - 3 && x <= x1 + 3) || (x >= x2 - 3 && x <= x2 + 3)) && (y > y1 - 5 && y < y2 + 5)) || ((y >= y1 - 3 && y <= y1 + 3) || (y >= y2 - 3 && y <= y2 + 3)) && (x > x1 - 5 && x < x2 + 5)) {
-			return true;
-		}
+	if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
+		return true;
 	}
 
 	return false;
