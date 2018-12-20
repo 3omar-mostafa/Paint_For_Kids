@@ -11,8 +11,8 @@ ByShapeAction::ByShapeAction(ApplicationManager * pApp) :Action(pApp)
 	Terminate = 0;
 
 	// Auto-saving:
-	SaveAction* Save = new SaveAction(pManager);
-	Save->QuickSave();
+	SaveAction Save(pManager);
+	Save.QuickSave();
 }
 //functions of ByShapeAction are very close to ByColorAction 
 //function ReadActionParameters gets user actions and analyze them
@@ -96,6 +96,6 @@ void ByShapeAction::Execute()
 	PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
 
 	// Auto-Loading:
-	LoadAction* Load = new LoadAction(pManager);
-	Load->QuickLoad();
+	LoadAction Load(pManager);
+	Load.QuickLoad();
 }

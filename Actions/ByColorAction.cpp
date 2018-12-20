@@ -11,8 +11,8 @@ ByColorAction::ByColorAction(ApplicationManager * pApp) :Action(pApp)
 	Terminate = 0;
 	FIG_COLOR = NOFILL;
 	// Auto-saving:
-	SaveAction* Save = new SaveAction(pManager);
-	Save->QuickSave();
+	SaveAction Save(pManager);
+	Save.QuickSave();
 }
 
 //function ReadActionParameters gets user actions and analyze them
@@ -72,8 +72,8 @@ void ByColorAction::Reset()
 	Output* pOut = pManager->GetOutput();
 	pOut->PrintMessage("Game Restarted!");
 	pManager->ClearFigures();
-	LoadAction* Load = new LoadAction(pManager);
-	Load->QuickLoad();
+	LoadAction Load(pManager);
+	Load.QuickLoad();
 }
 
 //function Execute redraws playtoolbar, calls Play until the game ends
@@ -94,8 +94,8 @@ void ByColorAction::Execute()
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
 	// Auto-Loading:
-	LoadAction* Load = new LoadAction(pManager);
-	Load->QuickLoad();
+	LoadAction Load(pManager);
+	Load.QuickLoad();
 }
 
 //function colorname gets the color name from its RGB
