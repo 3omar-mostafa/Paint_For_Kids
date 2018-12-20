@@ -92,6 +92,8 @@ ActionType Input::GetUserAction(Point & P) const
 			case ITM_DELETE:return DEL;
 			case ITM_CLEAR:return CLEAR;
 			case ITM_SELECT:return SELECT;
+			case ITM_SEND_TO_BACK:return SEND_TO_BACK;
+			case ITM_BRING_TO_FRONT:return BRING_TO_FRONT;
 
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar

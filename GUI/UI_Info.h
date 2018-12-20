@@ -44,6 +44,8 @@ enum DrawMenuAction {
 	ITM_DELETE,
 	ITM_CLEAR,
 	ITM_SELECT,
+	ITM_SEND_TO_BACK,
+	ITM_BRING_TO_FRONT,
 
 
 	DRAW_ACTION_COUNT, //no. of menu action items

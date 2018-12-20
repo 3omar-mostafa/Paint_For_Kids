@@ -73,6 +73,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new selectShapeAction(this);
 		break;
 
+	case SEND_TO_BACK:
+		pAct = new sendToBackAction(this);
+		break;
+	case BRING_TO_FRONT:
+		pAct = new bringToFrontAction(this);
+		break;
+
 	case DEL:
 		pAct = new DeleteAction(this);
 		break;
@@ -272,6 +279,45 @@ void ApplicationManager::DeleteFigure(CFigure* Deleted)
 		}
 	}
 }
+
+void ApplicationManager::sendToBack(CFigure* figure) {
+	int currentIndex;
+	CFigure* currentFigure;
+	for (int i = 0; i < FigCount; i++) {
+
+		if (FigList[i] == figure) {
+			currentIndex = i;
+			currentFigure =FigList[i];
+			break;
+		}
+	}
+
+	for (int i = currentIndex; i >0; i--) {
+		FigList[i] = FigList[i-1];
+	}
+
+	FigList[0] = currentFigure;
+}
+
+void ApplicationManager::bringToFront(CFigure* figure) {
+	int currentIndex;
+	CFigure* currentFigure;
+	for (int i = 0; i < FigCount; i++) {
+
+		if (FigList[i] == figure) {
+			currentIndex = i;
+			currentFigure = FigList[i];
+			break;
+		}
+	}
+
+	for (int i = currentIndex; i < FigCount -1; i++) {
+		FigList[i] = FigList[i + 1];
+	}
+
+	FigList[FigCount - 1] = currentFigure;
+}
+
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//

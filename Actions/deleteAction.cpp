@@ -10,7 +10,6 @@ void DeleteAction::Execute() {
 	ReadActionParameters();
 
 	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
 
 	pOut->CreateDrawActionToolBar();
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);

@@ -139,6 +139,7 @@
     <ClCompile Include="Actions\ExitAction.cpp" />
     <ClCompile Include="Actions\ChangeDrawColor.cpp" />
     <ClCompile Include="Actions\ChangeFillColor.cpp" />
+    <ClCompile Include="Actions\bringToFrontAction.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\colors.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="Actions\saveAction.cpp" />
     <ClCompile Include="Actions\saveByTypeAction.cpp" />
     <ClCompile Include="Actions\selectShapeAction.cpp" />
+    <ClCompile Include="Actions\sendToBackAction.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +209,7 @@
     <ClInclude Include="Actions\ClearAction.h" />
     <ClInclude Include="Actions\ChangeDrawColor.h" />
     <ClInclude Include="Actions\ChangeFillColor.h" />
+    <ClInclude Include="Actions\bringToFrontAction.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />
@@ -248,6 +251,7 @@
     <ClInclude Include="Actions\saveAction.h" />
     <ClInclude Include="Actions\saveByTypeAction.h" />
     <ClInclude Include="Actions\selectShapeAction.h" />
+    <ClInclude Include="Actions\sendToBackAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -6,15 +6,13 @@
 
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-
-class DeleteAction :public Action
+class sendToBackAction : public Action
 {
-	CFigure * deletedFigure;
+	CFigure * currentFigure;
 public:
-	DeleteAction(ApplicationManager*);
 
+	sendToBackAction(ApplicationManager *pApp);
 	virtual void ReadActionParameters();
-
 	virtual void Execute();
 };
 

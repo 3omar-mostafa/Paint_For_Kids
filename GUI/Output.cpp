@@ -122,6 +122,8 @@ void Output::CreateDrawActionToolBar()  const
 	MenuActionsImages[ITM_DELETE] = "images\\MenuItems\\Menu_delete.jpg";
 	MenuActionsImages[ITM_CLEAR] = "images\\MenuItems\\Menu_Clear_All.jpg";
 	MenuActionsImages[ITM_SELECT] = "images\\MenuItems\\Menu_Select.jpg";
+	MenuActionsImages[ITM_SEND_TO_BACK] = "images\\MenuItems\\Menu_send_to_back.jpg";
+	MenuActionsImages[ITM_BRING_TO_FRONT] = "images\\MenuItems\\Menu_bring_to_front.jpg";
 
 
 	//Draw menu action one image at a time

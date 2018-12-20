@@ -7,14 +7,13 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-class DeleteAction :public Action
+class bringToFrontAction : public Action
 {
-	CFigure * deletedFigure;
+	CFigure * currentFigure;
 public:
-	DeleteAction(ApplicationManager*);
 
+	bringToFrontAction(ApplicationManager *pApp);
 	virtual void ReadActionParameters();
-
 	virtual void Execute();
 };
 

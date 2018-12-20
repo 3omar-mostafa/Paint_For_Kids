@@ -28,6 +28,8 @@
 #include "Actions/ClearAction.h"
 #include "Actions/ByShapeAction.h"
 #include "Actions/ByColorAction.h"
+#include "Actions/sendToBackAction.h"
+#include "Actions/bringToFrontAction.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -89,6 +91,9 @@ public:
 	color getLastFillClr();
 	void setLastDrawClr(color);
 	void setLastFillClr(color);
+
+	void bringToFront(CFigure*);
+	void sendToBack(CFigure*);
 
 	void setLastCut(CFigure*);
 	CFigure* getLastCut();
