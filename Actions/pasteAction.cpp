@@ -4,14 +4,16 @@
 pasteAction::pasteAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void pasteAction::ReadActionParameters() {
+void pasteAction::ReadActionParameters() 
+{
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
 	pOut->PrintMessage("Paste, Pasting Figure from Clipboard");
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_Paste_Selected.jpg", ITM_PASTE);
 
-	if (pManager->getClipboard() == NULL) {
+	if (pManager->getClipboard() == NULL) 
+	{
 		pOut->PrintMessage("Copy or Cut first then try again");
 		return;
 	}
@@ -20,7 +22,8 @@ void pasteAction::ReadActionParameters() {
 	
 }
 
-void pasteAction::Execute() {
+void pasteAction::Execute() 
+{
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
@@ -28,11 +31,13 @@ void pasteAction::Execute() {
 	if (pManager->getClipboard() == NULL)
 		return;
 
-	if (dynamic_cast<CEllipse*>(toPaste)) {
+	if (dynamic_cast<CEllipse*>(toPaste)) 
+	{
 		pOut->getValidEllipsePoint(newFigCenter);
 		toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
 		
-		if(toPaste->IsCut()){
+		if(toPaste->IsCut())
+		{
 			toPasteGfxInfo.DrawClr = pManager->getLastDrawClr();
 			toPasteGfxInfo.FillClr = pManager->getLastFillClr();
 			pManager->DeleteFigure(toPaste);
@@ -40,7 +45,8 @@ void pasteAction::Execute() {
 			pManager->setLastCut(NULL);
 		}
 
-		else {
+		else 
+		{
 			toPasteGfxInfo.DrawClr = toPaste->getDrawColor();
 			toPasteGfxInfo.FillClr = toPaste->getFillColor();
 		}
@@ -52,12 +58,14 @@ void pasteAction::Execute() {
 		 
 	}
 
-	else if (dynamic_cast<CRhombus*>(toPaste)) {
+	else if (dynamic_cast<CRhombus*>(toPaste))
+	{
 
 		pOut->getValidRhombusPoint(newFigCenter);
 		toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
 
-		if (toPaste->IsCut()) {
+		if (toPaste->IsCut()) 
+		{
 			toPasteGfxInfo.DrawClr = pManager->getLastDrawClr();
 			toPasteGfxInfo.FillClr = pManager->getLastFillClr();
 			pManager->DeleteFigure(toPaste);
@@ -65,7 +73,8 @@ void pasteAction::Execute() {
 			pManager->setLastCut(NULL);
 		}
 
-		else {
+		else
+		{
 			toPasteGfxInfo.DrawClr = toPaste->getDrawColor();
 			toPasteGfxInfo.FillClr = toPaste->getFillColor();
 		}
@@ -79,14 +88,16 @@ void pasteAction::Execute() {
 
 	}
 
-	else if (dynamic_cast<CTriangle*>(toPaste)) {
+	else if (dynamic_cast<CTriangle*>(toPaste)) 
+	{
 		
 		CTriangle* tri = dynamic_cast<CTriangle*>(toPaste);
 		Point Pa, Pb, Pc,Center1,Center2;
 		ValidateTriangle(Pa,Pb,Pc,tri);
 		toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
 
-		if (toPaste->IsCut()) {
+		if (toPaste->IsCut()) 
+		{
 			toPasteGfxInfo.DrawClr = pManager->getLastDrawClr();
 			toPasteGfxInfo.FillClr = pManager->getLastFillClr();
 			pManager->DeleteFigure(toPaste);
@@ -94,7 +105,8 @@ void pasteAction::Execute() {
 			pManager->setLastCut(NULL);
 		}
 
-		else {
+		else
+		{
 			toPasteGfxInfo.DrawClr = toPaste->getDrawColor();
 			toPasteGfxInfo.FillClr = toPaste->getFillColor();
 		}
@@ -106,14 +118,16 @@ void pasteAction::Execute() {
 		pManager->AddFigure(Tr);
 	}
 
-	else if (dynamic_cast<CRectangle*>(toPaste)) {
+	else if (dynamic_cast<CRectangle*>(toPaste))
+	{
 
 		CRectangle* Rec = dynamic_cast<CRectangle*>(toPaste);
 		Point Pa, Pb;
 		ValidateRectangle(Pa, Pb, Rec);
 		toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
 
-		if (toPaste->IsCut()) {
+		if (toPaste->IsCut()) 
+		{
 			toPasteGfxInfo.DrawClr = pManager->getLastDrawClr();
 			toPasteGfxInfo.FillClr = pManager->getLastFillClr();
 			pManager->DeleteFigure(toPaste);
@@ -121,7 +135,8 @@ void pasteAction::Execute() {
 			pManager->setLastCut(NULL);
 		}
 
-		else {
+		else
+		{
 			toPasteGfxInfo.DrawClr = toPaste->getDrawColor();
 			toPasteGfxInfo.FillClr = toPaste->getFillColor();
 		}
@@ -133,31 +148,35 @@ void pasteAction::Execute() {
 		pManager->AddFigure(Rect);
 	}
 
-	else if (dynamic_cast<CLine*>(toPaste)) {
+	else if (dynamic_cast<CLine*>(toPaste))
+    {
 
-	CLine* line = dynamic_cast<CLine*>(toPaste);
-	Point Pa, Pb;
-	ValidateLine(Pa, Pb, line);
-	toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
+	    CLine* line = dynamic_cast<CLine*>(toPaste);
+	    Point Pa, Pb;
+  	    ValidateLine(Pa, Pb, line);
+	    toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
 
-	if (toPaste->IsCut()) {
+	  if (toPaste->IsCut()) 
+	  {
 		toPasteGfxInfo.DrawClr = pManager->getLastDrawClr();
 		toPasteGfxInfo.FillClr = pManager->getLastFillClr();
 		pManager->DeleteFigure(toPaste);
 		pManager->setClipboard(NULL);
 		pManager->setLastCut(NULL);
-	}
+	  }
 
-	else {
+	  else
+	  {
 		toPasteGfxInfo.DrawClr = toPaste->getDrawColor();
 		toPasteGfxInfo.FillClr = toPaste->getFillColor();
-	}
+	  }
 
-	pOut->DrawLine(Pa, Pb, toPasteGfxInfo, false);
-	//Create a Line with the center from the user
-	CLine *Line = new CLine(Pa, Pb, toPasteGfxInfo);
-	//Add the Line to the list of figures
-	pManager->AddFigure(Line);
+	    pOut->DrawLine(Pa, Pb, toPasteGfxInfo, false);
+	    //Create a Line with the center from the user
+	    CLine *Line = new CLine(Pa, Pb, toPasteGfxInfo);
+	    //Add the Line to the list of figures
+	    pManager->AddFigure(Line);
+
 	}
 }
 
@@ -169,7 +188,8 @@ void pasteAction::ValidateTriangle(Point& Pa, Point& Pb, Point& Pc, CTriangle* T
 	Center1.x = (Tri->getP1().x + Tri->getP2().x + Tri->getP3().x) / 3;
 	Center1.y = (Tri->getP1().y + Tri->getP2().y + Tri->getP3().y) / 3;
 	int deltaX, deltaY;
-	while (true) {
+	while (true)
+	{
 		pIn->GetPointClicked(Center2.x, Center2.y);
 		deltaX = Center2.x - Center1.x;
 		deltaY = Center2.y - Center1.y;
@@ -188,7 +208,8 @@ void pasteAction::ValidateTriangle(Point& Pa, Point& Pb, Point& Pc, CTriangle* T
 		else break;
 	}
 }
-void pasteAction::ValidateRectangle(Point& Pa, Point& Pb,CRectangle* Rec) {
+void pasteAction::ValidateRectangle(Point& Pa, Point& Pb,CRectangle* Rec)
+{
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
 
@@ -196,7 +217,8 @@ void pasteAction::ValidateRectangle(Point& Pa, Point& Pb,CRectangle* Rec) {
 	Center1.x = (Rec->getP1().x + Rec->getP2().x)/ 2;
 	Center1.y = (Rec->getP1().y + Rec->getP2().y) / 2;
 	int deltaX, deltaY;
-	while (true) {
+	while (true)
+	{
 		pIn->GetPointClicked(Center2.x, Center2.y);
 		deltaX = Center2.x - Center1.x;
 		deltaY = Center2.y - Center1.y;
@@ -204,6 +226,7 @@ void pasteAction::ValidateRectangle(Point& Pa, Point& Pb,CRectangle* Rec) {
 		Pa.y = Rec->getP1().y + deltaY;
 		Pb.x = Rec->getP2().x + deltaX;
 		Pb.y = Rec->getP2().y + deltaY;
+
 		if (Pa.y < UI.ToolBarHeight || Pa.y > UI.height - UI.StatusBarHeight || Pa.x < UI.MenuActionWidth ||
 			Pb.y < UI.ToolBarHeight || Pb.y > UI.height - UI.StatusBarHeight || Pb.x < UI.MenuActionWidth )
 		{
@@ -213,7 +236,8 @@ void pasteAction::ValidateRectangle(Point& Pa, Point& Pb,CRectangle* Rec) {
 	}
 }
 
-void pasteAction::ValidateLine(Point& Pa, Point& Pb, CLine* Line) {
+void pasteAction::ValidateLine(Point& Pa, Point& Pb, CLine* Line) 
+{
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
 
@@ -221,7 +245,8 @@ void pasteAction::ValidateLine(Point& Pa, Point& Pb, CLine* Line) {
 	Center1.x = (Line->getP1().x + Line->getP2().x) / 2;
 	Center1.y = (Line->getP1().y + Line->getP2().y) / 2;
 	int deltaX, deltaY;
-	while (true) {
+	while (true) 
+	{
 		pIn->GetPointClicked(Center2.x, Center2.y);
 		deltaX = Center2.x - Center1.x;
 		deltaY = Center2.y - Center1.y;
@@ -239,5 +264,4 @@ void pasteAction::ValidateLine(Point& Pa, Point& Pb, CLine* Line) {
 }
 
 pasteAction::~pasteAction()
-{
-}
+{}

@@ -5,8 +5,7 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-class cutAction :
-	public Action
+class cutAction :public Action
 {
 	CFigure* cut;
 public:

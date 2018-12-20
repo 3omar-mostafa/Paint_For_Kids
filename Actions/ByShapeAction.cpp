@@ -21,14 +21,17 @@ void ByShapeAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	Point P;
+
 	if (pIn->GetUserAction(P) == COL_SHP)
 	{
 		Terminate = 1;
 		return;
 	}
+
 	CFigure* Clicked = pManager->GetFigure(P.x, P.y);
 	if (!Clicked)
 		return;
+
 	if (Clicked->getType() == FIG_TYPE)
 	{
 		Correct++;
@@ -43,6 +46,7 @@ void ByShapeAction::ReadActionParameters()
 
 	}
 }
+
 //function Play tells the user which color he should pick and analyzes his action
 bool ByShapeAction::Play()
 {
@@ -51,16 +55,18 @@ bool ByShapeAction::Play()
 	FIG_TYPE = pManager->RandomType();
 	pOut->PrintMessage("Pick " + Display(FIG_TYPE) + ", Click to start!");
 	pIn->GetUserAction();
-	pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+	pOut->PrintMessage("Pick " + Display(FIG_TYPE)+"==>Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+
 	while (pManager->HasFigure(FIG_TYPE))
 	{
 		ReadActionParameters();
 		if (Terminate)
 			return false;
-		pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+		pOut->PrintMessage("Pick " + Display(FIG_TYPE) + "==>Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	}
 	return true;
 }
+
 //function Reset resets the game
 void ByShapeAction::Reset()
 {
@@ -70,6 +76,7 @@ void ByShapeAction::Reset()
 	LoadAction* Load = new LoadAction(pManager);
 	Load->QuickLoad();
 }
+
 //function Execute redraws playtoolbar, calls Play until the game ends
 void ByShapeAction::Execute()
 {
@@ -77,12 +84,14 @@ void ByShapeAction::Execute()
 	Input* pIn = pManager->GetInput();
 	pOut->CreatePlayToolBar();
 	pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);
+
 	while (!pManager->Empty())
 		if (!Play())
 		{
 			Reset();
 			return;
 		}
+
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
 

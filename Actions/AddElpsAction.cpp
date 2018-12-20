@@ -17,6 +17,7 @@ void AddElpsAction::ReadActionParameters()
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
 	PlaySound(TEXT("Sounds/ellipse--_gb_1.wav"), NULL, SND_FILENAME);
 	pOut->PrintMessage("New Ellipse: Click at the center");
+
 	//Read center and store in P
 	pOut->getValidEllipsePoint(P);
 

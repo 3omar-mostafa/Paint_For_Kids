@@ -14,20 +14,24 @@ ByColorAction::ByColorAction(ApplicationManager * pApp) :Action(pApp)
 	SaveAction* Save = new SaveAction(pManager);
 	Save->QuickSave();
 }
+
 //function ReadActionParameters gets user actions and analyze them
 void ByColorAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	Point P;
+
 	if (pIn->GetUserAction(P) == COL_CLR)
 	{
 		Terminate = 1;
 		return;
 	}
+
 	CFigure* Clicked = pManager->GetFigure(P.x, P.y);
 	if (!Clicked)
 		return;
+
 	if (Clicked->getFillColor() == FIG_COLOR)
 	{
 		Correct++;
@@ -41,6 +45,7 @@ void ByColorAction::ReadActionParameters()
 		PlaySound(TEXT("Sounds/WrongAnswer.wav"), NULL, SND_FILENAME);
 	}
 }
+
 //function Play tells the user which color he should pick and analyzes his action
 bool ByColorAction::Play()
 {
@@ -49,17 +54,18 @@ bool ByColorAction::Play()
 	FIG_COLOR = pManager->RandomColor();
 	pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + ", Click to start!");
 	pIn->GetUserAction();
-	pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+	pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + "==>Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	while (pManager->HasColor(FIG_COLOR))
 	{
 		ReadActionParameters();
 		if (Terminate)
 			return false;
-		pOut->PrintMessage("Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+		pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + "==>Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	}
 	return true;
 
 }
+
 //function Reset resets the game
 void ByColorAction::Reset()
 {
@@ -69,6 +75,7 @@ void ByColorAction::Reset()
 	LoadAction* Load = new LoadAction(pManager);
 	Load->QuickLoad();
 }
+
 //function Execute redraws playtoolbar, calls Play until the game ends
 void ByColorAction::Execute()
 {
@@ -76,18 +83,21 @@ void ByColorAction::Execute()
 	Input* pIn = pManager->GetInput();
 	pOut->CreatePlayToolBar();
 	pOut->playOnToolbar("images\\MenuItems\\col_clr_selected.jpg", ITM_COL_CLR);
+
 	while (!pManager->Empty())
 		if (!Play())
 		{
 			Reset();
 			return;
 		}
+
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
 	// Auto-Loading:
 	LoadAction* Load = new LoadAction(pManager);
 	Load->QuickLoad();
 }
+
 //function colorname gets the color name from its RGB
 string ByColorAction::colorname(color c)
 {

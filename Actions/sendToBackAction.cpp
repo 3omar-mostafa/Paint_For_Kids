@@ -4,10 +4,12 @@
 sendToBackAction::sendToBackAction(ApplicationManager *pApp) :Action(pApp)
 {}
 
-void sendToBackAction::ReadActionParameters() {
+void sendToBackAction::ReadActionParameters()
+{
 	currentFigure = pManager->getSelectedFigure();
 }
-void sendToBackAction::Execute() {
+void sendToBackAction::Execute()
+{
 
 	ReadActionParameters();
 

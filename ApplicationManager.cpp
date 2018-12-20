@@ -156,7 +156,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct->Execute();	//Execute
 		delete pAct;		//Action is not needed any more ==> delete it
 		pAct = NULL;
-		if (ActType != TO_PLAY && ActType != EXIT && UI.InterfaceMode != MODE_PLAY) {
+		if (ActType != TO_PLAY && ActType != EXIT && UI.InterfaceMode != MODE_PLAY) 
+		{
 			pOut->CreateDrawToolBar();
 			pOut->CreateDrawActionToolBar();
 			if (ActType == COL_SHP || ActType == COL_CLR)
@@ -263,8 +264,10 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	//Remember that ApplicationManager only calls functions do NOT implement it.
 
 	//started from last to first because if two shapes overlapped on same point,I should choose the top one
-	for (int i = FigCount - 1; i >= 0; i--) {
-		if (FigList[i]->doesItContain(x, y)) {
+	for (int i = FigCount - 1; i >= 0; i--)
+	{
+		if (FigList[i]->doesItContain(x, y)) 
+		{
 			return FigList[i];
 		}
 	}
@@ -290,38 +293,47 @@ void ApplicationManager::DeleteFigure(CFigure* Deleted)
 	}
 }
 
-void ApplicationManager::sendToBack(CFigure* figure) {
+void ApplicationManager::sendToBack(CFigure* figure)
+{
 	int currentIndex;
 	CFigure* currentFigure;
-	for (int i = 0; i < FigCount; i++) {
 
-		if (FigList[i] == figure) {
+	for (int i = 0; i < FigCount; i++)
+	{
+
+		if (FigList[i] == figure) 
+		{
 			currentIndex = i;
 			currentFigure =FigList[i];
 			break;
 		}
 	}
 
-	for (int i = currentIndex; i >0; i--) {
+	for (int i = currentIndex; i >0; i--) 
+	{
 		FigList[i] = FigList[i-1];
 	}
 
 	FigList[0] = currentFigure;
 }
 
-void ApplicationManager::bringToFront(CFigure* figure) {
+void ApplicationManager::bringToFront(CFigure* figure) 
+{
 	int currentIndex;
 	CFigure* currentFigure;
-	for (int i = 0; i < FigCount; i++) {
+	for (int i = 0; i < FigCount; i++)
+	{
 
-		if (FigList[i] == figure) {
+		if (FigList[i] == figure)
+		{
 			currentIndex = i;
 			currentFigure = FigList[i];
 			break;
 		}
 	}
 
-	for (int i = currentIndex; i < FigCount -1; i++) {
+	for (int i = currentIndex; i < FigCount -1; i++) 
+	{
 		FigList[i] = FigList[i + 1];
 	}
 
@@ -351,19 +363,23 @@ Output *ApplicationManager::GetOutput() const
 {
 	return pOut;
 }
-void ApplicationManager::setSelectedFigure(CFigure* fig) {
+void ApplicationManager::setSelectedFigure(CFigure* fig)
+{
 	SelectedFig = fig;
 }
 
-CFigure* ApplicationManager::getSelectedFigure() {
+CFigure* ApplicationManager::getSelectedFigure() 
+{
 	return SelectedFig;
 }
 
-void ApplicationManager::setLastSelected(CFigure* fig) {
+void ApplicationManager::setLastSelected(CFigure* fig)
+{
 	lastSelected = fig;
 }
 
-CFigure* ApplicationManager::getLastSelected() {
+CFigure* ApplicationManager::getLastSelected() 
+{
 	return lastSelected;
 }
 
@@ -373,35 +389,43 @@ void ApplicationManager::Exit()
 	pIn = NULL; pOut = NULL;
 }
 
-void ApplicationManager::setClipboard(CFigure* fig) {
+void ApplicationManager::setClipboard(CFigure* fig)
+{
 	Clipboard = fig;
 }
 
-CFigure* ApplicationManager::getClipboard() {
+CFigure* ApplicationManager::getClipboard() 
+{
 	return Clipboard;
 }
 
-color ApplicationManager::getLastDrawClr() {
+color ApplicationManager::getLastDrawClr() 
+{
 	return lastdrawclr;
 }
 
-color ApplicationManager::getLastFillClr() {
+color ApplicationManager::getLastFillClr() 
+{
 	return lastfillclr;
 }
 
-void ApplicationManager::setLastDrawClr(color c) {
+void ApplicationManager::setLastDrawClr(color c) 
+{
 	lastdrawclr = c;
 }
 
-void ApplicationManager::setLastFillClr(color clr) {
+void ApplicationManager::setLastFillClr(color clr)
+{
 	lastfillclr = clr;
 
 }
-void ApplicationManager::setLastCut(CFigure* fig) {
+void ApplicationManager::setLastCut(CFigure* fig)
+{
 	lastCut = fig;
 }
 
-CFigure* ApplicationManager::getLastCut() {
+CFigure* ApplicationManager::getLastCut() 
+{
 	return lastCut;
 }
 

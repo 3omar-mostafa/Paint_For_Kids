@@ -4,7 +4,8 @@
 cutAction::cutAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void cutAction::ReadActionParameters() {
+void cutAction::ReadActionParameters()
+{
 
 	Output* pOut = pManager->GetOutput();
 	pOut->PrintMessage("Cut, Selected Figure cut to Clipboard");
@@ -13,17 +14,20 @@ void cutAction::ReadActionParameters() {
 	//if there was a previous cut we return it to its initial color
 	if (pManager->getLastCut()!= NULL) 
 	{
-		if (!pManager->getLastCut()->isFilled()) {
+		if (!pManager->getLastCut()->isFilled())
+		{
 			pManager->getLastCut()->ChngDrawClr(pManager->getLastDrawClr());
 		}
-		else {
+		else 
+		{
 			pManager->getLastCut()->ChngDrawClr(pManager->getLastDrawClr());
 			pManager->getLastCut()->ChngFillClr(pManager->getLastFillClr());
 		}
 	}
 
 	pManager->setLastCut(pManager->getSelectedFigure());
-	if (pManager->getSelectedFigure() != NULL) {
+	if (pManager->getSelectedFigure() != NULL)
+	{
 		pManager->setLastDrawClr(pManager->getSelectedFigure()->getDrawColor());
 		pManager->setLastFillClr(pManager->getSelectedFigure()->getFillColor());
 	}
@@ -31,12 +35,14 @@ void cutAction::ReadActionParameters() {
 	cut = pManager->getSelectedFigure();
 }
 
-void cutAction::Execute() {
+void cutAction::Execute() 
+{
 
 	ReadActionParameters();
 	Output* pOut = pManager->GetOutput();
 
-	if (cut == NULL) {
+	if (cut == NULL)
+	{
 		pOut->PrintMessage("Please Select a Figure to cut");
 		return;
 	}
@@ -46,11 +52,11 @@ void cutAction::Execute() {
 	pManager->getSelectedFigure()->ChngDrawClr(GREY);
 	if(pManager->getSelectedFigure()->isFilled())
 		pManager->getSelectedFigure()->ChngFillClr(GREY);	
-	else {
+	else 
+	{
 		pManager->getSelectedFigure()->SetSelected(false);
 	}
 }
 
 cutAction::~cutAction()
-{
-}
+{}

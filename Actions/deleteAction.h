@@ -12,9 +12,7 @@ class DeleteAction :public Action
 	CFigure * deletedFigure;
 public:
 	DeleteAction(ApplicationManager*);
-
 	virtual void ReadActionParameters();
-
-	virtual void Execute();
+    virtual void Execute();
 };
 

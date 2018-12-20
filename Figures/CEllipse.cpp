@@ -6,7 +6,8 @@ CEllipse::CEllipse(Point P, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 	FigType = ELLIPSE;
 }
 
-Point CEllipse::getCenter(){
+Point CEllipse::getCenter()
+{
 	return Center;
 }
 
@@ -16,12 +17,14 @@ void CEllipse::Draw(Output* pOut) const
 	pOut->DrawEllipse(Center, FigGfxInfo, Selected);
 }
 
-bool CEllipse::doesItContain(int x, int y) {
+bool CEllipse::doesItContain(int x, int y) 
+{
 	// eq of ellipse: x^2/a^2 + y^2/b^2 = 1
 	long long X = x - Center.x;
 	long long Y = y - Center.y;
 
-	if (6400 * X*X + 22500 * Y*Y <= 144000000) {
+	if (6400 * X*X + 22500 * Y*Y <= 144000000) 
+	{
 		return true;
 	}
 

@@ -78,7 +78,8 @@ ActionType Input::GetUserAction(Point & P) const
 			}
 
 		}
-		else if (x >= 0 && x < UI.MenuActionWidth) {
+		else if (x >= 0 && x < UI.MenuActionWidth)
+		{
 			int ClickedItemOrder = (y / UI.MenuActionWidth) - 1;
 
 			switch (ClickedItemOrder)
@@ -136,5 +137,4 @@ ActionType Input::GetUserAction(Point & P) const
 /////////////////////////////////
 
 Input::~Input()
-{
-}
+{}

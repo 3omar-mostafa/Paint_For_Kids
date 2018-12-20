@@ -20,13 +20,15 @@ void ChangeFillColor::Execute()
 
 	pIn->GetPointClicked(P.x, P.y);
 		
-	if (pManager->getSelectedFigure() != NULL) {
+	if (pManager->getSelectedFigure() != NULL) 
+	{
 		color c = pOut->selectFillColor(P);
 		if (c != NOFILL)
 			pManager->getSelectedFigure()->ChngFillClr(c);
 		else
 			pManager->getSelectedFigure()->setFilled(false);
-	}else
+	}
+	else
 		pOut->selectFillColor(P);
 	
 	pOut->deleteColorMenu();

@@ -8,13 +8,16 @@ CTriangle::CTriangle(Point A, Point B, Point C, GfxInfo FigureGfxInfo) :CFigure(
 	FigType = TRIANGLE;
 }
 
-Point CTriangle::getP1(){
+Point CTriangle::getP1()
+{
 	return P1 ;
 }
-Point CTriangle::getP2(){
+Point CTriangle::getP2()
+{
 	return P2 ;
 }
-Point CTriangle::getP3(){
+Point CTriangle::getP3()
+{
 	return P3 ;
 }
 
@@ -24,7 +27,8 @@ void CTriangle::Draw(Output* pOut) const
 	pOut->DrawTriangle(P1, P2, P3, FigGfxInfo, Selected);
 }
 
-double CTriangle::getTriangularArea(Point p1, Point p2, Point p3) {
+double CTriangle::getTriangularArea(Point p1, Point p2, Point p3) 
+{
 	// Area of any triangle using vertices is 0.5* absolute of the followning determinant
 	// | x1	 y1	 1 |
 	// | x2	 y2	 1 |  = 0.5* | ( x1(y2-y3) +x2(y3-y1) +x3(y1-y2) ) |
@@ -33,7 +37,8 @@ double CTriangle::getTriangularArea(Point p1, Point p2, Point p3) {
 	return 0.5* abs(p1.x*(p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y));
 }
 
-bool CTriangle::isColinear(Point p1, Point p2, Point p3) {
+bool CTriangle::isColinear(Point p1, Point p2, Point p3)
+{
 	// I am going to create a triangle using 2 point of the line and the given point
 	// the normal distance between the line and the given point (height) is area/length of line(base)
 
@@ -42,16 +47,19 @@ bool CTriangle::isColinear(Point p1, Point p2, Point p3) {
 	int upY = (p2.y > p1.y) ? p1.y - 3 : p2.y - 3;
 	int downY = (p2.y < p1.y) ? p1.y + 3 : p2.y + 3;
 
-	if (p3.x >= leftX && p3.x <= rightX && p3.y >= upY && p3.y <= downY) {
+	if (p3.x >= leftX && p3.x <= rightX && p3.y >= upY && p3.y <= downY) 
+	{
 		double lengthOFLine = sqrt((rightX - leftX)*(rightX - leftX) + (downY - upY)*(downY - upY));
-		if (getTriangularArea(p1,p2,p3) / lengthOFLine <= 3) {
+		if (getTriangularArea(p1,p2,p3) / lengthOFLine <= 3)
+		{
 			return true;
 		}
 	}
 	return false;
 }
 
-bool CTriangle::doesItContain(int x, int y) {
+bool CTriangle::doesItContain(int x, int y) 
+{
 	Point p4;
 	p4.x = x;
 	p4.y = y;
@@ -64,7 +72,8 @@ bool CTriangle::doesItContain(int x, int y) {
 	double area2 = getTriangularArea(P1, p4, P3);
 	double area3 = getTriangularArea(p4, P2, P3);
 
-	if (abs(totalArea - (area1 + area2 + area3)) <= 1) {
+	if (abs(totalArea - (area1 + area2 + area3)) <= 1)
+	{
 		return true;
 	}
 	

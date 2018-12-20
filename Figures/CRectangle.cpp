@@ -7,10 +7,12 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 	FigType = RECTANGLE;
 }
 
-Point CRectangle::getP1() {
+Point CRectangle::getP1()
+{
 	return Corner1;
 }
-Point CRectangle::getP2() {
+Point CRectangle::getP2()
+{
 	return Corner2;
 }
 
@@ -20,7 +22,8 @@ void CRectangle::Draw(Output* pOut) const
 	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
 }
 
-bool CRectangle::doesItContain(int x, int y) {
+bool CRectangle::doesItContain(int x, int y)
+{
 	int x1 = Corner1.x;
 	int y1 = Corner1.y;
 	int x2 = Corner2.x;
@@ -30,7 +33,8 @@ bool CRectangle::doesItContain(int x, int y) {
 	if (y1 > y2)
 		swap(y1, y2);
 
-	if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
+	if (x >= x1 && x <= x2 && y >= y1 && y <= y2) 
+	{
 		return true;
 	}
 

@@ -3,12 +3,14 @@
 DeleteAction::DeleteAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void DeleteAction::ReadActionParameters() {
+void DeleteAction::ReadActionParameters() 
+{
 	deletedFigure = pManager->getSelectedFigure();
 }
-void DeleteAction::Execute() {
-	ReadActionParameters();
 
+void DeleteAction::Execute() 
+{
+	ReadActionParameters();
 	Output* pOut = pManager->GetOutput();
 
 	pOut->CreateDrawActionToolBar();

@@ -7,10 +7,12 @@ CLine::CLine(Point P_1, Point P_2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo
 	FigType = LINE;
 }
 
-Point CLine::getP1(){
+Point CLine::getP1()
+{
 	return P1;
 }
-Point CLine::getP2(){
+Point CLine::getP2()
+{
 	return P2;
 }
 
@@ -20,7 +22,8 @@ void CLine::Draw(Output* pOut) const
 	pOut->DrawLine(P1, P2, FigGfxInfo, Selected);
 }
 
-double CLine::getTriangularArea(int x, int y) {
+double CLine::getTriangularArea(int x, int y) 
+{
 	// Area of any triangle using vertices is 0.5* absolute of the followning determinant
 	// | x1	 y1	 1 |
 	// | x2	 y2	 1 |  = 0.5* | ( x1(y2-y3) +x2(y3-y1) +x3(y1-y2) ) |
@@ -29,7 +32,8 @@ double CLine::getTriangularArea(int x, int y) {
 	return 0.5* abs(P1.x*(P2.y - y) + P2.x * (y - P1.y) + x * (P1.y - P2.y));
 }
 
-bool CLine::doesItContain(int x, int y) {
+bool CLine::doesItContain(int x, int y) 
+{
 	// I am going to create a triangle using 2 point of the line and the given point
 	// the normal distance between the line and the given point (height) is area/length of line(base)
 			  
@@ -37,9 +41,11 @@ bool CLine::doesItContain(int x, int y) {
 	int rightX = (P2.x < P1.x) ? P1.x + 3 : P2.x + 3;
 	int upY = (P2.y > P1.y) ? P1.y - 3 : P2.y - 3;
 	int downY = (P2.y < P1.y) ? P1.y + 3 : P2.y + 3;
-	if (x >= leftX && x <= rightX && y >= upY && y <= downY) {
+	if (x >= leftX && x <= rightX && y >= upY && y <= downY) 
+	{
 		double lengthOFLine = sqrt((rightX - leftX)*(rightX - leftX) + (downY - upY)*(downY - upY));
-		if (getTriangularArea(x,y)/ lengthOFLine <= 3) {
+		if (getTriangularArea(x,y)/ lengthOFLine <= 3)
+		{
 			return true;
 		}
 	}

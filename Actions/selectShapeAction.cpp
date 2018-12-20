@@ -4,12 +4,13 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-selectShapeAction::selectShapeAction(ApplicationManager * pApp) :Action(pApp) {
-}
+selectShapeAction::selectShapeAction(ApplicationManager * pApp) :Action(pApp) 
+{}
 
 
 //TODO: Comment this properly 
-void selectShapeAction::ReadActionParameters() {
+void selectShapeAction::ReadActionParameters() 
+{
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
@@ -25,24 +26,30 @@ void selectShapeAction::ReadActionParameters() {
 }
 
 //TODO: Comment this properly 
-void selectShapeAction::Execute() {
+void selectShapeAction::Execute() 
+{
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
-	if (pManager->getLastSelected() == pManager->getSelectedFigure() && pManager->getSelectedFigure() != NULL) {
+	if (pManager->getLastSelected() == pManager->getSelectedFigure() && pManager->getSelectedFigure() != NULL) 
+	{
 		pManager->getSelectedFigure()->toggleSelection();
 		if (pManager->getSelectedFigure()->IsSelected())
 			pManager->getSelectedFigure()->PrintInfo(pOut);
-		else {
+		else
+		{
 			pManager->setLastSelected(NULL);
 			pManager->setSelectedFigure(NULL);
 		}
 	}
-	else {
-		if (pManager->getLastSelected() != NULL) {
+	else 
+	{
+		if (pManager->getLastSelected() != NULL) 
+		{
 			pManager->getLastSelected()->SetSelected(false);
 			pManager->setLastSelected(NULL);
 		}
-		if (pManager->getSelectedFigure() != NULL) {
+		if (pManager->getSelectedFigure() != NULL) 
+		{
 			pManager->getSelectedFigure()->toggleSelection();
 			pOut->changeDrawColorIcon(pManager->getSelectedFigure()->getDrawColor());
 			pOut->changeFillColorIcon(pManager->getSelectedFigure()->getFillColor(), pManager->getSelectedFigure()->isFilled());
@@ -51,7 +58,8 @@ void selectShapeAction::Execute() {
 			else
 				pManager->getSelectedFigure()->PrintInfo(pOut);
 		}
-		else if (pManager->getLastSelected() != NULL) {
+		else if (pManager->getLastSelected() != NULL)
+		{
 			pManager->getLastSelected()->SetSelected(false);
 		}
 	}

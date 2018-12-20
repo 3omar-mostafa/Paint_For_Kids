@@ -8,10 +8,12 @@
 bringToFrontAction::bringToFrontAction(ApplicationManager *pApp) :Action(pApp)
 {}
 
-void bringToFrontAction::ReadActionParameters(){
+void bringToFrontAction::ReadActionParameters()
+{
 	currentFigure = pManager->getSelectedFigure();
 }
-void bringToFrontAction::Execute(){
+void bringToFrontAction::Execute()
+{
 
 	ReadActionParameters();
 
@@ -22,6 +24,7 @@ void bringToFrontAction::Execute(){
 
 	if (currentFigure == NULL)
 		pOut->PrintMessage("Please Select a Figure first");
+
 	else
 		pManager->bringToFront(currentFigure);
 

@@ -33,7 +33,8 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 
 };
 
-enum DrawMenuAction {
+enum DrawMenuAction
+{
 
 	ITM_LOAD,
 	ITM_SAVE,
