@@ -30,8 +30,15 @@ void copyAction::ReadActionParameters() {
 }
 
 void copyAction::Execute(){
+
 	ReadActionParameters();
-	
+	Output* pOut = pManager->GetOutput();
+
+	if (copied == NULL) {
+		pOut->PrintMessage("Please Select a Figure to copy");
+		return;
+	}
+
 	pManager->setClipboard(copied);
 }
 

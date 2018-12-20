@@ -8,6 +8,9 @@ int main()
 	//Create an object of ApplicationManager
 	ApplicationManager AppManager;
 
+	// play sound on starting the program
+	PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
+
 	do
 	{		
 		//Read user action

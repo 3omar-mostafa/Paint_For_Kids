@@ -121,18 +121,26 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case TO_DRAW:
 		pOut->PrintMessage("Switch to Draw Mode, Creating Design Toolbar");
 		pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
-		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		pOut->CreateDrawToolBar();
 		pOut->CreateColorIcons();
 		pOut->CreateDrawActionToolBar();
+
+		// resets Clipboard and selected figures after switching to draw mode
+		SelectedFig = NULL;
+		lastSelected = NULL;
+		Clipboard = NULL;
+
+		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		break;
 
 	case TO_PLAY:
 		pOut->PrintMessage("Switch to Play Mode, Creating Game Toolbar");
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
-		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		pOut->CreatePlayToolBar();
 		pOut->removeDrawActionToolBar();
+		if(SelectedFig != NULL) //remove selection color (Magenta) before play mode
+			SelectedFig->SetSelected(false);
+		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		break;
 
 	case STATUS:	//a click on the status bar ==> no action
