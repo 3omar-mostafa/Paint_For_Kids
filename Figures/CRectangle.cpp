@@ -7,12 +7,10 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 	FigType = RECTANGLE;
 }
 
-Point CRectangle::getP1()
-{
+Point CRectangle::getP1() {
 	return Corner1;
 }
-Point CRectangle::getP2()
-{
+Point CRectangle::getP2() {
 	return Corner2;
 }
 
@@ -22,8 +20,7 @@ void CRectangle::Draw(Output* pOut) const
 	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
 }
 
-bool CRectangle::doesItContain(int x, int y)
-{
+bool CRectangle::doesItContain(int x, int y) {
 	int x1 = Corner1.x;
 	int y1 = Corner1.y;
 	int x2 = Corner2.x;
@@ -33,17 +30,39 @@ bool CRectangle::doesItContain(int x, int y)
 	if (y1 > y2)
 		swap(y1, y2);
 
-	if (x >= x1 && x <= x2 && y >= y1 && y <= y2) 
-	{
+	if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
 		return true;
 	}
 
 	return false;
 }
 
+void CRectangle::Resize(float R)
+{
+	Point MP = (Corner1 + Corner2) / 2;
+	Point C1, C2;
+
+	//Setting the Vertical Coordinates:
+	int Lower = (Corner1.y > Corner2.y) ? Corner1.y : Corner2.y;
+	int Vertical = Lower - MP.y;
+	C1.y = MP.y + Vertical * R;
+	C2.y = MP.y - Vertical * R;
+
+	//Setting the Horizontal Coordinates:
+	int Further = (Corner1.x > Corner2.x) ? Corner1.x : Corner2.x;
+	int Horizontal = Further - MP.x;
+	C1.x = MP.x + Horizontal * R;
+	C2.x = MP.x - Horizontal * R;
+
+	//Creating the Resized Object and Passing its ID:
+	int oldID = ID;
+	*this = CRectangle(C1, C2, FigGfxInfo);
+	setID(oldID);
+}
+
 void CRectangle::Save(ofstream &OutFile)
 {
-	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Corner1.Data() + " " + Corner2.Data() + " "+ FigGfxInfo.Data();
+	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Corner1.Data() + " " + Corner2.Data() + " " + FigGfxInfo.Data();
 	OutFile << endl << Info;
 }
 

@@ -41,6 +41,8 @@ public:
 	void setFilled(bool filled);
 	virtual bool doesItContain(int, int) = 0;
 
+	virtual void Resize(float) = 0;
+
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure
 

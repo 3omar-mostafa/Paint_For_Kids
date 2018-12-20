@@ -42,8 +42,7 @@ bool CFigure::IsCut() const
 	return cut;
 }
 
-void CFigure::toggleSelection()
-{
+void CFigure::toggleSelection(){
 	Selected = !Selected;
 }
 void CFigure::ChngDrawClr(color Dclr)
@@ -57,23 +56,19 @@ void CFigure::ChngFillClr(color Fclr)
 	FigGfxInfo.FillClr = Fclr;
 }
 
-color CFigure::getFillColor()
-{
+color CFigure::getFillColor() {
 	return FigGfxInfo.FillClr;
 }
 
-color CFigure::getDrawColor()
-{
+color CFigure::getDrawColor() {
 	return FigGfxInfo.DrawClr;
 }
 
-void CFigure::setFilled( bool filled)
-{
+void CFigure::setFilled( bool filled) {
 	FigGfxInfo.isFilled = filled;
 }
 
-bool CFigure::isFilled()
-{
+bool CFigure::isFilled() {
 	return FigGfxInfo.isFilled;
 }
 

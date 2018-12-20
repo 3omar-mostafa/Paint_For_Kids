@@ -67,6 +67,7 @@ struct Point	//To be used for figures points
 		Data += to_string(x) + " " + to_string(y);
 		return Data;
 	}
+
 	void Read(ifstream& in)
 	{
 		int X, Y;
@@ -74,6 +75,22 @@ struct Point	//To be used for figures points
 		x = X;
 		y = Y;
 	}
+
+	Point operator+(Point P)
+	{
+		Point S;
+		S.x = x + P.x;
+		S.y = y + P.y;
+		return S;
+	}
+
+	Point& operator/(float R)
+	{
+		x /= R;
+		y /= R;
+		return *this;
+	}
+};
 };
 
 struct GfxInfo	//Graphical info of each figure (you may add more members)

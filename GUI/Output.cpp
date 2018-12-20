@@ -175,15 +175,12 @@ void Output::deleteColorMenu() const
 	pWind->DrawImage("images\\MenuItems\\clean.jpg", UI.MenuActionWidth * (DRAW_ITM_COUNT + 5), 0, UI.MenuActionWidth * 7, UI.ToolBarHeight - 3);
 }
 
-color Output::selectFillColor(Point p)  
-{
+color Output::selectFillColor(Point p)   {
 
-	if (p.y > 0 && p.y < UI.ToolBarHeight) 
-	{
+	if (p.y > 0 && p.y < UI.ToolBarHeight) {
 		int selectedColor = ((p.x - (DRAW_ITM_COUNT + 4) * UI.MenuActionWidth) / UI.MenuActionWidth);
 
-		switch (selectedColor) 
-		{
+		switch (selectedColor) {
 		case 1:
 			pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 			UI.FillColor = BLACK;
@@ -224,20 +221,16 @@ color Output::selectFillColor(Point p)
 	return (filled) ? UI.FillColor : NOFILL;
 }
 
-bool Output::isFilled()
-{
+bool Output::isFilled() {
 	return filled;
 }
 
-color Output::selectDrawColor(Point p)  
-{
+color Output::selectDrawColor(Point p)  {
 
-	if (p.y > 0 && p.y < UI.ToolBarHeight) 
-	{
-		int selectedColor = ((p.x - (DRAW_ITM_COUNT + 4) * UI.MenuActionWidth) / UI.MenuActionWidth);
+	if (p.y > 0 && p.y < UI.ToolBarHeight) {
+		int selectedColor = ((p.x - (DRAW_ACTION_COUNT + 4) * UI.MenuActionWidth) / UI.MenuActionWidth);
 
-		switch (selectedColor) 
-		{
+		switch (selectedColor) {
 		case 1:
 			pWind->DrawImage("images\\MenuItems\\Menu_draw_color_black.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 			UI.DrawColor = BLACK;
@@ -268,76 +261,61 @@ color Output::selectDrawColor(Point p)
 	return UI.DrawColor;
 }
 
-void Output::changeFillColorIcon( color c , bool filled) 
-{
-	if (!filled) 
-	{
+void Output::changeFillColorIcon( color c , bool filled) {
+	if (!filled) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_No.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		filled = false;
 	}
-	else if (c == BLACK) 
-	{
+	else if (c == BLACK) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = BLACK;
 	}
-	else if (c == WHITE) 
-	{
+	else if (c == WHITE) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_white.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = WHITE;
 
 	}
-	else if (c == RED) 
-	{
+	else if (c == RED) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_red.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = RED;
 
 	}
-	else if (c == YELLOW)
-	{
+	else if (c == YELLOW) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_yellow.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = YELLOW;
 	}
-	else if (c == GREEN)
-	{
+	else if (c == GREEN) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_green.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = GREEN;
 	}
-	else if (c == BLUE) 
-	{
+	else if (c == BLUE) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_blue.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = BLUE;
 	}
 }
 
-void Output::changeDrawColorIcon(color c ) 
-{
-	if (c == BLACK)
-	{
+void Output::changeDrawColorIcon(color c ) {
+	if (c == BLACK) {
 		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_black.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.DrawColor = BLACK;
 	}
-	else if (c == WHITE)
-	{
+	else if (c == WHITE) {
 		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_white.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.DrawColor = WHITE;
 	}
-	else if (c == RED)
-	{
+	else if (c == RED) {
 		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_red.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.DrawColor = RED;
 	}
-	else if (c == YELLOW)
-	{
+	else if (c == YELLOW) {
 		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_yellow.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.DrawColor = YELLOW;
 	}
-	else if (c == GREEN) 
-	{
+	else if (c == GREEN) {
 		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_green.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.DrawColor = GREEN;
 	}
-	else if (c == BLUE)
-	{
+	else if (c == BLUE) {
 		pWind->DrawImage("images\\MenuItems\\Menu_draw_color_blue.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.DrawColor = BLUE;
 	}
@@ -466,7 +444,6 @@ void Output::DrawCircle(Point P1, Point P2, GfxInfo CircleGfxInfo, bool selected
 }
 void Output::DrawRhombus(Point P, GfxInfo RhomGfxInfo, bool selected) const
 {
-
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
@@ -485,16 +462,36 @@ void Output::DrawRhombus(Point P, GfxInfo RhomGfxInfo, bool selected) const
 
 	int X[4];
 	int Y[4];
-	X[0] = P.x;			X[1] = P.x + 150;	X[2] = P.x;			X[3] = P.x - 150;
-	Y[0] = P.y + 80;	Y[1] = P.y;			Y[2] = P.y - 80;	Y[3] = P.y;
+	X[0] = P.x;			X[1] = P.x + 120;	X[2] = P.x;			X[3] = P.x - 120;
+	Y[0] = P.y + 60;	Y[1] = P.y;			Y[2] = P.y - 60;	Y[3] = P.y;
 
 	pWind->DrawPolygon(X, Y, 4, style);
 
 }
 
+void Output::DrawRhombus(const int* X, const int* Y, GfxInfo RhomGfxInfo, bool selected) const
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = RhomGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, 3);
+	drawstyle style;
+	if (RhomGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(RhomGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+	pWind->DrawPolygon(X, Y, 4, style);
+}
+
 void Output::DrawEllipse(Point P, GfxInfo ElpsGfxInfo, bool selected) const
 {
-
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
@@ -511,11 +508,32 @@ void Output::DrawEllipse(Point P, GfxInfo ElpsGfxInfo, bool selected) const
 	else
 		style = FRAME;
 	Point P1, P2;
-	P1.x = P.x - 150; P1.y = P.y + 80;
-	P2.x = P.x + 150; P2.y = P.y - 80;
+	P1.x = P.x - 120; P1.y = P.y + 60;
+	P2.x = P.x + 120; P2.y = P.y - 60;
 
 	pWind->DrawEllipse(P1.x, P1.y, P2.x, P2.y, style);
 
+}
+
+void Output::DrawEllipse(Point P1, Point P2, GfxInfo ElpsGfxInfo, bool selected) const
+{
+	color DrawingClr;
+	if (selected)
+		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
+	else
+		DrawingClr = ElpsGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, 3);
+	drawstyle style;
+	if (ElpsGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(ElpsGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+	pWind->DrawEllipse(P1.x, P1.y, P2.x, P2.y, style);
 }
 
 void Output::DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected) const
@@ -557,46 +575,38 @@ void Output::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected) co
 
 }
 
-void Output::getValidPoint(Point& P) const 
-{
-	Input* pIn = new Input(pWind);
-	while (true) 
-	{
-		pIn->GetPointClicked(P.x, P.y);
-
-		if (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight || P.x < UI.MenuActionWidth) 
-		{
-			PrintMessage("Please Select a Valid Point");
-		}
-		else
-			break;
-	}
-}
-
-void Output::getValidEllipsePoint(Point& P) const
-{
-	Input* pIn = new Input(pWind);
-	while (true) 
-	{
-		pIn->GetPointClicked(P.x, P.y);
-
-		if (P.y < UI.ToolBarHeight + 80 || P.y > UI.height - UI.StatusBarHeight -80 || P.x < UI.MenuActionWidth + 150)
-		{
-			PrintMessage("Please Select a Valid Point");
-		}
-		else
-			break;
-	}
-}
-
-void Output::getValidRhombusPoint(Point& P) const 
-{
+void Output::getValidPoint(Point& P) const {
 	Input* pIn = new Input(pWind);
 	while (true) {
 		pIn->GetPointClicked(P.x, P.y);
 
-		if (P.y < UI.ToolBarHeight + 80 || P.y > UI.height - UI.StatusBarHeight -80 || P.x < UI.MenuActionWidth + 150)
-		{
+		if (P.y < UI.ToolBarHeight || P.y > UI.height - UI.StatusBarHeight || P.x < UI.MenuActionWidth) {
+			PrintMessage("Please Select a Valid Point");
+		}
+		else
+			break;
+	}
+}
+
+void Output::getValidEllipsePoint(Point& P) const {
+	Input* pIn = new Input(pWind);
+	while (true) {
+		pIn->GetPointClicked(P.x, P.y);
+
+		if (P.y < UI.ToolBarHeight + 60 || P.y > UI.height - UI.StatusBarHeight -60 || P.x < UI.MenuActionWidth + 120) {
+			PrintMessage("Please Select a Valid Point");
+		}
+		else
+			break;
+	}
+}
+
+void Output::getValidRhombusPoint(Point& P) const {
+	Input* pIn = new Input(pWind);
+	while (true) {
+		pIn->GetPointClicked(P.x, P.y);
+
+		if (P.y < UI.ToolBarHeight + 60 || P.y > UI.height - UI.StatusBarHeight - 60 || P.x < UI.MenuActionWidth + 120) {
 			PrintMessage("Please Select a Valid Point");
 		}
 		else

@@ -181,9 +181,6 @@
     <ClCompile Include="Actions\ChangeDrawColor.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\selectShapeAction.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Actions\saveByTypeAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
@@ -219,6 +216,9 @@
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Actions\sendToBackAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\selectShapeAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
   </ItemGroup>
