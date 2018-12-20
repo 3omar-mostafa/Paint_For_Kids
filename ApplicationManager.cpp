@@ -140,6 +140,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pOut->removeDrawActionToolBar();
 		if(SelectedFig != NULL) //remove selection color (Magenta) before play mode
 			SelectedFig->SetSelected(false);
+		UpdateInterface();
+
 		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		break;
 

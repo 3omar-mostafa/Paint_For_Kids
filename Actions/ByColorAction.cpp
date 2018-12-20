@@ -32,8 +32,8 @@ void ByColorAction::ReadActionParameters()
 	{
 		Correct++;
 		pManager->DeleteFigure(Clicked);
-		PlaySound(TEXT("Sounds/smb_coin.wav"), NULL, SND_FILENAME);
 		pManager->UpdateInterface();
+		PlaySound(TEXT("Sounds/smb_coin.wav"), NULL, SND_FILENAME);
 	}
 	else
 	{
