@@ -163,17 +163,17 @@ void Output::drawOnActionbar(string path, int place) const
 
 void Output::drawResizeMenu() const
 {
-	pWind->DrawImage("images\\MenuItems\\sizes.jpg", 0, UI.MenuActionWidth* DRAW_ACTION_COUNT, UI.MenuActionWidth * 7, UI.ToolBarHeight);
+	pWind->DrawImage("images\\MenuItems\\sizes.jpg", 0, UI.MenuActionWidth* DRAW_ACTION_COUNT, UI.MenuActionWidth * 4, UI.ToolBarHeight);
 }
 
 void Output::deleteResizeMenu() const
 {
-	pWind->DrawImage("images\\MenuItems\\clean.jpg", 0, UI.MenuActionWidth* DRAW_ACTION_COUNT, UI.MenuActionWidth * 7, UI.ToolBarHeight);
+	pWind->DrawImage("images\\MenuItems\\clean.jpg", 0, UI.MenuActionWidth* DRAW_ACTION_COUNT, UI.MenuActionWidth * 4, UI.ToolBarHeight);
 }
 
 double Output::selectSize(Point p) const {
-	if (p.y < UI.MenuActionWidth* DRAW_ACTION_COUNT  && p.y < UI.MenuActionWidth * (1 + DRAW_ACTION_COUNT)) {
-		int selectSize = (p.x /*- UI.MenuActionWidth*/) / UI.MenuActionWidth;
+	if (p.y < (UI.MenuActionWidth * DRAW_ACTION_COUNT + UI.ToolBarHeight)) {
+		int selectSize = (p.x + UI.MenuActionWidth) / UI.MenuActionWidth;
 		switch (selectSize)
 		{
 		case 1:
