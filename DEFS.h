@@ -63,6 +63,16 @@ color ReadColor(ifstream& in);		//Reads a color's info from a string
 struct Point	//To be used for figures points
 {
 	int x, y;
+	
+	Point()
+	{}
+	
+	Point(int X, int Y)
+	{
+		this->x = X;
+		this->y = Y;
+	}
+	
 	string Data()
 	{
 		string Data;
@@ -99,7 +109,7 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	color DrawClr;	//Draw color of the figure
 	color FillClr;	//Fill color of the figure
 	bool isFilled;	//Figure Filled or not
-	int BorderWdth = 8;	//Width of figure borders
+	int BorderWdth;	//Width of figure borders
 	string Data()
 	{
 		string Data;

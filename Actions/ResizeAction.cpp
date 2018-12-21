@@ -35,5 +35,6 @@ void ResizeAction::Execute()
 	
 	ReadActionParameters();
 	toResize->Resize(Ratio);
+	toResize->toggleSelection();
 	pOut->ClearStatusBar();
 }

@@ -12,7 +12,7 @@ CRhombus::CRhombus(const int * X, const int * Y, GfxInfo FigureGfxInfo) :CFigure
 {
 	for (int i = 0; i < 4; i++)
 		xArr[i] = X[i], yArr[i] = Y[i];
-	Center = { (xArr[1] + xArr[3]) / 2, (yArr[0] + yArr[2]) / 2 };
+	Center = Point((xArr[1] + xArr[3]) / 2, (yArr[0] + yArr[2]) / 2);
 	FigType = RHOMBUS;
 }
 
@@ -75,7 +75,7 @@ void CRhombus::Resize(float R)
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
 	*this = CRhombus(X, Y, FigGfxInfo);
-	setID(oldID);	
+	setID(oldID);
 }
 
 void CRhombus::Save(ofstream &OutFile)

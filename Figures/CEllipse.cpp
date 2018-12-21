@@ -3,8 +3,8 @@
 CEllipse::CEllipse(Point P, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Center = P;
-	Corner1 = P + Point{ 120, 60 };
-	Corner2 = P + Point{ -120, -60 };
+	Corner1 = P + Point(120, 60);
+	Corner2 = P + Point(-120, -60);
 	FigType = ELLIPSE;
 }
 
