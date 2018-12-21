@@ -59,6 +59,8 @@ ActionType Input::GetUserAction(Point & P) const
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 			if (x < (25 * UI.MenuActionWidth + 40) && x > 24 * UI.MenuActionWidth)
 				return EXIT;
+			if (x > 23 * UI.MenuActionWidth && x < 24 * UI.MenuActionWidth)
+				return SOUND;
 			else if (x < (ITM_FILL_COLOR)*UI.MenuItemWidth + 50 && x >(ITM_FILL_COLOR)*UI.MenuItemWidth)
 				return CHNG_FILL_CLR;
 			else if (x < (ITM_DRAW_COLOR)*UI.MenuItemWidth && x >(ITM_DRAW_COLOR)*UI.MenuItemWidth - 50)

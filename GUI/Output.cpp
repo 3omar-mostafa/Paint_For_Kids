@@ -36,6 +36,9 @@ Output::Output()
 	CreateDrawActionToolBar();
 	CreateColorIcons();
 	CreateStatusBar();
+
+	//draw sound icon
+	pWind->DrawImage("images\\MenuItems\\Menu_sound_ON.jpg" ,23*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 }
 
 
@@ -95,11 +98,15 @@ void Output::CreateDrawToolBar() const
 	//TODO: Prepare images for each menu item and add it to the list
 
 	//Draw menu item one image at a time
-	for (int i = 0; i < DRAW_ITM_COUNT - 3; i++)
+	for (int i = 0; i < DRAW_ITM_COUNT - 4; i++)
 		pWind->DrawImage(MenuItemImages[i], i *UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
+
+	// clean white spaces in toolbar
+	pWind->DrawImage("images\\MenuItems\\clean.jpg", 22*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+
 	//draw Exit icon
 	pWind->DrawImage(MenuItemImages[ITM_EXIT], (24)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 40, UI.ToolBarHeight - 3);
-	pWind->DrawImage("images\\MenuItems\\clean.jpg", (DRAW_ITM_COUNT + 1)*UI.MenuItemWidth, 0, UI.width - (DRAW_ITM_COUNT * UI.MenuItemWidth) - 250, UI.ToolBarHeight - 3);
+	
 
 	//Draw a line under the toolbar
 	pWind->SetPen(RED, 3);
@@ -159,6 +166,13 @@ void Output::drawOnToolbar(string path, int place) const
 void Output::drawOnActionbar(string path, int place) const
 {
 	pWind->DrawImage(path, 0, (place + 1) * UI.MenuActionWidth, UI.MenuActionWidth - 3, UI.ToolBarHeight);
+}
+
+void Output::drawSoundIcon(bool on) {
+	if(on)
+		pWind->DrawImage("images\\MenuItems\\Menu_sound_ON.jpg", 23*UI.MenuActionWidth,0,UI.MenuActionWidth,UI.ToolBarHeight-3);
+	else
+		pWind->DrawImage("images\\MenuItems\\Menu_sound_OFF.jpg", 23 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 }
 
 void Output::drawResizeMenu() const

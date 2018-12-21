@@ -47,6 +47,7 @@ private:
 	color lastdrawclr, lastfillclr;
 	CFigure* Clipboard;   //Pointer to the copied/cut figure
 
+	bool isSoundON;
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
@@ -98,6 +99,9 @@ public:
 
 	void setLastCut(CFigure*);
 	CFigure* getLastCut();
+
+	bool getSoundState();
+	void toggleSound();
 };
 
 #endif

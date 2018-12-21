@@ -63,6 +63,8 @@ public:
 
 	bool isFilled();
 
+	void drawSoundIcon(bool);
+
 	~Output();
 };
 

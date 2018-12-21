@@ -13,6 +13,7 @@ ApplicationManager::ApplicationManager()
 	lastSelected = NULL;
 	Clipboard = NULL;
 	lastCut = NULL;
+	isSoundON = true;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
@@ -119,6 +120,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case COL_CLR:
 		pAct = new ByColorAction(this);
 		break;
+	case SOUND:
+		toggleSound();
+		break;
 	case EXIT:
 		pAct = new ExitAction(this);
 		break;
@@ -129,13 +133,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pOut->CreateDrawToolBar();
 		pOut->CreateColorIcons();
 		pOut->CreateDrawActionToolBar();
+		pOut->drawSoundIcon(getSoundState());
 
 		// resets Clipboard and selected figures after switching to draw mode
 		SelectedFig = NULL;
 		lastSelected = NULL;
 		Clipboard = NULL;
-
-		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
+		if (getSoundState())
+			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		break;
 
 	case TO_PLAY:
@@ -146,8 +151,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		if(SelectedFig != NULL) //remove selection color (Magenta) before play mode
 			SelectedFig->SetSelected(false);
 		UpdateInterface();
-
-		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
+		if(getSoundState())
+			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		break;
 
 	case STATUS:	//a click on the status bar ==> no action
@@ -432,6 +437,17 @@ void ApplicationManager::setLastCut(CFigure* fig)
 CFigure* ApplicationManager::getLastCut() 
 {
 	return lastCut;
+}
+
+bool ApplicationManager::getSoundState()
+{
+	return isSoundON;
+}
+
+void ApplicationManager::toggleSound()
+{
+	isSoundON = !isSoundON;
+	pOut->drawSoundIcon(isSoundON);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

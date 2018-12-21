@@ -15,7 +15,8 @@ void AddLineAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
-	PlaySound(TEXT("Sounds/Line.wav"), NULL, SND_FILENAME);
+	if (pManager->getSoundState())
+		PlaySound(TEXT("Sounds/Line.wav"), NULL, SND_FILENAME);
 	pOut->PrintMessage("New Line: Click at first point");
 
 	//Read 1st point and store in point P1
