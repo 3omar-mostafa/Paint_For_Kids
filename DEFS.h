@@ -115,7 +115,6 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 		string Data;
 		Data += ColorData(DrawClr) + " " + ColorData(FillClr) + " ";
 		Data += to_string((isFilled) ? 1 : 0);
-		Data += " " + to_string(BorderWdth);
 		return Data;
 	}
 	void Read(ifstream& in)
@@ -124,9 +123,8 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 		int Width;
 		DrawClr = ReadColor(in);
 		FillClr = ReadColor(in);
-		in >> Filled >> Width;
+		in >> Filled;
 		isFilled = Filled;
-		BorderWdth = Width;
 	}
 };
 

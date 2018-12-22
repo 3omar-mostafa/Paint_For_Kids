@@ -93,18 +93,20 @@ bool CRhombus::Resize(double R)
 
 void CRhombus::Save(ofstream &OutFile)
 {
-	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " " + FigGfxInfo.Data();
+	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " " + to_string(getHorizontal()) + " " + to_string(getVertical()) + " " + FigGfxInfo.Data();
 	OutFile << endl << Info;
 }
 
 void CRhombus::Load(ifstream &InFile)
 {
 	Point P;
+	int a, b;
 	GfxInfo RhomGfxInfo;
 	InFile >> ID;
 	P.Read(InFile);
+	InFile >> a >> b;
 	RhomGfxInfo.Read(InFile);
-	*this = CRhombus(P, RhomGfxInfo);
+	*this = CRhombus(P, RhomGfxInfo, a, b);
 }
 
 void CRhombus::PrintInfo(Output * pOut)

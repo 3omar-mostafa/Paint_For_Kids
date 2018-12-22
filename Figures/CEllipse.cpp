@@ -82,18 +82,19 @@ bool CEllipse::Resize(double R)
 
 void CEllipse::Save(ofstream &OutFile)
 {
-	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " " + FigGfxInfo.Data();
+	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Corner1.Data() + " " + Corner2.Data() + " " + FigGfxInfo.Data();
 	OutFile << endl << Info;
 }
 
 void CEllipse::Load(ifstream &InFile)
 {
-	Point P;
+	Point P1, P2;
 	GfxInfo ElpsGfxInfo;
 	InFile >> ID;
-	P.Read(InFile);
+	P1.Read(InFile);
+	P2.Read(InFile);
 	ElpsGfxInfo.Read(InFile);
-	*this = CEllipse(P, ElpsGfxInfo);
+	*this = CEllipse(P1, P2, ElpsGfxInfo);
 }
 
 void CEllipse::PrintInfo(Output * pOut)

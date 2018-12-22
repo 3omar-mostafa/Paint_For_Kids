@@ -57,14 +57,14 @@ bool ByShapeAction::Play()
 	FIG_TYPE = pManager->RandomType();
 	pOut->PrintMessage("Pick " + Display(FIG_TYPE) + ", Click to start!");
 	pIn->GetUserAction();
-	pOut->PrintMessage("Pick " + Display(FIG_TYPE)+"==>Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+	pOut->PrintMessage("Pick " + Display(FIG_TYPE)+" ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 
 	while (pManager->HasFigure(FIG_TYPE))
 	{
 		ReadActionParameters();
 		if (Terminate)
 			return false;
-		pOut->PrintMessage("Pick " + Display(FIG_TYPE) + "==>Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+		pOut->PrintMessage("Pick " + Display(FIG_TYPE) + " ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	}
 	return true;
 }

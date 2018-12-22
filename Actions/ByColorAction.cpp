@@ -56,13 +56,13 @@ bool ByColorAction::Play()
 	FIG_COLOR = pManager->RandomColor();
 	pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + ", Click to start!");
 	pIn->GetUserAction();
-	pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + "==>Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+	pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + " ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	while (pManager->HasColor(FIG_COLOR))
 	{
 		ReadActionParameters();
 		if (Terminate)
 			return false;
-		pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + "==>Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+		pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + " ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	}
 	return true;
 
