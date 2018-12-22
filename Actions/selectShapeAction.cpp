@@ -30,10 +30,13 @@ void selectShapeAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
+
+	// if the figure was selected twice consecutively
 	if (pManager->getLastSelected() == pManager->getSelectedFigure() && pManager->getSelectedFigure() != NULL) 
 	{
 		pManager->getSelectedFigure()->toggleSelection();
 		if (pManager->getSelectedFigure()->IsSelected())
+			// print its info it its last state was that it is selected
 			pManager->getSelectedFigure()->PrintInfo(pOut);
 		else
 		{
@@ -43,6 +46,7 @@ void selectShapeAction::Execute()
 	}
 	else 
 	{
+		// remove selection from last selected figure
 		if (pManager->getLastSelected() != NULL) 
 		{
 			pManager->getLastSelected()->SetSelected(false);
@@ -51,16 +55,16 @@ void selectShapeAction::Execute()
 		if (pManager->getSelectedFigure() != NULL) 
 		{
 			pManager->getSelectedFigure()->toggleSelection();
+
+			// change draw color icon according to the selected figure color
 			pOut->changeDrawColorIcon(pManager->getSelectedFigure()->getDrawColor());
+			// change fill color icon according to the selected figure color and its fill state
 			pOut->changeFillColorIcon(pManager->getSelectedFigure()->getFillColor(), pManager->getSelectedFigure()->isFilled());
-			if (!pManager->getSelectedFigure()->IsSelected())
+
+			if ( ! pManager->getSelectedFigure()->IsSelected())
 				pManager->getSelectedFigure()->SetSelected(NULL);
 			else
 				pManager->getSelectedFigure()->PrintInfo(pOut);
-		}
-		else if (pManager->getLastSelected() != NULL)
-		{
-			pManager->getLastSelected()->SetSelected(false);
 		}
 	}
 }

@@ -22,12 +22,14 @@ enum ActionType //The actions supported (you can add more if needed)
 	SAVE_BY_TYPE,	//Save the all the figures that have a specific type
 	LOAD,			//Load a graph from a file
 	EXIT,			//Exit the application
+	SOUND,
 	COPY,
 	CUT,
 	PASTE,
 	SELECT,
 	SEND_TO_BACK,
 	BRING_TO_FRONT,
+	RESIZE,
 	DRAWING_AREA,	//A click on the drawing area
 	STATUS,			//A click on the status bar
 	EMPTY,          //A click on empty place in the toolbar
@@ -61,18 +63,44 @@ color ReadColor(ifstream& in);		//Reads a color's info from a string
 struct Point	//To be used for figures points
 {
 	int x, y;
+	
+	Point()
+	{}
+	
+	Point(int X, int Y)
+	{
+		this->x = X;
+		this->y = Y;
+	}
+	
 	string Data()
 	{
 		string Data;
 		Data += to_string(x) + " " + to_string(y);
 		return Data;
 	}
+
 	void Read(ifstream& in)
 	{
 		int X, Y;
 		in >> X >> Y;
 		x = X;
 		y = Y;
+	}
+
+	Point operator+(Point P)
+	{
+		Point S;
+		S.x = x + P.x;
+		S.y = y + P.y;
+		return S;
+	}
+
+	Point& operator/(float R)
+	{
+		x /= R;
+		y /= R;
+		return *this;
 	}
 };
 
@@ -81,7 +109,7 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	color DrawClr;	//Draw color of the figure
 	color FillClr;	//Fill color of the figure
 	bool isFilled;	//Figure Filled or not
-	int BorderWdth = 8;	//Width of figure borders
+	int BorderWdth;	//Width of figure borders
 	string Data()
 	{
 		string Data;

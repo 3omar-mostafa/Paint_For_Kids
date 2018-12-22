@@ -140,6 +140,8 @@
     <ClCompile Include="Actions\ChangeDrawColor.cpp" />
     <ClCompile Include="Actions\ChangeFillColor.cpp" />
     <ClCompile Include="Actions\bringToFrontAction.cpp" />
+    <ClCompile Include="Actions\ResizeAction.cpp" />
+    <ClCompile Include="Actions\selectShapeAction.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\colors.cpp" />
@@ -194,7 +196,6 @@
     <ClCompile Include="Actions\pasteAction.cpp" />
     <ClCompile Include="Actions\saveAction.cpp" />
     <ClCompile Include="Actions\saveByTypeAction.cpp" />
-    <ClCompile Include="Actions\selectShapeAction.cpp" />
     <ClCompile Include="Actions\sendToBackAction.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
@@ -210,6 +211,7 @@
     <ClInclude Include="Actions\ChangeDrawColor.h" />
     <ClInclude Include="Actions\ChangeFillColor.h" />
     <ClInclude Include="Actions\bringToFrontAction.h" />
+    <ClInclude Include="Actions\ResizeAction.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />

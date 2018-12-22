@@ -30,6 +30,7 @@
 #include "Actions/ByColorAction.h"
 #include "Actions/sendToBackAction.h"
 #include "Actions/bringToFrontAction.h"
+#include "Actions/ResizeAction.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -46,6 +47,7 @@ private:
 	color lastdrawclr, lastfillclr;
 	CFigure* Clipboard;   //Pointer to the copied/cut figure
 
+	bool isSoundON;
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
@@ -63,7 +65,6 @@ public:
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	void DeleteFigure(CFigure*);	//Deletes a Figure from the List
-	void deletenonfill(); //Deletes nonfilled figures from pick by color action
 	void ClearFigures();		//Added a function to remove all figures
 	void WriteFigures(ofstream&);	//Saves Figure Information to a text file 
 	void WriteFigures(ofstream&, FigureType);	//Saves Figure Information of a certain Type to a text file 
@@ -98,6 +99,9 @@ public:
 
 	void setLastCut(CFigure*);
 	CFigure* getLastCut();
+
+	bool getSoundState();
+	void toggleSound();
 };
 
 #endif
