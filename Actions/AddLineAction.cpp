@@ -28,7 +28,7 @@ void AddLineAction::ReadActionParameters()
 	
 	//get drawing color and pen width from the interface
 	LineGfxInfo.DrawClr = pOut->getCrntDrawColor();
-	
+	LineGfxInfo.isFilled = false;
 
 	pOut->ClearStatusBar();
 }

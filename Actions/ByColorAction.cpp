@@ -8,7 +8,7 @@ ByColorAction::ByColorAction(ApplicationManager * pApp) :Action(pApp)
 {
 	Correct = 0;
 	Wrong = 0;
-	Terminate = 0;
+	Terminate = false;
 	FIG_COLOR = NOFILL;
 	// Auto-saving:
 	SaveAction Save(pManager);
@@ -24,7 +24,7 @@ void ByColorAction::ReadActionParameters()
 
 	if (pIn->GetUserAction(P) == COL_CLR)
 	{
-		Terminate = 1;
+		Terminate = true;
 		return;
 	}
 
@@ -32,7 +32,7 @@ void ByColorAction::ReadActionParameters()
 	if (!Clicked)
 		return;
 
-	if (Clicked->getFillColor() == FIG_COLOR)
+	if (Clicked->getFillColor() == FIG_COLOR || (!Clicked->isFilled() && Clicked->getDrawColor() == FIG_COLOR))
 	{
 		Correct++;
 		pManager->DeleteFigure(Clicked);

@@ -299,14 +299,15 @@ color Output::selectDrawColor(Point p) {
 	return UI.DrawColor;
 }
 
-void Output::changeFillColorIcon(color c, bool filled) {
-	if (!filled) {
+void Output::changeFillColorIcon(color c, bool f) {
+	if (!f ) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_No.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		filled = false;
 	}
 	else if (c == BLACK) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = BLACK;
+		filled = true;
 	}
 	else if (c == WHITE) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_white.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
@@ -316,19 +317,22 @@ void Output::changeFillColorIcon(color c, bool filled) {
 	else if (c == RED) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_red.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = RED;
-
+		filled = true;
 	}
 	else if (c == YELLOW) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_yellow.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = YELLOW;
+		filled = true;
 	}
 	else if (c == GREEN) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_green.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = GREEN;
+		filled = true;
 	}
 	else if (c == BLUE) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_blue.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		UI.FillColor = BLUE;
+		filled = true;
 	}
 }
 

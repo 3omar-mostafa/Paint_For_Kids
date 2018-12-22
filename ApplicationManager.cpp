@@ -239,7 +239,7 @@ color ApplicationManager::RandomColor()
 {
 	color COLOR;
 	int idx = abs(rand()) % FigCount;
-	COLOR = FigList[idx]->getFillColor();
+	COLOR = FigList[idx]->isFilled() ? FigList[idx]->getFillColor() : FigList[idx]->getDrawColor() ;
 	return COLOR;
 }
 
@@ -261,9 +261,13 @@ bool ApplicationManager::HasFigure(FigureType FIG_TYPE)
 }
 bool ApplicationManager::HasColor(color FIG_COLOR)
 {
-	for (int i = 0; i < FigCount; i++)
+	for (int i = 0; i < FigCount; i++) {
 		if (FigList[i]->getFillColor() == FIG_COLOR)
 			return true;
+		if ( ! FigList[i]->isFilled() && FigList[i]->getDrawColor() == FIG_COLOR)
+			return true;
+	}
+
 	return false;
 }
 
