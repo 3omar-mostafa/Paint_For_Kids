@@ -33,12 +33,13 @@ void pasteAction::Execute()
 
 	if (dynamic_cast<CEllipse*>(toPaste))
 	{
-		CEllipse* Elps = dynamic_cast<CEllipse*>(toPaste);
+		// Validating the New Position:
+		CEllipse* testElps = dynamic_cast<CEllipse*>(toPaste);
 		Point Center;
-		ValidateEllipse(Center, Elps);
+		ValidateEllipse(Center, testElps);
 		toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
-		int a = Elps->getHorizontal();
-		int b = Elps->getVertical();
+		int a = testElps->getHorizontal();
+		int b = testElps->getVertical();
 
 		if (toPaste->IsCut())
 		{
@@ -56,21 +57,24 @@ void pasteAction::Execute()
 		}
 
 		Point P1, P2;
-		P1 = Center + Point(a, b);
-		P2 = Center + Point(-a, -b);
-		Elps = new CEllipse(P1, P2, toPasteGfxInfo);
+		P1 = Center + Point(a, b);		//Bottom Right Corner
+		P2 = Center + Point(-a, -b);	//Upper Left Corner
+		
+		// Recreating the object with its New Position:
+		CEllipse* Elps = new CEllipse(P1, P2, toPasteGfxInfo);
 		pManager->AddFigure(Elps);
 		pManager->setClipboard(Elps);
 	}
 
 	else if (dynamic_cast<CRhombus*>(toPaste))
 	{
-		CRhombus* Rhom = dynamic_cast<CRhombus*>(toPaste);
+		// Validating the New Position:
+		CRhombus* testRhom = dynamic_cast<CRhombus*>(toPaste);
 		Point Center;
-		ValidateRhombus(Center, Rhom);
+		ValidateRhombus(Center, testRhom);
 		toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
-		int a = Rhom->getHorizontal();
-		int b = Rhom->getVertical();
+		int a = testRhom->getHorizontal();
+		int b = testRhom->getVertical();
 
 		if (toPaste->IsCut())
 		{
@@ -87,7 +91,8 @@ void pasteAction::Execute()
 			toPasteGfxInfo.FillClr = toPaste->getFillColor();
 		}
 		
-		Rhom = new CRhombus(Center, toPasteGfxInfo, a, b);
+		// Recreating the object with its New Position:
+		CRhombus* Rhom = new CRhombus(Center, toPasteGfxInfo, a, b);
 		pManager->AddFigure(Rhom);
 		pManager->setClipboard(Rhom);
 	}

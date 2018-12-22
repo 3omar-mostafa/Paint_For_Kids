@@ -12,11 +12,17 @@ private:
 	Point Center;
 public:
 	CEllipse(Point Center, GfxInfo FigureGfxInfo);
+	
+	//Creates an Ellipse inscribed in the Rectangle formed by the 2 Points
 	CEllipse(Point Corner1, Point Corner2, GfxInfo FigureGfxInfo);
+	
 	virtual void Draw(Output* pOut) const;
 	Point getCenter();
 
+	//Returns the Vertical Distance of the Furthest Point from the Center
 	int getVertical() const;
+
+	//Returns the Horizontal Distance of the Furthest Point from the Center
 	int getHorizontal() const;
 
 	bool doesItContain(int x, int y);

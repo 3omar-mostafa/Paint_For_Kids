@@ -10,6 +10,7 @@ void ResizeAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	
+	// Getting the Ratio:
 	Point P;
 	pOut->drawResizeMenu();
 	Confirm = pIn->GetUserAction(P);
@@ -24,6 +25,7 @@ void ResizeAction::Execute()
 	pOut->PrintMessage("Resize Figure, Select a Ratio");
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_Resize_Selected.jpg", ITM_RESIZE);
 
+	// Resizing the Selected Figure:
 	toResize = pManager->getSelectedFigure();
 
 	if (toResize == NULL)
@@ -34,11 +36,11 @@ void ResizeAction::Execute()
 	
 	ReadActionParameters();
 
-	if (toResize->Resize(Ratio))
+	if (toResize->Resize(Ratio))	//The function returns false if the resizing fails or was cancelled and returns true if the Resizing was successful
 	{
 		pOut->ClearStatusBar();
 		pManager->setSelectedFigure(NULL);
 	}
 	else
-		pOut->PrintMessage("Please select a valid size");
+		pOut->PrintMessage("Please Select a Valid Size");
 }
