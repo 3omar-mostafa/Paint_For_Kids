@@ -75,11 +75,11 @@ void ByShapeAction::Reset()
 	Output* pOut = pManager->GetOutput();
 	pOut->PrintMessage("Game Restarted!");
 	pManager->ClearFigures();
-	LoadAction* Load = new LoadAction(pManager);
-	Load->QuickLoad();
+	LoadAction Load(pManager);
+	Load.QuickLoad();
 }
 
-//function Execute redraws playtoolbar, calls Play until the game ends
+//function Execute redraws Play Toolbar, calls Play until the game ends
 void ByShapeAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
