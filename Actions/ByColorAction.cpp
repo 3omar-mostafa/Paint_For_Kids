@@ -32,7 +32,7 @@ void ByColorAction::ReadActionParameters()
 	if (!Clicked)
 		return;
 
-	if (Clicked->getFillColor() == FIG_COLOR || (!Clicked->isFilled() && Clicked->getDrawColor() == FIG_COLOR))
+	if (Clicked->getFillColor() == FIG_COLOR || (!(Clicked->isFilled()) && Clicked->getDrawColor() == FIG_COLOR))
 	{
 		Correct++;
 		pManager->DeleteFigure(Clicked);

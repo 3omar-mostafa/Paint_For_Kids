@@ -73,7 +73,7 @@ color ReadColor(ifstream& in)
 void SetFigType(CFigure *& FP, FigureType T)
 {
 	Point P1, P2, P3;
-	P1 = P2 = P3 = { 400,400 };
+	P1 = P2 = P3 = Point(400, 400);
 	GfxInfo dummy;
 	switch (T)
 	{

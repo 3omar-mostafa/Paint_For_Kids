@@ -261,10 +261,11 @@ bool ApplicationManager::HasFigure(FigureType FIG_TYPE)
 }
 bool ApplicationManager::HasColor(color FIG_COLOR)
 {
-	for (int i = 0; i < FigCount; i++) {
+	for (int i = 0; i < FigCount; i++)
+	{
 		if (FigList[i]->isFilled() && FigList[i]->getFillColor() == FIG_COLOR)
 			return true;
-		if ( ! FigList[i]->isFilled() && FigList[i]->getDrawColor() == FIG_COLOR)
+		else if (!(FigList[i]->isFilled()) && FigList[i]->getDrawColor() == FIG_COLOR)
 			return true;
 	}
 
