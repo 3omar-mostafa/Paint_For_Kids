@@ -300,6 +300,8 @@ void ApplicationManager::DeleteFigure(CFigure* Deleted)
 		{
 			if (Clipboard == Deleted)
 				Clipboard = NULL;
+			if(SelectedFig = Deleted)
+				SelectedFig = NULL;
 			delete FigList[i];
 			FigCount--;
 			while (i < FigCount)
