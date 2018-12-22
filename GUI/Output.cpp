@@ -303,7 +303,7 @@ void Output::changeFillColorIcon(color c, bool f) {
 	if (!f ) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_No.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		filled = false;
-		UI.FillColor = NOFILL;
+		UI.FillColor=NOFILL;
 	}
 	else if (c == BLACK) {
 		pWind->DrawImage("images\\MenuItems\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);

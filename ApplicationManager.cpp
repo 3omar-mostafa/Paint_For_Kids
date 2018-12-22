@@ -13,7 +13,6 @@ ApplicationManager::ApplicationManager()
 	lastSelected = NULL;
 	Clipboard = NULL;
 	lastCut = NULL;
-	isSoundON = true;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
@@ -77,13 +76,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SEND_TO_BACK:
 		pAct = new sendToBackAction(this);
 		break;
-
 	case BRING_TO_FRONT:
 		pAct = new bringToFrontAction(this);
-		break;
-
-	case RESIZE:
-		pAct = new ResizeAction(this);
 		break;
 
 	case DEL:
@@ -117,15 +111,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case COL_SHP:
 		pAct = new ByShapeAction(this);
 		break;
-
 	case COL_CLR:
 		pAct = new ByColorAction(this);
 		break;
-
-	case SOUND:
-		toggleSound();
-		break;
-
 	case EXIT:
 		pAct = new ExitAction(this);
 		break;
@@ -136,14 +124,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pOut->CreateDrawToolBar();
 		pOut->CreateColorIcons();
 		pOut->CreateDrawActionToolBar();
-		pOut->drawSoundIcon(getSoundState());
 
 		// resets Clipboard and selected figures after switching to draw mode
 		SelectedFig = NULL;
 		lastSelected = NULL;
 		Clipboard = NULL;
-		if (getSoundState())
-			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
+
+		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		break;
 
 	case TO_PLAY:
@@ -151,11 +138,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
 		pOut->CreatePlayToolBar();
 		pOut->removeDrawActionToolBar();
-		if (SelectedFig != NULL) //remove selection color (Magenta) before play mode
+		if(SelectedFig != NULL) //remove selection color (Magenta) before play mode
 			SelectedFig->SetSelected(false);
 		UpdateInterface();
-		if (getSoundState())
-			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
+
+		PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
 		break;
 
 	case STATUS:	//a click on the status bar ==> no action
@@ -169,7 +156,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct->Execute();	//Execute
 		delete pAct;		//Action is not needed any more ==> delete it
 		pAct = NULL;
-		if (ActType != TO_PLAY && ActType != EXIT && UI.InterfaceMode != MODE_PLAY)
+		if (ActType != TO_PLAY && ActType != EXIT && UI.InterfaceMode != MODE_PLAY) 
 		{
 			pOut->CreateDrawToolBar();
 			pOut->CreateDrawActionToolBar();
@@ -239,7 +226,7 @@ color ApplicationManager::RandomColor()
 {
 	color COLOR;
 	int idx = abs(rand()) % FigCount;
-	COLOR = FigList[idx]->isFilled() ? FigList[idx]->getFillColor() : FigList[idx]->getDrawColor() ;
+	COLOR = FigList[idx]->getFillColor();
 	return COLOR;
 }
 
@@ -261,14 +248,12 @@ bool ApplicationManager::HasFigure(FigureType FIG_TYPE)
 }
 bool ApplicationManager::HasColor(color FIG_COLOR)
 {
-	for (int i = 0; i < FigCount; i++) {
-		if (FigList[i]->getFillColor() == FIG_COLOR)
-			return true;
-		if ( ! FigList[i]->isFilled() && FigList[i]->getDrawColor() == FIG_COLOR)
-			return true;
-	}
+	for (int i = 0; i < FigCount; i++)
+			if (FigList[i]->getFillColor() == FIG_COLOR)
+				return true;
+			return false;
+		
 
-	return false;
 }
 
 CFigure *ApplicationManager::GetFigure(int x, int y) const
@@ -283,7 +268,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	//started from last to first because if two shapes overlapped on same point,I should choose the top one
 	for (int i = FigCount - 1; i >= 0; i--)
 	{
-		if (FigList[i]->doesItContain(x, y))
+		if (FigList[i]->doesItContain(x, y)) 
 		{
 			return FigList[i];
 		}
@@ -309,6 +294,14 @@ void ApplicationManager::DeleteFigure(CFigure* Deleted)
 		}
 	}
 }
+void ApplicationManager::deletenonfill()
+{
+	for (int i = 0; i < FigCount; i++)
+		if (FigList[i]->isFilled())
+			continue;
+		else	
+	        delete FigList[i];
+}
 
 void ApplicationManager::sendToBack(CFigure* figure)
 {
@@ -318,23 +311,23 @@ void ApplicationManager::sendToBack(CFigure* figure)
 	for (int i = 0; i < FigCount; i++)
 	{
 
-		if (FigList[i] == figure)
+		if (FigList[i] == figure) 
 		{
 			currentIndex = i;
-			currentFigure = FigList[i];
+			currentFigure =FigList[i];
 			break;
 		}
 	}
 
-	for (int i = currentIndex; i > 0; i--)
+	for (int i = currentIndex; i >0; i--) 
 	{
-		FigList[i] = FigList[i - 1];
+		FigList[i] = FigList[i-1];
 	}
 
 	FigList[0] = currentFigure;
 }
 
-void ApplicationManager::bringToFront(CFigure* figure)
+void ApplicationManager::bringToFront(CFigure* figure) 
 {
 	int currentIndex;
 	CFigure* currentFigure;
@@ -349,7 +342,7 @@ void ApplicationManager::bringToFront(CFigure* figure)
 		}
 	}
 
-	for (int i = currentIndex; i < FigCount - 1; i++)
+	for (int i = currentIndex; i < FigCount -1; i++) 
 	{
 		FigList[i] = FigList[i + 1];
 	}
@@ -385,7 +378,7 @@ void ApplicationManager::setSelectedFigure(CFigure* fig)
 	SelectedFig = fig;
 }
 
-CFigure* ApplicationManager::getSelectedFigure()
+CFigure* ApplicationManager::getSelectedFigure() 
 {
 	return SelectedFig;
 }
@@ -395,7 +388,7 @@ void ApplicationManager::setLastSelected(CFigure* fig)
 	lastSelected = fig;
 }
 
-CFigure* ApplicationManager::getLastSelected()
+CFigure* ApplicationManager::getLastSelected() 
 {
 	return lastSelected;
 }
@@ -411,22 +404,22 @@ void ApplicationManager::setClipboard(CFigure* fig)
 	Clipboard = fig;
 }
 
-CFigure* ApplicationManager::getClipboard()
+CFigure* ApplicationManager::getClipboard() 
 {
 	return Clipboard;
 }
 
-color ApplicationManager::getLastDrawClr()
+color ApplicationManager::getLastDrawClr() 
 {
 	return lastdrawclr;
 }
 
-color ApplicationManager::getLastFillClr()
+color ApplicationManager::getLastFillClr() 
 {
 	return lastfillclr;
 }
 
-void ApplicationManager::setLastDrawClr(color c)
+void ApplicationManager::setLastDrawClr(color c) 
 {
 	lastdrawclr = c;
 }
@@ -441,20 +434,9 @@ void ApplicationManager::setLastCut(CFigure* fig)
 	lastCut = fig;
 }
 
-CFigure* ApplicationManager::getLastCut()
+CFigure* ApplicationManager::getLastCut() 
 {
 	return lastCut;
-}
-
-bool ApplicationManager::getSoundState()
-{
-	return isSoundON;
-}
-
-void ApplicationManager::toggleSound()
-{
-	isSoundON = !isSoundON;
-	pOut->drawSoundIcon(isSoundON);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

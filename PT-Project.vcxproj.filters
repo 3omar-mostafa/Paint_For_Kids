@@ -141,9 +141,6 @@
     <ClCompile Include="GUI\Output.cpp">
       <Filter>GUI Classes</Filter>
     </ClCompile>
-    <ClCompile Include="ApplicationManager.cpp">
-      <Filter>Application Manager</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CMUgraphicsLib\colors.cpp">
       <Filter>CMUgraphicsLib</Filter>
@@ -179,6 +176,9 @@
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Actions\ChangeDrawColor.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\selectShapeAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Actions\saveByTypeAction.cpp">
@@ -218,11 +218,8 @@
     <ClCompile Include="Actions\sendToBackAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\selectShapeAction.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Actions\ResizeAction.cpp">
-      <Filter>Action Classes</Filter>
+    <ClCompile Include="ApplicationManager.cpp">
+      <Filter>Application Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -381,9 +378,6 @@
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\sendToBackAction.h">
-      <Filter>Action Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Actions\ResizeAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>

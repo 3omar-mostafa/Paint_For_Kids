@@ -11,8 +11,8 @@ ByShapeAction::ByShapeAction(ApplicationManager * pApp) :Action(pApp)
 	Terminate = 0;
 
 	// Auto-saving:
-	SaveAction Save(pManager);
-	Save.QuickSave();
+	SaveAction* Save = new SaveAction(pManager);
+	Save->QuickSave();
 }
 //functions of ByShapeAction are very close to ByColorAction 
 //function ReadActionParameters gets user actions and analyze them
@@ -37,14 +37,12 @@ void ByShapeAction::ReadActionParameters()
 		Correct++;
 		pManager->DeleteFigure(Clicked);
 		pManager->UpdateInterface();
-		if (pManager->getSoundState())
-			PlaySound(TEXT("Sounds/smb_coin.wav"), NULL, SND_FILENAME);
+		PlaySound(TEXT("Sounds/smb_coin.wav"), NULL, SND_FILENAME);
 	}
 	else
 	{
 		Wrong++;
-		if (pManager->getSoundState())
-			PlaySound(TEXT("Sounds/WrongAnswer.wav"), NULL, SND_FILENAME);
+		PlaySound(TEXT("Sounds/WrongAnswer.wav"), NULL, SND_FILENAME);
 
 	}
 }
@@ -95,10 +93,9 @@ void ByShapeAction::Execute()
 		}
 
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
-	if (pManager->getSoundState())
-		PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
+	PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
 
 	// Auto-Loading:
-	LoadAction Load(pManager);
-	Load.QuickLoad();
+	LoadAction* Load = new LoadAction(pManager);
+	Load->QuickLoad();
 }
