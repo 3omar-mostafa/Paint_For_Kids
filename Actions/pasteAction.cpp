@@ -54,6 +54,7 @@ void pasteAction::Execute()
 		CEllipse *El = new CEllipse(newFigCenter, toPasteGfxInfo);
 		//Add the ellipse to the list of figures
 		pManager->AddFigure(El);
+		pManager->setClipboard(El);
 		pOut->DrawEllipse(newFigCenter,toPasteGfxInfo,false);
 		 
 	}
@@ -84,6 +85,7 @@ void pasteAction::Execute()
 
 		//Add the rhombus to the list of figures
 		pManager->AddFigure(Rh);
+		pManager->setClipboard(Rh);
 		pOut->DrawRhombus(newFigCenter,toPasteGfxInfo,false);
 
 	}
@@ -116,6 +118,7 @@ void pasteAction::Execute()
 		CTriangle *Tr = new CTriangle(Pa,Pb,Pc,toPasteGfxInfo);
 		//Add the triangle to the list of figures
 		pManager->AddFigure(Tr);
+		pManager->setClipboard(Tr);
 	}
 
 	else if (dynamic_cast<CRectangle*>(toPaste))
@@ -146,6 +149,7 @@ void pasteAction::Execute()
 		CRectangle *Rect = new CRectangle(Pa, Pb, toPasteGfxInfo);
 		//Add the rectangle to the list of figures
 		pManager->AddFigure(Rect);
+		pManager->setClipboard(Rect);
 	}
 
 	else if (dynamic_cast<CLine*>(toPaste))
@@ -176,7 +180,7 @@ void pasteAction::Execute()
 	    CLine *Line = new CLine(Pa, Pb, toPasteGfxInfo);
 	    //Add the Line to the list of figures
 	    pManager->AddFigure(Line);
-
+		pManager->setClipboard(Line);
 	}
 }
 
