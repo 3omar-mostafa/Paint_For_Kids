@@ -96,7 +96,9 @@ void ByShapeAction::Execute()
 
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	if (pManager->getSoundState())
-		PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
+		if (Wrong == 0)
+			PlaySound(TEXT("Sounds/siii.wav"), NULL, SND_FILENAME);
+		else PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
 
 	// Auto-Loading:
 	LoadAction Load(pManager);
