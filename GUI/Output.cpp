@@ -221,7 +221,7 @@ void Output::deleteColorMenu() const
 color Output::selectFillColor(Point p) {
 
 	if (p.y > 0 && p.y < UI.ToolBarHeight) {
-		int selectedColor = ((p.x - (DRAW_ITM_COUNT + 4) * UI.MenuActionWidth) / UI.MenuActionWidth);
+		int selectedColor = ((p.x - (DRAW_ITM_COUNT + 3) * UI.MenuActionWidth) / UI.MenuActionWidth);
 
 		switch (selectedColor) {
 		case 1:
@@ -271,7 +271,7 @@ bool Output::isFilled() {
 color Output::selectDrawColor(Point p) {
 
 	if (p.y > 0 && p.y < UI.ToolBarHeight) {
-		int selectedColor = ((p.x - (DRAW_ITM_COUNT + 4) * UI.MenuActionWidth) / UI.MenuActionWidth);
+		int selectedColor = ((p.x - (DRAW_ITM_COUNT + 3) * UI.MenuActionWidth) / UI.MenuActionWidth);
 
 		switch (selectedColor) {
 		case 1:
