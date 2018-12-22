@@ -28,6 +28,7 @@ void CEllipse::Draw(Output* pOut) const
 
 bool CEllipse::doesItContain(int x, int y) {
 	// eq of ellipse: x^2/a^2 + y^2/b^2 = 1
+	// which equals b^2 * x^2 + a^2 * y^2 = a^2 * b^2
 	long long X = x - Center.x;
 	long long Y = y - Center.y;
 	long long a = Corner1.x - Center.x;
@@ -42,6 +43,9 @@ bool CEllipse::doesItContain(int x, int y) {
 
 bool CEllipse::Resize(double R)
 {
+	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
+		return false;
+
 	Point C1, C2;
 
 	//Setting the Vertical Coordinates:

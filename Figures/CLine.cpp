@@ -48,6 +48,9 @@ bool CLine::doesItContain(int x, int y) {
 
 bool CLine::Resize(double R)
 {
+	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
+		return false;
+
 	Point MP = (P1 + P2) / 2;
 	Point C1, C2;
 

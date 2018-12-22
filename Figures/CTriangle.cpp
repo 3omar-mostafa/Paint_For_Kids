@@ -43,6 +43,7 @@ bool CTriangle::isColinear(Point p1, Point p2, Point p3) {
 	int downY = (p2.y < p1.y) ? p1.y + 3 : p2.y + 3;
 
 	if (p3.x >= leftX && p3.x <= rightX && p3.y >= upY && p3.y <= downY) {
+		// length of line = sqrt ( (x2-x1)^2 + (y2-y1)^2 )
 		double lengthOFLine = sqrt((rightX - leftX)*(rightX - leftX) + (downY - upY)*(downY - upY));
 		if (getTriangularArea(p1,p2,p3) / lengthOFLine <= 3) {
 			return true;
@@ -73,6 +74,9 @@ bool CTriangle::doesItContain(int x, int y) {
 
 bool CTriangle::Resize(double R)
 {
+	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
+		return false;
+
 	Point MP = (P1 + P2 + P3) / 3;
 	Point C1, C2, C3;
 

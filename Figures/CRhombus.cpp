@@ -35,6 +35,7 @@ bool CRhombus::doesItContain(int x, int y) {
 
 	if (X >= -a && X <= a && Y >= -b && Y <= b) {
 
+		// 1.1 is just an error percentage of 10%
 		if (X >= 0 && X <= a && Y >= 0 && Y <= b) { //1st quad
 			if (a * Y + b * X <= a * b *1.1 )
 				return true;
@@ -58,6 +59,9 @@ bool CRhombus::doesItContain(int x, int y) {
 
 bool CRhombus::Resize(double R)
 {
+	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
+		return false;
+
 	//Setting the Horizontal Coordinates:
 	int a = xArr[1] - Center.x;
 	int X[4] = { xArr[0], Center.x + a * R, xArr[2], Center.x - a * R };

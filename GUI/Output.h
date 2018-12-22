@@ -41,9 +41,10 @@ public:
 
 	void drawOnToolbar(string, int) const;
 	void drawOnActionbar(string, int) const;
+
 	void drawResizeMenu() const;
-	void deleteResizeMenu() const;
 	double selectSize(Point p) const;
+
 	void playOnToolbar(string, int) const;
 
 	void CreateColorIcons();

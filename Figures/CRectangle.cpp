@@ -39,6 +39,9 @@ bool CRectangle::doesItContain(int x, int y) {
 
 bool CRectangle::Resize(double R)
 {
+	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
+		return false;
+
 	Point MP = (Corner1 + Corner2) / 2;
 	Point C1, C2;
 

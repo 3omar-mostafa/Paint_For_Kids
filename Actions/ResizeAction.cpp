@@ -13,8 +13,7 @@ void ResizeAction::ReadActionParameters()
 	Point P;
 	pOut->drawResizeMenu();
 	Confirm = pIn->GetUserAction(P);
-	Ratio = abs(pOut->selectSize(P));
-	pOut->deleteResizeMenu();
+	Ratio = pOut->selectSize(P);
 }
 
 void ResizeAction::Execute()
