@@ -46,7 +46,7 @@ bool CLine::doesItContain(int x, int y) {
 	return false;
 }
 
-void CLine::Resize(float R)
+bool CLine::Resize(double R)
 {
 	Point MP = (P1 + P2) / 2;
 	Point C1, C2;
@@ -80,13 +80,14 @@ void CLine::Resize(float R)
 	}
 
 	//Validation:
-	if (C2.y < UI.ToolBarHeight || C1.y > UI.height - UI.StatusBarHeight || C2.x < UI.MenuActionWidth)
-		return;
+	if (C1.y < UI.ToolBarHeight || C2.y < UI.ToolBarHeight ||  C1.y > UI.height - UI.StatusBarHeight || C2.y > UI.height - UI.StatusBarHeight || C1.x < UI.MenuActionWidth || C2.x < UI.MenuActionWidth)
+		return false ;
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
 	*this = CLine(C1, C2, FigGfxInfo);
 	setID(oldID);
+	return true;
 }
 
 void CLine::Save(ofstream &OutFile)

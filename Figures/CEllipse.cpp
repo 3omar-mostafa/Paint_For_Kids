@@ -40,7 +40,7 @@ bool CEllipse::doesItContain(int x, int y) {
 	return false;
 }
 
-void CEllipse::Resize(float R)
+bool CEllipse::Resize(double R)
 {
 	Point C1, C2;
 
@@ -58,12 +58,14 @@ void CEllipse::Resize(float R)
 
 	//Validation:
 	if (C2.y < UI.ToolBarHeight || C1.y > UI.height - UI.StatusBarHeight || C2.x < UI.MenuActionWidth)
-		return;
+		return false;
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
 	*this = CEllipse(C1, C2, FigGfxInfo);
 	setID(oldID);
+
+	return true;
 }
 
 void CEllipse::Save(ofstream &OutFile)

@@ -182,11 +182,13 @@ void Output::drawResizeMenu() const
 
 void Output::deleteResizeMenu() const
 {
-	pWind->DrawImage("images\\MenuItems\\clean.jpg", UI.MenuActionWidth, UI.MenuActionWidth* DRAW_ACTION_COUNT, UI.MenuActionWidth * 4, UI.ToolBarHeight);
+	pWind->SetPen(UI.BkGrndColor, 1);
+	pWind->SetBrush(UI.BkGrndColor);
+	pWind->DrawRectangle(UI.MenuActionWidth, UI.MenuActionWidth* DRAW_ACTION_COUNT, UI.MenuActionWidth * 4, UI.ToolBarHeight);
 }
 
 double Output::selectSize(Point p) const {
-	if (p.y < (UI.MenuActionWidth * DRAW_ACTION_COUNT + UI.ToolBarHeight)) {
+	if (p.y > UI.ToolBarHeight * DRAW_ACTION_COUNT && p.y < UI.height - UI.StatusBarHeight ) {
 		int selectSize = p.x / UI.MenuActionWidth;
 		switch (selectSize)
 		{

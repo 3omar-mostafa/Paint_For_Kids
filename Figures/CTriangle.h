@@ -16,7 +16,7 @@ public:
 	Point getP3();
 	bool doesItContain(int x, int y);
 
-	virtual void Resize(float);
+	virtual bool Resize(double);
 
 	virtual void Save(ofstream &OutFile);
 	virtual void Load(ifstream &Infile);

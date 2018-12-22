@@ -7,7 +7,7 @@
 
 class ResizeAction :public Action
 {
-	float Ratio;
+	double Ratio;
 	CFigure* toResize;
 	ActionType Confirm;
 

@@ -16,7 +16,7 @@ public:
 	virtual void Draw(Output* pOut) const;
 	Point getCenter();
 	bool doesItContain(int x, int y);
-	virtual void Resize(float);
+	virtual bool Resize(double);
 	virtual void Save(ofstream &OutFile);
 	virtual void Load(ifstream &Infile);
 	virtual void PrintInfo(Output* pOut);

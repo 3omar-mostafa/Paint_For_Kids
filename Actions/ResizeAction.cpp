@@ -34,7 +34,12 @@ void ResizeAction::Execute()
 	}
 	
 	ReadActionParameters();
-	toResize->Resize(Ratio);
-	toResize->toggleSelection();
-	pOut->ClearStatusBar();
+
+	if (toResize->Resize(Ratio))
+	{
+		pOut->ClearStatusBar();
+		pManager->setSelectedFigure(NULL);
+	}
+	else
+		pOut->PrintMessage("Please select a valid size");
 }

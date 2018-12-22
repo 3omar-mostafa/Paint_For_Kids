@@ -37,7 +37,7 @@ bool CRectangle::doesItContain(int x, int y) {
 	return false;
 }
 
-void CRectangle::Resize(float R)
+bool CRectangle::Resize(double R)
 {
 	Point MP = (Corner1 + Corner2) / 2;
 	Point C1, C2;
@@ -56,12 +56,13 @@ void CRectangle::Resize(float R)
 
 	//Validation:
 	if (C2.y < UI.ToolBarHeight || C1.y > UI.height - UI.StatusBarHeight || C2.x < UI.MenuActionWidth)
-		return;
+		return false;
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
 	*this = CRectangle(C1, C2, FigGfxInfo);
 	setID(oldID);
+	return true;
 }
 
 void CRectangle::Save(ofstream &OutFile)

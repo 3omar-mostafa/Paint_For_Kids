@@ -36,19 +36,19 @@ bool CRhombus::doesItContain(int x, int y) {
 	if (X >= -a && X <= a && Y >= -b && Y <= b) {
 
 		if (X >= 0 && X <= a && Y >= 0 && Y <= b) { //1st quad
-			if (a * Y + b * X <= a * b + 500)
+			if (a * Y + b * X <= a * b *1.1 )
 				return true;
 		}
 		else if (X <= 0 && X >= -a && Y >= 0 && Y <= b) { //2nd quad
-			if (a * Y - b * X <= a * b + 500)
+			if (a * Y - b * X <= a * b*1.1)
 				return true;
 		}
 		else if (X <= 0 && X >= -a && Y <= 0 && Y >= -b) { //3rd quad
-			if (a * Y + b * X >= -a * b + 500)
+			if (a * Y + b * X >= -a * b*1.1)
 				return true;
 		}
 		else if (X >= 0 && X <= a && Y <= 0 && Y >= -b) { //4th quad
-			if (a * Y - b * X >= -a * b + 500)
+			if (a * Y - b * X >= -a * b*1.1)
 				return true;
 		}
 	}
@@ -56,7 +56,7 @@ bool CRhombus::doesItContain(int x, int y) {
 	return false;
 }
 
-void CRhombus::Resize(float R)
+bool CRhombus::Resize(double R)
 {
 	//Setting the Horizontal Coordinates:
 	int a = xArr[1] - Center.x;
@@ -68,14 +68,15 @@ void CRhombus::Resize(float R)
 
 	//Validation:
 	if (Y[0] > UI.height - UI.StatusBarHeight || Y[2] < UI.ToolBarHeight)
-		return;
+		return false;
 	if (X[3] < UI.MenuActionWidth)
-		return;
+		return false;
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
 	*this = CRhombus(X, Y, FigGfxInfo);
 	setID(oldID);
+	return true;
 }
 
 void CRhombus::Save(ofstream &OutFile)

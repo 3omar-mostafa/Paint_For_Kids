@@ -71,7 +71,7 @@ bool CTriangle::doesItContain(int x, int y) {
 	return false;
 }
 
-void CTriangle::Resize(float R)
+bool CTriangle::Resize(double R)
 {
 	Point MP = (P1 + P2 + P3) / 3;
 	Point C1, C2, C3;
@@ -148,16 +148,17 @@ void CTriangle::Resize(float R)
 
 	//Validation:
 	if (C1.y < UI.ToolBarHeight || C1.y > UI.height - UI.StatusBarHeight || C1.x < UI.MenuActionWidth)
-		return;
+		return false;
 	if (C2.y < UI.ToolBarHeight || C2.y > UI.height - UI.StatusBarHeight || C2.x < UI.MenuActionWidth)
-		return;
+		return false;
 	if (C3.y < UI.ToolBarHeight || C3.y > UI.height - UI.StatusBarHeight || C3.x < UI.MenuActionWidth)
-		return;
+		return false;
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
 	*this = CTriangle(C1, C2, C3, FigGfxInfo);
 	setID(oldID);
+	return true;
 }
 
 void CTriangle::Save(ofstream &OutFile)
