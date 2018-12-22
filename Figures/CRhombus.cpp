@@ -1,10 +1,10 @@
 #include "CRhombus.h"
 
-CRhombus::CRhombus(Point P, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
+CRhombus::CRhombus(Point P, GfxInfo FigureGfxInfo, int a, int b) :CFigure(FigureGfxInfo)
 {
 	Center = P;
-	xArr[0] = P.x;			xArr[1] = P.x + 120;	xArr[2] = P.x;			xArr[3] = P.x - 120;
-	yArr[0] = P.y + 60;		yArr[1] = P.y;			yArr[2] = P.y - 60;		yArr[3] = P.y;
+	xArr[0] = P.x;			xArr[1] = P.x + a;		xArr[2] = P.x;			xArr[3] = P.x - a;
+	yArr[0] = P.y + b;		yArr[1] = P.y;			yArr[2] = P.y - b;		yArr[3] = P.y;
 	FigType = RHOMBUS;
 }
 
@@ -18,6 +18,14 @@ CRhombus::CRhombus(const int * X, const int * Y, GfxInfo FigureGfxInfo) :CFigure
 
 Point CRhombus::getCenter() {
 	return Center;
+}
+
+int CRhombus::getVertical() const {
+	return abs(yArr[0] - Center.y);
+}
+
+int CRhombus::getHorizontal() const {
+	return abs(xArr[1] - Center.x);
 }
 
 void CRhombus::Draw(Output* pOut) const
@@ -59,7 +67,7 @@ bool CRhombus::doesItContain(int x, int y) {
 
 bool CRhombus::Resize(double R)
 {
-	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
+	if (R < 1.01 && R > 0.99) // if the user didn't select any ratio from the menu
 		return false;
 
 	//Setting the Horizontal Coordinates:

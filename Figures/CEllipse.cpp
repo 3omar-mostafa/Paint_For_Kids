@@ -20,6 +20,14 @@ Point CEllipse::getCenter() {
 	return Center;
 }
 
+int CEllipse::getVertical() const {
+	return abs(Corner1.y - Center.y);
+}
+
+int CEllipse::getHorizontal() const {
+	return abs(Corner1.x - Center.x);
+}
+
 void CEllipse::Draw(Output* pOut) const
 {
 	//Call Output::DrawEllipse to draw a rhombus on the screen	

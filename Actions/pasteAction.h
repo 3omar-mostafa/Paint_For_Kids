@@ -13,9 +13,11 @@ class pasteAction :public Action
 public:
 
 	pasteAction(ApplicationManager*);
-	virtual void ValidateTriangle(Point&,Point&,Point&,CTriangle*);
-	virtual void ValidateRectangle(Point&, Point&,CRectangle*);
-	virtual void ValidateLine(Point&,Point&,CLine*);
+	virtual void ValidateRectangle(Point&, Point&, CRectangle*);
+	virtual void ValidateTriangle(Point&, Point&, Point&, CTriangle*);
+	virtual void ValidateEllipse(Point&, CEllipse*);
+	virtual void ValidateRhombus(Point&, CRhombus*);
+	virtual void ValidateLine(Point&, Point&, CLine*);
 	virtual void ReadActionParameters();
 	virtual void Execute();
 	~pasteAction();

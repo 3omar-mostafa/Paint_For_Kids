@@ -11,10 +11,14 @@ private:
 	Point Corner1, Corner2;
 	Point Center;
 public:
-	CEllipse(Point, GfxInfo FigureGfxInfo);
-	CEllipse(Point, Point, GfxInfo FigureGfxInfo);
+	CEllipse(Point Center, GfxInfo FigureGfxInfo);
+	CEllipse(Point Corner1, Point Corner2, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
 	Point getCenter();
+
+	int getVertical() const;
+	int getHorizontal() const;
+
 	bool doesItContain(int x, int y);
 	virtual bool Resize(double);
 	virtual void Save(ofstream &OutFile);

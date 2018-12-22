@@ -629,6 +629,7 @@ void Output::getValidPoint(Point& P) const {
 		else
 			break;
 	}
+	delete pIn;
 }
 
 void Output::getValidEllipsePoint(Point& P) const {
@@ -642,6 +643,7 @@ void Output::getValidEllipsePoint(Point& P) const {
 		else
 			break;
 	}
+	delete pIn;
 }
 
 void Output::getValidRhombusPoint(Point& P) const {
@@ -655,6 +657,7 @@ void Output::getValidRhombusPoint(Point& P) const {
 		else
 			break;
 	}
+	delete pIn;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
