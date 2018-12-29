@@ -8,22 +8,22 @@
 bringToFrontAction::bringToFrontAction(ApplicationManager *pApp) :Action(pApp)
 {}
 
-void bringToFrontAction::ReadActionParameters()
+void bringToFrontAction::readActionParameters()
 {
 	currentFigure = pManager->getSelectedFigure();
 }
-void bringToFrontAction::Execute()
+void bringToFrontAction::execute()
 {
 
-	ReadActionParameters();
+	readActionParameters();
 
-	Output* pOut = pManager->GetOutput();
+	Output* pOut = pManager->getOutput();
 
-	pOut->CreateDrawActionToolBar();
+	pOut->createDrawActionToolBar();
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_bring_to_front_Selected.jpg", ITM_BRING_TO_FRONT);
 
-	if (currentFigure == NULL)
-		pOut->PrintMessage("Please Select a Figure first");
+	if (currentFigure == nullptr)
+		pOut->printMessage("Please Select a Figure first");
 
 	else
 		pManager->bringToFront(currentFigure);

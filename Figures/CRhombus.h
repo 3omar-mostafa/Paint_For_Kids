@@ -1,35 +1,35 @@
-#ifndef RHOM_H
-#define RHOM_H
+#ifndef C_RHOMBUS_H
+#define C_RHOMBUS_H
 
-#include "CFigure.h"
+#include "cFigure.h"
 
-class CRhombus : public CFigure
+class cRhombus : public cFigure
 {
 private:
-	Point Center;
+	Point center;
 	int xArr[4];
 	int yArr[4];
 public:
-	//Creates a Rhombus with the Center and the Horizontal and Vertical Distances from the Center
-	CRhombus(Point P, GfxInfo FigureGfxInfo, int a = 120, int b = 60);
+	//Creates a Rhombus with the center and the Horizontal and Vertical Distances from the center
+	cRhombus(Point P, GfxInfo FigureGfxInfo, int a = 120, int b = 60);
 	
 	//Creates a Rhombus from an array of X and Y coordinates
-	CRhombus(const int* X, const int* Y, GfxInfo FigureGfxInfo);
-	
-	virtual void Draw(Output* pOut) const;
-	Point getCenter();
+	cRhombus(const int* , const int* , GfxInfo );
 
-	//Returns the Vertical Distance of the Furthest Point from the Center
+	void draw(Output* ) const override;
+	Point getCenter() const;
+
+	//Returns the Vertical Distance of the Furthest Point from the center
 	int getVertical() const;
 
-	//Returns the Horizontal Distance of the Furthest Point from the Center
+	//Returns the Horizontal Distance of the Furthest Point from the center
 	int getHorizontal() const;
 
-	bool doesItContain(int x, int y);
-	virtual bool Resize(double);
-	virtual void Save(ofstream &OutFile);
-	virtual void Load(ifstream &Infile);
-	virtual void PrintInfo(Output* pOut);
+	bool doesItContain(int x, int y) override;
+	bool resize(double) override;
+	void save(ofstream & ) override;
+	void load(ifstream & ) override;
+	void printInfo(Output* ) override;
 };
 
 #endif

@@ -4,29 +4,29 @@
 cutAction::cutAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void cutAction::ReadActionParameters()
+void cutAction::readActionParameters()
 {
 
-	Output* pOut = pManager->GetOutput();
-	pOut->PrintMessage("Cut, Selected Figure cut to Clipboard");
+	Output* pOut = pManager->getOutput();
+	pOut->printMessage("Cut, Selected Figure cut to Clipboard");
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_Cut_Selected.jpg", ITM_CUT);
 
 	//if there was a previous cut we return it to its initial color
-	if (pManager->getLastCut()!= NULL) 
+	if (pManager->getLastCut()!= nullptr) 
 	{
 		if (!pManager->getLastCut()->isFilled())
 		{
-			pManager->getLastCut()->ChngDrawClr(pManager->getLastDrawClr());
+			pManager->getLastCut()->changeDrawColor(pManager->getLastDrawClr());
 		}
 		else 
 		{
-			pManager->getLastCut()->ChngDrawClr(pManager->getLastDrawClr());
-			pManager->getLastCut()->ChngFillClr(pManager->getLastFillClr());
+			pManager->getLastCut()->changeDrawColor(pManager->getLastDrawClr());
+			pManager->getLastCut()->changeFillColor(pManager->getLastFillClr());
 		}
 	}
 
 	pManager->setLastCut(pManager->getSelectedFigure());
-	if (pManager->getSelectedFigure() != NULL)
+	if (pManager->getSelectedFigure() != nullptr)
 	{
 		pManager->setLastDrawClr(pManager->getSelectedFigure()->getDrawColor());
 		pManager->setLastFillClr(pManager->getSelectedFigure()->getFillColor());
@@ -35,26 +35,26 @@ void cutAction::ReadActionParameters()
 	cut = pManager->getSelectedFigure();
 }
 
-void cutAction::Execute() 
+void cutAction::execute() 
 {
 
-	ReadActionParameters();
-	Output* pOut = pManager->GetOutput();
+	readActionParameters();
+	Output* pOut = pManager->getOutput();
 
-	if (cut == NULL)
+	if (cut == nullptr)
 	{
-		pOut->PrintMessage("Please Select a Figure to cut");
+		pOut->printMessage("Please Select a Figure to cut");
 		return;
 	}
 
-	cut->SetCut(true);
+	cut->setCut(true);
 	pManager->setClipboard(cut);
-	pManager->getSelectedFigure()->ChngDrawClr(GREY);
+	pManager->getSelectedFigure()->changeDrawColor(GREY);
 	if(pManager->getSelectedFigure()->isFilled())
-		pManager->getSelectedFigure()->ChngFillClr(GREY);	
+		pManager->getSelectedFigure()->changeFillColor(GREY);	
 	else 
 	{
-		pManager->getSelectedFigure()->SetSelected(false);
+		pManager->getSelectedFigure()->setSelected(false);
 	}
 }
 

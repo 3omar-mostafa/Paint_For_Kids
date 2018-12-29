@@ -35,17 +35,17 @@
 //Main class that manages everything in the application.
 class ApplicationManager
 {
-	enum { MaxFigCount = 200 };	//Max no of figures
+	enum { MAX_FIG_COUNT = 200 };	//Max no of figures
 
 private:
-	int FigCount;		//Actual number of figures
-	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
+	int figCount;		//Actual number of figures
+	cFigure* figList[MAX_FIG_COUNT];	//List of all figures (Array of pointers)
 
-	CFigure* SelectedFig; //Pointer to the selected figure
-	CFigure* lastSelected;
-	CFigure* lastCut;
-	color lastdrawclr, lastfillclr;
-	CFigure* Clipboard;   //Pointer to the copied/cut figure
+	cFigure* selectedFig; //Pointer to the selected figure
+	cFigure* lastSelected;
+	cFigure* lastCut;
+	color lastDrawColor, lastFillColor;
+	cFigure* clipboard;   //Pointer to the copied/cut figure
 
 	bool isSoundON;
 	//Pointers to Input and Output classes
@@ -58,49 +58,49 @@ public:
 
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type
-	ActionType GetUserAction() const;
-	void ExecuteAction(ActionType); //Creates an action and executes it
+	ActionType getUserAction() const;
+	void executeAction(ActionType); //Creates an action and executes it
 
 	// -- Figures Management Functions
-	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
-	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
-	void DeleteFigure(CFigure*);	//Deletes a Figure from the List
-	void ClearFigures();		//Added a function to remove all figures
-	void WriteFigures(ofstream&);	//Saves Figure Information to a text file 
-	void WriteFigures(ofstream&, FigureType);	//Saves Figure Information of a certain Type to a text file 
-	FigureType RandomType();
-	color RandomColor();
-	bool Empty();
-	bool HasFigure(FigureType);
-	bool HasColor(color FIG_COLOR);
-	void Exit();
+	void addFigure(cFigure*);          //Adds a new figure to the FigList
+	cFigure *getFigure(int , int) const; //Search for a figure given a point inside the figure
+	void deleteFigure(cFigure*);	//Deletes a Figure from the List
+	void clearFigures();		//Added a function to remove all figures
+	void writeFigures(ofstream&);	//Saves Figure Information to a text file 
+	void writeFigures(ofstream&, FigureType);	//Saves Figure Information of a certain Type to a text file 
+	FigureType randomType() const;
+	color randomColor() const;
+	bool empty();
+	bool hasFigure(FigureType) const;
+	bool hasColor(color) const;
+	void exit();
 
 	// -- Interface Management Functions
-	Input *GetInput() const; //Return pointer to the input
-	Output *GetOutput() const; //Return pointer to the output
-	void UpdateInterface() const;	//Redraws all the drawing window
+	Input *getInput() const; //Return pointer to the input
+	Output *getOutput() const; //Return pointer to the output
+	void updateInterface() const;	//Redraws all the drawing window
 
-	void setSelectedFigure(CFigure*);
-	CFigure* getSelectedFigure();
+	void setSelectedFigure(cFigure*);
+	cFigure* getSelectedFigure() const;
 
-	void setLastSelected(CFigure*);
-	CFigure* getLastSelected();
+	void setLastSelected(cFigure*);
+	cFigure* getLastSelected() const;
 
-	void setClipboard(CFigure*);
-	CFigure* getClipboard();
+	void setClipboard(cFigure*);
+	cFigure* getClipboard() const;
 
-	color getLastDrawClr();
-	color getLastFillClr();
+	color getLastDrawClr() const;
+	color getLastFillClr() const;
 	void setLastDrawClr(color);
 	void setLastFillClr(color);
 
-	void bringToFront(CFigure*);
-	void sendToBack(CFigure*);
+	void bringToFront(cFigure*);
+	void sendToBack(cFigure*);
 
-	void setLastCut(CFigure*);
-	CFigure* getLastCut();
+	void setLastCut(cFigure*);
+	cFigure* getLastCut() const;
 
-	bool getSoundState();
+	bool getSoundState() const;
 	void toggleSound();
 };
 

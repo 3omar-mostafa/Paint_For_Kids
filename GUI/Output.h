@@ -1,5 +1,5 @@
-#ifndef OUPTUT_H
-#define OUPTUT_H
+#ifndef OUTPUT_H
+#define OUTPUT_H
 #include "Input.h"
 
 class Output	//The application manager should have a pointer to this class
@@ -10,44 +10,42 @@ private:
 public:
 	Output();
 
-	window* CreateWind(int, int, int, int) const; //creates the application window
-	void CreateDrawToolBar() const;	//creates Draw mode toolbar & menu
-	void CreateDrawActionToolBar() const; // creates Draw mode Action bar
+	window* createWindow(int, int, int, int) const; //creates the application window
+	void createDrawToolBar() const;	//creates Draw mode toolbar & menu
+	void createDrawActionToolBar() const; // creates Draw mode Action bar
 	void removeDrawActionToolBar() const; // deletes Draw mode Action bar
-	void CreatePlayToolBar() const;	//creates Play mode toolbar & menu
-	void CreateStatusBar() const;	//create the status bar
+	void createPlayToolBar() const;	//creates Play mode toolbar & menu
+	void createStatusBar() const;	//create the status bar
 
-	Input* CreateInput() const; //creates a pointer to the Input object	
-	void ClearStatusBar() const;	//Clears the status bar
-	void ClearDrawArea() const;	//Clears the drawing area
+	Input* createInput() const; //creates a pointer to the Input object	
+	void clearStatusBar() const;	//Clears the status bar
+	void clearDrawArea() const;	//Clears the drawing area
 
 	// -- Figures Drawing functions
-	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected = false) const;  //Draw a rectangle
-	void DrawCircle(Point P1, Point P2, GfxInfo CircleGfxInfo, bool selected = false) const;
-	void DrawEllipse(Point P, GfxInfo ElpsGfxInfo, bool selected = false) const;
-	void DrawEllipse(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected = false) const;	//Draws the Ellipse using the rectangle that bounds it
-	void DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected = false) const;
-	void DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected = false) const;
-	void DrawRhombus(Point P, GfxInfo RhomGfxInfo, bool selected = false) const;
-	void DrawRhombus(const int* X, const int* Y, GfxInfo RhomGfxInfo, bool selected) const;	//Draws the Rhombus using two array of the respective coordinates of its 4 vertices
+	void drawRectangle(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected = false) const;  //Draw a rectangle
+	void drawEllipse(Point P, GfxInfo ElpsGfxInfo, bool selected = false) const;
+	void drawEllipse(Point P1, Point P2, GfxInfo ElpsGfxInfo, bool selected = false) const;	//Draws the Ellipse using the rectangle that bounds it
+	void drawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected = false) const;
+	void drawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected = false) const;
+	void drawRhombus(Point P, GfxInfo RhomGfxInfo, bool selected = false) const;
+	void drawRhombus(const int* X, const int* Y, GfxInfo RhomGfxInfo, bool selected) const;	//Draws the Rhombus using two array of the respective coordinates of its 4 vertices
 
-	///Make similar functions for drawing all other figure types.
 
-	void PrintMessage(string msg) const;	//Print a message on Status bar
+	void printMessage(string msg) const;	//Print a message on Status bar
 
-	color getCrntDrawColor() const;	//get current drwawing color
-	color getCrntFillColor() const;	//get current filling color
-	int getCrntPenWidth() const;		//get current pen width
+	static color getCurrentDrawColor();	//get current drawing color
+	static color getCurrentFillColor();	//get current filling color
+	static int getCurrentPenWidth();		//get current pen width
 
 	void drawOnToolbar(string, int) const;
 	void drawOnActionbar(string, int) const;
 
 	void drawResizeMenu() const;
-	double selectSize(Point p) const;
+	static double selectSize(Point p);
 
 	void playOnToolbar(string, int) const;
 
-	void CreateColorIcons();
+	void createColorIcons();
 	void drawFillColorMenu() const;
 	void drawDrawingColorMenu() const;
 	void deleteColorMenu() const;
@@ -57,14 +55,14 @@ public:
 	void getValidRhombusPoint(Point&) const;
 
 	color selectFillColor(Point);
-	color selectDrawColor(Point);
+	color selectDrawColor(Point) const;
 
 	void changeFillColorIcon(color, bool);
-	void changeDrawColorIcon(color);
+	void changeDrawColorIcon(color) const;
 
-	bool isFilled();
+	bool isFilled() const;
 
-	void drawSoundIcon(bool);
+	void drawSoundIcon(bool) const;
 
 	~Output();
 };

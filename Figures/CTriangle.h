@@ -1,30 +1,30 @@
 #ifndef TRI_H
 #define TRI_H
 
-#include "CFigure.h"
+#include "cFigure.h"
 
-class CTriangle : public CFigure
+class cTriangle : public cFigure
 {
 private:
-	Point P1, P2, P3;
+	Point p1, p2, p3;
 public:
-	CTriangle(Point, Point, Point, GfxInfo FigureGfxInfo);
-	virtual void Draw(Output* pOut) const;
+	cTriangle(Point, Point, Point, GfxInfo );
+	void draw(Output* pOut) const override;
 
-	Point getP1();
-	Point getP2();
-	Point getP3();
-	bool doesItContain(int x, int y);
+	Point getP1() const;
+	Point getP2() const;
+	Point getP3() const;
+	bool doesItContain(int x, int y) override;
 
-	virtual bool Resize(double);
+	bool resize(double) override;
 
-	virtual void Save(ofstream &OutFile);
-	virtual void Load(ifstream &Infile);
-	virtual void PrintInfo(Output* pOut);
+	void save(ofstream & ) override;
+	void load(ifstream & ) override;
+	void printInfo(Output* ) override;
 
 private:
-	double getTriangularArea(Point p1, Point p2, Point p3);
-	bool isColinear(Point p1, Point p2, Point p3);
+	double getTriangularArea(Point p1, Point p2, Point p3) const;
+	bool isCollinear(Point p1, Point p2, Point p3) const;
 };
 
 #endif

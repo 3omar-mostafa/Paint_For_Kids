@@ -1,74 +1,77 @@
 #include "CFigure.h"
 
-CFigure::CFigure(GfxInfo FigureGfxInfo)
+cFigure::cFigure(GfxInfo FigureGfxInfo)
 {
-	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
-	Selected = false;
+	figGfxInfo = FigureGfxInfo;	//Default status is non-filled.
+	selected = false;
 	cut = false;
 }
 
-void CFigure::setID(int ID)
+void cFigure::setID(int ID)
 {
 	this->ID = ID;
 }
 
-void CFigure::setType(FigureType T)
+void cFigure::setType(FigureType T)
 {
-	FigType = T;
+	figType = T;
 }
 
-FigureType CFigure::getType() const
+FigureType cFigure::getType() const
 {
-	return FigType;
+	return figType;
 }
 
-void CFigure::SetSelected(bool s)
+void cFigure::setSelected(bool s)
 {
-	Selected = s;
+	selected = s;
 }
 
-bool CFigure::IsSelected() const
+bool cFigure::isSelected() const
 {
-	return Selected;
+	return selected;
 }
 
-void CFigure::SetCut(bool c)
+void cFigure::setCut(bool c)
 {
 	cut = c;
 }
 
-bool CFigure::IsCut() const
+bool cFigure::isCut() const
 {
 	return cut;
 }
 
-void CFigure::toggleSelection(){
-	Selected = !Selected;
+void cFigure::toggleSelection(){
+	selected = !selected;
 }
-void CFigure::ChngDrawClr(color Dclr)
+void cFigure::changeDrawColor(color dColor)
 {
-	FigGfxInfo.DrawClr = Dclr;
+	figGfxInfo.drawColor = dColor;
 }
 
-void CFigure::ChngFillClr(color Fclr)
+void cFigure::changeFillColor(color fColor)
 {
-	FigGfxInfo.isFilled = true;
-	FigGfxInfo.FillClr = Fclr;
+	figGfxInfo.isFilled = true;
+	figGfxInfo.fillColor = fColor;
 }
 
-color CFigure::getFillColor() {
-	return FigGfxInfo.FillClr;
+color cFigure::getFillColor() const
+{
+	return figGfxInfo.fillColor;
 }
 
-color CFigure::getDrawColor() {
-	return FigGfxInfo.DrawClr;
+color cFigure::getDrawColor() const
+{
+	return figGfxInfo.drawColor;
 }
 
-void CFigure::setFilled( bool filled) {
-	FigGfxInfo.isFilled = filled;
+void cFigure::setFilled( bool filled) {
+	figGfxInfo.isFilled = filled;
 }
 
-bool CFigure::isFilled() {
-	return FigGfxInfo.isFilled;
+bool cFigure::isFilled() const
+{
+	return figGfxInfo.isFilled;
 }
 

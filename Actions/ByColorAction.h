@@ -1,15 +1,15 @@
 #pragma once
 #include"Action.h"
-class ByColorAction :public Action
+class byColorAction :public Action
 {
-	int Correct, Wrong;
+	int correct, wrong;
 	color FIG_COLOR;
-	bool Terminate;
+	bool terminate;
 public:
-	ByColorAction(ApplicationManager *pApp);
-	virtual void ReadActionParameters();
-	bool Play();
-	void Reset();
-	virtual void Execute();
-	string colorname(color c);
+	byColorAction(ApplicationManager *pApp);
+	void readActionParameters() override;
+	bool play();
+	void reset() const;
+	void execute() override;
+	static string colorName(color c);
 };

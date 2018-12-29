@@ -4,27 +4,27 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-ChangeFillColor::ChangeFillColor(ApplicationManager * pApp) :Action(pApp)
+changeFillColor::changeFillColor(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void ChangeFillColor::ReadActionParameters() {}
+void changeFillColor::readActionParameters() {}
 
 //Execute the action
-void ChangeFillColor::Execute()
+void changeFillColor::execute()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Change Figure's Fill Color, Click Anywhere");
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
+	pOut->printMessage("Change Figure's Fill Color, Click Anywhere");
 
 	pOut->drawFillColorMenu();
 
-	pIn->GetPointClicked(P.x, P.y);
+	pIn->getPointClicked(P.x, P.y);
 		
-	if (pManager->getSelectedFigure() != NULL) 
+	if (pManager->getSelectedFigure() != nullptr) 
 	{
 		color c = pOut->selectFillColor(P);
 		if (c != NOFILL)
-			pManager->getSelectedFigure()->ChngFillClr(c);
+			pManager->getSelectedFigure()->changeFillColor(c);
 		else
 			pManager->getSelectedFigure()->setFilled(false);
 	}

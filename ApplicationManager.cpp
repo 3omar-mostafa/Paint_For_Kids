@@ -4,20 +4,20 @@ ApplicationManager::ApplicationManager()
 {
 	//Create Input and output
 	pOut = new Output;
-	pIn = pOut->CreateInput();
-	pOut->PrintMessage("Welcome to Paint for Kids!");
+	pIn = pOut->createInput();
+	pOut->printMessage("Welcome to Paint for Kids!");
 
-	FigCount = 0;
+	figCount = 0;
 
-	SelectedFig = NULL;
-	lastSelected = NULL;
-	Clipboard = NULL;
-	lastCut = NULL;
+	selectedFig = nullptr;
+	lastSelected = nullptr;
+	clipboard = nullptr;
+	lastCut = nullptr;
 	isSoundON = true;
 
-	//Create an array of figure pointers and set them to NULL		
-	for (int i = 0; i < MaxFigCount; i++)
-		FigList[i] = NULL;
+	//Create an array of figure pointers and set them to nullptr		
+	for (int i = 0; i < MAX_FIG_COUNT; i++)
+		figList[i] = nullptr;
 }
 
 //==================================================================================//
@@ -25,49 +25,48 @@ ApplicationManager::ApplicationManager()
 //==================================================================================//
 
 //Asks the input to get the action from the user
-ActionType ApplicationManager::GetUserAction() const
+ActionType ApplicationManager::getUserAction() const
 {
-	return pIn->GetUserAction();
+	return pIn->getUserAction();
 }
 
 //Creates an action and executes it
-void ApplicationManager::ExecuteAction(ActionType ActType)
+void ApplicationManager::executeAction(ActionType ActType)
 {
-	Action* pAct = NULL;
-	GfxInfo gfxInfo;
+	Action* pAct = nullptr;
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
 	case DRAW_RECT:
-		pAct = new AddRectAction(this);
+		pAct = new addRectAction(this);
 		break;
 
 	case DRAW_TRI:
-		pAct = new AddTriAction(this);
+		pAct = new addTriangleAction(this);
 		break;
 
 	case DRAW_ELLIPSE:
-		pAct = new AddElpsAction(this);
+		pAct = new addEllipseAction(this);
 		break;
 
 	case DRAW_RHOMBUS:
-		pAct = new AddRhomAction(this);
+		pAct = new addRhombusAction(this);
 		break;
 
 	case DRAW_LINE:
-		pAct = new AddLineAction(this);
+		pAct = new addLineAction(this);
 		break;
 
 	case CLEAR:
-		pAct = new ClearAction(this);
+		pAct = new clearAction(this);
 		break;
 
-	case CHNG_DRAW_CLR:
-		pAct = new ChangeDrawColor(this);
+	case CHANGE_DRAW_COLOR:
+		pAct = new changeDrawColor(this);
 		break;
 
-	case CHNG_FILL_CLR:
-		pAct = new ChangeFillColor(this);
+	case CHANGE_FILL_COLOR:
+		pAct = new changeFillColor(this);
 		break;
 
 	case SELECT:
@@ -83,23 +82,23 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 
 	case RESIZE:
-		pAct = new ResizeAction(this);
+		pAct = new resizeAction(this);
 		break;
 
 	case DEL:
-		pAct = new DeleteAction(this);
+		pAct = new deleteAction(this);
 		break;
 
 	case SAVE:
-		pAct = new SaveAction(this);
+		pAct = new saveAction(this);
 		break;
 
 	case SAVE_BY_TYPE:
-		pAct = new SaveByTypeAction(this);
+		pAct = new saveByTypeAction(this);
 		break;
 
 	case LOAD:
-		pAct = new LoadAction(this);
+		pAct = new loadAction(this);
 		break;
 
 	case COPY:
@@ -114,12 +113,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new pasteAction(this);
 		break;
 
-	case COL_SHP:
-		pAct = new ByShapeAction(this);
+	case PLAY_SHAPE:
+		pAct = new byShapeAction(this);
 		break;
 
-	case COL_CLR:
-		pAct = new ByColorAction(this);
+	case PLAY_COLOR:
+		pAct = new byColorAction(this);
 		break;
 
 	case SOUND:
@@ -127,54 +126,54 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 
 	case EXIT:
-		pAct = new ExitAction(this);
+		pAct = new exitAction(this);
 		break;
 
 	case TO_DRAW:
-		pOut->PrintMessage("Switch to Draw Mode, Creating Design Toolbar");
+		pOut->printMessage("Switch to Draw Mode, Creating Design Toolbar");
 		pOut->playOnToolbar("images\\MenuItems\\draw_selected.jpg", ITM_DRAW);
-		pOut->CreateDrawToolBar();
-		pOut->CreateColorIcons();
-		pOut->CreateDrawActionToolBar();
+		pOut->createDrawToolBar();
+		pOut->createColorIcons();
+		pOut->createDrawActionToolBar();
 		pOut->drawSoundIcon(getSoundState());
 
-		// resets Clipboard and selected figures after switching to draw mode
-		SelectedFig = NULL;
-		lastSelected = NULL;
-		Clipboard = NULL;
+		// resets clipboard and selected figures after switching to draw mode
+		selectedFig = nullptr;
+		lastSelected = nullptr;
+		clipboard = nullptr;
 		if (getSoundState())
-			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
+			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), nullptr, SND_FILENAME);
 		break;
 
 	case TO_PLAY:
-		pOut->PrintMessage("Switch to Play Mode, Creating Game Toolbar");
+		pOut->printMessage("Switch to Play Mode, Creating Game Toolbar");
 		pOut->drawOnToolbar("images\\MenuItems\\Menu_game_Selected.jpg", ITM_GAME);
-		pOut->CreatePlayToolBar();
+		pOut->createPlayToolBar();
 		pOut->removeDrawActionToolBar();
-		if (SelectedFig != NULL) //remove selection color (Magenta) before play mode
-			SelectedFig->SetSelected(false);
-		UpdateInterface();
+		if (selectedFig != nullptr) //remove selection color (Magenta) before play mode
+			selectedFig->setSelected(false);
+		updateInterface();
 		if (getSoundState())
-			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), nullptr, SND_ASYNC);
 		break;
 
 	case STATUS:	//a click on the status bar ==> no action
-		pOut->PrintMessage("A Click on the Status Bar, Click anywhere");
+		pOut->printMessage("A Click on the Status Bar, Click anywhere");
 		return;
 	}
 
 	//Execute the created action
-	if (pAct != NULL)
+	if (pAct != nullptr)
 	{
-		pAct->Execute();	//Execute
+		pAct->execute();	//Execute
 		delete pAct;		//Action is not needed any more ==> delete it
-		pAct = NULL;
+		pAct = nullptr;
 		if (ActType != TO_PLAY && ActType != EXIT && UI.InterfaceMode != MODE_PLAY)
 		{
-			pOut->CreateDrawToolBar();
-			pOut->CreateDrawActionToolBar();
-			if (ActType == COL_SHP || ActType == COL_CLR)
-				pOut->CreateColorIcons();
+			pOut->createDrawToolBar();
+			pOut->createDrawActionToolBar();
+			if (ActType == PLAY_SHAPE || ActType == PLAY_COLOR)
+				pOut->createColorIcons();
 		}
 	}
 }
@@ -184,182 +183,176 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 //==================================================================================//
 
 //Add a figure to the list of figures
-void ApplicationManager::AddFigure(CFigure* pFig)
+void ApplicationManager::addFigure(cFigure* pFig)
 {
-	if (FigCount < MaxFigCount)
+	if (figCount < MAX_FIG_COUNT)
 	{
-		FigList[FigCount++] = pFig;
-		pFig->setID(FigCount);
+		figList[figCount++] = pFig;
+		pFig->setID(figCount);
 	}
 }
 
 //Removes all Figures from the List
-void ApplicationManager::ClearFigures()
+void ApplicationManager::clearFigures()
 {
-	for (int i = 0; i < FigCount; i++)
+	for (int i = 0; i < figCount; i++)
 	{
-		delete FigList[i];
-		FigList[i] = NULL;
+		delete figList[i];
+		figList[i] = nullptr;
 	}
-	FigCount = 0;
+	figCount = 0;
 }
 
-void ApplicationManager::WriteFigures(ofstream& OutFile)
+void ApplicationManager::writeFigures(ofstream& OutFile)
 {
-	OutFile << ColorData(UI.DrawColor) << " " << ColorData(UI.FillColor) << endl;	//Writing the Draw and Fill colors to the file
-	OutFile << FigCount;	//Writing the number of Figures to the file
-	for (int i = 0; i < FigCount; i++)
-		FigList[i]->Save(OutFile);	//Calling the Save function for each figure
+	OutFile << colorData(UI.DrawColor) << " " << colorData(UI.FillColor) << endl;	//Writing the Draw and Fill colors to the file
+	OutFile << figCount;	//Writing the number of Figures to the file
+	for (int i = 0; i < figCount; i++)
+		figList[i]->save(OutFile);	//Calling the Save function for each figure
 }
 
-void ApplicationManager::WriteFigures(ofstream & OutFile, FigureType SavedType)
+void ApplicationManager::writeFigures(ofstream & OutFile, FigureType SavedType)
 {
 	// Getting the number of figures of SavedType in the Figure List:
 	int TypeCount = 0;
-	for (int i = 0; i < FigCount; i++)
-		if (FigList[i]->getType() == SavedType)
+	for (int i = 0; i < figCount; i++)
+		if (figList[i]->getType() == SavedType)
 			TypeCount++;
 
-	OutFile << ColorData(UI.DrawColor) << " " << ColorData(UI.FillColor) << endl;		//Writing the Fill and Draw colors to the file
+	OutFile << colorData(UI.DrawColor) << " " << colorData(UI.FillColor) << endl;		//Writing the Fill and Draw colors to the file
 	OutFile << TypeCount;	//Writing the number of figures of SavedType
-	for (int i = 0; i < FigCount; i++)
-		if (FigList[i]->getType() == SavedType)
-			FigList[i]->Save(OutFile);	//Calling the Save function for figures of SavedType
+	for (int i = 0; i < figCount; i++)
+		if (figList[i]->getType() == SavedType)
+			figList[i]->save(OutFile);	//Calling the Save function for figures of SavedType
 }
 
-FigureType ApplicationManager::RandomType()
+FigureType ApplicationManager::randomType() const
 {
-	FigureType TYPE;
-	int idx = abs(rand()) % FigCount;
-	TYPE = FigList[idx]->getType();
-	return TYPE;
+	int index = abs(rand()) % figCount;
+	FigureType type = figList[index]->getType();
+	return type;
 }
 
-color ApplicationManager::RandomColor()
+color ApplicationManager::randomColor() const
 {
-	color COLOR;
-	int idx = abs(rand()) % FigCount;
-	COLOR = FigList[idx]->isFilled() ? FigList[idx]->getFillColor() : FigList[idx]->getDrawColor() ;
-	return COLOR;
+	int index = abs(rand()) % figCount;
+	color color = figList[index]->isFilled() ? figList[index]->getFillColor() : figList[index]->getDrawColor();
+	return color;
 }
 
 
-bool ApplicationManager::Empty()
+bool ApplicationManager::empty()
 {
-	for (int i = 0; i < FigCount; i++)
-		if (FigList[i])
+	for (int i = 0; i < figCount; i++)
+		if (figList[i])
 			return false;
 	return true;
 }
 
-bool ApplicationManager::HasFigure(FigureType FIG_TYPE)
+bool ApplicationManager::hasFigure(FigureType FIG_TYPE) const
 {
-	for (int i = 0; i < FigCount; i++)
-		if (FigList[i]->getType() == FIG_TYPE)
+	for (int i = 0; i < figCount; i++)
+		if (figList[i]->getType() == FIG_TYPE)
 			return true;
 	return false;
 }
-bool ApplicationManager::HasColor(color FIG_COLOR)
+bool ApplicationManager::hasColor(color FIG_COLOR) const
 {
-	for (int i = 0; i < FigCount; i++)
+	for (int i = 0; i < figCount; i++)
 	{
-		if (FigList[i]->isFilled() && FigList[i]->getFillColor() == FIG_COLOR)
+		if (figList[i]->isFilled() && figList[i]->getFillColor() == FIG_COLOR)
 			return true;
-		else if (!(FigList[i]->isFilled()) && FigList[i]->getDrawColor() == FIG_COLOR)
+		else if (!(figList[i]->isFilled()) && figList[i]->getDrawColor() == FIG_COLOR)
 			return true;
 	}
 
 	return false;
 }
 
-CFigure *ApplicationManager::GetFigure(int x, int y) const
+cFigure *ApplicationManager::getFigure(int x, int y) const
 {
 	//If a figure is found return a pointer to it.
-	//if this point (x,y) does not belong to any figure return NULL
-
-
-	//Add your code here to search for a figure given a point x,y	
-	//Remember that ApplicationManager only calls functions do NOT implement it.
+	//if this point (x,y) does not belong to any figure return nullptr
 
 	//started from last to first because if two shapes overlapped on same point,I should choose the top one
-	for (int i = FigCount - 1; i >= 0; i--)
+	for (int i = figCount - 1; i >= 0; i--)
 	{
-		if (FigList[i]->doesItContain(x, y))
+		if (figList[i]->doesItContain(x, y))
 		{
-			return FigList[i];
+			return figList[i];
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
-void ApplicationManager::DeleteFigure(CFigure* Deleted)
+void ApplicationManager::deleteFigure(cFigure* deleted)
 {
-	for (int i = 0; i < FigCount; i++)
+	for (int i = 0; i < figCount; i++)
 	{
-		if (FigList[i] == Deleted)
+		if (figList[i] == deleted)
 		{
-			if (Clipboard == Deleted)
-				Clipboard = NULL;
-			if(SelectedFig = Deleted)
-				SelectedFig = NULL;
-			delete FigList[i];
-			FigCount--;
-			while (i < FigCount)
+			if (clipboard == deleted)
+				clipboard = nullptr;
+			if(selectedFig = deleted)
+				selectedFig = nullptr;
+			delete figList[i];
+			figCount--;
+			while (i < figCount)
 			{
-				FigList[i++] = FigList[i + 1];	//Shifting all Figures backwards one place
-				FigList[i]->setID(i);	//Matching the ID to the new spot in the Figure List
+				figList[i++] = figList[i + 1];	//Shifting all Figures backwards one place
+				figList[i]->setID(i);	//Matching the ID to the new spot in the Figure List
 			}
-			FigList[FigCount] = NULL;	//Freeing the last pointer
+			figList[figCount] = nullptr;	//Freeing the last pointer
 			return;
 		}
 	}
 }
 
-void ApplicationManager::sendToBack(CFigure* figure)
+void ApplicationManager::sendToBack(cFigure* figure)
 {
 	int currentIndex;
-	CFigure* currentFigure;
+	cFigure* currentFigure;
 
-	for (int i = 0; i < FigCount; i++)
+	for (int i = 0; i < figCount; i++)
 	{
 
-		if (FigList[i] == figure)
+		if (figList[i] == figure)
 		{
 			currentIndex = i;
-			currentFigure = FigList[i];
+			currentFigure = figList[i];
 			break;
 		}
 	}
 
 	for (int i = currentIndex; i > 0; i--)
 	{
-		FigList[i] = FigList[i - 1];
+		figList[i] = figList[i - 1];
 	}
 
-	FigList[0] = currentFigure;
+	figList[0] = currentFigure;
 }
 
-void ApplicationManager::bringToFront(CFigure* figure)
+void ApplicationManager::bringToFront(cFigure* figure)
 {
 	int currentIndex;
-	CFigure* currentFigure;
-	for (int i = 0; i < FigCount; i++)
+	cFigure* currentFigure;
+	for (int i = 0; i < figCount; i++)
 	{
 
-		if (FigList[i] == figure)
+		if (figList[i] == figure)
 		{
 			currentIndex = i;
-			currentFigure = FigList[i];
+			currentFigure = figList[i];
 			break;
 		}
 	}
 
-	for (int i = currentIndex; i < FigCount - 1; i++)
+	for (int i = currentIndex; i < figCount - 1; i++)
 	{
-		FigList[i] = FigList[i + 1];
+		figList[i] = figList[i + 1];
 	}
 
-	FigList[FigCount - 1] = currentFigure;
+	figList[figCount - 1] = currentFigure;
 }
 
 //==================================================================================//
@@ -367,91 +360,91 @@ void ApplicationManager::bringToFront(CFigure* figure)
 //==================================================================================//
 
 //Draw all figures on the user interface
-void ApplicationManager::UpdateInterface() const
+void ApplicationManager::updateInterface() const
 {
-	pOut->ClearDrawArea();
-	for (int i = 0; i < FigCount; i++)
-		if (FigList[i] != NULL)
-			FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
+	pOut->clearDrawArea();
+	for (int i = 0; i < figCount; i++)
+		if (figList[i] != nullptr)
+			figList[i]->draw(pOut);		//Call Draw function (virtual member fn)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input
-Input *ApplicationManager::GetInput() const
+Input *ApplicationManager::getInput() const
 {
 	return pIn;
 }
 //Return a pointer to the output
-Output *ApplicationManager::GetOutput() const
+Output *ApplicationManager::getOutput() const
 {
 	return pOut;
 }
-void ApplicationManager::setSelectedFigure(CFigure* fig)
+void ApplicationManager::setSelectedFigure(cFigure* fig)
 {
-	SelectedFig = fig;
+	selectedFig = fig;
 }
 
-CFigure* ApplicationManager::getSelectedFigure()
+cFigure* ApplicationManager::getSelectedFigure() const
 {
-	return SelectedFig;
+	return selectedFig;
 }
 
-void ApplicationManager::setLastSelected(CFigure* fig)
+void ApplicationManager::setLastSelected(cFigure* fig)
 {
 	lastSelected = fig;
 }
 
-CFigure* ApplicationManager::getLastSelected()
+cFigure* ApplicationManager::getLastSelected() const
 {
 	return lastSelected;
 }
 
-void ApplicationManager::Exit()
+void ApplicationManager::exit()
 {
 	delete pOut; delete pIn;
-	pIn = NULL; pOut = NULL;
+	pIn = nullptr; pOut = nullptr;
 }
 
-void ApplicationManager::setClipboard(CFigure* fig)
+void ApplicationManager::setClipboard(cFigure* fig)
 {
-	Clipboard = fig;
+	clipboard = fig;
 }
 
-CFigure* ApplicationManager::getClipboard()
+cFigure* ApplicationManager::getClipboard() const
 {
-	return Clipboard;
+	return clipboard;
 }
 
-color ApplicationManager::getLastDrawClr()
+color ApplicationManager::getLastDrawClr() const
 {
-	return lastdrawclr;
+	return lastDrawColor;
 }
 
-color ApplicationManager::getLastFillClr()
+color ApplicationManager::getLastFillClr() const
 {
-	return lastfillclr;
+	return lastFillColor;
 }
 
 void ApplicationManager::setLastDrawClr(color c)
 {
-	lastdrawclr = c;
+	lastDrawColor = c;
 }
 
 void ApplicationManager::setLastFillClr(color clr)
 {
-	lastfillclr = clr;
+	lastFillColor = clr;
 
 }
-void ApplicationManager::setLastCut(CFigure* fig)
+void ApplicationManager::setLastCut(cFigure* fig)
 {
 	lastCut = fig;
 }
 
-CFigure* ApplicationManager::getLastCut()
+cFigure* ApplicationManager::getLastCut() const
 {
 	return lastCut;
 }
 
-bool ApplicationManager::getSoundState()
+bool ApplicationManager::getSoundState() const
 {
 	return isSoundON;
 }
@@ -466,8 +459,8 @@ void ApplicationManager::toggleSound()
 //Destructor
 ApplicationManager::~ApplicationManager()
 {
-	for (int i = 0; i < FigCount; i++)
-		delete FigList[i];
+	for (int i = 0; i < figCount; i++)
+		delete figList[i];
 	delete pIn;
 	delete pOut;
 

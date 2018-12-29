@@ -1,22 +1,23 @@
 #include "CEllipse.h"
 
-CEllipse::CEllipse(Point P, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
+CEllipse::CEllipse(Point P, GfxInfo FigureGfxInfo) :cFigure(FigureGfxInfo)
 {
 	Center = P;
 	Corner1 = P + Point(120, 60);
 	Corner2 = P + Point(-120, -60);
-	FigType = ELLIPSE;
+	figType = ELLIPSE;
 }
 
-CEllipse::CEllipse(Point C1, Point C2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
+CEllipse::CEllipse(Point C1, Point C2, GfxInfo FigureGfxInfo) :cFigure(FigureGfxInfo)
 {
 	Corner1 = C1;
 	Corner2 = C2;
 	Center = (Corner1 + Corner2) / 2;
-	FigType = ELLIPSE;
+	figType = ELLIPSE;
 }
 
-Point CEllipse::getCenter() {
+Point CEllipse::getCenter() const
+{
 	return Center;
 }
 
@@ -28,10 +29,10 @@ int CEllipse::getHorizontal() const {
 	return abs(Corner1.x - Center.x);
 }
 
-void CEllipse::Draw(Output* pOut) const
+void CEllipse::draw(Output* pOut) const
 {
 	//Call Output::DrawEllipse to draw a rhombus on the screen	
-	pOut->DrawEllipse(Corner1, Corner2, FigGfxInfo, Selected);
+	pOut->drawEllipse(Corner1, Corner2, figGfxInfo, selected);
 }
 
 bool CEllipse::doesItContain(int x, int y) {
@@ -42,31 +43,28 @@ bool CEllipse::doesItContain(int x, int y) {
 	long long a = Corner1.x - Center.x;
 	long long b = Corner1.y - Center.y;
 
-	if (b*b * X*X + a*a * Y*Y <= a*a * b*b) {
-		return true;
-	}
-
-	return false;
+	return b * b * X * X + a * a * Y * Y <= a * a * b * b;
 }
 
-bool CEllipse::Resize(double R)
+bool CEllipse::resize(double R)
 {
 	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
+							// didn't use == to avoid precision errors
 		return false;
 
 	Point C1, C2;
 
 	//Setting the Vertical Coordinates:
-	int Lower = (Corner1.y > Corner2.y) ? Corner1.y : Corner2.y;
-	int Vertical = Lower - Center.y;
-	C1.y = Center.y + Vertical * R;
-	C2.y = Center.y - Vertical * R;
+	int lower = (Corner1.y > Corner2.y) ? Corner1.y : Corner2.y;
+	int vertical = lower - Center.y;
+	C1.y = Center.y + vertical * R;
+	C2.y = Center.y - vertical * R;
 
 	//Setting the Horizontal Coordinates:
-	int Further = (Corner1.x > Corner2.x) ? Corner1.x : Corner2.x;
-	int Horizontal = Further - Center.x;
-	C1.x = Center.x + Horizontal * R;
-	C2.x = Center.x - Horizontal * R;
+	int further = (Corner1.x > Corner2.x) ? Corner1.x : Corner2.x;
+	int horizontal = further - Center.x;
+	C1.x = Center.x + horizontal * R;
+	C2.x = Center.x - horizontal * R;
 
 	//Validation:
 	if (C2.y < UI.ToolBarHeight || C1.y > UI.height - UI.StatusBarHeight || C2.x < UI.MenuActionWidth)
@@ -74,32 +72,31 @@ bool CEllipse::Resize(double R)
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
-	*this = CEllipse(C1, C2, FigGfxInfo);
+	*this = CEllipse(C1, C2, figGfxInfo);
 	setID(oldID);
 
 	return true;
 }
 
-void CEllipse::Save(ofstream &OutFile)
+void CEllipse::save(ofstream &OutFile)
 {
-	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Corner1.Data() + " " + Corner2.Data() + " " + FigGfxInfo.Data();
-	OutFile << endl << Info;
+	string info = storeType(figType) + " " + to_string(ID) + " " + Corner1.data() + " " + Corner2.data() + " " + figGfxInfo.data();
+	OutFile << endl << info;
 }
 
-void CEllipse::Load(ifstream &InFile)
+void CEllipse::load(ifstream &InFile)
 {
 	Point P1, P2;
-	GfxInfo ElpsGfxInfo;
+	GfxInfo EllipseGfxInfo;
 	InFile >> ID;
-	P1.Read(InFile);
-	P2.Read(InFile);
-	ElpsGfxInfo.Read(InFile);
-	*this = CEllipse(P1, P2, ElpsGfxInfo);
+	P1.read(InFile);
+	P2.read(InFile);
+	EllipseGfxInfo.read(InFile);
+	*this = CEllipse(P1, P2, EllipseGfxInfo);
 }
 
-void CEllipse::PrintInfo(Output * pOut)
+void CEllipse::printInfo(Output * pOut)
 {
-	string s;
-	s = "ID: " + to_string(ID) + "    Center Point: (" + to_string(Center.x) + ", " + to_string(Center.y) + ")";
-	pOut->PrintMessage(s);
+	string s = "ID: " + to_string(ID) + "    center Point: (" + to_string(Center.x) + ", " + to_string(Center.y) + ")";
+	pOut->printMessage(s);
 }

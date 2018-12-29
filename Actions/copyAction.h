@@ -7,11 +7,10 @@
 
 class copyAction :public Action
 {
-	CFigure* copied;
+	cFigure* copied;
 public:
 	copyAction(ApplicationManager*);
-	~copyAction();
-	virtual void ReadActionParameters();
-	virtual void Execute();
+	void readActionParameters() override;
+	void execute() override;
 };
 

@@ -6,95 +6,87 @@
 //==================================================================================//
 
 //Stores the type of a figure into a string format
-string StoreType(FigureType T)
+string storeType(FigureType T)
 {
 	switch (T)
 	{
 	case RECTANGLE:
 		return "RECTANGLE";
-		break;
 	case TRIANGLE:
 		return "TRIANGLE";
-		break;
 	case ELLIPSE:
 		return "ELLIPSE";
-		break;
 	case RHOMBUS:
 		return "RHOMBUS";
-		break;
 	case LINE:
 		return "LINE";
-		break;
+	default:
+		return "";
 	}
-	return "";
 }
 
 //Determines the type of a figure from a string format
-FigureType ReadType(string Str)
+FigureType readType(string Str)
 {
 	switch (Str[1])
 	{
 	case 'E':
 		return RECTANGLE;
-		break;
 	case 'R':
 		return TRIANGLE;
-		break;
 	case 'L':
 		return ELLIPSE;
-		break;
 	case 'H':
 		return RHOMBUS;
-		break;
 	case 'I':
 		return LINE;
-		break;
+	default:
+		return EMPTY_TYPE;
 	}
-	return EMPTY_TYPE;
 }
 
 //Stores the information for a color into a string
-string ColorData(color C)
+string colorData(color C)
 {
-	string Data;
-	Data += to_string(int(C.ucRed)) + " " + to_string(int(C.ucGreen)) + " " + to_string(int(C.ucBlue));
-	return Data;
+	string data;
+	data += to_string(int(C.ucRed)) + " " + to_string(int(C.ucGreen)) + " " + to_string(int(C.ucBlue));
+	return data;
 }
 
 //Reads a color's info from a string
-color ReadColor(ifstream& in)
+color readColor(ifstream& in)
 {
 	int Red, Green, Blue;
 	in >> Red >> Green >> Blue;
 	return color(Red, Green, Blue);
 }
 
-//Takes a CFigure* and creates a dummy object of a passed FigureType
-void SetFigType(CFigure *& FP, FigureType T)
+//Takes a cFigure* and creates a dummy object of a passed FigureType
+void setFigType(cFigure *& FP, FigureType T)
 {
-	Point P1, P2, P3;
-	P1 = P2 = P3 = Point(400, 400);
+	Point p1, p2, p3;
+	p1 = p2 = p3 = Point(400, 400);
 	GfxInfo dummy;
 	switch (T)
 	{
 	case LINE:
-		FP = new CLine(P1, P2, dummy);
+		FP = new CLine(p1, p2, dummy);
 		break;
 
 	case RECTANGLE:
-		FP = new CRectangle(P1, P2, dummy);
+		FP = new cRectangle(p1, p2, dummy);
 		break;
 
 	case TRIANGLE:
-		FP = new CTriangle(P1, P2, P3, dummy);
+		FP = new cTriangle(p1, p2, p3, dummy);
 		break;
 
 	case RHOMBUS:
-		FP = new CRhombus(P1, dummy);
+		FP = new cRhombus(p1, dummy);
 		break;
 
 	case ELLIPSE:
-		FP = new CEllipse(P1, dummy);
+		FP = new CEllipse(p1, dummy);
 		break;
 	}
 }

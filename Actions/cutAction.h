@@ -7,11 +7,11 @@
 
 class cutAction :public Action
 {
-	CFigure* cut;
+	cFigure* cut;
 public:
 	cutAction(ApplicationManager *);
 	~cutAction();
-	virtual void ReadActionParameters();
-	virtual void Execute();
+	void readActionParameters() override;
+	void execute() override;
 };
 

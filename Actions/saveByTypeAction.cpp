@@ -4,49 +4,49 @@
 #include "..\GUI\Output.h"
 
 
-SaveByTypeAction::SaveByTypeAction(ApplicationManager * pApp) :Action(pApp)
+saveByTypeAction::saveByTypeAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void SaveByTypeAction::ReadActionParameters()
+void saveByTypeAction::readActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Save by Figure Type, Click on any of the Figure Icons.");
-	Confirm = pIn->GetUserAction();
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
+	pOut->printMessage("Save by Figure Type, Click on any of the Figure Icons.");
+	confirm = pIn->getUserAction();
 }
 
-void SaveByTypeAction::Execute()
+void saveByTypeAction::execute()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
 
 	// Confirming the action:
-	ReadActionParameters();
-	FigureType SavedType = SetSavedType();
+	readActionParameters();
+	FigureType SavedType = setSavedType();
 	if (SavedType == EMPTY_TYPE)
 	{
-		pOut->PrintMessage("Cancelled!");
+		pOut->printMessage("Cancelled!");
 		return;
 	}
 	
 	// Reading and setting the name of the destination file:
-	pOut->PrintMessage("Enter the name of the file including the extension  OR  Press [ENTER] to save to " + StoreType(SavedType) + ".txt");
-	string FileName = pIn->GetString(pOut);
-	FileName = (FileName != "") ? FileName : StoreType(SavedType) + ".txt";
+	pOut->printMessage("Enter the name of the file including the extension  OR  Press [ENTER] to save to " + storeType(SavedType) + ".txt");
+	string FileName = pIn->getString(pOut);
+	FileName = !FileName.empty() ? FileName : storeType(SavedType) + ".txt";
 	
 	// Saving to the file:
 	ofstream OutFile;
 	OutFile.open(FileName);
-	pManager->WriteFigures(OutFile, SavedType);
+	pManager->writeFigures(OutFile, SavedType);
 	
 	// Finishing up:
 	OutFile.close();
-	pManager->GetOutput()->PrintMessage("Saved Successfully to " + FileName + "!");
+	pManager->getOutput()->printMessage("Saved Successfully to " + FileName + "!");
 }
 
-FigureType SaveByTypeAction::SetSavedType()
+FigureType saveByTypeAction::setSavedType() const
 {
-	switch (Confirm)
+	switch (confirm)
 	{
 	case DRAW_RECT:
 		return RECTANGLE;
@@ -67,6 +67,3 @@ FigureType SaveByTypeAction::SetSavedType()
 		return EMPTY_TYPE;
 	}
 }
-
-SaveByTypeAction::~SaveByTypeAction()
-{}

@@ -4,22 +4,22 @@
 sendToBackAction::sendToBackAction(ApplicationManager *pApp) :Action(pApp)
 {}
 
-void sendToBackAction::ReadActionParameters()
+void sendToBackAction::readActionParameters()
 {
 	currentFigure = pManager->getSelectedFigure();
 }
-void sendToBackAction::Execute()
+void sendToBackAction::execute()
 {
 
-	ReadActionParameters();
+	readActionParameters();
 
-	Output* pOut = pManager->GetOutput();
+	Output* pOut = pManager->getOutput();
 
-	pOut->CreateDrawActionToolBar();
+	pOut->createDrawActionToolBar();
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_send_to_back_Selected.jpg", ITM_SEND_TO_BACK);
 
-	if (currentFigure == NULL)
-		pOut->PrintMessage("Please Select a Figure first");
+	if (currentFigure == nullptr)
+		pOut->printMessage("Please Select a Figure first");
 	else
 		pManager->sendToBack(currentFigure);
 

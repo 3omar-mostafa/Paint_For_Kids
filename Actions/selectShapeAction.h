@@ -6,9 +6,9 @@ class selectShapeAction :public Action
 public:
 	selectShapeAction(ApplicationManager* pApp);
 	//Reads rectangle parameters
-	virtual void ReadActionParameters();
+	void readActionParameters() override;
 
 	//Add rectangle to the ApplicationManager
-	virtual void Execute();
+	void execute() override;
 };
 

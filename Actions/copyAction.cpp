@@ -4,49 +4,45 @@
 copyAction::copyAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void copyAction::ReadActionParameters()
+void copyAction::readActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Copy, Selected Figure copied to Clipboard");
+	Output* pOut = pManager->getOutput();
+	pOut->printMessage("Copy, Selected Figure copied to Clipboard");
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_copy_Selected.jpg", ITM_COPY);
 
-	if (pManager->getClipboard() != NULL)
+	if (pManager->getClipboard() != nullptr)
 	{
 
-		if (pManager->getClipboard()->IsCut())
+		if (pManager->getClipboard()->isCut())
 		{
 			if (!pManager->getLastCut()->isFilled()) 
 			{
-				pManager->getLastCut()->ChngDrawClr(pManager->getLastDrawClr());
+				pManager->getLastCut()->changeDrawColor(pManager->getLastDrawClr());
 			}
 			else 
 			{
-				pManager->getLastCut()->ChngDrawClr(pManager->getLastDrawClr());
-				pManager->getLastCut()->ChngFillClr(pManager->getLastFillClr());
+				pManager->getLastCut()->changeDrawColor(pManager->getLastDrawClr());
+				pManager->getLastCut()->changeFillColor(pManager->getLastFillClr());
 			}
-			pManager->setLastCut(NULL);
-			pManager->getClipboard()->SetCut(false);
+			pManager->setLastCut(nullptr);
+			pManager->getClipboard()->setCut(false);
 		}
 	}
 
 	copied = pManager->getSelectedFigure();
 }
 
-void copyAction::Execute()
+void copyAction::execute()
 {
 
-	ReadActionParameters();
-	Output* pOut = pManager->GetOutput();
+	readActionParameters();
+	Output* pOut = pManager->getOutput();
 
-	if (copied == NULL)
+	if (copied == nullptr)
 	{
-		pOut->PrintMessage("Please Select a Figure to copy");
+		pOut->printMessage("Please Select a Figure to copy");
 		return;
 	}
 
 	pManager->setClipboard(copied);
 }
-
-copyAction::~copyAction()
-{}

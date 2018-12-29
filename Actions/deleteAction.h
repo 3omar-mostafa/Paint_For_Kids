@@ -7,12 +7,12 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-class DeleteAction :public Action
+class deleteAction :public Action
 {
-	CFigure * deletedFigure;
+	cFigure * deletedFigure;
 public:
-	DeleteAction(ApplicationManager*);
-	virtual void ReadActionParameters();
-    virtual void Execute();
+	deleteAction(ApplicationManager*);
+	void readActionParameters() override;
+	void execute() override;
 };
 

@@ -5,44 +5,42 @@
 #include "..\GUI\Output.h"
 
 
-AddLineAction::AddLineAction(ApplicationManager *pApp) :Action(pApp)
-{
-}
+addLineAction::addLineAction(ApplicationManager *pApp) :Action(pApp)
+{}
 
-void AddLineAction::ReadActionParameters()
+void addLineAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
+	Output* pOut = pManager->getOutput();
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Line_Selected.jpg", ITM_LINE);
 	if (pManager->getSoundState())
-		PlaySound(TEXT("Sounds/Line.wav"), NULL, SND_ASYNC);
-	pOut->PrintMessage("New Line: Click at first point");
+		PlaySound(TEXT("Sounds/Line.wav"), nullptr, SND_ASYNC);
+	pOut->printMessage("New Line: Click at first point");
 
-	//Read 1st point and store in point P1
+	//Read 1st point and store in point p1
 	pOut->getValidPoint(P1);
 
-	pOut->PrintMessage("New Line: Click at second point");
-	//Read 2nd point and store in point P2
+	pOut->printMessage("New Line: Click at second point");
+	//Read 2nd point and store in point p2
 	pOut->getValidPoint(P2);
 	
 	//get drawing color and pen width from the interface
-	LineGfxInfo.DrawClr = pOut->getCrntDrawColor();
+	LineGfxInfo.drawColor = pOut->getCurrentDrawColor();
 	LineGfxInfo.isFilled = false;
 
-	pOut->ClearStatusBar();
+	pOut->clearStatusBar();
 }
 
 
 
 
- void AddLineAction::Execute()
+ void addLineAction::execute()
  {//This action needs to read some parameters first
-	 ReadActionParameters();
+	 readActionParameters();
 
 	 //Create a Line with the parameters read from the user
 	 CLine *L = new CLine(P1, P2, LineGfxInfo);
 
 	 //Add the Line to the list of figures
-	 pManager->AddFigure(L);
+	 pManager->addFigure(L);
  }

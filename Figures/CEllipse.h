@@ -1,11 +1,11 @@
-#ifndef ELPS_H
-#define ELPS_H
+#ifndef ELLIPSE_H
+#define ELLIPSE_H
 
-#include "CFigure.h"
+#include "cFigure.h"
 #include "..\GUI\Output.h"
 
 
-class CEllipse : public CFigure
+class CEllipse : public cFigure
 {
 private:
 	Point Corner1, Corner2;
@@ -15,21 +15,21 @@ public:
 	
 	//Creates an Ellipse inscribed in the Rectangle formed by the 2 Points
 	CEllipse(Point Corner1, Point Corner2, GfxInfo FigureGfxInfo);
-	
-	virtual void Draw(Output* pOut) const;
-	Point getCenter();
 
-	//Returns the Vertical Distance of the Furthest Point from the Center
+	void draw(Output* pOut) const override;
+	Point getCenter() const;
+
+	//Returns the Vertical Distance of the Furthest Point from the center
 	int getVertical() const;
 
-	//Returns the Horizontal Distance of the Furthest Point from the Center
+	//Returns the Horizontal Distance of the Furthest Point from the center
 	int getHorizontal() const;
 
-	bool doesItContain(int x, int y);
-	virtual bool Resize(double);
-	virtual void Save(ofstream &OutFile);
-	virtual void Load(ifstream &Infile);
-	virtual void PrintInfo(Output* pOut);
+	bool doesItContain(int x, int y) override;
+	bool resize(double) override;
+	void save(ofstream &OutFile) override;
+	void load(ifstream &Infile) override;
+	void printInfo(Output* pOut) override;
 };
 
 #endif

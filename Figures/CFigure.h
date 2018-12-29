@@ -1,47 +1,47 @@
-#ifndef CFIGURE_H
-#define CFIGURE_H
+#ifndef C_FIGURE_H
+#define C_FIGURE_H
 
 #include "..\defs.h"
 #include "..\GUI\Output.h"
 
 //Base class for all figures
-class CFigure
+class cFigure
 {
 protected:
 	int ID;					//Each figure has an ID
-	FigureType FigType;		//Each figure has a figure type.
-	bool Selected;			//True if the figure is selected.
-	GfxInfo FigGfxInfo;		//Figure graphics info
+	FigureType figType;		//Each figure has a figure type.
+	bool selected;			//True if the figure is selected.
+	GfxInfo figGfxInfo;		//Figure graphics info
 
 	bool cut;
 	/// Add more parameters if needed.
 
 public:
-	CFigure(GfxInfo FigureGfxInfo);
+	cFigure(GfxInfo );
 
 	void setID(int);
 	void setType(FigureType);
 	FigureType getType() const;
 
-	void SetSelected(bool s);	//select/unselect the figure
-	bool IsSelected() const;	//check whether fig is selected
+	void setSelected(bool s);	//select/unselect the figure
+	bool isSelected() const;	//check whether fig is selected
 	void toggleSelection();
 
-	void SetCut(bool);
-	bool IsCut() const;
+	void setCut(bool);
+	bool isCut() const;
 
-	virtual void Draw(Output* pOut) const = 0;		//Draw the figure
+	virtual void draw(Output* ) const = 0;		//Draw the figure
 
-	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
-	void ChngFillClr(color Fclr);	//changes the figure's filling color
-	color getFillColor();
-	color getDrawColor();
+	void changeDrawColor(color );	//changes the figure's drawing color
+	void changeFillColor(color );	//changes the figure's filling color
+	color getFillColor() const;
+	color getDrawColor() const;
 
-	bool isFilled();
-	void setFilled(bool filled);
+	bool isFilled() const;
+	void setFilled(bool );
 	virtual bool doesItContain(int, int) = 0;
 
-	virtual bool Resize(double) = 0;
+	virtual bool resize(double) = 0;
 
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure
@@ -49,12 +49,12 @@ public:
 	///Decide the parameters that you should pass to each function	
 
 
-	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
-	virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
+	virtual void save(ofstream & ) = 0;	//Save the figure parameters to the file
+	virtual void load(ifstream & ) = 0;	//Load the figure parameters to the file
 
-	virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
+	virtual void printInfo(Output* ) = 0;	//print all figure info on the status bar
 };
 
-void SetFigType(CFigure *& FP, FigureType T);	//Takes a CFigure* and creates a dummy object of a passed FigureType
+void setFigType(cFigure *& FP, FigureType T);	//Takes a cFigure* and creates a dummy object of a passed FigureType
 
 #endif

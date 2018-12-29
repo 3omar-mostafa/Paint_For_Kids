@@ -8,18 +8,17 @@
 class pasteAction :public Action
 {
 	Point newFigCenter;
-	CFigure* toPaste;
+	cFigure* toPaste;
 	GfxInfo toPasteGfxInfo;
 public:
 
 	pasteAction(ApplicationManager*);
-	virtual void ValidateRectangle(Point&, Point&, CRectangle*);
-	virtual void ValidateTriangle(Point&, Point&, Point&, CTriangle*);
-	virtual void ValidateEllipse(Point&, CEllipse*);
-	virtual void ValidateRhombus(Point&, CRhombus*);
-	virtual void ValidateLine(Point&, Point&, CLine*);
-	virtual void ReadActionParameters();
-	virtual void Execute();
-	~pasteAction();
+	virtual void validateRectangle(Point&, Point&, cRectangle*);
+	virtual void validateTriangle(Point&, Point&, Point&, cTriangle*);
+	virtual void validateEllipse(Point&, CEllipse*);
+	virtual void validateRhombus(Point&, cRhombus*);
+	virtual void validateLine(Point&, Point&, CLine*);
+	void readActionParameters() override;
+	void execute() override;
 };
 

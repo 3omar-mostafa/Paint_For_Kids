@@ -5,14 +5,14 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-class ResizeAction :public Action
+class resizeAction :public Action
 {
 	double Ratio;
-	CFigure* toResize;
+	cFigure* toResize;
 	ActionType Confirm;
 
 public:
-	ResizeAction(ApplicationManager*);
-	virtual void ReadActionParameters();
-	virtual void Execute();
+	resizeAction(ApplicationManager*);
+	void readActionParameters() override;
+	void execute() override;
 };

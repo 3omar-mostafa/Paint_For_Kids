@@ -1,11 +1,11 @@
 #pragma once
 #include "Action.h"
-class ChangeDrawColor :public Action
+class changeDrawColor :public Action
 {
 	Point P;
 public:
-	ChangeDrawColor(ApplicationManager*);
-	virtual void ReadActionParameters();
-	virtual void Execute();
+	changeDrawColor(ApplicationManager*);
+	void readActionParameters() override;
+	void execute() override;
 };
 

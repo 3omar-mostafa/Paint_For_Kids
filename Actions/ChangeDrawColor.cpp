@@ -4,23 +4,23 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-ChangeDrawColor::ChangeDrawColor(ApplicationManager * pApp) : Action(pApp)
+changeDrawColor::changeDrawColor(ApplicationManager * pApp) : Action(pApp)
 {}
 
-void ChangeDrawColor::ReadActionParameters() {}
+void changeDrawColor::readActionParameters() {}
 
 //Execute the action
-void ChangeDrawColor::Execute()
+void changeDrawColor::execute()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Change Figure's Drawing Color, Click Anywhere");
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
+	pOut->printMessage("Change Figure's Drawing Color, Click Anywhere");
 
 	pOut->drawDrawingColorMenu();
-	pIn->GetPointClicked(P.x, P.y);
+	pIn->getPointClicked(P.x, P.y);
 			
-	if (pManager->getSelectedFigure() != NULL)
-		pManager->getSelectedFigure()->ChngDrawClr(pOut->selectDrawColor(P));
+	if (pManager->getSelectedFigure() != nullptr)
+		pManager->getSelectedFigure()->changeDrawColor(pOut->selectDrawColor(P));
 	else
 		pOut->selectDrawColor(P);
 	

@@ -1,29 +1,29 @@
-#ifndef CLine_H
-#define CLine_H
+#ifndef C_LINE_H
+#define C_LINE_H
 
-#include "CFigure.h"
+#include "cFigure.h"
 
-class CLine : public CFigure
+class CLine : public cFigure
 {
 private:
 	Point P1;
 	Point P2;
 public:
 	CLine(Point, Point, GfxInfo FigureGfxInfo);
-	virtual void Draw(Output* pOut) const;
+	void draw(Output* pOut) const override;
 
-	Point getP1();
-	Point getP2();
-	bool doesItContain(int x, int y);
+	Point getP1() const;
+	Point getP2() const;
+	bool doesItContain(int x, int y) override;
 
-	virtual bool Resize(double);
+	bool resize(double) override;
 
-	virtual void Save(ofstream &OutFile);
-	virtual void Load(ifstream &Infile);
-	virtual void PrintInfo(Output* pOut);
+	void save(ofstream &OutFile) override;
+	void load(ifstream &Infile) override;
+	void printInfo(Output* pOut) override;
 
 private:
-	double getTriangularArea(int x, int y);
+	double getTriangularArea(int x, int y) const;
 };
 
 #endif

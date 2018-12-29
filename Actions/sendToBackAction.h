@@ -8,11 +8,11 @@
 #include "..\GUI\Output.h"
 class sendToBackAction : public Action
 {
-	CFigure * currentFigure;
+	cFigure * currentFigure;
 public:
 
 	sendToBackAction(ApplicationManager *pApp);
-	virtual void ReadActionParameters();
-	virtual void Execute();
+	void readActionParameters() override;
+	void execute() override;
 };
 

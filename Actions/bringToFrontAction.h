@@ -9,11 +9,11 @@
 
 class bringToFrontAction : public Action
 {
-	CFigure * currentFigure;
+	cFigure * currentFigure;
 public:
 
 	bringToFrontAction(ApplicationManager *pApp);
-	virtual void ReadActionParameters();
-	virtual void Execute();
+	void readActionParameters() override;
+	void execute() override;
 };
 

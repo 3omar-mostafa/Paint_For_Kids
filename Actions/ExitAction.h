@@ -4,18 +4,18 @@
 #include "Action.h"
 
 //Exit Action class
-class ExitAction : public Action
+class exitAction : public Action
 {
 private:
 	int FigCount;
 public:
-	ExitAction(ApplicationManager *pApp);
+	exitAction(ApplicationManager *pApp);
 
 	//Reads Action parameters
-	virtual void ReadActionParameters();
+	void readActionParameters() override;
 
 	//Exit the program
-	virtual void Execute();
+	void execute() override;
 
 };
 

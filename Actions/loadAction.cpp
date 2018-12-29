@@ -4,81 +4,78 @@
 #include "..\GUI\Output.h"
 
 
-LoadAction::LoadAction(ApplicationManager * pApp) :Action(pApp)
+loadAction::loadAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void LoadAction::ReadActionParameters()
+void loadAction::readActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Load Figures, click on the icon again to confirm.");
-	Confirm = pIn->GetUserAction();
-	pOut->ClearStatusBar();
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
+	pOut->printMessage("Load Figures, click on the icon again to confirm.");
+	confirm = pIn->getUserAction();
+	pOut->clearStatusBar();
 }
 
-void LoadAction::Execute()
+void loadAction::execute()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
 	
 	// Confirming the action:
-	ReadActionParameters();
-	if (Confirm != LOAD)
+	readActionParameters();
+	if (confirm != LOAD)
 	{
-		pOut->PrintMessage("Cancelled!");
+		pOut->printMessage("Cancelled!");
 		return;
 	}	
 	
 	// Reading and setting the name of the source file:
-	pOut->PrintMessage("Enter the name of the file  OR  Press [ENTER] to load from FigureList.txt");
-	string FileName = pIn->GetString(pOut);
-	FileName = (FileName != "") ? FileName : "FigureList.txt";
+	pOut->printMessage("Enter the name of the file  OR  Press [ENTER] to load from FigureList.txt");
+	string FileName = pIn->getString(pOut);
+	FileName = !FileName.empty() ? FileName : "FigureList.txt";
 	
 	// Opening the file:
 	ifstream InFile;
 	InFile.open(FileName);
 	
 	// Reading the draw and fill colors and changing their icons:
-	color DrawClr = ReadColor(InFile);
-	color FillClr = ReadColor(InFile);
+	color DrawClr = readColor(InFile);
+	color FillClr = readColor(InFile);
 	pOut->changeDrawColorIcon(DrawClr);
 	pOut->changeFillColorIcon(FillClr, (FillClr != NOFILL) ? 1 : 0);
 	
 	// Reading Figure Information from the file:
 	int NoOfFigures; InFile >> NoOfFigures;	
-	ReadFigures(InFile);	
+	readFigures(InFile);	
 	
 	// Finishing up:
 	InFile.close();
-	pOut->PrintMessage("Loaded Successfully!");
+	pOut->printMessage("Loaded Successfully!");
 }
 
-void LoadAction::ReadFigures(ifstream& InFile)
+void loadAction::readFigures(ifstream& InFile) const
 {
 	while (!InFile.eof())
 	{
-		CFigure* NewFig;
+		cFigure* NewFig;
 		string SavedType;	//The Figure's type
 		InFile >> SavedType;	//Reading the type
-		FigureType FIG_TYPE = ReadType(SavedType);	//Setting the type
+		FigureType FIG_TYPE = readType(SavedType);	//Setting the type
 		if (FIG_TYPE == EMPTY_TYPE) break;
-		SetFigType(NewFig, FIG_TYPE);	//Creating a dummy object of that type
-		NewFig->Load(InFile);	//Calling its Load function
-		pManager->AddFigure(NewFig);	//Adding it to the list
+		setFigType(NewFig, FIG_TYPE);	//Creating a dummy object of that type
+		NewFig->load(InFile);	//Calling its Load function
+		pManager->addFigure(NewFig);	//Adding it to the list
 	}
 }
 
-void LoadAction::QuickLoad()
+void loadAction::quickLoad() const
 {
 	// Open >> Set Draw & Fill Colors >> Load Figures >> Close:
 	ifstream qin;
 	qin.open("SaveGame.txt");
-	UI.DrawColor = ReadColor(qin);
-	UI.FillColor = ReadColor(qin);
+	UI.DrawColor = readColor(qin);
+	UI.FillColor = readColor(qin);
 	int NoOfFigures; qin >> NoOfFigures;
-	ReadFigures(qin);
+	readFigures(qin);
 	qin.close();
 }
-
-LoadAction::~LoadAction()
-{}

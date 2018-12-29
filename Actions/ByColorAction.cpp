@@ -4,112 +4,112 @@
 #include "..\GUI\Output.h"
 
 //constructor
-ByColorAction::ByColorAction(ApplicationManager * pApp) :Action(pApp)
+byColorAction::byColorAction(ApplicationManager * pApp) :Action(pApp)
 {
-	Correct = 0;
-	Wrong = 0;
-	Terminate = false;
+	correct = 0;
+	wrong = 0;
+	terminate = false;
 	FIG_COLOR = NOFILL;
 	// Auto-saving:
-	SaveAction Save(pManager);
-	Save.QuickSave();
+	saveAction save(pManager);
+	save.quickSave();
 }
 
 //function ReadActionParameters gets user actions and analyze them
-void ByColorAction::ReadActionParameters()
+void byColorAction::readActionParameters()
 {
-	Input* pIn = pManager->GetInput();
+	Input* pIn = pManager->getInput();
 	Point P;
 
-	ActionType Act = pIn->GetUserAction(P);
-	if (Act == COL_CLR)
+	ActionType action = pIn->getUserAction(P);
+	if (action == PLAY_COLOR)
 	{
-		Terminate = true;
+		terminate = true;
 		return;
 	}
-	else if (Act == SOUND){
+	else if (action == SOUND){
 		pManager->toggleSound();
-	}else if (Act == EXIT){
-		pManager->Exit();
+	}else if (action == EXIT){
+		//TODO:
 	}
 
-	CFigure* Clicked = pManager->GetFigure(P.x, P.y);
-	if (!Clicked)
+	cFigure* clicked = pManager->getFigure(P.x, P.y);
+	if (!clicked)
 		return;
 
-	if (Clicked->getFillColor() == FIG_COLOR || (!(Clicked->isFilled()) && Clicked->getDrawColor() == FIG_COLOR))
+	if (clicked->getFillColor() == FIG_COLOR || (!(clicked->isFilled()) && clicked->getDrawColor() == FIG_COLOR))
 	{
-		Correct++;
-		pManager->DeleteFigure(Clicked);
-		pManager->UpdateInterface();
+		correct++;
+		pManager->deleteFigure(clicked);
+		pManager->updateInterface();
 		if (pManager->getSoundState())
-			PlaySound(TEXT("Sounds/smb_coin.wav"), NULL, SND_FILENAME);
+			PlaySound(TEXT("Sounds/smb_coin.wav"), nullptr, SND_FILENAME);
 	}
 	else
 	{
-		Wrong++;
+		wrong++;
 		if (pManager->getSoundState())
-			PlaySound(TEXT("Sounds/WrongAnswer.wav"), NULL, SND_FILENAME);
+			PlaySound(TEXT("Sounds/WrongAnswer.wav"), nullptr, SND_FILENAME);
 	}
 }
 
 //function Play tells the user which color he should pick and analyzes his action
-bool ByColorAction::Play()
+bool byColorAction::play()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	FIG_COLOR = pManager->RandomColor();
-	pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + ", Click to start!");
-	pIn->GetUserAction();
-	pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + " ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
-	while (pManager->HasColor(FIG_COLOR))
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
+	FIG_COLOR = pManager->randomColor();
+	pOut->printMessage("Pick " + colorName(FIG_COLOR) + ", Click to start!");
+	pIn->getUserAction();
+	pOut->printMessage("Pick " + colorName(FIG_COLOR) + " ==> Correct: " + to_string(correct) + "    Wrong: " + to_string(wrong));
+	while (pManager->hasColor(FIG_COLOR))
 	{
-		ReadActionParameters();
-		if (Terminate)
+		readActionParameters();
+		if (terminate)
 			return false;
-		pOut->PrintMessage("Pick " + colorname(FIG_COLOR) + " ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+		pOut->printMessage("Pick " + colorName(FIG_COLOR) + " ==> Correct: " + to_string(correct) + "    Wrong: " + to_string(wrong));
 	}
 	return true;
 
 }
 
 //function Reset resets the game
-void ByColorAction::Reset()
+void byColorAction::reset() const
 {
-	Output* pOut = pManager->GetOutput();
-	pOut->PrintMessage("Game Restarted!");
-	pManager->ClearFigures();
-	LoadAction Load(pManager);
-	Load.QuickLoad();
+	Output* pOut = pManager->getOutput();
+	pOut->printMessage("Game Restarted!");
+	pManager->clearFigures();
+	loadAction load(pManager);
+	load.quickLoad();
 }
 
-//function Execute redraws playtoolbar, calls Play until the game ends
-void ByColorAction::Execute()
+//function Execute redraws play toolbar, calls Play until the game ends
+void byColorAction::execute()
 {
-	Output* pOut = pManager->GetOutput();
-	pOut->CreatePlayToolBar();
+	Output* pOut = pManager->getOutput();
+	pOut->createPlayToolBar();
 	pOut->playOnToolbar("images\\MenuItems\\col_clr_selected.jpg", ITM_COL_CLR);
 
-	while (!pManager->Empty())
-		if (!Play())
+	while (!pManager->empty())
+		if (!play())
 		{
-			Reset();
+			reset();
 			return;
 		}
 
-	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+	pOut->printMessage("Game Over! Final Score ==> Correct: " + to_string(correct) + "    Wrong: " + to_string(wrong));
 	if (pManager->getSoundState())
-		if (Wrong == 0)
-			PlaySound(TEXT("Sounds/siii.wav"), NULL, SND_ASYNC);
+		if (wrong == 0)
+			PlaySound(TEXT("Sounds/siii.wav"), nullptr, SND_ASYNC);
 		else
-		PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_ASYNC);
+		PlaySound(TEXT("Sounds/smb_gameover.wav"), nullptr, SND_ASYNC);
 	// Auto-Loading:
-	LoadAction Load(pManager);
-	Load.QuickLoad();
+	loadAction load(pManager);
+	load.quickLoad();
 }
 
-//function colorname gets the color name from its RGB
-string ByColorAction::colorname(color c)
+//function colorName gets the color name from its RGB
+string byColorAction::colorName(color c)
 {
 	if (c==BLACK) return "BLACK";
 	else if (c==WHITE) return "WHITE";

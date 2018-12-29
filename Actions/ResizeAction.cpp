@@ -1,46 +1,45 @@
 #include "ResizeAction.h"
 
-ResizeAction::ResizeAction(ApplicationManager * pApp) :Action(pApp)
+resizeAction::resizeAction(ApplicationManager * pApp) :Action(pApp)
 {
 	Ratio = 1;
 }
 
-void ResizeAction::ReadActionParameters()
+void resizeAction::readActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
 	
 	// Getting the Ratio:
 	Point P;
 	pOut->drawResizeMenu();
-	Confirm = pIn->GetUserAction(P);
+	Confirm = pIn->getUserAction(P);
 	Ratio = pOut->selectSize(P);
 }
 
-void ResizeAction::Execute()
+void resizeAction::execute()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
+	Output* pOut = pManager->getOutput();
 
-	pOut->PrintMessage("Resize Figure, Select a Ratio");
+	pOut->printMessage("Resize Figure, Select a Ratio");
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_Resize_Selected.jpg", ITM_RESIZE);
 
 	// Resizing the Selected Figure:
 	toResize = pManager->getSelectedFigure();
 
-	if (toResize == NULL)
+	if (toResize == nullptr)
 	{
-		pOut->PrintMessage("Please Select a Figure first");
+		pOut->printMessage("Please Select a Figure first");
 		return;
 	}
 	
-	ReadActionParameters();
+	readActionParameters();
 
-	if (toResize->Resize(Ratio))	//The function returns false if the resizing fails or was cancelled and returns true if the Resizing was successful
+	if (toResize->resize(Ratio))	//The function returns false if the resizing fails or was cancelled and returns true if the Resizing was successful
 	{
-		pOut->ClearStatusBar();
-		pManager->setSelectedFigure(NULL);
+		pOut->clearStatusBar();
+		pManager->setSelectedFigure(nullptr);
 	}
 	else
-		pOut->PrintMessage("Please Select a Valid Size");
+		pOut->printMessage("Please Select a Valid Size");
 }

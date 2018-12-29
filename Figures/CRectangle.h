@@ -1,26 +1,26 @@
-#ifndef CRECT_H
-#define CRECT_H
+#ifndef C_RECTANGLE_H
+#define C_RECTANGLE_H
 
-#include "CFigure.h"
+#include "cFigure.h"
 
-class CRectangle : public CFigure
+class cRectangle : public cFigure
 {
 private:
-	Point Corner1;
-	Point Corner2;
+	Point corner1;
+	Point corner2;
 public:
-	CRectangle(Point, Point, GfxInfo FigureGfxInfo);
-	virtual void Draw(Output* pOut) const;
+	cRectangle(Point, Point, GfxInfo FigureGfxInfo);
+	void draw(Output* pOut) const override;
 
-	Point getP1();
-	Point getP2();
-	bool doesItContain(int x, int y);
+	Point getP1() const;
+	Point getP2() const;
+	bool doesItContain(int x, int y) override;
 
-	virtual bool Resize(double);
+	bool resize(double) override;
 
-	virtual void Save(ofstream &OutFile);
-	virtual void Load(ifstream &Infile);
-	virtual void PrintInfo(Output* pOut);
+	void save(ofstream & ) override;
+	void load(ifstream & ) override;
+	void printInfo(Output* ) override;
 };
 
 #endif

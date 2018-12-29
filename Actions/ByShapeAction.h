@@ -1,15 +1,15 @@
 #pragma once 
 #include "Action.h"
-class ByShapeAction :public Action
+class byShapeAction :public Action
 {
 	int Correct, Wrong;
 	FigureType FIG_TYPE;
-	bool Terminate;
+	bool terminate;
 	
 public:
-	ByShapeAction(ApplicationManager *pApp);
-	virtual void ReadActionParameters();
+	byShapeAction(ApplicationManager *pApp);
+	void readActionParameters() override;
 	bool Play();
-	void Reset();
-	virtual void Execute();
+	void reset() const;
+	void execute() override;
 };

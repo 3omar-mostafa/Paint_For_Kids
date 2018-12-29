@@ -1,22 +1,22 @@
-#ifndef ADD_RHOM_ACTION_H
-#define ADD_RHOM_ACTION_H
+#ifndef ADD_RHOMBUS_ACTION_H
+#define ADD_RHOMBUS_ACTION_H
 
 #include "Action.h"
 
 //Add Rhombus Action class
-class AddRhomAction : public Action
+class addRhombusAction : public Action
 {
 private:
-	Point P; //Rhombus Center
+	Point P; //Rhombus center
 	GfxInfo RhomGfxInfo;
 public:
-	AddRhomAction(ApplicationManager *pApp);
+	addRhombusAction(ApplicationManager *pApp);
 
 	//Reads rhombus center
-	virtual void ReadActionParameters();
+	void readActionParameters() override;
 
 	//Add rhombus to the ApplicationManager
-	virtual void Execute();
+	void execute() override;
 
 };
 

@@ -9,50 +9,50 @@ selectShapeAction::selectShapeAction(ApplicationManager * pApp) :Action(pApp)
 
 
 //TODO: Comment this properly 
-void selectShapeAction::ReadActionParameters() 
+void selectShapeAction::readActionParameters() 
 {
 	//Get a Pointer to the Input / Output Interfaces
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
 
-	pOut->PrintMessage("Select, Click anywhere");
-	pOut->CreateDrawActionToolBar();
+	pOut->printMessage("Select, Click anywhere");
+	pOut->createDrawActionToolBar();
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_select_Selected.jpg", ITM_SELECT);
 
 	int x, y;
-	pIn->GetPointClicked(x, y);
+	pIn->getPointClicked(x, y);
 	pManager->setLastSelected(pManager->getSelectedFigure());
-	pManager->setSelectedFigure(pManager->GetFigure(x, y));
+	pManager->setSelectedFigure(pManager->getFigure(x, y));
 }
 
 //TODO: Comment this properly 
-void selectShapeAction::Execute() 
+void selectShapeAction::execute() 
 {
-	Output* pOut = pManager->GetOutput();
-	ReadActionParameters();
+	Output* pOut = pManager->getOutput();
+	readActionParameters();
 
 	// if the figure was selected twice consecutively
-	if (pManager->getLastSelected() == pManager->getSelectedFigure() && pManager->getSelectedFigure() != NULL) 
+	if (pManager->getLastSelected() == pManager->getSelectedFigure() && pManager->getSelectedFigure() != nullptr) 
 	{
 		pManager->getSelectedFigure()->toggleSelection();
-		if (pManager->getSelectedFigure()->IsSelected())
+		if (pManager->getSelectedFigure()->isSelected())
 			// print its info it its last state was that it is selected
-			pManager->getSelectedFigure()->PrintInfo(pOut);
+			pManager->getSelectedFigure()->printInfo(pOut);
 		else
 		{
-			pManager->setLastSelected(NULL);
-			pManager->setSelectedFigure(NULL);
+			pManager->setLastSelected(nullptr);
+			pManager->setSelectedFigure(nullptr);
 		}
 	}
 	else 
 	{
 		// remove selection from last selected figure
-		if (pManager->getLastSelected() != NULL) 
+		if (pManager->getLastSelected() != nullptr) 
 		{
-			pManager->getLastSelected()->SetSelected(false);
-			pManager->setLastSelected(NULL);
+			pManager->getLastSelected()->setSelected(false);
+			pManager->setLastSelected(nullptr);
 		}
-		if (pManager->getSelectedFigure() != NULL) 
+		if (pManager->getSelectedFigure() != nullptr) 
 		{
 			pManager->getSelectedFigure()->toggleSelection();
 
@@ -61,10 +61,10 @@ void selectShapeAction::Execute()
 			// change fill color icon according to the selected figure color and its fill state
 			pOut->changeFillColorIcon(pManager->getSelectedFigure()->getFillColor(), pManager->getSelectedFigure()->isFilled());
 
-			if ( ! pManager->getSelectedFigure()->IsSelected())
-				pManager->getSelectedFigure()->SetSelected(NULL);
+			if ( ! pManager->getSelectedFigure()->isSelected())
+				pManager->getSelectedFigure()->setSelected(false);
 			else
-				pManager->getSelectedFigure()->PrintInfo(pOut);
+				pManager->getSelectedFigure()->printInfo(pOut);
 		}
 	}
 }

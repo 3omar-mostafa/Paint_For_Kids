@@ -14,8 +14,8 @@ enum ActionType //The actions supported (you can add more if needed)
 	DRAW_TRI,		//Draw Triangle
 	DRAW_RHOMBUS,		//Draw Rhombus
 	DRAW_ELLIPSE,		//Draw Ellipse
-	CHNG_DRAW_CLR,	//Change the drawing color
-	CHNG_FILL_CLR,	//Change the filling color
+	CHANGE_DRAW_COLOR,	//Change the drawing color
+	CHANGE_FILL_COLOR,	//Change the filling color
 	DEL,			//Delete a figure(s)
 	CLEAR,			//Clear Drawing Area
 	SAVE,			//Save the whole graph to a file
@@ -33,12 +33,10 @@ enum ActionType //The actions supported (you can add more if needed)
 	DRAWING_AREA,	//A click on the drawing area
 	STATUS,			//A click on the status bar
 	EMPTY,          //A click on empty place in the toolbar
-	COL_CLR,
-	COL_SHP,
+	PLAY_COLOR,
+	PLAY_SHAPE,
 	TO_DRAW,		//Switch interface to Draw mode
 	TO_PLAY			//Switch interface to Play mode
-
-	///TODO: Add more action types (if needed)
 };
 
 enum FigureType
@@ -53,11 +51,11 @@ enum FigureType
 
 
 //	Additional Functions:
-string StoreType(FigureType T);		//Stores the type of a figure into a string format
-const auto Display = StoreType;		//Alias for the function StoreType
-FigureType ReadType(string Str);	//Determines the type of a figure from a string format
-string ColorData(color C);			//Stores the information for a color into a string
-color ReadColor(ifstream& in);		//Reads a color's info from a string
+string storeType(FigureType T);		//Stores the type of a figure into a string format
+const auto display = storeType;		//Alias for the function StoreType
+FigureType readType(string Str);	//Determines the type of a figure from a string format
+string colorData(color C);			//Stores the information for a color into a string
+color readColor(ifstream& in);		//Reads a color's info from a string
 
 
 struct Point	//To be used for figures points
@@ -73,14 +71,14 @@ struct Point	//To be used for figures points
 		this->y = Y;
 	}
 	
-	string Data()
+	string data() const
 	{
-		string Data;
-		Data += to_string(x) + " " + to_string(y);
-		return Data;
+		string data;
+		data += to_string(x) + " " + to_string(y);
+		return data;
 	}
 
-	void Read(ifstream& in)
+	void read(ifstream& in)
 	{
 		int X, Y;
 		in >> X >> Y;
@@ -88,12 +86,12 @@ struct Point	//To be used for figures points
 		y = Y;
 	}
 
-	Point operator+(Point P)
+	Point operator+(Point P) const
 	{
-		Point S;
-		S.x = x + P.x;
-		S.y = y + P.y;
-		return S;
+		Point s;
+		s.x = x + P.x;
+		s.y = y + P.y;
+		return s;
 	}
 
 	Point& operator/(float R)
@@ -106,25 +104,24 @@ struct Point	//To be used for figures points
 
 struct GfxInfo	//Graphical info of each figure (you may add more members)
 {
-	color DrawClr;	//Draw color of the figure
-	color FillClr;	//Fill color of the figure
+	color drawColor;	//Draw color of the figure
+	color fillColor;	//Fill color of the figure
 	bool isFilled;	//Figure Filled or not
-	int BorderWdth;	//Width of figure borders
-	string Data()
+	int borderWidth;	//Width of figure borders
+	string data() const
 	{
 		string Data;
-		Data += ColorData(DrawClr) + " " + ColorData(FillClr) + " ";
-		Data += to_string((isFilled) ? 1 : 0);
+		Data += colorData(drawColor) + " " + colorData(fillColor) + " ";
+		Data += to_string((isFilled) ? true : false);
 		return Data;
 	}
-	void Read(ifstream& in)
+	void read(ifstream& in)
 	{
-		int Filled;
-		int Width;
-		DrawClr = ReadColor(in);
-		FillClr = ReadColor(in);
-		in >> Filled;
-		isFilled = Filled;
+		int filled;
+		drawColor = readColor(in);
+		fillColor = readColor(in);
+		in >> filled;
+		isFilled = filled;
 	}
 };
 

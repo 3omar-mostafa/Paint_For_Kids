@@ -6,44 +6,43 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-AddRectAction::AddRectAction(ApplicationManager * pApp) :Action(pApp)
+addRectAction::addRectAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void AddRectAction::ReadActionParameters()
+void addRectAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECT);
+	Output* pOut = pManager->getOutput();
+	pOut->drawOnToolbar("images\\MenuItems\\Menu_Rect_Selected.jpg", ITM_RECTANGLE);
 	if (pManager->getSoundState())
-		PlaySound(TEXT("Sounds/Rectangle.wav"), NULL, SND_ASYNC);
-	pOut->PrintMessage("New Rectangle: Click at first corner");
+		PlaySound(TEXT("Sounds/Rectangle.wav"), nullptr, SND_ASYNC);
+	pOut->printMessage("New Rectangle: Click at first corner");
 
-	//Read 1st corner and store in point P1
+	//Read 1st corner and store in point p1
 	pOut->getValidPoint(P1);
 
-	pOut->PrintMessage("New Rectangle: Click at second corner");
-	//Read 2nd corner and store in point P2
+	pOut->printMessage("New Rectangle: Click at second corner");
+	//Read 2nd corner and store in point p2
 	pOut->getValidPoint(P2);
 
 	RectGfxInfo.isFilled = pOut->isFilled();	//default is filled
 	//get drawing, filling colors and pen width from the interface
-	RectGfxInfo.DrawClr = pOut->getCrntDrawColor();
-	RectGfxInfo.FillClr = pOut->getCrntFillColor();
+	RectGfxInfo.drawColor = pOut->getCurrentDrawColor();
+	RectGfxInfo.fillColor = pOut->getCurrentFillColor();
 
-	pOut->ClearStatusBar();
+	pOut->clearStatusBar();
 
 }
 
 //Execute the action
-void AddRectAction::Execute()
+void addRectAction::execute()
 {
 	//This action needs to read some parameters first
-	ReadActionParameters();
+	readActionParameters();
 
 	//Create a rectangle with the parameters read from the user
-	CRectangle *R = new CRectangle(P1, P2, RectGfxInfo);
+	cRectangle *R = new cRectangle(P1, P2, RectGfxInfo);
 
 	//Add the rectangle to the list of figures
-	pManager->AddFigure(R);
+	pManager->addFigure(R);
 }

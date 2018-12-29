@@ -4,32 +4,31 @@
 #include "..\GUI\Output.h"
 
 
-ClearAction::ClearAction(ApplicationManager * pApp) : Action(pApp)
+clearAction::clearAction(ApplicationManager * pApp) : Action(pApp)
 {}
 
-void ClearAction::ReadActionParameters()
+void clearAction::readActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Clear Drawing Area, click on the icon again to clear.");
-	Confirm = pIn->GetUserAction();
-	pOut->ClearStatusBar();
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
+	pOut->printMessage("Clear Drawing Area, click on the icon again to clear.");
+	Confirm = pIn->getUserAction();
+	pOut->clearStatusBar();
 }
 
-void ClearAction::Execute()
+void clearAction::execute()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
+	Output* pOut = pManager->getOutput();
 	
 	// Confirming the action:
-	ReadActionParameters();
+	readActionParameters();
 	if (Confirm != CLEAR)
 	{
-		pOut->PrintMessage("Cancelled!");
+		pOut->printMessage("Cancelled!");
 		return;
 	}
 
 	// Deleting all figures and clearing the Drawing Area:
-	pManager->ClearFigures();	
-	pOut->ClearDrawArea();
+	pManager->clearFigures();	
+	pOut->clearDrawArea();
 }

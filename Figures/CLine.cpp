@@ -1,27 +1,30 @@
 #include "CLine.h"
 
-CLine::CLine(Point P_1, Point P_2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
+CLine::CLine(Point P_1, Point P_2, GfxInfo FigureGfxInfo) :cFigure(FigureGfxInfo)
 {
 	P1 = P_1;
 	P2 = P_2;
-	FigType = LINE;
+	figType = LINE;
 }
 
-Point CLine::getP1() {
+Point CLine::getP1() const
+{
 	return P1;
 }
-Point CLine::getP2() {
+Point CLine::getP2() const
+{
 	return P2;
 }
 
-void CLine::Draw(Output* pOut) const
+void CLine::draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen	
-	pOut->DrawLine(P1, P2, FigGfxInfo, Selected);
+	pOut->drawLine(P1, P2, figGfxInfo, selected);
 }
 
-double CLine::getTriangularArea(int x, int y) {
-	// Area of any triangle using vertices is 0.5* absolute of the followning determinant
+double CLine::getTriangularArea(int x, int y) const
+{
+	// Area of any triangle using vertices is 0.5* absolute of the following determinant
 	// | x1	 y1	 1 |
 	// | x2	 y2	 1 |  = 0.5* | ( x1(y2-y3) +x2(y3-y1) +x3(y1-y2) ) |
 	// | x3	 y3	 1 |
@@ -46,40 +49,40 @@ bool CLine::doesItContain(int x, int y) {
 	return false;
 }
 
-bool CLine::Resize(double R)
+bool CLine::resize(double R)
 {
 	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
 		return false;
 
-	Point MP = (P1 + P2) / 2;
+	Point center = (P1 + P2) / 2;
 	Point C1, C2;
 
 	//Setting the Vertical Coordinates:
-	int Lower = (P1.y > P2.y) ? P1.y : P2.y;
-	int Vertical = Lower - MP.y;
+	int lower = (P1.y > P2.y) ? P1.y : P2.y;
+	int vertical = lower - center.y;
 	if (P1.y > P2.y)
 	{
-		C1.y = MP.y + Vertical * R;
-		C2.y = MP.y - Vertical * R;
+		C1.y = center.y + vertical * R;
+		C2.y = center.y - vertical * R;
 	}
 	else
 	{
-		C1.y = MP.y - Vertical * R;
-		C2.y = MP.y + Vertical * R;
+		C1.y = center.y - vertical * R;
+		C2.y = center.y + vertical * R;
 	}
 
 	//Setting the Horizontal Coordinates:
-	int Further = (P1.x > P2.x) ? P1.x : P2.x;
-	int Horizontal = Further - MP.x;
+	int further = (P1.x > P2.x) ? P1.x : P2.x;
+	int horizontal = further - center.x;
 	if (P1.x > P2.x)
 	{
-		C1.x = MP.x + Horizontal * R;
-		C2.x = MP.x - Horizontal * R;
+		C1.x = center.x + horizontal * R;
+		C2.x = center.x - horizontal * R;
 	}
 	else
 	{
-		C1.x = MP.x - Horizontal * R;
-		C2.x = MP.x + Horizontal * R;
+		C1.x = center.x - horizontal * R;
+		C2.x = center.x + horizontal * R;
 	}
 
 	//Validation:
@@ -88,33 +91,33 @@ bool CLine::Resize(double R)
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
-	*this = CLine(C1, C2, FigGfxInfo);
+	*this = CLine(C1, C2, figGfxInfo);
 	setID(oldID);
 	return true;
 }
 
-void CLine::Save(ofstream &OutFile)
+void CLine::save(ofstream &OutFile)
 {
-	string Info = StoreType(FigType) + " " + to_string(ID) + " " + P1.Data() + " " + P2.Data() + " " + FigGfxInfo.Data();
-	OutFile << endl << Info;
+	string info = storeType(figType) + " " + to_string(ID) + " " + P1.data() + " " + P2.data() + " " + figGfxInfo.data();
+	OutFile << endl << info;
 }
 
-void CLine::Load(ifstream &InFile)
+void CLine::load(ifstream &InFile)
 {
 	Point Pi, Pf;
 	GfxInfo LineGfxInfo;
 	InFile >> ID;
-	Pi.Read(InFile);
-	Pf.Read(InFile);
-	LineGfxInfo.Read(InFile);
+	Pi.read(InFile);
+	Pf.read(InFile);
+	LineGfxInfo.read(InFile);
 	LineGfxInfo.isFilled = false;
 	*this = CLine(Pi, Pf, LineGfxInfo);
 }
 
-void CLine::PrintInfo(Output * pOut)
+void CLine::printInfo(Output * pOut)
 {
-	string s;
-	s = "ID: " + to_string(ID) + "    Points: (" + to_string(P1.x) + ", " + to_string(P1.y) + "), (" + to_string(P2.x) + ", " + to_string(P2.y) + ")    ";
-	s += "Length: " + to_string(sqrt((P2.x - P1.x)*(P2.x - P1.x) + (P2.y - P1.y)*(P2.y - P1.y)));
-	pOut->PrintMessage(s);
+	string s = "ID: " + to_string(ID) + "    Points: (" + to_string(P1.x) + ", " + to_string(P1.y) + "), (" +
+		to_string(P2.x) + ", " + to_string(P2.y) + ")    " + "Length: " + to_string(
+			sqrt((P2.x - P1.x) * (P2.x - P1.x) + (P2.y - P1.y) * (P2.y - P1.y)));
+	pOut->printMessage(s);
 }

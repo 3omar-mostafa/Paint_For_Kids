@@ -20,9 +20,9 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 
 
 	ITM_GAME,
-	ITM_RECT,		//Rectangle item in menu
+	ITM_RECTANGLE,		//Rectangle item in menu
 	ITM_TRIANGLE,
-	ITM_CIRCLE,
+	ITM_ELLIPSE,
 	ITM_RHOMBUS,
 	ITM_LINE,
 	ITM_FILL_COLOR,
@@ -89,8 +89,8 @@ struct UI_Info	//User Interface Info.
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
 	color HighlightColor;	//Highlighting color
-	color MsgColor;			//Messages color
-	color BkGrndColor;		//Background color
+	color MessageColor;		//Messages color
+	color BackgroundColor;	//Background color
 	color StatusBarColor;	//Status bar color
 	int PenWidth;			//width of the pen that draws shapes
 

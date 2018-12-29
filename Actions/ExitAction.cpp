@@ -5,20 +5,19 @@
 #include "..\GUI\Output.h"
 
 
-ExitAction::ExitAction(ApplicationManager * pApp) : Action(pApp)
+exitAction::exitAction(ApplicationManager * pApp) : Action(pApp)
 {}
 
-void ExitAction::ReadActionParameters()
+void exitAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Exit");
-	pOut->ClearStatusBar();
+	Output* pOut = pManager->getOutput();
+	pOut->printMessage("Exit");
+	pOut->clearStatusBar();
 }
 
-void ExitAction::Execute()
+void exitAction::execute()
 {
-	ReadActionParameters();
-	pManager->Exit();
+	readActionParameters();
+	pManager->exit();
 }

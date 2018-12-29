@@ -3,109 +3,109 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 //constructor
-ByShapeAction::ByShapeAction(ApplicationManager * pApp) :Action(pApp)
+byShapeAction::byShapeAction(ApplicationManager * pApp) :Action(pApp)
 {
 	Correct = 0;
 	Wrong = 0;
 	FIG_TYPE = EMPTY_TYPE;
-	Terminate = false;
+	terminate = false;
 
 	// Auto-saving:
-	SaveAction Save(pManager);
-	Save.QuickSave();
+	saveAction save(pManager);
+	save.quickSave();
 }
-//functions of ByShapeAction are very close to ByColorAction 
+//functions of byShapeAction are very close to byColorAction 
 //function ReadActionParameters gets user actions and analyze them
-void ByShapeAction::ReadActionParameters()
+void byShapeAction::readActionParameters()
 {
-	Input* pIn = pManager->GetInput();
+	Input* pIn = pManager->getInput();
 	Point P;
 
-	ActionType Act = pIn->GetUserAction(P);
-	if (Act == COL_SHP)
+	ActionType action = pIn->getUserAction(P);
+	if (action == PLAY_SHAPE)
 	{
-		Terminate = true;
+		terminate = true;
 		return;
 	}
-	else if (Act == SOUND) {
+	else if (action == SOUND) {
 		pManager->toggleSound();
 	}
-	else if (Act == EXIT) {
-		pManager->Exit();
+	else if (action == EXIT) {
+		//TODO:
 	}
 
-	CFigure* Clicked = pManager->GetFigure(P.x, P.y);
-	if (!Clicked)
+	cFigure* clicked = pManager->getFigure(P.x, P.y);
+	if (!clicked)
 		return;
 
-	if (Clicked->getType() == FIG_TYPE)
+	if (clicked->getType() == FIG_TYPE)
 	{
 		Correct++;
-		pManager->DeleteFigure(Clicked);
-		pManager->UpdateInterface();
+		pManager->deleteFigure(clicked);
+		pManager->updateInterface();
 		if (pManager->getSoundState())
-			PlaySound(TEXT("Sounds/smb_coin.wav"), NULL, SND_FILENAME);
+			PlaySound(TEXT("Sounds/smb_coin.wav"), nullptr, SND_FILENAME);
 	}
 	else
 	{
 		Wrong++;
 		if (pManager->getSoundState())
-			PlaySound(TEXT("Sounds/WrongAnswer.wav"), NULL, SND_FILENAME);
+			PlaySound(TEXT("Sounds/WrongAnswer.wav"), nullptr, SND_FILENAME);
 
 	}
 }
 
 //function Play tells the user which color he should pick and analyzes his action
-bool ByShapeAction::Play()
+bool byShapeAction::Play()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	FIG_TYPE = pManager->RandomType();
-	pOut->PrintMessage("Pick " + Display(FIG_TYPE) + ", Click to start!");
-	pIn->GetUserAction();
-	pOut->PrintMessage("Pick " + Display(FIG_TYPE)+" ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
+	FIG_TYPE = pManager->randomType();
+	pOut->printMessage("Pick " + display(FIG_TYPE) + ", Click to start!");
+	pIn->getUserAction();
+	pOut->printMessage("Pick " + display(FIG_TYPE)+" ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 
-	while (pManager->HasFigure(FIG_TYPE))
+	while (pManager->hasFigure(FIG_TYPE))
 	{
-		ReadActionParameters();
-		if (Terminate)
+		readActionParameters();
+		if (terminate)
 			return false;
-		pOut->PrintMessage("Pick " + Display(FIG_TYPE) + " ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+		pOut->printMessage("Pick " + display(FIG_TYPE) + " ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	}
 	return true;
 }
 
 //function Reset resets the game
-void ByShapeAction::Reset()
+void byShapeAction::reset() const
 {
-	Output* pOut = pManager->GetOutput();
-	pOut->PrintMessage("Game Restarted!");
-	pManager->ClearFigures();
-	LoadAction Load(pManager);
-	Load.QuickLoad();
+	Output* pOut = pManager->getOutput();
+	pOut->printMessage("Game Restarted!");
+	pManager->clearFigures();
+	loadAction load(pManager);
+	load.quickLoad();
 }
 
 //function Execute redraws Play Toolbar, calls Play until the game ends
-void ByShapeAction::Execute()
+void byShapeAction::execute()
 {
-	Output* pOut = pManager->GetOutput();
-	pOut->CreatePlayToolBar();
+	Output* pOut = pManager->getOutput();
+	pOut->createPlayToolBar();
 	pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);
 
-	while (!pManager->Empty())
+	while (!pManager->empty())
 		if (!Play())
 		{
-			Reset();
+			reset();
 			return;
 		}
 
-	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
+	pOut->printMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	if (pManager->getSoundState())
 		if (Wrong == 0)
-			PlaySound(TEXT("Sounds/siii.wav"), NULL, SND_ASYNC);
-		else PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("Sounds/siii.wav"), nullptr, SND_ASYNC);
+		else PlaySound(TEXT("Sounds/smb_gameover.wav"), nullptr, SND_ASYNC);
 
 	// Auto-Loading:
-	LoadAction Load(pManager);
-	Load.QuickLoad();
+	loadAction load(pManager);
+	load.quickLoad();
 }

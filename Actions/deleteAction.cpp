@@ -1,23 +1,23 @@
 #include "deleteAction.h"
 
-DeleteAction::DeleteAction(ApplicationManager * pApp) :Action(pApp)
+deleteAction::deleteAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void DeleteAction::ReadActionParameters() 
+void deleteAction::readActionParameters() 
 {
 	deletedFigure = pManager->getSelectedFigure();
 }
 
-void DeleteAction::Execute() 
+void deleteAction::execute() 
 {
-	ReadActionParameters();
-	Output* pOut = pManager->GetOutput();
+	readActionParameters();
+	Output* pOut = pManager->getOutput();
 
-	pOut->CreateDrawActionToolBar();
+	pOut->createDrawActionToolBar();
 	pOut->drawOnActionbar("images\\MenuItems\\Menu_delete_Selected.jpg", ITM_DELETE);
 
-	if (deletedFigure == NULL)
-		pOut->PrintMessage("Please Select a Figure to delete");
+	if (deletedFigure == nullptr)
+		pOut->printMessage("Please Select a Figure to delete");
 	else 
-		pManager->DeleteFigure(deletedFigure);
+		pManager->deleteFigure(deletedFigure);
 }

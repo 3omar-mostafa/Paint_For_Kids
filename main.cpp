@@ -9,19 +9,19 @@ int main()
 	ApplicationManager AppManager;
 
 	// play sound on starting the program
-	PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_ASYNC);
+	PlaySound(TEXT("Sounds/smb3_enter_level.wav"), nullptr, SND_ASYNC);
 
 	do
 	{		
 		//Read user action
-		ActType = AppManager.GetUserAction();
+		ActType = AppManager.getUserAction();
 
-		//Exexute the action
-		AppManager.ExecuteAction(ActType);
+		//Execute the action
+		AppManager.executeAction(ActType);
 
 		//Update the interface
 		if(ActType != EXIT)
-			AppManager.UpdateInterface();
+			AppManager.updateInterface();
 
 	}while(ActType != EXIT);
 	

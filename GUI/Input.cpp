@@ -7,39 +7,39 @@ Input::Input(window* pW)
 	pWind = pW; //point to the passed window
 }
 
-void Input::GetPointClicked(int &x, int &y) const
+void Input::getPointClicked(int &x, int &y) const
 {
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetString(Output *pO) const
+string Input::getString(Output *pO) const
 {
-	string Label;
-	char Key;
-	while (1)
+	string label;
+	char key;
+	while (true)
 	{
-		pWind->WaitKeyPress(Key);
-		if (Key == 27)	//ESCAPE key is pressed
+		pWind->WaitKeyPress(key);
+		if (key == 27)	//ESCAPE key is pressed
 			return "";	//returns nothing as user has cancelled label
-		if (Key == 13)	//ENTER key is pressed
-			return Label;
-		if ((Key == 8) && (Label.size() >= 1))	//BackSpace is pressed
-			Label.resize(Label.size() - 1);
+		if (key == 13)	//ENTER key is pressed
+			return label;
+		if ((key == 8) && !label.empty() )	//BackSpace is pressed
+			label.resize(label.size() - 1);
 		else
-			Label += Key;
+			label += key;
 		if (pO)
-			pO->PrintMessage(Label);
+			pO->printMessage(label);
 	}
 }
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction() const
+ActionType Input::getUserAction() const
 {
 	Point P;
-	return GetUserAction(P);
+	return getUserAction(P);
 }
 
-ActionType Input::GetUserAction(Point & P) const
+ActionType Input::getUserAction(Point & P) const
 {
 	int &x = P.x;
 	int &y = P.y;
@@ -57,37 +57,37 @@ ActionType Input::GetUserAction(Point & P) const
 		//[1] If user clicks on the Toolbar
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
-			//Check whick Menu item was clicked
+			//Check which Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
 
 			int ClickedItemOrder = (x / UI.MenuItemWidth);
 
-			//Divide x coord of the point clicked by the menu item width (int division)
+			//Divide x coordinate of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 			if (x < (ITM_FILL_COLOR)*UI.MenuItemWidth + 50 && x >(ITM_FILL_COLOR)*UI.MenuItemWidth)
-				return CHNG_FILL_CLR;
+				return CHANGE_FILL_COLOR;
 			else if (x < (ITM_DRAW_COLOR)*UI.MenuItemWidth && x >(ITM_DRAW_COLOR)*UI.MenuItemWidth - 50)
-				return CHNG_DRAW_CLR;
+				return CHANGE_DRAW_COLOR;
 			else {
 				switch (ClickedItemOrder)
 				{
 				case ITM_GAME:      return TO_PLAY;
-				case ITM_RECT:      return DRAW_RECT;
+				case ITM_RECTANGLE:      return DRAW_RECT;
 				case ITM_TRIANGLE:  return DRAW_TRI;
-				case ITM_CIRCLE:    return DRAW_ELLIPSE;
+				case ITM_ELLIPSE:    return DRAW_ELLIPSE;
 				case ITM_RHOMBUS:   return DRAW_RHOMBUS;
 				case ITM_LINE:	    return DRAW_LINE;
 
-				default: return EMPTY;	//A click on empty place in desgin toolbar
+				default: return EMPTY;	//A click on empty place in design toolbar
 				}
 			}
 
 		}
 		else if (x >= 0 && x < UI.MenuActionWidth)
 		{
-			int ClickedItemOrder = (y / UI.MenuActionWidth) - 1;
+			int clickedItemOrder = (y / UI.MenuActionWidth) - 1;
 
-			switch (ClickedItemOrder)
+			switch (clickedItemOrder)
 			{
 			case ITM_LOAD:return LOAD;
 			case ITM_SAVE:return SAVE;
@@ -124,13 +124,9 @@ ActionType Input::GetUserAction(Point & P) const
 			if (x < UI.MenuItemWidth - 20)
 				return TO_DRAW;
 			else if (x < (10 * UI.MenuActionWidth + 80) && x>10 * UI.MenuActionWidth)
-				return COL_CLR;
+				return PLAY_COLOR;
 			else if (x < (12 * UI.MenuActionWidth + 80) && x>12 * UI.MenuActionWidth)
-				return COL_SHP;
+				return PLAY_SHAPE;
 		}
 	}
 }
-/////////////////////////////////
-
-Input::~Input()
-{}

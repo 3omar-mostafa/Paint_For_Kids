@@ -5,54 +5,51 @@
 
 
 
-SaveAction::SaveAction(ApplicationManager * pApp) :Action(pApp)
+saveAction::saveAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void SaveAction::ReadActionParameters()
+void saveAction::readActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Save Figures, click on the icon again to confirm.");
-	Confirm = pIn->GetUserAction();
-	pOut->ClearStatusBar();
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
+	pOut->printMessage("Save Figures, click on the icon again to confirm.");
+	Confirm = pIn->getUserAction();
+	pOut->clearStatusBar();
 }
 
-void SaveAction::Execute()
+void saveAction::execute()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
+	Output* pOut = pManager->getOutput();
+	Input* pIn = pManager->getInput();
 	
 	// Confirming the action:
-	ReadActionParameters();
+	readActionParameters();
 	if (Confirm != SAVE)
 	{
-		pOut->PrintMessage("Cancelled!");
+		pOut->printMessage("Cancelled!");
 		return;
 	}	
 	
 	// Reading and setting the name of the destination file:
-	pOut->PrintMessage("Enter the name of the file including the extension  OR  Press [ENTER] to save to FigureList.txt");
-	string FileName = pIn->GetString(pOut);
-	FileName = (FileName != "") ? FileName : "FigureList.txt";
+	pOut->printMessage("Enter the name of the file including the extension  OR  Press [ENTER] to save to FigureList.txt");
+	string FileName = pIn->getString(pOut);
+	FileName = !FileName.empty() ? FileName : "FigureList.txt";
 	
 	// Saving to the file:
 	ofstream OutFile;
 	OutFile.open(FileName);
-	pManager->WriteFigures(OutFile);
+	pManager->writeFigures(OutFile);
 	
 	// Finishing up:
 	OutFile.close();
-	pManager->GetOutput()->PrintMessage("Saved Successfully to " + FileName + "!");
+	pManager->getOutput()->printMessage("Saved Successfully to " + FileName + "!");
 }
 
-void SaveAction::QuickSave()
+void saveAction::quickSave() const
 {
 	// Open >> Save >> Close
-	ofstream qout;
-	qout.open("SaveGame.txt");
-	pManager->WriteFigures(qout);
-	qout.close();
+	ofstream out;
+	out.open("SaveGame.txt");
+	pManager->writeFigures(out);
+	out.close();
 }
-
-SaveAction::~SaveAction()
-{}

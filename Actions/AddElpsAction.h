@@ -1,22 +1,22 @@
-#ifndef ADD_ELPS_ACTION_H
-#define ADD_ELPS_ACTION_H
+#ifndef ADD_ELLIPSE_ACTION_H
+#define ADD_ELLIPSE_ACTION_H
 
 #include "Action.h"
 
 //Add Ellipse Action class
-class AddElpsAction : public Action
+class addEllipseAction : public Action
 {
 private:
-	Point P; //Ellipse Center
+	Point P; //Ellipse center
 	GfxInfo ElpsGfxInfo;
 public:
-	AddElpsAction(ApplicationManager *pApp);
+	addEllipseAction(ApplicationManager *pApp);
 
 	//Reads ellipse center
-	virtual void ReadActionParameters();
+	void readActionParameters() override;
 
 	//Add ellipse to the ApplicationManager
-	virtual void Execute();
+	void execute() override;
 
 };
 

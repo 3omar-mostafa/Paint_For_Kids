@@ -12,14 +12,13 @@ class Input		//The application manager should have a pointer to this class
 private:
 	window *pWind;	//Pointer to the Graphics Window
 public:
-	Input(window *pW);		//Consturctor
-	void GetPointClicked(int &x, int &y) const;//Get coordinate where user clicks
-	string GetString(Output* pO) const;	 //Returns a string entered by the user
+	Input(window *pW);		//Constructor
+	void getPointClicked(int &x, int &y) const;//Get coordinate where user clicks
+	string getString(Output* pO) const;	 //Returns a string entered by the user
 
-	ActionType GetUserAction() const; //Read the user click and map to an action
-	ActionType GetUserAction(Point &P) const;	//Added to replace GetPointClicked
+	ActionType getUserAction() const; //Read the user click and map to an action
+	ActionType getUserAction(Point &P) const;	//Added to replace GetPointClicked
 
-	~Input();
 };
 
 #endif

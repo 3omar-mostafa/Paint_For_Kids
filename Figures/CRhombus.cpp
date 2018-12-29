@@ -1,45 +1,45 @@
 #include "CRhombus.h"
 
-CRhombus::CRhombus(Point P, GfxInfo FigureGfxInfo, int a, int b) :CFigure(FigureGfxInfo)
+cRhombus::cRhombus(Point P, GfxInfo FigureGfxInfo, int a, int b) :cFigure(FigureGfxInfo)
 {
-	Center = P;
+	center = P;
 	xArr[0] = P.x;			xArr[1] = P.x + a;		xArr[2] = P.x;			xArr[3] = P.x - a;
 	yArr[0] = P.y + b;		yArr[1] = P.y;			yArr[2] = P.y - b;		yArr[3] = P.y;
-	FigType = RHOMBUS;
+	figType = RHOMBUS;
 }
 
-CRhombus::CRhombus(const int * X, const int * Y, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
+cRhombus::cRhombus(const int * X, const int * Y, GfxInfo FigureGfxInfo) :cFigure(FigureGfxInfo)
 {
 	for (int i = 0; i < 4; i++)
 		xArr[i] = X[i], yArr[i] = Y[i];
-	Center = Point((xArr[1] + xArr[3]) / 2, (yArr[0] + yArr[2]) / 2);
-	FigType = RHOMBUS;
+	center = Point((xArr[1] + xArr[3]) / 2, (yArr[0] + yArr[2]) / 2);
+	figType = RHOMBUS;
 }
 
-Point CRhombus::getCenter() {
-	return Center;
+Point cRhombus::getCenter() const {
+	return center;
 }
 
-int CRhombus::getVertical() const {
-	return abs(yArr[0] - Center.y);
+int cRhombus::getVertical() const {
+	return abs(yArr[0] - center.y);
 }
 
-int CRhombus::getHorizontal() const {
-	return abs(xArr[1] - Center.x);
+int cRhombus::getHorizontal() const {
+	return abs(xArr[1] - center.x);
 }
 
-void CRhombus::Draw(Output* pOut) const
+void cRhombus::draw(Output* pOut) const
 {
 	//Call Output::DrawRhombus to draw a rhombus on the screen	
-	//pOut->DrawRhombus(Center, FigGfxInfo, Selected);
-	pOut->DrawRhombus(xArr, yArr, FigGfxInfo, Selected);
+	//pOut->DrawRhombus(center, FigGfxInfo, Selected);
+	pOut->drawRhombus(xArr, yArr, figGfxInfo, selected);
 }
 
-bool CRhombus::doesItContain(int x, int y) {
-	int X = x - Center.x;
-	int Y = y - Center.y;
-	int a = xArr[1] - Center.x;
-	int b = yArr[0] - Center.y;
+bool cRhombus::doesItContain(int x, int y) {
+	int X = x - center.x;
+	int Y = y - center.y;
+	int a = xArr[1] - center.x;
+	int b = yArr[0] - center.y;
 
 	if (X >= -a && X <= a && Y >= -b && Y <= b) {
 
@@ -65,18 +65,18 @@ bool CRhombus::doesItContain(int x, int y) {
 	return false;
 }
 
-bool CRhombus::Resize(double R)
+bool cRhombus::resize(double R)
 {
 	if (R < 1.01 && R > 0.99) // if the user didn't select any ratio from the menu
 		return false;
 
 	//Setting the Horizontal Coordinates:
-	int a = xArr[1] - Center.x;
-	int X[4] = { xArr[0], Center.x + a * R, xArr[2], Center.x - a * R };
+	int a = xArr[1] - center.x;
+	int X[4] = { xArr[0], center.x + a * R, xArr[2], center.x - a * R };
 
 	//Setting the Vertical Coordinates:
-	int b = yArr[0] - Center.y;
-	int Y[4] = { Center.y + b * R, yArr[1], Center.y - b * R , yArr[3] };
+	int b = yArr[0] - center.y;
+	int Y[4] = { center.y + b * R, yArr[1], center.y - b * R , yArr[3] };
 
 	//Validation:
 	if (Y[0] > UI.height - UI.StatusBarHeight || Y[2] < UI.ToolBarHeight)
@@ -86,32 +86,31 @@ bool CRhombus::Resize(double R)
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
-	*this = CRhombus(X, Y, FigGfxInfo);
+	*this = cRhombus(X, Y, figGfxInfo);
 	setID(oldID);
 	return true;
 }
 
-void CRhombus::Save(ofstream &OutFile)
+void cRhombus::save(ofstream &OutFile)
 {
-	string Info = StoreType(FigType) + " " + to_string(ID) + " " + Center.Data() + " " + to_string(getHorizontal()) + " " + to_string(getVertical()) + " " + FigGfxInfo.Data();
-	OutFile << endl << Info;
+	string info = storeType(figType) + " " + to_string(ID) + " " + center.data() + " " + to_string(getHorizontal()) + " " + to_string(getVertical()) + " " + figGfxInfo.data();
+	OutFile << endl << info;
 }
 
-void CRhombus::Load(ifstream &InFile)
+void cRhombus::load(ifstream &InFile)
 {
 	Point P;
 	int a, b;
-	GfxInfo RhomGfxInfo;
+	GfxInfo rhombusGfxInfo;
 	InFile >> ID;
-	P.Read(InFile);
+	P.read(InFile);
 	InFile >> a >> b;
-	RhomGfxInfo.Read(InFile);
-	*this = CRhombus(P, RhomGfxInfo, a, b);
+	rhombusGfxInfo.read(InFile);
+	*this = cRhombus(P, rhombusGfxInfo, a, b);
 }
 
-void CRhombus::PrintInfo(Output * pOut)
+void cRhombus::printInfo(Output * pOut)
 {
-	string s;
-	s = "ID: " + to_string(ID) + "    Center Point: (" + to_string(Center.x) + ", " + to_string(Center.y) + ")";
-	pOut->PrintMessage(s);
+	string s = "ID: " + to_string(ID) + "    center Point: (" + to_string(center.x) + ", " + to_string(center.y) + ")";
+	pOut->printMessage(s);
 }
