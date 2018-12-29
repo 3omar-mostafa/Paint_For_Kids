@@ -45,6 +45,13 @@ ActionType Input::GetUserAction(Point & P) const
 	int &y = P.y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 
+	if (y >= 0 && y < UI.ToolBarHeight) {
+		if (x > UI.width - UI.MenuItemWidth )
+			return EXIT;
+		if (x > UI.width - 3*UI.MenuActionWidth && x < UI.width - UI.MenuItemWidth)
+			return SOUND;
+	}
+
 	if (UI.InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
 		//[1] If user clicks on the Toolbar
@@ -57,11 +64,7 @@ ActionType Input::GetUserAction(Point & P) const
 
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
-			if (x < (25 * UI.MenuActionWidth + 40) && x > 24 * UI.MenuActionWidth)
-				return EXIT;
-			if (x > 23 * UI.MenuActionWidth && x < 24 * UI.MenuActionWidth)
-				return SOUND;
-			else if (x < (ITM_FILL_COLOR)*UI.MenuItemWidth + 50 && x >(ITM_FILL_COLOR)*UI.MenuItemWidth)
+			if (x < (ITM_FILL_COLOR)*UI.MenuItemWidth + 50 && x >(ITM_FILL_COLOR)*UI.MenuItemWidth)
 				return CHNG_FILL_CLR;
 			else if (x < (ITM_DRAW_COLOR)*UI.MenuItemWidth && x >(ITM_DRAW_COLOR)*UI.MenuItemWidth - 50)
 				return CHNG_DRAW_CLR;
@@ -106,7 +109,7 @@ ActionType Input::GetUserAction(Point & P) const
 		}
 
 		//[2] User clicks on the drawing area
-		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight && x>= UI.MenuActionWidth)
 		{
 			return DRAWING_AREA;
 		}
@@ -124,16 +127,6 @@ ActionType Input::GetUserAction(Point & P) const
 				return COL_CLR;
 			else if (x < (12 * UI.MenuActionWidth + 80) && x>12 * UI.MenuActionWidth)
 				return COL_SHP;
-			else if (x < (22 * UI.MenuActionWidth + 80) && x > 22 * UI.MenuActionWidth)
-				return EXIT;
-
-			{
-				///TODO:
-				//perform checks similar to Draw mode checks above
-				//and return the correspoding action
-				return TO_PLAY;	//just for now. This should be updated
-			}
-
 		}
 	}
 }

@@ -16,7 +16,7 @@ void AddRhomAction::ReadActionParameters()
 	Input* pIn = pManager->GetInput();
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
 	if (pManager->getSoundState())
-		PlaySound(TEXT("Sounds/En-au-rhombus.wav"), NULL, SND_FILENAME);
+		PlaySound(TEXT("Sounds/En-au-rhombus.wav"), NULL, SND_ASYNC);
 	pOut->PrintMessage("New Rhombus: Click at the center");
 
 	//Read center and store in P

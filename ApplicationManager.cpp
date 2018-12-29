@@ -155,7 +155,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			SelectedFig->SetSelected(false);
 		UpdateInterface();
 		if (getSoundState())
-			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
+			PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_ASYNC);
 		break;
 
 	case STATUS:	//a click on the status bar ==> no action

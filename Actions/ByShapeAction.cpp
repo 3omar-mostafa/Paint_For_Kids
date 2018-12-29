@@ -8,7 +8,7 @@ ByShapeAction::ByShapeAction(ApplicationManager * pApp) :Action(pApp)
 	Correct = 0;
 	Wrong = 0;
 	FIG_TYPE = EMPTY_TYPE;
-	Terminate = 0;
+	Terminate = false;
 
 	// Auto-saving:
 	SaveAction Save(pManager);
@@ -18,14 +18,20 @@ ByShapeAction::ByShapeAction(ApplicationManager * pApp) :Action(pApp)
 //function ReadActionParameters gets user actions and analyze them
 void ByShapeAction::ReadActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	Point P;
 
-	if (pIn->GetUserAction(P) == COL_SHP)
+	ActionType Act = pIn->GetUserAction(P);
+	if (Act == COL_SHP)
 	{
-		Terminate = 1;
+		Terminate = true;
 		return;
+	}
+	else if (Act == SOUND) {
+		pManager->toggleSound();
+	}
+	else if (Act == EXIT) {
+		pManager->Exit();
 	}
 
 	CFigure* Clicked = pManager->GetFigure(P.x, P.y);
@@ -83,7 +89,6 @@ void ByShapeAction::Reset()
 void ByShapeAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
 	pOut->CreatePlayToolBar();
 	pOut->playOnToolbar("images\\MenuItems\\col_shp_selected.jpg", ITM_COL_SHP);
 
@@ -97,8 +102,8 @@ void ByShapeAction::Execute()
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	if (pManager->getSoundState())
 		if (Wrong == 0)
-			PlaySound(TEXT("Sounds/siii.wav"), NULL, SND_FILENAME);
-		else PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
+			PlaySound(TEXT("Sounds/siii.wav"), NULL, SND_ASYNC);
+		else PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_ASYNC);
 
 	// Auto-Loading:
 	LoadAction Load(pManager);

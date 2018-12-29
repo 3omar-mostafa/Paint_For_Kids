@@ -18,14 +18,19 @@ ByColorAction::ByColorAction(ApplicationManager * pApp) :Action(pApp)
 //function ReadActionParameters gets user actions and analyze them
 void ByColorAction::ReadActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	Point P;
 
-	if (pIn->GetUserAction(P) == COL_CLR)
+	ActionType Act = pIn->GetUserAction(P);
+	if (Act == COL_CLR)
 	{
 		Terminate = true;
 		return;
+	}
+	else if (Act == SOUND){
+		pManager->toggleSound();
+	}else if (Act == EXIT){
+		pManager->Exit();
 	}
 
 	CFigure* Clicked = pManager->GetFigure(P.x, P.y);
@@ -82,7 +87,6 @@ void ByColorAction::Reset()
 void ByColorAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
 	pOut->CreatePlayToolBar();
 	pOut->playOnToolbar("images\\MenuItems\\col_clr_selected.jpg", ITM_COL_CLR);
 
@@ -96,9 +100,9 @@ void ByColorAction::Execute()
 	pOut->PrintMessage("Game Over! Final Score ==> Correct: " + to_string(Correct) + "    Wrong: " + to_string(Wrong));
 	if (pManager->getSoundState())
 		if (Wrong == 0)
-			PlaySound(TEXT("Sounds/siii.wav"), NULL, SND_FILENAME);
+			PlaySound(TEXT("Sounds/siii.wav"), NULL, SND_ASYNC);
 		else
-		PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_FILENAME);
+		PlaySound(TEXT("Sounds/smb_gameover.wav"), NULL, SND_ASYNC);
 	// Auto-Loading:
 	LoadAction Load(pManager);
 	Load.QuickLoad();

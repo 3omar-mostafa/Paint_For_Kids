@@ -61,7 +61,6 @@ enum PlayMenuItem //The items of the Play menu (you should add more items)
 	ITM_DRAW,
 	ITM_COL_CLR,
 	ITM_COL_SHP,
-	ITM_EXIT1,
 
 	//TODO: Add more items names here
 

@@ -9,7 +9,7 @@ int main()
 	ApplicationManager AppManager;
 
 	// play sound on starting the program
-	PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_FILENAME);
+	PlaySound(TEXT("Sounds/smb3_enter_level.wav"), NULL, SND_ASYNC);
 
 	do
 	{		

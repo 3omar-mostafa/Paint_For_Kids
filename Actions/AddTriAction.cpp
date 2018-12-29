@@ -16,7 +16,7 @@ void AddTriAction::ReadActionParameters()
 	Input* pIn = pManager->GetInput();
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Triangle_Selected.jpg", ITM_TRIANGLE);
 	if (pManager->getSoundState())
-		PlaySound(TEXT("Sounds/Triangle.wav"), NULL, SND_FILENAME);
+		PlaySound(TEXT("Sounds/Triangle.wav"), NULL, SND_ASYNC);
 	pOut->PrintMessage("New Triangle: Click at the first point");
 
 	//Read 1st point and store in P1

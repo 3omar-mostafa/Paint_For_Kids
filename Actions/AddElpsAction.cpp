@@ -16,7 +16,7 @@ void AddElpsAction::ReadActionParameters()
 	Input* pIn = pManager->GetInput();
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_CIRCLE);
 	if(pManager->getSoundState())
-		PlaySound(TEXT("Sounds/ellipse--_gb_1.wav"), NULL, SND_FILENAME);
+		PlaySound(TEXT("Sounds/ellipse--_gb_1.wav"), NULL, SND_ASYNC);
 	pOut->PrintMessage("New Ellipse: Click at the center");
 
 	//Read center and store in P

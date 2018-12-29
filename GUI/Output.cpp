@@ -38,7 +38,7 @@ Output::Output()
 	CreateStatusBar();
 
 	//draw sound icon
-	pWind->DrawImage("images\\MenuItems\\Menu_sound_ON.jpg", 23 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+	pWind->DrawImage("images\\MenuItems\\Menu_sound_ON.jpg", UI.width - 3*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 }
 
 
@@ -105,7 +105,7 @@ void Output::CreateDrawToolBar() const
 	pWind->DrawImage("images\\MenuItems\\clean.jpg", 22 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 
 	//draw Exit icon
-	pWind->DrawImage(MenuItemImages[ITM_EXIT], (24)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 40, UI.ToolBarHeight - 3);
+	pWind->DrawImage(MenuItemImages[ITM_EXIT], UI.width - UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
 
 
 	//Draw a line under the toolbar
@@ -170,9 +170,9 @@ void Output::drawOnActionbar(string path, int place) const
 
 void Output::drawSoundIcon(bool on) {
 	if (on)
-		pWind->DrawImage("images\\MenuItems\\Menu_sound_ON.jpg", 23 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		pWind->DrawImage("images\\MenuItems\\Menu_sound_ON.jpg", UI.width - 3 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 	else
-		pWind->DrawImage("images\\MenuItems\\Menu_sound_OFF.jpg", 23 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		pWind->DrawImage("images\\MenuItems\\Menu_sound_OFF.jpg", UI.width - 3 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 }
 
 void Output::drawResizeMenu() const
@@ -368,19 +368,17 @@ void Output::changeDrawColorIcon(color c) {
 void Output::CreatePlayToolBar() const
 {
 	string nul = "images\\MenuItems\\clean.jpg";
-	pWind->DrawImage(nul, 0, 0, UI.width, UI.ToolBarHeight);
+	pWind->DrawImage(nul, 0, 0, UI.width-3*UI.MenuActionWidth, UI.ToolBarHeight);
 
 	UI.InterfaceMode = MODE_PLAY;
 	string PlayItemImages[PLAY_ITM_COUNT];
 	PlayItemImages[ITM_DRAW] = "images\\MenuItems\\draw.jpg";
 	PlayItemImages[ITM_COL_CLR] = "images\\MenuItems\\col_clr.jpg";
 	PlayItemImages[ITM_COL_SHP] = "images\\MenuItems\\col_shp.jpg";
-	PlayItemImages[ITM_EXIT1] = "images\\MenuItems\\EXIT1.jpg";
 
 	pWind->DrawImage(PlayItemImages[ITM_DRAW], 0, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight);
 	pWind->DrawImage(PlayItemImages[ITM_COL_CLR], (10)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight - 3);
 	pWind->DrawImage(PlayItemImages[ITM_COL_SHP], (12)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight - 3);
-	pWind->DrawImage(PlayItemImages[ITM_EXIT1], (22)*UI.MenuActionWidth, 0, UI.MenuActionWidth + 30, UI.ToolBarHeight - 3);
 
 	pWind->SetPen(MIDNIGHTBLUE, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight - 1.5, UI.width, UI.ToolBarHeight - 1.5);
