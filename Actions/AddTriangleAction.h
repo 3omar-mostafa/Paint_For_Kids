@@ -4,13 +4,13 @@
 #include "Action.h"
 
 //Add Triangle Action class
-class addTriangleAction : public Action
+class AddTriangleAction : public Action
 {
 private:
 	Point P1, P2, P3;
 	GfxInfo TriGfxInfo;
 public:
-	addTriangleAction(ApplicationManager *pApp);
+	AddTriangleAction(ApplicationManager *pApp);
 
 	//Reads triangle vertices
 	void readActionParameters() override;

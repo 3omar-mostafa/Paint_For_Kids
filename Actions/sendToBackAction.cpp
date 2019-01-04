@@ -1,14 +1,14 @@
-#include "sendToBackAction.h"
+#include "SendToBackAction.h"
 
 
-sendToBackAction::sendToBackAction(ApplicationManager *pApp) :Action(pApp)
+SendToBackAction::SendToBackAction(ApplicationManager *pApp) :Action(pApp)
 {}
 
-void sendToBackAction::readActionParameters()
+void SendToBackAction::readActionParameters()
 {
 	currentFigure = pManager->getSelectedFigure();
 }
-void sendToBackAction::execute()
+void SendToBackAction::execute()
 {
 
 	readActionParameters();

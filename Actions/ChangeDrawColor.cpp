@@ -1,16 +1,16 @@
 #include "ChangeDrawColor.h"
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
-changeDrawColor::changeDrawColor(ApplicationManager * pApp) : Action(pApp)
+ChangeDrawColor::ChangeDrawColor(ApplicationManager * pApp) : Action(pApp)
 {}
 
-void changeDrawColor::readActionParameters() {}
+void ChangeDrawColor::readActionParameters() {}
 
 //Execute the action
-void changeDrawColor::execute()
+void ChangeDrawColor::execute()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();

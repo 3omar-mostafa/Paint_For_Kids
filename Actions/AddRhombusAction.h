@@ -4,13 +4,13 @@
 #include "Action.h"
 
 //Add Rhombus Action class
-class addRhombusAction : public Action
+class AddRhombusAction : public Action
 {
 private:
 	Point P; //Rhombus center
 	GfxInfo RhomGfxInfo;
 public:
-	addRhombusAction(ApplicationManager *pApp);
+	AddRhombusAction(ApplicationManager *pApp);
 
 	//Reads rhombus center
 	void readActionParameters() override;

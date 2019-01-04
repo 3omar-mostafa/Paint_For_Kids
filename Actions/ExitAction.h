@@ -4,12 +4,12 @@
 #include "Action.h"
 
 //Exit Action class
-class exitAction : public Action
+class ExitAction : public Action
 {
 private:
 	int FigCount;
 public:
-	exitAction(ApplicationManager *pApp);
+	ExitAction(ApplicationManager *pApp);
 
 	//Reads Action parameters
 	void readActionParameters() override;

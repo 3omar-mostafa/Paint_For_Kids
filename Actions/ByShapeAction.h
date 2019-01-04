@@ -1,13 +1,13 @@
 #pragma once 
 #include "Action.h"
-class byShapeAction :public Action
+class ByShapeAction :public Action
 {
 	int Correct, Wrong;
 	FigureType FIG_TYPE;
 	bool terminate;
 	
 public:
-	byShapeAction(ApplicationManager *pApp);
+	ByShapeAction(ApplicationManager *pApp);
 	void readActionParameters() override;
 	bool Play();
 	void reset() const;

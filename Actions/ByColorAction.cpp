@@ -1,22 +1,22 @@
 #include "ByColorAction.h"
 #include "..\ApplicationManager.h"
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
 //constructor
-byColorAction::byColorAction(ApplicationManager * pApp) :Action(pApp)
+ByColorAction::ByColorAction(ApplicationManager * pApp) :Action(pApp)
 {
 	correct = 0;
 	wrong = 0;
 	terminate = false;
 	FIG_COLOR = NOFILL;
 	// Auto-saving:
-	saveAction save(pManager);
+	SaveAction save(pManager);
 	save.quickSave();
 }
 
 //function ReadActionParameters gets user actions and analyze them
-void byColorAction::readActionParameters()
+void ByColorAction::readActionParameters()
 {
 	Input* pIn = pManager->getInput();
 	Point P;
@@ -33,7 +33,7 @@ void byColorAction::readActionParameters()
 		//TODO:
 	}
 
-	cFigure* clicked = pManager->getFigure(P.x, P.y);
+	CFigure* clicked = pManager->getFigure(P.x, P.y);
 	if (!clicked)
 		return;
 
@@ -54,7 +54,7 @@ void byColorAction::readActionParameters()
 }
 
 //function Play tells the user which color he should pick and analyzes his action
-bool byColorAction::play()
+bool ByColorAction::play()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -74,17 +74,17 @@ bool byColorAction::play()
 }
 
 //function Reset resets the game
-void byColorAction::reset() const
+void ByColorAction::reset() const
 {
 	Output* pOut = pManager->getOutput();
 	pOut->printMessage("Game Restarted!");
 	pManager->clearFigures();
-	loadAction load(pManager);
+	LoadAction load(pManager);
 	load.quickLoad();
 }
 
 //function Execute redraws play toolbar, calls Play until the game ends
-void byColorAction::execute()
+void ByColorAction::execute()
 {
 	Output* pOut = pManager->getOutput();
 	pOut->createPlayToolBar();
@@ -104,12 +104,12 @@ void byColorAction::execute()
 		else
 		PlaySound(TEXT("Sounds/smb_gameover.wav"), nullptr, SND_ASYNC);
 	// Auto-Loading:
-	loadAction load(pManager);
+	LoadAction load(pManager);
 	load.quickLoad();
 }
 
 //function colorName gets the color name from its RGB
-string byColorAction::colorName(color c)
+string ByColorAction::colorName(color c)
 {
 	if (c==BLACK) return "BLACK";
 	else if (c==WHITE) return "WHITE";

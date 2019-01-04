@@ -1,14 +1,13 @@
 #include "ExitAction.h"
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
 
-exitAction::exitAction(ApplicationManager * pApp) : Action(pApp)
+ExitAction::ExitAction(ApplicationManager * pApp) : Action(pApp)
 {}
 
-void exitAction::readActionParameters()
+void ExitAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->getOutput();
@@ -16,7 +15,7 @@ void exitAction::readActionParameters()
 	pOut->clearStatusBar();
 }
 
-void exitAction::execute()
+void ExitAction::execute()
 {
 	readActionParameters();
 	pManager->exit();

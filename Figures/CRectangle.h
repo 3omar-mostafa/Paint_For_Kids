@@ -1,15 +1,14 @@
 #ifndef C_RECTANGLE_H
 #define C_RECTANGLE_H
 
-#include "cFigure.h"
+#include "CFigure.h"
 
-class cRectangle : public cFigure
+class CRectangle : public CFigure
 {
-private:
 	Point corner1;
 	Point corner2;
 public:
-	cRectangle(Point, Point, GfxInfo FigureGfxInfo);
+	CRectangle(Point, Point, GfxInfo FigureGfxInfo);
 	void draw(Output* pOut) const override;
 
 	Point getP1() const;

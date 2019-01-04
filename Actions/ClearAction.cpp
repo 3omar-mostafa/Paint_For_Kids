@@ -1,13 +1,13 @@
 #include "ClearAction.h"
 #include "..\ApplicationManager.h"
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
 
-clearAction::clearAction(ApplicationManager * pApp) : Action(pApp)
+ClearAction::ClearAction(ApplicationManager * pApp) : Action(pApp)
 {}
 
-void clearAction::readActionParameters()
+void ClearAction::readActionParameters()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -16,7 +16,7 @@ void clearAction::readActionParameters()
 	pOut->clearStatusBar();
 }
 
-void clearAction::execute()
+void ClearAction::execute()
 {
 	Output* pOut = pManager->getOutput();
 	

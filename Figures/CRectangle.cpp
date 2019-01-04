@@ -1,28 +1,28 @@
 #include "CRectangle.h"
 
-cRectangle::cRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :cFigure(FigureGfxInfo)
+CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	corner1 = P1;
 	corner2 = P2;
 	figType = RECTANGLE;
 }
 
-Point cRectangle::getP1() const
+Point CRectangle::getP1() const
 {
 	return corner1;
 }
-Point cRectangle::getP2() const
+Point CRectangle::getP2() const
 {
 	return corner2;
 }
 
-void cRectangle::draw(Output* pOut) const
+void CRectangle::draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen	
 	pOut->drawRectangle(corner1, corner2, figGfxInfo, selected);
 }
 
-bool cRectangle::doesItContain(int x, int y) {
+bool CRectangle::doesItContain(int x, int y) {
 	int x1 = corner1.x;
 	int y1 = corner1.y;
 	int x2 = corner2.x;
@@ -35,7 +35,7 @@ bool cRectangle::doesItContain(int x, int y) {
 	return ( x >= x1 && x <= x2 && y >= y1 && y <= y2 );
 }
 
-bool cRectangle::resize(double R)
+bool CRectangle::resize(double R)
 {
 	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
 		return false;
@@ -61,18 +61,18 @@ bool cRectangle::resize(double R)
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
-	*this = cRectangle(C1, C2, figGfxInfo);
+	*this = CRectangle(C1, C2, figGfxInfo);
 	setID(oldID);
 	return true;
 }
 
-void cRectangle::save(ofstream &OutFile)
+void CRectangle::save(ofstream &OutFile)
 {
 	string info = storeType(figType) + " " + to_string(ID) + " " + corner1.data() + " " + corner2.data() + " " + figGfxInfo.data();
 	OutFile << endl << info;
 }
 
-void cRectangle::load(ifstream &InFile)
+void CRectangle::load(ifstream &InFile)
 {
 	Point P1, P2;
 	GfxInfo rectangleGfxInfo;
@@ -80,10 +80,10 @@ void cRectangle::load(ifstream &InFile)
 	P1.read(InFile);
 	P2.read(InFile);
 	rectangleGfxInfo.read(InFile);
-	*this = cRectangle(P1, P2, rectangleGfxInfo);
+	*this = CRectangle(P1, P2, rectangleGfxInfo);
 }
 
-void cRectangle::printInfo(Output * pOut)
+void CRectangle::printInfo(Output * pOut)
 {
 	string s = "ID: " + to_string(ID) + "    Points: (" + to_string(corner1.x) + ", " + to_string(corner1.y) + "), (" +
 		to_string(corner2.x) + ", " + to_string(corner2.y) + ")    " + "Length: " +

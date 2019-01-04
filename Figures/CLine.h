@@ -1,11 +1,10 @@
 #ifndef C_LINE_H
 #define C_LINE_H
 
-#include "cFigure.h"
+#include "CFigure.h"
 
-class CLine : public cFigure
+class CLine : public CFigure
 {
-private:
 	Point P1;
 	Point P2;
 public:

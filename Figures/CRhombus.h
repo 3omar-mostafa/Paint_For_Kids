@@ -1,20 +1,19 @@
 #ifndef C_RHOMBUS_H
 #define C_RHOMBUS_H
 
-#include "cFigure.h"
+#include "CFigure.h"
 
-class cRhombus : public cFigure
+class CRhombus : public CFigure
 {
-private:
 	Point center;
 	int xArr[4];
 	int yArr[4];
 public:
 	//Creates a Rhombus with the center and the Horizontal and Vertical Distances from the center
-	cRhombus(Point P, GfxInfo FigureGfxInfo, int a = 120, int b = 60);
+	CRhombus(Point P, GfxInfo FigureGfxInfo, int a = 120, int b = 60);
 	
 	//Creates a Rhombus from an array of X and Y coordinates
-	cRhombus(const int* , const int* , GfxInfo );
+	CRhombus(const int* , const int* , GfxInfo );
 
 	void draw(Output* ) const override;
 	Point getCenter() const;

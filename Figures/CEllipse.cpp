@@ -1,14 +1,14 @@
 #include "CEllipse.h"
 
-CEllipse::CEllipse(Point P, GfxInfo FigureGfxInfo) :cFigure(FigureGfxInfo)
+CEllipse::CEllipse(Point center, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
-	Center = P;
-	Corner1 = P + Point(120, 60);
-	Corner2 = P + Point(-120, -60);
+	Center = center;
+	Corner1 = center + Point(120, 60);
+	Corner2 = center + Point(-120, -60);
 	figType = ELLIPSE;
 }
 
-CEllipse::CEllipse(Point C1, Point C2, GfxInfo FigureGfxInfo) :cFigure(FigureGfxInfo)
+CEllipse::CEllipse(Point C1, Point C2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Corner1 = C1;
 	Corner2 = C2;

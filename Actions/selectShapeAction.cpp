@@ -1,15 +1,15 @@
-#include "selectShapeAction.h"
+#include "SelectShapeAction.h"
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
-selectShapeAction::selectShapeAction(ApplicationManager * pApp) :Action(pApp) 
+SelectShapeAction::SelectShapeAction(ApplicationManager * pApp) :Action(pApp) 
 {}
 
 
 //TODO: Comment this properly 
-void selectShapeAction::readActionParameters() 
+void SelectShapeAction::readActionParameters() 
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->getOutput();
@@ -26,7 +26,7 @@ void selectShapeAction::readActionParameters()
 }
 
 //TODO: Comment this properly 
-void selectShapeAction::execute() 
+void SelectShapeAction::execute() 
 {
 	Output* pOut = pManager->getOutput();
 	readActionParameters();

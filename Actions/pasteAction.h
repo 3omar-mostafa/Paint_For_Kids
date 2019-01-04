@@ -2,21 +2,18 @@
 #include "Action.h"
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
-#include "..\GUI\Output.h"
-
-class pasteAction :public Action
+class PasteAction :public Action
 {
 	Point newFigCenter;
-	cFigure* toPaste;
+	CFigure* toPaste;
 	GfxInfo toPasteGfxInfo;
 public:
 
-	pasteAction(ApplicationManager*);
-	virtual void validateRectangle(Point&, Point&, cRectangle*);
-	virtual void validateTriangle(Point&, Point&, Point&, cTriangle*);
+	PasteAction(ApplicationManager*);
+	virtual void validateRectangle(Point&, Point&, CRectangle*);
+	virtual void validateTriangle(Point&, Point&, Point&, CTriangle*);
 	virtual void validateEllipse(Point&, CEllipse*);
-	virtual void validateRhombus(Point&, cRhombus*);
+	virtual void validateRhombus(Point&, CRhombus*);
 	virtual void validateLine(Point&, Point&, CLine*);
 	void readActionParameters() override;
 	void execute() override;

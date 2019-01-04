@@ -1,17 +1,14 @@
 #pragma once
 #include "Action.h"
-
-#include "..\Figures\CFigure.h"
 #include "..\ApplicationManager.h"
+#include "..\Figures\CFigure.h"
 
-#include "..\GUI\input.h"
-#include "..\GUI\Output.h"
-class sendToBackAction : public Action
+class SendToBackAction : public Action
 {
-	cFigure * currentFigure;
+	CFigure * currentFigure;
 public:
 
-	sendToBackAction(ApplicationManager *pApp);
+	SendToBackAction(ApplicationManager *pApp);
 	void readActionParameters() override;
 	void execute() override;
 };

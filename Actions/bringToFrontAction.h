@@ -2,17 +2,13 @@
 #include "Action.h"
 
 #include "..\Figures\CFigure.h"
-#include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
-#include "..\GUI\Output.h"
-
-class bringToFrontAction : public Action
+class BringToFrontAction : public Action
 {
-	cFigure * currentFigure;
+	CFigure * currentFigure;
 public:
 
-	bringToFrontAction(ApplicationManager *pApp);
+	BringToFrontAction(ApplicationManager *pApp);
 	void readActionParameters() override;
 	void execute() override;
 };

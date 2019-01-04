@@ -1,15 +1,15 @@
-#include "AddTriAction.h"
+#include "AddTriangleAction.h"
 #include "..\Figures\CTriangle.h"
 
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
-addTriangleAction::addTriangleAction(ApplicationManager * pApp) :Action(pApp)
+AddTriangleAction::AddTriangleAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void addTriangleAction::readActionParameters()
+void AddTriangleAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->getOutput();
@@ -39,13 +39,13 @@ void addTriangleAction::readActionParameters()
 }
 
 //Execute the action
-void addTriangleAction::execute()
+void AddTriangleAction::execute()
 {
 	//This action needs to read some parameters first
 	readActionParameters();
 
 	//Create a triangle with three points from the user
-	cTriangle *T = new cTriangle(P1, P2, P3, TriGfxInfo);
+	CTriangle *T = new CTriangle(P1, P2, P3, TriGfxInfo);
 
 	//Add the triangle to the list of figures
 	pManager->addFigure(T);

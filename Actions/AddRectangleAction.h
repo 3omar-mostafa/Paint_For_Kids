@@ -4,13 +4,13 @@
 #include "Action.h"
 
 //Add Rectangle Action class
-class addRectAction : public Action
+class AddRectangleAction : public Action
 {
 private:
 	Point P1, P2; //Rectangle Corners
 	GfxInfo RectGfxInfo;
 public:
-	addRectAction(ApplicationManager *pApp);
+	AddRectangleAction(ApplicationManager *pApp);
 
 	//Reads rectangle parameters
 	void readActionParameters() override;

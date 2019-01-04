@@ -1,10 +1,10 @@
-#include "pasteAction.h"
+#include "PasteAction.h"
 
 
-pasteAction::pasteAction(ApplicationManager * pApp) :Action(pApp)
+PasteAction::PasteAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void pasteAction::readActionParameters()
+void PasteAction::readActionParameters()
 {
 	Output* pOut = pManager->getOutput();
 
@@ -21,7 +21,7 @@ void pasteAction::readActionParameters()
 
 }
 
-void pasteAction::execute()
+void PasteAction::execute()
 {
 	Output* pOut = pManager->getOutput();
 	readActionParameters();
@@ -63,10 +63,10 @@ void pasteAction::execute()
 		pManager->setClipboard(ellipse);
 	}
 
-	else if (dynamic_cast<cRhombus*>(toPaste))
+	else if (dynamic_cast<CRhombus*>(toPaste))
 	{
 		// Validating the New Position:
-		cRhombus* testRhombus = dynamic_cast<cRhombus*>(toPaste);
+		CRhombus* testRhombus = dynamic_cast<CRhombus*>(toPaste);
 		Point Center;
 		validateRhombus(Center, testRhombus);
 		toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
@@ -89,15 +89,15 @@ void pasteAction::execute()
 		}
 		
 		// Recreating the object with its New Position:
-		cRhombus* rhombus = new cRhombus(Center, toPasteGfxInfo, a, b);
+		CRhombus* rhombus = new CRhombus(Center, toPasteGfxInfo, a, b);
 		pManager->addFigure(rhombus);
 		pManager->setClipboard(rhombus);
 	}
 
-	else if (dynamic_cast<cTriangle*>(toPaste))
+	else if (dynamic_cast<CTriangle*>(toPaste))
 	{
 
-		cTriangle* tri = dynamic_cast<cTriangle*>(toPaste);
+		CTriangle* tri = dynamic_cast<CTriangle*>(toPaste);
 		Point Pa, Pb, Pc;
 		validateTriangle(Pa, Pb, Pc, tri);
 		toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
@@ -119,16 +119,16 @@ void pasteAction::execute()
 
 		pOut->drawTriangle(Pa, Pb, Pc, toPasteGfxInfo, false);
 		//Create a triangle with the center from the user
-		cTriangle *Tr = new cTriangle(Pa, Pb, Pc, toPasteGfxInfo);
+		CTriangle *Tr = new CTriangle(Pa, Pb, Pc, toPasteGfxInfo);
 		//Add the triangle to the list of figures
 		pManager->addFigure(Tr);
 		pManager->setClipboard(Tr);
 	}
 
-	else if (dynamic_cast<cRectangle*>(toPaste))
+	else if (dynamic_cast<CRectangle*>(toPaste))
 	{
 
-		cRectangle* Rec = dynamic_cast<cRectangle*>(toPaste);
+		CRectangle* Rec = dynamic_cast<CRectangle*>(toPaste);
 		Point Pa, Pb;
 		validateRectangle(Pa, Pb, Rec);
 		toPasteGfxInfo.isFilled = toPaste->isFilled();	//default is filled
@@ -150,7 +150,7 @@ void pasteAction::execute()
 
 		pOut->drawRectangle(Pa, Pb, toPasteGfxInfo, false);
 		//Create a rectangle with the center from the user
-		cRectangle *Rect = new cRectangle(Pa, Pb, toPasteGfxInfo);
+		CRectangle *Rect = new CRectangle(Pa, Pb, toPasteGfxInfo);
 		//Add the rectangle to the list of figures
 		pManager->addFigure(Rect);
 		pManager->setClipboard(Rect);
@@ -189,7 +189,7 @@ void pasteAction::execute()
 	}
 }
 
-void pasteAction::validateTriangle(Point& Pa, Point& Pb, Point& Pc, cTriangle* Tri) {
+void PasteAction::validateTriangle(Point& Pa, Point& Pb, Point& Pc, CTriangle* Tri) {
 	Input* pIn = pManager->getInput();
 	Output* pOut = pManager->getOutput();
 
@@ -217,7 +217,7 @@ void pasteAction::validateTriangle(Point& Pa, Point& Pb, Point& Pc, cTriangle* T
 	}
 }
 
-void pasteAction::validateEllipse(Point &P, CEllipse *ellipse)
+void PasteAction::validateEllipse(Point &P, CEllipse *ellipse)
 {
 	Input* pIn = pManager->getInput();
 	Output* pOut = pManager->getOutput();
@@ -232,7 +232,7 @@ void pasteAction::validateEllipse(Point &P, CEllipse *ellipse)
 	}
 }
 
-void pasteAction::validateRhombus(Point &P, cRhombus *rhombus)
+void PasteAction::validateRhombus(Point &P, CRhombus *rhombus)
 {
 	Input* pIn = pManager->getInput();
 	Output* pOut = pManager->getOutput();
@@ -247,7 +247,7 @@ void pasteAction::validateRhombus(Point &P, cRhombus *rhombus)
 	}
 }
 
-void pasteAction::validateRectangle(Point& Pa, Point& Pb, cRectangle* Rec)
+void PasteAction::validateRectangle(Point& Pa, Point& Pb, CRectangle* Rec)
 {
 	Input* pIn = pManager->getInput();
 	Output* pOut = pManager->getOutput();
@@ -274,7 +274,7 @@ void pasteAction::validateRectangle(Point& Pa, Point& Pb, cRectangle* Rec)
 	}
 }
 
-void pasteAction::validateLine(Point& Pa, Point& Pb, CLine* Line)
+void PasteAction::validateLine(Point& Pa, Point& Pb, CLine* Line)
 {
 	Input* pIn = pManager->getInput();
 	Output* pOut = pManager->getOutput();

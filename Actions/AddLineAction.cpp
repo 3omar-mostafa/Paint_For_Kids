@@ -1,14 +1,14 @@
 #include "AddLineAction.h"
 #include "..\ApplicationManager.h"
 #include "..\Figures\CLine.h"
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
 
-addLineAction::addLineAction(ApplicationManager *pApp) :Action(pApp)
+AddLineAction::AddLineAction(ApplicationManager *pApp) :Action(pApp)
 {}
 
-void addLineAction::readActionParameters()
+void AddLineAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->getOutput();
@@ -34,7 +34,7 @@ void addLineAction::readActionParameters()
 
 
 
- void addLineAction::execute()
+ void AddLineAction::execute()
  {//This action needs to read some parameters first
 	 readActionParameters();
 

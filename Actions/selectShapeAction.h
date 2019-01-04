@@ -1,10 +1,10 @@
 #pragma once
 #include "Action.h"
 
-class selectShapeAction :public Action
+class SelectShapeAction :public Action
 {
 public:
-	selectShapeAction(ApplicationManager* pApp);
+	SelectShapeAction(ApplicationManager* pApp);
 	//Reads rectangle parameters
 	void readActionParameters() override;
 

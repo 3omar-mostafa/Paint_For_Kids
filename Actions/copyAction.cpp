@@ -1,10 +1,10 @@
-#include "copyAction.h"
+#include "CopyAction.h"
 
 
-copyAction::copyAction(ApplicationManager * pApp) :Action(pApp)
+CopyAction::CopyAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void copyAction::readActionParameters()
+void CopyAction::readActionParameters()
 {
 	Output* pOut = pManager->getOutput();
 	pOut->printMessage("Copy, Selected Figure copied to Clipboard");
@@ -32,7 +32,7 @@ void copyAction::readActionParameters()
 	copied = pManager->getSelectedFigure();
 }
 
-void copyAction::execute()
+void CopyAction::execute()
 {
 
 	readActionParameters();

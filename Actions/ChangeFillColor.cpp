@@ -1,16 +1,16 @@
 #include "ChangeFillColor.h"
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
-changeFillColor::changeFillColor(ApplicationManager * pApp) :Action(pApp)
+ChangeFillColor::ChangeFillColor(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void changeFillColor::readActionParameters() {}
+void ChangeFillColor::readActionParameters() {}
 
 //Execute the action
-void changeFillColor::execute()
+void ChangeFillColor::execute()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();

@@ -1,11 +1,11 @@
 #include "ResizeAction.h"
 
-resizeAction::resizeAction(ApplicationManager * pApp) :Action(pApp)
+ResizeAction::ResizeAction(ApplicationManager * pApp) :Action(pApp)
 {
 	Ratio = 1;
 }
 
-void resizeAction::readActionParameters()
+void ResizeAction::readActionParameters()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -17,7 +17,7 @@ void resizeAction::readActionParameters()
 	Ratio = pOut->selectSize(P);
 }
 
-void resizeAction::execute()
+void ResizeAction::execute()
 {
 	Output* pOut = pManager->getOutput();
 

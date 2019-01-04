@@ -1,13 +1,13 @@
-#include "saveByTypeAction.h"
+#include "SaveByTypeAction.h"
 #include "..\ApplicationManager.h"
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
 
-saveByTypeAction::saveByTypeAction(ApplicationManager * pApp) :Action(pApp)
+SaveByTypeAction::SaveByTypeAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void saveByTypeAction::readActionParameters()
+void SaveByTypeAction::readActionParameters()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -15,7 +15,7 @@ void saveByTypeAction::readActionParameters()
 	confirm = pIn->getUserAction();
 }
 
-void saveByTypeAction::execute()
+void SaveByTypeAction::execute()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -44,7 +44,7 @@ void saveByTypeAction::execute()
 	pManager->getOutput()->printMessage("Saved Successfully to " + FileName + "!");
 }
 
-FigureType saveByTypeAction::setSavedType() const
+FigureType SaveByTypeAction::setSavedType() const
 {
 	switch (confirm)
 	{

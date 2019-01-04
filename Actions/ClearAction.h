@@ -4,12 +4,12 @@
 #include "Action.h"
 
 //Clear action class
-class clearAction : public Action
+class ClearAction : public Action
 {
 private:
 	ActionType Confirm;	//An ActionType variable to act as a confirmation for the action
 public:
-	clearAction(ApplicationManager *pApp);
+	ClearAction(ApplicationManager *pApp);
 	void readActionParameters() override;
 	void execute() override;
 };

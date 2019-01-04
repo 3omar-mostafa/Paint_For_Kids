@@ -1,15 +1,15 @@
-#include "AddRectAction.h"
+#include "AddRectangleAction.h"
 #include "..\Figures\CRectangle.h"
 
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
-addRectAction::addRectAction(ApplicationManager * pApp) :Action(pApp)
+AddRectangleAction::AddRectangleAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void addRectAction::readActionParameters()
+void AddRectangleAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->getOutput();
@@ -35,13 +35,13 @@ void addRectAction::readActionParameters()
 }
 
 //Execute the action
-void addRectAction::execute()
+void AddRectangleAction::execute()
 {
 	//This action needs to read some parameters first
 	readActionParameters();
 
 	//Create a rectangle with the parameters read from the user
-	cRectangle *R = new cRectangle(P1, P2, RectGfxInfo);
+	CRectangle *R = new CRectangle(P1, P2, RectGfxInfo);
 
 	//Add the rectangle to the list of figures
 	pManager->addFigure(R);

@@ -1,76 +1,76 @@
 #include "CFigure.h"
 
-cFigure::cFigure(GfxInfo FigureGfxInfo)
+CFigure::CFigure(GfxInfo FigureGfxInfo)
 {
 	figGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	selected = false;
 	cut = false;
 }
 
-void cFigure::setID(int ID)
+void CFigure::setID(int ID)
 {
 	this->ID = ID;
 }
 
-void cFigure::setType(FigureType T)
+void CFigure::setType(FigureType T)
 {
 	figType = T;
 }
 
-FigureType cFigure::getType() const
+FigureType CFigure::getType() const
 {
 	return figType;
 }
 
-void cFigure::setSelected(bool s)
+void CFigure::setSelected(bool s)
 {
 	selected = s;
 }
 
-bool cFigure::isSelected() const
+bool CFigure::isSelected() const
 {
 	return selected;
 }
 
-void cFigure::setCut(bool c)
+void CFigure::setCut(bool c)
 {
 	cut = c;
 }
 
-bool cFigure::isCut() const
+bool CFigure::isCut() const
 {
 	return cut;
 }
 
-void cFigure::toggleSelection(){
+void CFigure::toggleSelection(){
 	selected = !selected;
 }
-void cFigure::changeDrawColor(color dColor)
+void CFigure::changeDrawColor(color dColor)
 {
 	figGfxInfo.drawColor = dColor;
 }
 
-void cFigure::changeFillColor(color fColor)
+void CFigure::changeFillColor(color fColor)
 {
 	figGfxInfo.isFilled = true;
 	figGfxInfo.fillColor = fColor;
 }
 
-color cFigure::getFillColor() const
+color CFigure::getFillColor() const
 {
 	return figGfxInfo.fillColor;
 }
 
-color cFigure::getDrawColor() const
+color CFigure::getDrawColor() const
 {
 	return figGfxInfo.drawColor;
 }
 
-void cFigure::setFilled( bool filled) {
+void CFigure::setFilled( bool filled) {
 	figGfxInfo.isFilled = filled;
 }
 
-bool cFigure::isFilled() const
+bool CFigure::isFilled() const
 {
 	return figGfxInfo.isFilled;
 }

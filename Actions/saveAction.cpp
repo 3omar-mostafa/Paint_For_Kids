@@ -1,14 +1,14 @@
 #include "SaveAction.h"
 #include "..\ApplicationManager.h"
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
 
 
-saveAction::saveAction(ApplicationManager * pApp) :Action(pApp)
+SaveAction::SaveAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void saveAction::readActionParameters()
+void SaveAction::readActionParameters()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -17,7 +17,7 @@ void saveAction::readActionParameters()
 	pOut->clearStatusBar();
 }
 
-void saveAction::execute()
+void SaveAction::execute()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -45,7 +45,7 @@ void saveAction::execute()
 	pManager->getOutput()->printMessage("Saved Successfully to " + FileName + "!");
 }
 
-void saveAction::quickSave() const
+void SaveAction::quickSave() const
 {
 	// Open >> Save >> Close
 	ofstream out;

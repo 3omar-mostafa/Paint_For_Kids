@@ -2,7 +2,7 @@
 #define ADD_Line_ACTION_H
 
 #include "Action.h"
-class addLineAction :public Action
+class AddLineAction :public Action
 {
 private:
 	Point P1, P2; //line limits
@@ -11,7 +11,7 @@ private:
 
 public:
 
-	addLineAction(ApplicationManager *pApp);
+	AddLineAction(ApplicationManager *pApp);
 
 	//Reads Line parameters
 	void readActionParameters() override;

@@ -1,14 +1,14 @@
-#include "deleteAction.h"
+#include "DeleteAction.h"
 
-deleteAction::deleteAction(ApplicationManager * pApp) :Action(pApp)
+DeleteAction::DeleteAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void deleteAction::readActionParameters() 
+void DeleteAction::readActionParameters() 
 {
 	deletedFigure = pManager->getSelectedFigure();
 }
 
-void deleteAction::execute() 
+void DeleteAction::execute() 
 {
 	readActionParameters();
 	Output* pOut = pManager->getOutput();

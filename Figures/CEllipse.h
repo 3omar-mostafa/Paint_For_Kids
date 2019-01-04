@@ -1,20 +1,19 @@
 #ifndef ELLIPSE_H
 #define ELLIPSE_H
 
-#include "cFigure.h"
+#include "CFigure.h"
 #include "..\GUI\Output.h"
 
 
-class CEllipse : public cFigure
+class CEllipse : public CFigure
 {
-private:
 	Point Corner1, Corner2;
 	Point Center;
 public:
-	CEllipse(Point Center, GfxInfo FigureGfxInfo);
+	CEllipse(Point center, GfxInfo FigureGfxInfo);
 	
 	//Creates an Ellipse inscribed in the Rectangle formed by the 2 Points
-	CEllipse(Point Corner1, Point Corner2, GfxInfo FigureGfxInfo);
+	CEllipse(Point C1, Point C2, GfxInfo FigureGfxInfo);
 
 	void draw(Output* pOut) const override;
 	Point getCenter() const;

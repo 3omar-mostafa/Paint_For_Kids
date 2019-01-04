@@ -1,13 +1,13 @@
 #include "LoadAction.h"
 #include "..\ApplicationManager.h"
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
 
-loadAction::loadAction(ApplicationManager * pApp) :Action(pApp)
+LoadAction::LoadAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void loadAction::readActionParameters()
+void LoadAction::readActionParameters()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -16,7 +16,7 @@ void loadAction::readActionParameters()
 	pOut->clearStatusBar();
 }
 
-void loadAction::execute()
+void LoadAction::execute()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -53,11 +53,11 @@ void loadAction::execute()
 	pOut->printMessage("Loaded Successfully!");
 }
 
-void loadAction::readFigures(ifstream& InFile) const
+void LoadAction::readFigures(ifstream& InFile) const
 {
 	while (!InFile.eof())
 	{
-		cFigure* NewFig;
+		CFigure* NewFig;
 		string SavedType;	//The Figure's type
 		InFile >> SavedType;	//Reading the type
 		FigureType FIG_TYPE = readType(SavedType);	//Setting the type
@@ -68,7 +68,7 @@ void loadAction::readFigures(ifstream& InFile) const
 	}
 }
 
-void loadAction::quickLoad() const
+void LoadAction::quickLoad() const
 {
 	// Open >> Set Draw & Fill Colors >> Load Figures >> Close:
 	ifstream qin;

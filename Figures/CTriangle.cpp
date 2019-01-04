@@ -1,6 +1,6 @@
 #include "CTriangle.h"
 
-cTriangle::cTriangle(Point A, Point B, Point C, GfxInfo FigureGfxInfo) :cFigure(FigureGfxInfo)
+CTriangle::CTriangle(Point A, Point B, Point C, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	p1 = A;
 	p2 = B;
@@ -8,26 +8,26 @@ cTriangle::cTriangle(Point A, Point B, Point C, GfxInfo FigureGfxInfo) :cFigure(
 	figType = TRIANGLE;
 }
 
-Point cTriangle::getP1() const
+Point CTriangle::getP1() const
 {
 	return p1 ;
 }
-Point cTriangle::getP2() const
+Point CTriangle::getP2() const
 {
 	return p2 ;
 }
-Point cTriangle::getP3() const
+Point CTriangle::getP3() const
 {
 	return p3 ;
 }
 
-void cTriangle::draw(Output* pOut) const
+void CTriangle::draw(Output* pOut) const
 {
 	//Call Output::DrawTriangle to draw a triangle on the screen	
 	pOut->drawTriangle(p1, p2, p3, figGfxInfo, selected);
 }
 
-double cTriangle::getTriangularArea(Point p1, Point p2, Point p3) const
+double CTriangle::getTriangularArea(Point p1, Point p2, Point p3) const
 {
 	// Area of any triangle using vertices is 0.5* absolute of the following determinant
 	// | x1	 y1	 1 |
@@ -37,7 +37,7 @@ double cTriangle::getTriangularArea(Point p1, Point p2, Point p3) const
 	return 0.5* abs(p1.x*(p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y));
 }
 
-bool cTriangle::isCollinear(Point p1, Point p2, Point p3) const
+bool CTriangle::isCollinear(Point p1, Point p2, Point p3) const
 {
 	// I am going to create a triangle using 2 point of the line and the given point
 	// the normal distance between the line and the given point (height) is area/length of line(base)
@@ -57,7 +57,7 @@ bool cTriangle::isCollinear(Point p1, Point p2, Point p3) const
 	return false;
 }
 
-bool cTriangle::doesItContain(int x, int y) {
+bool CTriangle::doesItContain(int x, int y) {
 	Point p4;
 	p4.x = x;
 	p4.y = y;
@@ -73,7 +73,7 @@ bool cTriangle::doesItContain(int x, int y) {
 	return abs(totalArea - (area1 + area2 + area3)) <= 1;
 }
 
-bool cTriangle::resize(double R)
+bool CTriangle::resize(double R)
 {
 	if (R < 1.01 && R> 0.99) // if the user didn't select any ratio from the menu
 		return false;
@@ -161,18 +161,18 @@ bool cTriangle::resize(double R)
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
-	*this = cTriangle(c1, c2, c3, figGfxInfo);
+	*this = CTriangle(c1, c2, c3, figGfxInfo);
 	setID(oldID);
 	return true;
 }
 
-void cTriangle::save(ofstream &OutFile)
+void CTriangle::save(ofstream &OutFile)
 {
 	string info = storeType(figType) + " " + to_string(ID) + " " + p1.data() + " " + p2.data() + " " + p3.data() + " " + figGfxInfo.data();
 	OutFile << endl << info;
 }
 
-void cTriangle::load(ifstream &InFile)
+void CTriangle::load(ifstream &InFile)
 {
 	Point P_1, P_2, P_3;
 	GfxInfo TriGfxInfo;
@@ -181,10 +181,10 @@ void cTriangle::load(ifstream &InFile)
 	P_2.read(InFile);
 	P_3.read(InFile);
 	TriGfxInfo.read(InFile);
-	*this = cTriangle(P_1, P_2, P_3, TriGfxInfo);
+	*this = CTriangle(P_1, P_2, P_3, TriGfxInfo);
 }
 
-void cTriangle::printInfo(Output * pOut)
+void CTriangle::printInfo(Output * pOut)
 {
 	string s = "ID: " + to_string(ID) + "    Points: (" + to_string(p1.x) + ", " + to_string(p1.y) + "), (" +
 		to_string(p2.x) + ", " + to_string(p2.y) + "), (" + to_string(p3.x) + ", " + to_string(p3.y) + ") ";

@@ -7,29 +7,29 @@
 #include "Figures/CRectangle.h"
 #include "Figures/CRhombus.h"
 #include "Figures/CTriangle.h"
-#include "GUI/input.h"
-#include "GUI/output.h"
-#include "Actions/AddRectAction.h"
-#include "Actions/AddTriAction.h"
-#include "Actions/AddElpsAction.h"
-#include "Actions/AddRhomAction.h"
+#include "GUI/Input.h"
+#include "GUI/Output.h"
+#include "Actions/AddRectangleAction.h"
+#include "Actions/AddTriangleAction.h"
+#include "Actions/AddEllipseAction.h"
+#include "Actions/AddRhombusAction.h"
 #include "Actions/AddLineAction.h"
 #include "Actions/ChangeDrawColor.h"
 #include "Actions/ChangeFillColor.h"
-#include "Actions/copyAction.h"
-#include "Actions/cutAction.h"
-#include "Actions/pasteAction.h"
+#include "Actions/CopyAction.h"
+#include "Actions/CutAction.h"
+#include "Actions/PasteAction.h"
 #include "Actions/LoadAction.h"
 #include "Actions/SaveAction.h"
-#include "Actions/saveByTypeAction.h"
-#include "Actions/selectShapeAction.h"
-#include "Actions/deleteAction.h"
+#include "Actions/SaveByTypeAction.h"
+#include "Actions/SelectShapeAction.h"
+#include "Actions/DeleteAction.h"
 #include "Actions/ExitAction.h"
 #include "Actions/ClearAction.h"
 #include "Actions/ByShapeAction.h"
 #include "Actions/ByColorAction.h"
-#include "Actions/sendToBackAction.h"
-#include "Actions/bringToFrontAction.h"
+#include "Actions/SendToBackAction.h"
+#include "Actions/BringToFrontAction.h"
 #include "Actions/ResizeAction.h"
 
 //Main class that manages everything in the application.
@@ -39,13 +39,13 @@ class ApplicationManager
 
 private:
 	int figCount;		//Actual number of figures
-	cFigure* figList[MAX_FIG_COUNT];	//List of all figures (Array of pointers)
+	CFigure* figList[MAX_FIG_COUNT];	//List of all figures (Array of pointers)
 
-	cFigure* selectedFig; //Pointer to the selected figure
-	cFigure* lastSelected;
-	cFigure* lastCut;
+	CFigure* selectedFig; //Pointer to the selected figure
+	CFigure* lastSelected;
+	CFigure* lastCut;
 	color lastDrawColor, lastFillColor;
-	cFigure* clipboard;   //Pointer to the copied/cut figure
+	CFigure* clipboard;   //Pointer to the copied/cut figure
 
 	bool isSoundON;
 	//Pointers to Input and Output classes
@@ -62,9 +62,9 @@ public:
 	void executeAction(ActionType); //Creates an action and executes it
 
 	// -- Figures Management Functions
-	void addFigure(cFigure*);          //Adds a new figure to the FigList
-	cFigure *getFigure(int , int) const; //Search for a figure given a point inside the figure
-	void deleteFigure(cFigure*);	//Deletes a Figure from the List
+	void addFigure(CFigure*);          //Adds a new figure to the FigList
+	CFigure *getFigure(int , int) const; //Search for a figure given a point inside the figure
+	void deleteFigure(CFigure*);	//Deletes a Figure from the List
 	void clearFigures();		//Added a function to remove all figures
 	void writeFigures(ofstream&);	//Saves Figure Information to a text file 
 	void writeFigures(ofstream&, FigureType);	//Saves Figure Information of a certain Type to a text file 
@@ -80,25 +80,25 @@ public:
 	Output *getOutput() const; //Return pointer to the output
 	void updateInterface() const;	//Redraws all the drawing window
 
-	void setSelectedFigure(cFigure*);
-	cFigure* getSelectedFigure() const;
+	void setSelectedFigure(CFigure*);
+	CFigure* getSelectedFigure() const;
 
-	void setLastSelected(cFigure*);
-	cFigure* getLastSelected() const;
+	void setLastSelected(CFigure*);
+	CFigure* getLastSelected() const;
 
-	void setClipboard(cFigure*);
-	cFigure* getClipboard() const;
+	void setClipboard(CFigure*);
+	CFigure* getClipboard() const;
 
 	color getLastDrawClr() const;
 	color getLastFillClr() const;
 	void setLastDrawClr(color);
 	void setLastFillClr(color);
 
-	void bringToFront(cFigure*);
-	void sendToBack(cFigure*);
+	void bringToFront(CFigure*);
+	void sendToBack(CFigure*);
 
-	void setLastCut(cFigure*);
-	cFigure* getLastCut() const;
+	void setLastCut(CFigure*);
+	CFigure* getLastCut() const;
 
 	bool getSoundState() const;
 	void toggleSound();

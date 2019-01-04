@@ -1,6 +1,6 @@
 #include "CRhombus.h"
 
-cRhombus::cRhombus(Point P, GfxInfo FigureGfxInfo, int a, int b) :cFigure(FigureGfxInfo)
+CRhombus::CRhombus(Point P, GfxInfo FigureGfxInfo, int a, int b) :CFigure(FigureGfxInfo)
 {
 	center = P;
 	xArr[0] = P.x;			xArr[1] = P.x + a;		xArr[2] = P.x;			xArr[3] = P.x - a;
@@ -8,7 +8,7 @@ cRhombus::cRhombus(Point P, GfxInfo FigureGfxInfo, int a, int b) :cFigure(Figure
 	figType = RHOMBUS;
 }
 
-cRhombus::cRhombus(const int * X, const int * Y, GfxInfo FigureGfxInfo) :cFigure(FigureGfxInfo)
+CRhombus::CRhombus(const int * X, const int * Y, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	for (int i = 0; i < 4; i++)
 		xArr[i] = X[i], yArr[i] = Y[i];
@@ -16,26 +16,26 @@ cRhombus::cRhombus(const int * X, const int * Y, GfxInfo FigureGfxInfo) :cFigure
 	figType = RHOMBUS;
 }
 
-Point cRhombus::getCenter() const {
+Point CRhombus::getCenter() const {
 	return center;
 }
 
-int cRhombus::getVertical() const {
+int CRhombus::getVertical() const {
 	return abs(yArr[0] - center.y);
 }
 
-int cRhombus::getHorizontal() const {
+int CRhombus::getHorizontal() const {
 	return abs(xArr[1] - center.x);
 }
 
-void cRhombus::draw(Output* pOut) const
+void CRhombus::draw(Output* pOut) const
 {
 	//Call Output::DrawRhombus to draw a rhombus on the screen	
 	//pOut->DrawRhombus(center, FigGfxInfo, Selected);
 	pOut->drawRhombus(xArr, yArr, figGfxInfo, selected);
 }
 
-bool cRhombus::doesItContain(int x, int y) {
+bool CRhombus::doesItContain(int x, int y) {
 	int X = x - center.x;
 	int Y = y - center.y;
 	int a = xArr[1] - center.x;
@@ -65,7 +65,7 @@ bool cRhombus::doesItContain(int x, int y) {
 	return false;
 }
 
-bool cRhombus::resize(double R)
+bool CRhombus::resize(double R)
 {
 	if (R < 1.01 && R > 0.99) // if the user didn't select any ratio from the menu
 		return false;
@@ -86,18 +86,18 @@ bool cRhombus::resize(double R)
 
 	//Creating the Resized Object and Passing its ID:
 	int oldID = ID;
-	*this = cRhombus(X, Y, figGfxInfo);
+	*this = CRhombus(X, Y, figGfxInfo);
 	setID(oldID);
 	return true;
 }
 
-void cRhombus::save(ofstream &OutFile)
+void CRhombus::save(ofstream &OutFile)
 {
 	string info = storeType(figType) + " " + to_string(ID) + " " + center.data() + " " + to_string(getHorizontal()) + " " + to_string(getVertical()) + " " + figGfxInfo.data();
 	OutFile << endl << info;
 }
 
-void cRhombus::load(ifstream &InFile)
+void CRhombus::load(ifstream &InFile)
 {
 	Point P;
 	int a, b;
@@ -106,10 +106,10 @@ void cRhombus::load(ifstream &InFile)
 	P.read(InFile);
 	InFile >> a >> b;
 	rhombusGfxInfo.read(InFile);
-	*this = cRhombus(P, rhombusGfxInfo, a, b);
+	*this = CRhombus(P, rhombusGfxInfo, a, b);
 }
 
-void cRhombus::printInfo(Output * pOut)
+void CRhombus::printInfo(Output * pOut)
 {
 	string s = "ID: " + to_string(ID) + "    center Point: (" + to_string(center.x) + ", " + to_string(center.y) + ")";
 	pOut->printMessage(s);

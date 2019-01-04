@@ -1,14 +1,13 @@
 #ifndef TRI_H
 #define TRI_H
 
-#include "cFigure.h"
+#include "CFigure.h"
 
-class cTriangle : public cFigure
+class CTriangle : public CFigure
 {
-private:
 	Point p1, p2, p3;
 public:
-	cTriangle(Point, Point, Point, GfxInfo );
+	CTriangle(Point, Point, Point, GfxInfo );
 	void draw(Output* pOut) const override;
 
 	Point getP1() const;

@@ -1,15 +1,15 @@
-#include "AddRhomAction.h"
+#include "AddRhombusAction.h"
 #include "..\Figures\CRhombus.h"
 
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
-addRhombusAction::addRhombusAction(ApplicationManager * pApp) :Action(pApp)
+AddRhombusAction::AddRhombusAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void addRhombusAction::readActionParameters()
+void AddRhombusAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->getOutput();
@@ -32,13 +32,13 @@ void addRhombusAction::readActionParameters()
 }
 
 //Execute the action
-void addRhombusAction::execute()
+void AddRhombusAction::execute()
 {
 	//This action needs to read some parameters first
 	readActionParameters();
 
 	//Create a rhombus with the center from the user
-	cRhombus *Rh = new cRhombus(P, RhomGfxInfo);
+	CRhombus *Rh = new CRhombus(P, RhomGfxInfo);
 
 	//Add the rhombus to the list of figures
 	pManager->addFigure(Rh);

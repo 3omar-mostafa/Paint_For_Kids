@@ -2,14 +2,11 @@
 #include "Action.h"
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
-#include "..\GUI\Output.h"
-
-class copyAction :public Action
+class CopyAction :public Action
 {
-	cFigure* copied;
+	CFigure* copied;
 public:
-	copyAction(ApplicationManager*);
+	CopyAction(ApplicationManager*);
 	void readActionParameters() override;
 	void execute() override;
 };

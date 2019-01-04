@@ -132,7 +132,7 @@
     <ClCompile Include="Figures\CRectangle.cpp">
       <Filter>Figures Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\AddRectAction.cpp">
+    <ClCompile Include="Actions\AddRectangleAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="GUI\Input.cpp">
@@ -151,10 +151,10 @@
     <ClCompile Include="Figures\CRhombus.cpp">
       <Filter>Figures Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\AddRhomAction.cpp">
+    <ClCompile Include="Actions\AddRhombusAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\AddTriAction.cpp">
+    <ClCompile Include="Actions\AddTriangleAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Figures\CTriangle.cpp">
@@ -162,9 +162,6 @@
     </ClCompile>
     <ClCompile Include="Figures\CEllipse.cpp">
       <Filter>Figures Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Actions\AddElpsAction.cpp">
-      <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Actions\AddLineAction.cpp">
       <Filter>Action Classes</Filter>
@@ -181,25 +178,25 @@
     <ClCompile Include="Actions\ChangeDrawColor.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\saveByTypeAction.cpp">
+    <ClCompile Include="Actions\SaveByTypeAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\saveAction.cpp">
+    <ClCompile Include="Actions\SaveAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\pasteAction.cpp">
+    <ClCompile Include="Actions\PasteAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\loadAction.cpp">
+    <ClCompile Include="Actions\LoadAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\deleteAction.cpp">
+    <ClCompile Include="Actions\DeleteAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\cutAction.cpp">
+    <ClCompile Include="Actions\CutAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\copyAction.cpp">
+    <ClCompile Include="Actions\CopyAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Actions\ChangeFillColor.cpp">
@@ -212,16 +209,19 @@
     <ClCompile Include="Actions\ByColorAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\bringToFrontAction.cpp">
+    <ClCompile Include="Actions\BringToFrontAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\sendToBackAction.cpp">
+    <ClCompile Include="Actions\SendToBackAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\selectShapeAction.cpp">
+    <ClCompile Include="Actions\SelectShapeAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Actions\ResizeAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddEllipseAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -295,7 +295,7 @@
     <ClInclude Include="Actions\Action.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\AddRectAction.h">
+    <ClInclude Include="Actions\AddRectangleAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="GUI\Input.h">
@@ -314,10 +314,7 @@
     <ClInclude Include="Figures\CRhombus.h">
       <Filter>Figures Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\AddRhomAction.h">
-      <Filter>Action Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Actions\AddTriAction.h">
+    <ClInclude Include="Actions\AddRhombusAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Figures\CTriangle.h">
@@ -326,7 +323,7 @@
     <ClInclude Include="Figures\CEllipse.h">
       <Filter>Figures Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\AddElpsAction.h">
+    <ClInclude Include="Actions\AddEllipseAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\AddLineAction.h">
@@ -344,31 +341,31 @@
     <ClInclude Include="Actions\ChangeDrawColor.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\selectShapeAction.h">
+    <ClInclude Include="Actions\SelectShapeAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\saveByTypeAction.h">
+    <ClInclude Include="Actions\SaveByTypeAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\saveAction.h">
+    <ClInclude Include="Actions\SaveAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\pasteAction.h">
+    <ClInclude Include="Actions\PasteAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\loadAction.h">
+    <ClInclude Include="Actions\LoadAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\deleteAction.h">
+    <ClInclude Include="Actions\DeleteAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\copyAction.h">
+    <ClInclude Include="Actions\CopyAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\ChangeFillColor.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\cutAction.h">
+    <ClInclude Include="Actions\CutAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\ByShapeAction.h">
@@ -377,13 +374,16 @@
     <ClInclude Include="Actions\ByColorAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\bringToFrontAction.h">
+    <ClInclude Include="Actions\BringToFrontAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\sendToBackAction.h">
+    <ClInclude Include="Actions\SendToBackAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\ResizeAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddTriangleAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>

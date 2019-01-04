@@ -4,14 +4,11 @@
 #include "..\Figures\CFigure.h"
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
-#include "..\GUI\Output.h"
-
-class deleteAction :public Action
+class DeleteAction :public Action
 {
-	cFigure * deletedFigure;
+	CFigure * deletedFigure;
 public:
-	deleteAction(ApplicationManager*);
+	DeleteAction(ApplicationManager*);
 	void readActionParameters() override;
 	void execute() override;
 };

@@ -2,15 +2,12 @@
 #include "Action.h"
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
-#include "..\GUI\Output.h"
-
-class cutAction :public Action
+class CutAction :public Action
 {
-	cFigure* cut;
+	CFigure* cut;
 public:
-	cutAction(ApplicationManager *);
-	~cutAction();
+	CutAction(ApplicationManager *);
+	~CutAction();
 	void readActionParameters() override;
 	void execute() override;
 };

@@ -1,22 +1,22 @@
-#include "AddElpsAction.h"
+#include "AddEllipseAction.h"
 #include "..\Figures\CEllipse.h"
 
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
-addEllipseAction::addEllipseAction(ApplicationManager * pApp) :Action(pApp)
+AddEllipseAction::AddEllipseAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void addEllipseAction::readActionParameters()
+void AddEllipseAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_ELLIPSE);
 	if(pManager->getSoundState())
-		PlaySound(TEXT("Sounds/ellipse--_gb_1.wav"), NULL, SND_ASYNC);
+		PlaySound(TEXT("Sounds/ellipse--_gb_1.wav"), nullptr, SND_ASYNC);
 	pOut->printMessage("New Ellipse: Click at the center");
 
 	//Read center and store in P
@@ -32,7 +32,7 @@ void addEllipseAction::readActionParameters()
 }
 
 //Execute the action
-void addEllipseAction::execute()
+void AddEllipseAction::execute()
 {
 	//This action needs to read some parameters first
 	readActionParameters();

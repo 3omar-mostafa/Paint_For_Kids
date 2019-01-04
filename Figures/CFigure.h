@@ -5,7 +5,7 @@
 #include "..\GUI\Output.h"
 
 //Base class for all figures
-class cFigure
+class CFigure
 {
 protected:
 	int ID;					//Each figure has an ID
@@ -17,7 +17,7 @@ protected:
 	/// Add more parameters if needed.
 
 public:
-	cFigure(GfxInfo );
+	CFigure(GfxInfo );
 
 	void setID(int);
 	void setType(FigureType);
@@ -55,6 +55,6 @@ public:
 	virtual void printInfo(Output* ) = 0;	//print all figure info on the status bar
 };
 
-void setFigType(cFigure *& FP, FigureType T);	//Takes a cFigure* and creates a dummy object of a passed FigureType
+void setFigType(CFigure *& FP, FigureType T);	//Takes a CFigure* and creates a dummy object of a passed FigureType
 
 #endif

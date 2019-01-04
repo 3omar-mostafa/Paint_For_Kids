@@ -2,17 +2,14 @@
 #include "Action.h"
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
-#include "..\GUI\Output.h"
-
-class resizeAction :public Action
+class ResizeAction :public Action
 {
 	double Ratio;
-	cFigure* toResize;
+	CFigure* toResize;
 	ActionType Confirm;
 
 public:
-	resizeAction(ApplicationManager*);
+	ResizeAction(ApplicationManager*);
 	void readActionParameters() override;
 	void execute() override;
 };

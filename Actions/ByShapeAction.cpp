@@ -1,9 +1,9 @@
 #include "ByShapeAction.h"
 #include "..\ApplicationManager.h"
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 //constructor
-byShapeAction::byShapeAction(ApplicationManager * pApp) :Action(pApp)
+ByShapeAction::ByShapeAction(ApplicationManager * pApp) :Action(pApp)
 {
 	Correct = 0;
 	Wrong = 0;
@@ -11,12 +11,12 @@ byShapeAction::byShapeAction(ApplicationManager * pApp) :Action(pApp)
 	terminate = false;
 
 	// Auto-saving:
-	saveAction save(pManager);
+	SaveAction save(pManager);
 	save.quickSave();
 }
-//functions of byShapeAction are very close to byColorAction 
+//functions of ByShapeAction are very close to ByColorAction 
 //function ReadActionParameters gets user actions and analyze them
-void byShapeAction::readActionParameters()
+void ByShapeAction::readActionParameters()
 {
 	Input* pIn = pManager->getInput();
 	Point P;
@@ -34,7 +34,7 @@ void byShapeAction::readActionParameters()
 		//TODO:
 	}
 
-	cFigure* clicked = pManager->getFigure(P.x, P.y);
+	CFigure* clicked = pManager->getFigure(P.x, P.y);
 	if (!clicked)
 		return;
 
@@ -56,7 +56,7 @@ void byShapeAction::readActionParameters()
 }
 
 //function Play tells the user which color he should pick and analyzes his action
-bool byShapeAction::Play()
+bool ByShapeAction::Play()
 {
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
@@ -76,17 +76,17 @@ bool byShapeAction::Play()
 }
 
 //function Reset resets the game
-void byShapeAction::reset() const
+void ByShapeAction::reset() const
 {
 	Output* pOut = pManager->getOutput();
 	pOut->printMessage("Game Restarted!");
 	pManager->clearFigures();
-	loadAction load(pManager);
+	LoadAction load(pManager);
 	load.quickLoad();
 }
 
 //function Execute redraws Play Toolbar, calls Play until the game ends
-void byShapeAction::execute()
+void ByShapeAction::execute()
 {
 	Output* pOut = pManager->getOutput();
 	pOut->createPlayToolBar();
@@ -106,6 +106,6 @@ void byShapeAction::execute()
 		else PlaySound(TEXT("Sounds/smb_gameover.wav"), nullptr, SND_ASYNC);
 
 	// Auto-Loading:
-	loadAction load(pManager);
+	LoadAction load(pManager);
 	load.quickLoad();
 }

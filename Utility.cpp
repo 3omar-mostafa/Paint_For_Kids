@@ -61,8 +61,8 @@ color readColor(ifstream& in)
 	return color(Red, Green, Blue);
 }
 
-//Takes a cFigure* and creates a dummy object of a passed FigureType
-void setFigType(cFigure *& FP, FigureType T)
+//Takes a CFigure* and creates a dummy object of a passed FigureType
+void setFigType(CFigure *& FP, FigureType T)
 {
 	Point p1, p2, p3;
 	p1 = p2 = p3 = Point(400, 400);
@@ -74,15 +74,15 @@ void setFigType(cFigure *& FP, FigureType T)
 		break;
 
 	case RECTANGLE:
-		FP = new cRectangle(p1, p2, dummy);
+		FP = new CRectangle(p1, p2, dummy);
 		break;
 
 	case TRIANGLE:
-		FP = new cTriangle(p1, p2, p3, dummy);
+		FP = new CTriangle(p1, p2, p3, dummy);
 		break;
 
 	case RHOMBUS:
-		FP = new cRhombus(p1, dummy);
+		FP = new CRhombus(p1, dummy);
 		break;
 
 	case ELLIPSE:

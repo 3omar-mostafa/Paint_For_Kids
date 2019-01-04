@@ -4,13 +4,13 @@
 #include "Action.h"
 
 //Add Ellipse Action class
-class addEllipseAction : public Action
+class AddEllipseAction : public Action
 {
 private:
 	Point P; //Ellipse center
 	GfxInfo ElpsGfxInfo;
 public:
-	addEllipseAction(ApplicationManager *pApp);
+	AddEllipseAction(ApplicationManager *pApp);
 
 	//Reads ellipse center
 	void readActionParameters() override;

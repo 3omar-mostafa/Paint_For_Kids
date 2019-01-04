@@ -1,10 +1,10 @@
-#include "cutAction.h"
+#include "CutAction.h"
 
 
-cutAction::cutAction(ApplicationManager * pApp) :Action(pApp)
+CutAction::CutAction(ApplicationManager * pApp) :Action(pApp)
 {}
 
-void cutAction::readActionParameters()
+void CutAction::readActionParameters()
 {
 
 	Output* pOut = pManager->getOutput();
@@ -35,7 +35,7 @@ void cutAction::readActionParameters()
 	cut = pManager->getSelectedFigure();
 }
 
-void cutAction::execute() 
+void CutAction::execute() 
 {
 
 	readActionParameters();
@@ -58,5 +58,5 @@ void cutAction::execute()
 	}
 }
 
-cutAction::~cutAction()
+CutAction::~CutAction()
 {}

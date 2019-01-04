@@ -1,18 +1,18 @@
-#include "bringToFrontAction.h"
+#include "BringToFrontAction.h"
 
 #include "..\ApplicationManager.h"
 
-#include "..\GUI\input.h"
+#include "..\GUI\Input.h"
 #include "..\GUI\Output.h"
 
-bringToFrontAction::bringToFrontAction(ApplicationManager *pApp) :Action(pApp)
+BringToFrontAction::BringToFrontAction(ApplicationManager *pApp) :Action(pApp)
 {}
 
-void bringToFrontAction::readActionParameters()
+void BringToFrontAction::readActionParameters()
 {
 	currentFigure = pManager->getSelectedFigure();
 }
-void bringToFrontAction::execute()
+void BringToFrontAction::execute()
 {
 
 	readActionParameters();

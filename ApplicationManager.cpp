@@ -38,87 +38,87 @@ void ApplicationManager::executeAction(ActionType ActType)
 	switch (ActType)
 	{
 	case DRAW_RECT:
-		pAct = new addRectAction(this);
+		pAct = new AddRectangleAction(this);
 		break;
 
 	case DRAW_TRI:
-		pAct = new addTriangleAction(this);
+		pAct = new AddTriangleAction(this);
 		break;
 
 	case DRAW_ELLIPSE:
-		pAct = new addEllipseAction(this);
+		pAct = new AddEllipseAction(this);
 		break;
 
 	case DRAW_RHOMBUS:
-		pAct = new addRhombusAction(this);
+		pAct = new AddRhombusAction(this);
 		break;
 
 	case DRAW_LINE:
-		pAct = new addLineAction(this);
+		pAct = new AddLineAction(this);
 		break;
 
 	case CLEAR:
-		pAct = new clearAction(this);
+		pAct = new ClearAction(this);
 		break;
 
 	case CHANGE_DRAW_COLOR:
-		pAct = new changeDrawColor(this);
+		pAct = new ChangeDrawColor(this);
 		break;
 
 	case CHANGE_FILL_COLOR:
-		pAct = new changeFillColor(this);
+		pAct = new ChangeFillColor(this);
 		break;
 
 	case SELECT:
-		pAct = new selectShapeAction(this);
+		pAct = new SelectShapeAction(this);
 		break;
 
 	case SEND_TO_BACK:
-		pAct = new sendToBackAction(this);
+		pAct = new SendToBackAction(this);
 		break;
 
 	case BRING_TO_FRONT:
-		pAct = new bringToFrontAction(this);
+		pAct = new BringToFrontAction(this);
 		break;
 
 	case RESIZE:
-		pAct = new resizeAction(this);
+		pAct = new ResizeAction(this);
 		break;
 
 	case DEL:
-		pAct = new deleteAction(this);
+		pAct = new DeleteAction(this);
 		break;
 
 	case SAVE:
-		pAct = new saveAction(this);
+		pAct = new SaveAction(this);
 		break;
 
 	case SAVE_BY_TYPE:
-		pAct = new saveByTypeAction(this);
+		pAct = new SaveByTypeAction(this);
 		break;
 
 	case LOAD:
-		pAct = new loadAction(this);
+		pAct = new LoadAction(this);
 		break;
 
 	case COPY:
-		pAct = new copyAction(this);
+		pAct = new CopyAction(this);
 		break;
 
 	case CUT:
-		pAct = new cutAction(this);
+		pAct = new CutAction(this);
 		break;
 
 	case PASTE:
-		pAct = new pasteAction(this);
+		pAct = new PasteAction(this);
 		break;
 
 	case PLAY_SHAPE:
-		pAct = new byShapeAction(this);
+		pAct = new ByShapeAction(this);
 		break;
 
 	case PLAY_COLOR:
-		pAct = new byColorAction(this);
+		pAct = new ByColorAction(this);
 		break;
 
 	case SOUND:
@@ -126,7 +126,7 @@ void ApplicationManager::executeAction(ActionType ActType)
 		break;
 
 	case EXIT:
-		pAct = new exitAction(this);
+		pAct = new ExitAction(this);
 		break;
 
 	case TO_DRAW:
@@ -183,7 +183,7 @@ void ApplicationManager::executeAction(ActionType ActType)
 //==================================================================================//
 
 //Add a figure to the list of figures
-void ApplicationManager::addFigure(cFigure* pFig)
+void ApplicationManager::addFigure(CFigure* pFig)
 {
 	if (figCount < MAX_FIG_COUNT)
 	{
@@ -269,7 +269,7 @@ bool ApplicationManager::hasColor(color FIG_COLOR) const
 	return false;
 }
 
-cFigure *ApplicationManager::getFigure(int x, int y) const
+CFigure *ApplicationManager::getFigure(int x, int y) const
 {
 	//If a figure is found return a pointer to it.
 	//if this point (x,y) does not belong to any figure return nullptr
@@ -285,7 +285,7 @@ cFigure *ApplicationManager::getFigure(int x, int y) const
 
 	return nullptr;
 }
-void ApplicationManager::deleteFigure(cFigure* deleted)
+void ApplicationManager::deleteFigure(CFigure* deleted)
 {
 	for (int i = 0; i < figCount; i++)
 	{
@@ -308,10 +308,10 @@ void ApplicationManager::deleteFigure(cFigure* deleted)
 	}
 }
 
-void ApplicationManager::sendToBack(cFigure* figure)
+void ApplicationManager::sendToBack(CFigure* figure)
 {
 	int currentIndex;
-	cFigure* currentFigure;
+	CFigure* currentFigure;
 
 	for (int i = 0; i < figCount; i++)
 	{
@@ -332,10 +332,10 @@ void ApplicationManager::sendToBack(cFigure* figure)
 	figList[0] = currentFigure;
 }
 
-void ApplicationManager::bringToFront(cFigure* figure)
+void ApplicationManager::bringToFront(CFigure* figure)
 {
 	int currentIndex;
-	cFigure* currentFigure;
+	CFigure* currentFigure;
 	for (int i = 0; i < figCount; i++)
 	{
 
@@ -378,22 +378,22 @@ Output *ApplicationManager::getOutput() const
 {
 	return pOut;
 }
-void ApplicationManager::setSelectedFigure(cFigure* fig)
+void ApplicationManager::setSelectedFigure(CFigure* fig)
 {
 	selectedFig = fig;
 }
 
-cFigure* ApplicationManager::getSelectedFigure() const
+CFigure* ApplicationManager::getSelectedFigure() const
 {
 	return selectedFig;
 }
 
-void ApplicationManager::setLastSelected(cFigure* fig)
+void ApplicationManager::setLastSelected(CFigure* fig)
 {
 	lastSelected = fig;
 }
 
-cFigure* ApplicationManager::getLastSelected() const
+CFigure* ApplicationManager::getLastSelected() const
 {
 	return lastSelected;
 }
@@ -404,12 +404,12 @@ void ApplicationManager::exit()
 	pIn = nullptr; pOut = nullptr;
 }
 
-void ApplicationManager::setClipboard(cFigure* fig)
+void ApplicationManager::setClipboard(CFigure* fig)
 {
 	clipboard = fig;
 }
 
-cFigure* ApplicationManager::getClipboard() const
+CFigure* ApplicationManager::getClipboard() const
 {
 	return clipboard;
 }
@@ -434,12 +434,12 @@ void ApplicationManager::setLastFillClr(color clr)
 	lastFillColor = clr;
 
 }
-void ApplicationManager::setLastCut(cFigure* fig)
+void ApplicationManager::setLastCut(CFigure* fig)
 {
 	lastCut = fig;
 }
 
-cFigure* ApplicationManager::getLastCut() const
+CFigure* ApplicationManager::getLastCut() const
 {
 	return lastCut;
 }
