@@ -96,7 +96,7 @@ void Output::createDrawToolBar() const
 	menuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
 
 	//Draw menu item one image at a time
-	for (int i = 0; i < DRAW_ITM_COUNT - 4; i++)
+	for (int i = 0; i <= ITM_LINE; i++)
 		pWind->DrawImage(menuItemImages[i], i *UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
 
 	// clean white spaces in toolbar
@@ -462,33 +462,6 @@ void Output::drawRectangle(Point P1, Point P2, GfxInfo RectGfxInfo, bool selecte
 
 }
 
-void Output::drawRhombus(Point P, GfxInfo RhomGfxInfo, bool selected) const
-{
-	color drawingColor;
-	if (selected)
-		drawingColor = UI.HighlightColor; //Figure should be drawn highlighted
-	else
-		drawingColor = RhomGfxInfo.drawColor;
-
-	pWind->SetPen(drawingColor, 3);
-	drawstyle style;
-	if (RhomGfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(RhomGfxInfo.fillColor);
-	}
-	else
-		style = FRAME;
-
-	int X[4];
-	int Y[4];
-	X[0] = P.x;			X[1] = P.x + 120;	X[2] = P.x;			X[3] = P.x - 120;
-	Y[0] = P.y + 60;	Y[1] = P.y;			Y[2] = P.y - 60;	Y[3] = P.y;
-
-	pWind->DrawPolygon(X, Y, 4, style);
-
-}
-
 void Output::drawRhombus(const int* X, const int* Y, GfxInfo RhomGfxInfo, bool selected) const
 {
 	color drawingColor;
@@ -508,31 +481,6 @@ void Output::drawRhombus(const int* X, const int* Y, GfxInfo RhomGfxInfo, bool s
 		style = FRAME;
 
 	pWind->DrawPolygon(X, Y, 4, style);
-}
-
-void Output::drawEllipse(Point P, GfxInfo ElpsGfxInfo, bool selected) const
-{
-	color drawingColor;
-	if (selected)
-		drawingColor = UI.HighlightColor; //Figure should be drawn highlighted
-	else
-		drawingColor = ElpsGfxInfo.drawColor;
-
-	pWind->SetPen(drawingColor, 3);
-	drawstyle style;
-	if (ElpsGfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(ElpsGfxInfo.fillColor);
-	}
-	else
-		style = FRAME;
-	Point P1, P2;
-	P1.x = P.x - 120; P1.y = P.y + 60;
-	P2.x = P.x + 120; P2.y = P.y - 60;
-
-	pWind->DrawEllipse(P1.x, P1.y, P2.x, P2.y, style);
-
 }
 
 void Output::drawEllipse(Point P1, Point P2, GfxInfo ElpsGfxInfo, bool selected) const

@@ -23,11 +23,9 @@ public:
 
 	// -- Figures Drawing functions
 	void drawRectangle(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected = false) const;  //Draw a rectangle
-	void drawEllipse(Point P, GfxInfo ElpsGfxInfo, bool selected = false) const;
 	void drawEllipse(Point P1, Point P2, GfxInfo ElpsGfxInfo, bool selected = false) const;	//Draws the Ellipse using the rectangle that bounds it
 	void drawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected = false) const;
 	void drawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected = false) const;
-	void drawRhombus(Point P, GfxInfo RhomGfxInfo, bool selected = false) const;
 	void drawRhombus(const int* X, const int* Y, GfxInfo RhomGfxInfo, bool selected) const;	//Draws the Rhombus using two array of the respective coordinates of its 4 vertices
 
 

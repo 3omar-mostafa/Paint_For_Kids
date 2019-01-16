@@ -135,7 +135,6 @@ void ApplicationManager::executeAction(ActionType ActType)
 		pOut->createDrawToolBar();
 		pOut->createColorIcons();
 		pOut->createDrawActionToolBar();
-		pOut->drawSoundIcon(getSoundState());
 
 		// resets clipboard and selected figures after switching to draw mode
 		selectedFig = nullptr;
