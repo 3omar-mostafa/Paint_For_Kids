@@ -17,12 +17,12 @@ void CopyAction::readActionParameters()
 		{
 			if (!pManager->getLastCut()->isFilled()) 
 			{
-				pManager->getLastCut()->changeDrawColor(pManager->getLastDrawClr());
+				pManager->getLastCut()->changeDrawColor(pManager->getLastDrawColor());
 			}
 			else 
 			{
-				pManager->getLastCut()->changeDrawColor(pManager->getLastDrawClr());
-				pManager->getLastCut()->changeFillColor(pManager->getLastFillClr());
+				pManager->getLastCut()->changeDrawColor(pManager->getLastDrawColor());
+				pManager->getLastCut()->changeFillColor(pManager->getLastFillColor());
 			}
 			pManager->setLastCut(nullptr);
 			pManager->getClipboard()->setCut(false);

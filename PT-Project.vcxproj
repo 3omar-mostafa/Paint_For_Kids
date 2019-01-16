@@ -134,6 +134,7 @@
     <ClCompile Include="Actions\AddTriangleAction.cpp" />
     <ClCompile Include="Actions\ByColorAction.cpp" />
     <ClCompile Include="Actions\ByShapeAction.cpp" />
+    <ClCompile Include="Actions\ChangeBorderSize.cpp" />
     <ClCompile Include="Actions\ClearAction.cpp" />
     <ClCompile Include="Actions\ExitAction.cpp" />
     <ClCompile Include="Actions\ChangeDrawColor.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Actions\ChangeFillColor.h" />
     <ClInclude Include="Actions\BringToFrontAction.h" />
     <ClInclude Include="Actions\ResizeAction.h" />
+    <ClInclude Include="Actions\ChangeBorderSize.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />

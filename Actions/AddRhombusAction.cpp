@@ -13,7 +13,7 @@ void AddRhombusAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->getOutput();
-	Input* pIn = pManager->getInput();
+
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Rhombus_Selected.jpg", ITM_RHOMBUS);
 	if (pManager->getSoundState())
 		PlaySound(TEXT("Sounds/En-au-rhombus.wav"), NULL, SND_ASYNC);
@@ -26,6 +26,7 @@ void AddRhombusAction::readActionParameters()
 	//get drawing, filling colors and pen width from the interface
 	RhomGfxInfo.drawColor = pOut->getCurrentDrawColor();
 	RhomGfxInfo.fillColor = pOut->getCurrentFillColor();
+	RhomGfxInfo.borderSize = pOut->getCurrentBorderSize();
 
 	pOut->clearStatusBar();
 

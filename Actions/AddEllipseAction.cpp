@@ -13,7 +13,7 @@ void AddEllipseAction::readActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->getOutput();
-	Input* pIn = pManager->getInput();
+
 	pOut->drawOnToolbar("images\\MenuItems\\Menu_Circ_Selected.jpg", ITM_ELLIPSE);
 	if(pManager->getSoundState())
 		PlaySound(TEXT("Sounds/ellipse--_gb_1.wav"), nullptr, SND_ASYNC);
@@ -26,6 +26,7 @@ void AddEllipseAction::readActionParameters()
 	//Get drawing, filling colors and pen width from the interface
 	ElpsGfxInfo.drawColor = pOut->getCurrentDrawColor();
 	ElpsGfxInfo.fillColor = pOut->getCurrentFillColor();
+	ElpsGfxInfo.borderSize = pOut->getCurrentBorderSize();
 
 	pOut->clearStatusBar();
 

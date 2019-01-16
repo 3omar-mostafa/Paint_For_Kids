@@ -33,7 +33,13 @@ public:
 
 	static color getCurrentDrawColor();	//get current drawing color
 	static color getCurrentFillColor();	//get current filling color
-	static int getCurrentPenWidth();		//get current pen width
+	static int getCurrentBorderSize();		//get current border size
+	static void setCurrentBorderSize(int);
+
+	void createBorderSizeIcon();
+	void drawBorderSizeMenu() const;
+	int selectBorderSize(Point);
+	void changeBorderSizeIcon(int) const;
 
 	void drawOnToolbar(string, int) const;
 	void drawOnActionbar(string, int) const;

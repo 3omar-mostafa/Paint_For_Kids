@@ -29,6 +29,7 @@ void AddRectangleAction::readActionParameters()
 	//get drawing, filling colors and pen width from the interface
 	RectGfxInfo.drawColor = pOut->getCurrentDrawColor();
 	RectGfxInfo.fillColor = pOut->getCurrentFillColor();
+	RectGfxInfo.borderSize = pOut->getCurrentBorderSize();
 
 	pOut->clearStatusBar();
 

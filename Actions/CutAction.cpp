@@ -16,20 +16,21 @@ void CutAction::readActionParameters()
 	{
 		if (!pManager->getLastCut()->isFilled())
 		{
-			pManager->getLastCut()->changeDrawColor(pManager->getLastDrawClr());
+			pManager->getLastCut()->changeDrawColor(pManager->getLastDrawColor());
 		}
 		else 
 		{
-			pManager->getLastCut()->changeDrawColor(pManager->getLastDrawClr());
-			pManager->getLastCut()->changeFillColor(pManager->getLastFillClr());
+			pManager->getLastCut()->changeDrawColor(pManager->getLastDrawColor());
+			pManager->getLastCut()->changeFillColor(pManager->getLastFillColor());
 		}
 	}
 
 	pManager->setLastCut(pManager->getSelectedFigure());
 	if (pManager->getSelectedFigure() != nullptr)
 	{
-		pManager->setLastDrawClr(pManager->getSelectedFigure()->getDrawColor());
-		pManager->setLastFillClr(pManager->getSelectedFigure()->getFillColor());
+		pManager->setLastDrawColor(pManager->getSelectedFigure()->getDrawColor());
+		pManager->setLastFillColor(pManager->getSelectedFigure()->getFillColor());
+		pManager->setLastBorderSize(pManager->getSelectedFigure()->getBorderSize());
 	}
 
 	cut = pManager->getSelectedFigure();

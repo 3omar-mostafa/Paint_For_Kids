@@ -56,10 +56,12 @@ void SelectShapeAction::execute()
 		{
 			pManager->getSelectedFigure()->toggleSelection();
 
-			// change draw color icon according to the selected figure color
+			// change draw color icon according to the selected figure's color
 			pOut->changeDrawColorIcon(pManager->getSelectedFigure()->getDrawColor());
-			// change fill color icon according to the selected figure color and its fill state
+			// change fill color icon according to the selected figure's color and its fill state
 			pOut->changeFillColorIcon(pManager->getSelectedFigure()->getFillColor(), pManager->getSelectedFigure()->isFilled());
+			// change border size icon according to the selected figure's border size
+			pOut->changeBorderSizeIcon(pManager->getSelectedFigure()->getBorderSize());
 
 			if ( ! pManager->getSelectedFigure()->isSelected())
 				pManager->getSelectedFigure()->setSelected(false);

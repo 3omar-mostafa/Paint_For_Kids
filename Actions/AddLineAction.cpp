@@ -26,6 +26,7 @@ void AddLineAction::readActionParameters()
 	
 	//get drawing color and pen width from the interface
 	LineGfxInfo.drawColor = pOut->getCurrentDrawColor();
+	LineGfxInfo.borderSize = pOut->getCurrentBorderSize();
 	LineGfxInfo.isFilled = false;
 
 	pOut->clearStatusBar();

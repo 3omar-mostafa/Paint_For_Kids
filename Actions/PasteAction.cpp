@@ -41,8 +41,9 @@ void PasteAction::execute()
 
 		if (toPaste->isCut())
 		{
-			toPasteGfxInfo.drawColor = pManager->getLastDrawClr();
-			toPasteGfxInfo.fillColor = pManager->getLastFillClr();
+			toPasteGfxInfo.drawColor = pManager->getLastDrawColor();
+			toPasteGfxInfo.fillColor = pManager->getLastFillColor();
+			toPasteGfxInfo.borderSize = pManager->getLastBorderSize();
 			pManager->deleteFigure(toPaste);
 			pManager->setClipboard(nullptr);
 			pManager->setLastCut(nullptr);
@@ -52,6 +53,7 @@ void PasteAction::execute()
 		{
 			toPasteGfxInfo.drawColor = toPaste->getDrawColor();
 			toPasteGfxInfo.fillColor = toPaste->getFillColor();
+			toPasteGfxInfo.borderSize = toPaste->getBorderSize();
 		}
 
 		Point P1 = Center + Point(a, b);		//Bottom Right Corner
@@ -75,8 +77,9 @@ void PasteAction::execute()
 
 		if (toPaste->isCut())
 		{
-			toPasteGfxInfo.drawColor = pManager->getLastDrawClr();
-			toPasteGfxInfo.fillColor = pManager->getLastFillClr();
+			toPasteGfxInfo.drawColor = pManager->getLastDrawColor();
+			toPasteGfxInfo.fillColor = pManager->getLastFillColor();
+			toPasteGfxInfo.borderSize = pManager->getLastBorderSize();
 			pManager->deleteFigure(toPaste);
 			pManager->setClipboard(nullptr);
 			pManager->setLastCut(nullptr);
@@ -86,6 +89,7 @@ void PasteAction::execute()
 		{
 			toPasteGfxInfo.drawColor = toPaste->getDrawColor();
 			toPasteGfxInfo.fillColor = toPaste->getFillColor();
+			toPasteGfxInfo.borderSize = toPaste->getBorderSize();
 		}
 		
 		// Recreating the object with its New Position:
@@ -104,8 +108,9 @@ void PasteAction::execute()
 
 		if (toPaste->isCut())
 		{
-			toPasteGfxInfo.drawColor = pManager->getLastDrawClr();
-			toPasteGfxInfo.fillColor = pManager->getLastFillClr();
+			toPasteGfxInfo.drawColor = pManager->getLastDrawColor();
+			toPasteGfxInfo.fillColor = pManager->getLastFillColor();
+			toPasteGfxInfo.borderSize = pManager->getLastBorderSize();
 			pManager->deleteFigure(toPaste);
 			pManager->setClipboard(nullptr);
 			pManager->setLastCut(nullptr);
@@ -115,6 +120,7 @@ void PasteAction::execute()
 		{
 			toPasteGfxInfo.drawColor = toPaste->getDrawColor();
 			toPasteGfxInfo.fillColor = toPaste->getFillColor();
+			toPasteGfxInfo.borderSize = toPaste->getBorderSize();
 		}
 
 		pOut->drawTriangle(Pa, Pb, Pc, toPasteGfxInfo, false);
@@ -135,8 +141,9 @@ void PasteAction::execute()
 
 		if (toPaste->isCut())
 		{
-			toPasteGfxInfo.drawColor = pManager->getLastDrawClr();
-			toPasteGfxInfo.fillColor = pManager->getLastFillClr();
+			toPasteGfxInfo.drawColor = pManager->getLastDrawColor();
+			toPasteGfxInfo.fillColor = pManager->getLastFillColor();
+			toPasteGfxInfo.borderSize = pManager->getLastBorderSize();
 			pManager->deleteFigure(toPaste);
 			pManager->setClipboard(nullptr);
 			pManager->setLastCut(nullptr);
@@ -146,6 +153,7 @@ void PasteAction::execute()
 		{
 			toPasteGfxInfo.drawColor = toPaste->getDrawColor();
 			toPasteGfxInfo.fillColor = toPaste->getFillColor();
+			toPasteGfxInfo.borderSize = toPaste->getBorderSize();
 		}
 
 		pOut->drawRectangle(Pa, Pb, toPasteGfxInfo, false);
@@ -166,8 +174,9 @@ void PasteAction::execute()
 
 		if (toPaste->isCut())
 		{
-			toPasteGfxInfo.drawColor = pManager->getLastDrawClr();
-			toPasteGfxInfo.fillColor = pManager->getLastFillClr();
+			toPasteGfxInfo.drawColor = pManager->getLastDrawColor();
+			toPasteGfxInfo.fillColor = pManager->getLastFillColor();
+			toPasteGfxInfo.borderSize = pManager->getLastBorderSize();
 			pManager->deleteFigure(toPaste);
 			pManager->setClipboard(nullptr);
 			pManager->setLastCut(nullptr);
@@ -177,6 +186,7 @@ void PasteAction::execute()
 		{
 			toPasteGfxInfo.drawColor = toPaste->getDrawColor();
 			toPasteGfxInfo.fillColor = toPaste->getFillColor();
+			toPasteGfxInfo.borderSize = toPaste->getBorderSize();
 		}
 
 		pOut->drawLine(Pa, Pb, toPasteGfxInfo, false);

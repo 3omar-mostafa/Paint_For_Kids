@@ -33,6 +33,7 @@ void AddTriangleAction::readActionParameters()
 	//get drawing, filling colors and pen width from the interface
 	TriGfxInfo.drawColor = pOut->getCurrentDrawColor();
 	TriGfxInfo.fillColor = pOut->getCurrentFillColor();
+	TriGfxInfo.borderSize = pOut->getCurrentBorderSize();
 
 	pOut->clearStatusBar();
 

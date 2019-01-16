@@ -41,6 +41,9 @@ public:
 	void setFilled(bool );
 	virtual bool doesItContain(int, int) = 0;
 
+	void changeBorderSize(int);
+	int getBorderSize() const;
+
 	virtual bool resize(double) = 0;
 
 	///The following functions should be supported by the figure class

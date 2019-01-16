@@ -224,6 +224,9 @@
     <ClCompile Include="Actions\AddEllipseAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\ChangeBorderSize.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -384,6 +387,9 @@
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\AddTriangleAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\ChangeBorderSize.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>

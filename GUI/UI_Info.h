@@ -25,6 +25,7 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_ELLIPSE,
 	ITM_RHOMBUS,
 	ITM_LINE,
+	ITM_BORDER_SIZE,
 	ITM_FILL_COLOR,
 	ITM_DRAW_COLOR,
 	ITM_SOUND,
@@ -92,7 +93,7 @@ struct UI_Info	//User Interface Info.
 	color MessageColor;		//Messages color
 	color BackgroundColor;	//Background color
 	color StatusBarColor;	//Status bar color
-	int PenWidth;			//width of the pen that draws shapes
+	int BorderSize;			//width of the pen that draws shapes
 
 	/// Add more members if needed
 

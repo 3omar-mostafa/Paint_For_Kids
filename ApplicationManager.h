@@ -31,6 +31,7 @@
 #include "Actions/SendToBackAction.h"
 #include "Actions/BringToFrontAction.h"
 #include "Actions/ResizeAction.h"
+#include "Actions/ChangeBorderSize.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -45,6 +46,7 @@ private:
 	CFigure* lastSelected;
 	CFigure* lastCut;
 	color lastDrawColor, lastFillColor;
+	int lastBorderSize;
 	CFigure* clipboard;   //Pointer to the copied/cut figure
 
 	bool isSoundON;
@@ -89,10 +91,12 @@ public:
 	void setClipboard(CFigure*);
 	CFigure* getClipboard() const;
 
-	color getLastDrawClr() const;
-	color getLastFillClr() const;
-	void setLastDrawClr(color);
-	void setLastFillClr(color);
+	color getLastDrawColor() const;
+	color getLastFillColor() const;
+	int getLastBorderSize() const;
+	void setLastDrawColor(color);
+	void setLastFillColor(color);
+	void setLastBorderSize(int);
 
 	void bringToFront(CFigure*);
 	void sendToBack(CFigure*);

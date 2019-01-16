@@ -75,3 +75,12 @@ bool CFigure::isFilled() const
 	return figGfxInfo.isFilled;
 }
 
+void CFigure::changeBorderSize(int size)
+{
+	figGfxInfo.borderSize = size;
+}
+
+int CFigure::getBorderSize() const
+{
+	return figGfxInfo.borderSize;
+}

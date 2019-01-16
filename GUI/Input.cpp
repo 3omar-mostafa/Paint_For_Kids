@@ -66,20 +66,20 @@ ActionType Input::getUserAction(Point & P) const
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 			if (x < (ITM_FILL_COLOR)*UI.MenuItemWidth + 50 && x >(ITM_FILL_COLOR)*UI.MenuItemWidth)
 				return CHANGE_FILL_COLOR;
-			else if (x < (ITM_DRAW_COLOR)*UI.MenuItemWidth && x >(ITM_DRAW_COLOR)*UI.MenuItemWidth - 50)
+			if (x < (ITM_DRAW_COLOR)*UI.MenuItemWidth && x >(ITM_DRAW_COLOR)*UI.MenuItemWidth - 50)
 				return CHANGE_DRAW_COLOR;
-			else {
-				switch (ClickedItemOrder)
-				{
+
+			switch (ClickedItemOrder)
+			{
 				case ITM_GAME:      return TO_PLAY;
 				case ITM_RECTANGLE:      return DRAW_RECT;
 				case ITM_TRIANGLE:  return DRAW_TRI;
 				case ITM_ELLIPSE:    return DRAW_ELLIPSE;
 				case ITM_RHOMBUS:   return DRAW_RHOMBUS;
 				case ITM_LINE:	    return DRAW_LINE;
+				case ITM_BORDER_SIZE: return BORDER_SIZE;
 
 				default: return EMPTY;	//A click on empty place in design toolbar
-				}
 			}
 
 		}

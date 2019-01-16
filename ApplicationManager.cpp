@@ -69,6 +69,10 @@ void ApplicationManager::executeAction(ActionType ActType)
 		pAct = new ChangeFillColor(this);
 		break;
 
+	case BORDER_SIZE:
+		pAct = new ChangeBorderSize(this);
+		break;
+
 	case SELECT:
 		pAct = new SelectShapeAction(this);
 		break;
@@ -135,6 +139,7 @@ void ApplicationManager::executeAction(ActionType ActType)
 		pOut->createDrawToolBar();
 		pOut->createColorIcons();
 		pOut->createDrawActionToolBar();
+		pOut->createBorderSizeIcon();
 
 		// resets clipboard and selected figures after switching to draw mode
 		selectedFig = nullptr;
@@ -413,26 +418,36 @@ CFigure* ApplicationManager::getClipboard() const
 	return clipboard;
 }
 
-color ApplicationManager::getLastDrawClr() const
+color ApplicationManager::getLastDrawColor() const
 {
 	return lastDrawColor;
 }
 
-color ApplicationManager::getLastFillClr() const
+color ApplicationManager::getLastFillColor() const
 {
 	return lastFillColor;
 }
 
-void ApplicationManager::setLastDrawClr(color c)
+int ApplicationManager::getLastBorderSize() const
+{
+	return lastBorderSize;
+}
+
+void ApplicationManager::setLastDrawColor(color c)
 {
 	lastDrawColor = c;
 }
 
-void ApplicationManager::setLastFillClr(color clr)
+void ApplicationManager::setLastFillColor(color clr)
 {
 	lastFillColor = clr;
-
 }
+
+void ApplicationManager::setLastBorderSize(int size)
+{
+	lastBorderSize = size;
+}
+
 void ApplicationManager::setLastCut(CFigure* fig)
 {
 	lastCut = fig;
