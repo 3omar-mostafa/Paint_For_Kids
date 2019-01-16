@@ -483,31 +483,33 @@ void Output::drawBorderSizeMenu() const
 int Output::selectBorderSize(Point p)
 {
 	if (p.x > ITM_BORDER_SIZE*UI.MenuItemWidth && p.x < (ITM_BORDER_SIZE + 1)*UI.MenuItemWidth) {
-		int selectedColor = ((p.y - UI.ToolBarHeight) / UI.MenuActionWidth);
+		int selectedColor = ((p.y ) / UI.MenuActionWidth);
 		switch (selectedColor)
 		{
-		case 0:
+		case 1:
 			pWind->DrawImage("images\\MenuItems\\Menu_Border_Size_1.jpg", ITM_BORDER_SIZE*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
 			UI.BorderSize = BORDER_SIZE_1;
 			return BORDER_SIZE_1;
-		case 1:
+		case 2:
 			pWind->DrawImage("images\\MenuItems\\Menu_Border_Size_2.jpg", ITM_BORDER_SIZE*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
 			UI.BorderSize = BORDER_SIZE_2;
 			return BORDER_SIZE_2;
-		case 2:
+		case 3:
 			pWind->DrawImage("images\\MenuItems\\Menu_Border_Size_3.jpg", ITM_BORDER_SIZE*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
 			UI.BorderSize = BORDER_SIZE_3;
 			return BORDER_SIZE_3;
-		case 3:
+		case 4:
 			pWind->DrawImage("images\\MenuItems\\Menu_Border_Size_4.jpg", ITM_BORDER_SIZE*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
 			UI.BorderSize = BORDER_SIZE_4;
 			return BORDER_SIZE_4;
-		case 4:
+		case 5:
 			pWind->DrawImage("images\\MenuItems\\Menu_Border_Size_5.jpg", ITM_BORDER_SIZE*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
 			UI.BorderSize = BORDER_SIZE_5;
 			return BORDER_SIZE_5;
 		}
 	}
+
+	return -1;
 }
 
 //======================================================================================//

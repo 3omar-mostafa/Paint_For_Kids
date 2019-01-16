@@ -77,7 +77,8 @@ bool CFigure::isFilled() const
 
 void CFigure::changeBorderSize(int size)
 {
-	figGfxInfo.borderSize = size;
+	if(size > 0)
+		figGfxInfo.borderSize = size;
 }
 
 int CFigure::getBorderSize() const
