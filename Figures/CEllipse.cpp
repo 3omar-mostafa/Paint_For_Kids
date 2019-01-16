@@ -43,7 +43,19 @@ bool CEllipse::doesItContain(int x, int y) {
 	long long a = Corner1.x - Center.x;
 	long long b = Corner1.y - Center.y;
 
-	return b * b * X * X + a * a * Y * Y <= a * a * b * b;
+	if (isFilled()) {
+		if (b*b * X*X + a*a * Y*Y <= a*a * b*b)
+			return true;
+	}
+	else
+	{
+		long long a2 = a - 2 * figGfxInfo.borderSize;
+		long long b2 = b - 2 * figGfxInfo.borderSize;
+		if (b*b * X*X + a * a * Y*Y <= a * a * b*b && b*b * X*X + a * a * Y*Y >= a2 * a2 * b2*b2)
+			return true;
+	}
+
+	return false;
 }
 
 bool CEllipse::resize(double R)

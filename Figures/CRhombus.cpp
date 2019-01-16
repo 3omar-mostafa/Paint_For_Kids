@@ -38,27 +38,42 @@ void CRhombus::draw(Output* pOut) const
 bool CRhombus::doesItContain(int x, int y) {
 	int X = x - center.x;
 	int Y = y - center.y;
-	int a = xArr[1] - center.x;
-	int b = yArr[0] - center.y;
+	int a = xArr[1] - center.x ;
+	int b = yArr[0] - center.y ;
 
-	if (X >= -a && X <= a && Y >= -b && Y <= b) {
+	double errorPercentage = figGfxInfo.borderSize / 100.0;
 
-		// 1.1 is just an error percentage of 10%
-		if (X >= 0 && X <= a && Y >= 0 && Y <= b) { //1st quad
-			if (a * Y + b * X <= a * b *1.1 )
-				return true;
+	if (X >= -a - figGfxInfo.borderSize/2 && X <= a + figGfxInfo.borderSize/2 && Y >= -b- figGfxInfo.borderSize/2 && Y <= b+ figGfxInfo.borderSize/2) {
+
+		// the center of the rhombus is the origin
+		// then these equations are the 4 equations of straight lines of the rhombus
+
+		if (isFilled()) {
+			if (X >= 0  && Y >= 0 ) { //1st quad
+				if (a * Y + b * X <= a * b *(1+errorPercentage))
+					return true;
+			}
+			else if (X <= 0  && Y >= 0) { //2nd quad
+				if (a * Y - b * X <= a * b*(1+errorPercentage))
+					return true;
+			}
+			else if (X <= 0 && Y <= 0 ) { //3rd quad
+				if (a * Y + b * X >= -a * b*(1+errorPercentage))
+					return true;
+			}
+			else if (X >= 0 && Y <= 0) { //4th quad
+				if (a * Y - b * X >= -a * b*(1+errorPercentage))
+					return true;
+			}
 		}
-		else if (X <= 0 && X >= -a && Y >= 0 && Y <= b) { //2nd quad
-			if (a * Y - b * X <= a * b*1.1)
-				return true;
-		}
-		else if (X <= 0 && X >= -a && Y <= 0 && Y >= -b) { //3rd quad
-			if (a * Y + b * X >= -a * b*1.1)
-				return true;
-		}
-		else if (X >= 0 && X <= a && Y <= 0 && Y >= -b) { //4th quad
-			if (a * Y - b * X >= -a * b*1.1)
-				return true;
+		else
+		{
+			if (( a* Y + b * X <= a*b*(1+errorPercentage) && a * Y + b * X >= a*b*(1-errorPercentage)) //1st quadrant
+				|| (a * Y - b * X <= a*b*(1+errorPercentage) && a * Y - b * X >= a*b*(1-errorPercentage)) //2nd quadrant
+				|| (a * Y + b * X >= -a*b*(1+errorPercentage) && a * Y + b * X <= -a*b*(1-errorPercentage)) //3rd quadrant
+				|| (a * Y - b * X >= -a*b*(1+errorPercentage) && a * Y - b * X <= -a*b*(1-errorPercentage))){ //4th quadrant
+					return true;
+			}
 		}
 	}
 

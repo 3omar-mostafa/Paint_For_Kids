@@ -32,7 +32,19 @@ bool CRectangle::doesItContain(int x, int y) {
 	if (y1 > y2)
 		swap(y1, y2);
 
-	return ( x >= x1 && x <= x2 && y >= y1 && y <= y2 );
+	if (isFilled()) {
+		if (x >= x1 && x <= x2 && y >= y1 && y <= y2)
+			return true;
+	}
+	else {
+		if ( ( ( (x >= x1 && x <= x1 + figGfxInfo.borderSize) || (x <= x2 && x >= x2 - figGfxInfo.borderSize) ) && (y >= y1 && y <= y2) )
+			|| ( (y >= y1 && y <= y1 + figGfxInfo.borderSize) || (y <= y2 && y >= y2 - figGfxInfo.borderSize) ) && (x >= x1 && x <= x2) )
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool CRectangle::resize(double R)

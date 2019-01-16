@@ -40,20 +40,21 @@ double CTriangle::getTriangularArea(Point p1, Point p2, Point p3) const
 bool CTriangle::isCollinear(Point p1, Point p2, Point p3) const
 {
 	// I am going to create a triangle using 2 point of the line and the given point
-	// the normal distance between the line and the given point (height) is area/length of line(base)
+	// the normal distance between the line and the given point (height) is 2*area/length of line(base)
 
-	int leftX = (p2.x > p1.x) ? p1.x - 3 : p2.x - 3;
-	int rightX = (p2.x < p1.x) ? p1.x + 3 : p2.x + 3;
-	int upY = (p2.y > p1.y) ? p1.y - 3 : p2.y - 3;
-	int downY = (p2.y < p1.y) ? p1.y + 3 : p2.y + 3;
+	int leftX = (p2.x > p1.x) ? p1.x - figGfxInfo.borderSize/2 : p2.x - figGfxInfo.borderSize/2 ;
+	int rightX = (p2.x < p1.x) ? p1.x + figGfxInfo.borderSize/2 : p2.x + figGfxInfo.borderSize/2 ;
+	int upY = (p2.y > p1.y) ? p1.y - figGfxInfo.borderSize/2 : p2.y - figGfxInfo.borderSize/2 ;
+	int downY = (p2.y < p1.y) ? p1.y + figGfxInfo.borderSize/2 : p2.y + figGfxInfo.borderSize/2 ;
 
 	if (p3.x >= leftX && p3.x <= rightX && p3.y >= upY && p3.y <= downY) {
 		// length of line = sqrt ( (x2-x1)^2 + (y2-y1)^2 )
 		double lengthOFLine = sqrt((rightX - leftX)*(rightX - leftX) + (downY - upY)*(downY - upY));
-		if (getTriangularArea(p1,p2,p3) / lengthOFLine <= 3) {
+		if (2*getTriangularArea(p1,p2,p3) / lengthOFLine <= figGfxInfo.borderSize/2) {
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -62,15 +63,22 @@ bool CTriangle::doesItContain(int x, int y) {
 	p4.x = x;
 	p4.y = y;
 
+	if (isCollinear(p1, p2, p4) || isCollinear(p1, p3, p4) || isCollinear(p2, p3, p4))
+		return true;
+
 	// if the point is inside the triangle and we connected it with the vertices
 	// we will have 3 smaller triangles and the sum of their areas MUST equal the bigger one
+	if (isFilled()) {
+		double totalArea = getTriangularArea(p1, p2, p3);
+		double area1 = getTriangularArea(p1, p2, p4);
+		double area2 = getTriangularArea(p1, p4, p3);
+		double area3 = getTriangularArea(p4, p2, p3);
 
-	double totalArea = getTriangularArea(p1, p2, p3);
-	double area1 = getTriangularArea(p1, p2, p4);
-	double area2 = getTriangularArea(p1, p4, p3);
-	double area3 = getTriangularArea(p4, p2, p3);
+		if (abs(totalArea - (area1 + area2 + area3)) <= 1)
+			return true;
+	}
 
-	return abs(totalArea - (area1 + area2 + area3)) <= 1;
+	return false;
 }
 
 bool CTriangle::resize(double R)

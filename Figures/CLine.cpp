@@ -34,15 +34,16 @@ double CLine::getTriangularArea(int x, int y) const
 
 bool CLine::doesItContain(int x, int y) {
 	// I am going to create a triangle using 2 point of the line and the given point
-	// the normal distance between the line and the given point (height) is area/length of line(base)
+	// the normal distance between the line and the given point (height) is 2*area/length of line(base)
 
-	int leftX = (P2.x > P1.x) ? P1.x - 3 : P2.x - 3;
-	int rightX = (P2.x < P1.x) ? P1.x + 3 : P2.x + 3;
-	int upY = (P2.y > P1.y) ? P1.y - 3 : P2.y - 3;
-	int downY = (P2.y < P1.y) ? P1.y + 3 : P2.y + 3;
+	int leftX = (P2.x > P1.x) ? P1.x - figGfxInfo.borderSize/2 : P2.x - figGfxInfo.borderSize/2;
+	int rightX = (P2.x < P1.x) ? P1.x + figGfxInfo.borderSize/2 : P2.x + figGfxInfo.borderSize/2;
+	int upY = (P2.y > P1.y) ? P1.y - figGfxInfo.borderSize/2 : P2.y - figGfxInfo.borderSize/2;
+	int downY = (P2.y < P1.y) ? P1.y + figGfxInfo.borderSize/2 : P2.y + figGfxInfo.borderSize/2;
 	if (x >= leftX && x <= rightX && y >= upY && y <= downY) {
+		// length of line = sqrt ( (x2-x1)^2 + (y2-y1)^2 )
 		double lengthOFLine = sqrt((rightX - leftX)*(rightX - leftX) + (downY - upY)*(downY - upY));
-		if (getTriangularArea(x, y) / lengthOFLine <= 3) {
+		if (2*getTriangularArea(x, y) / lengthOFLine <= figGfxInfo.borderSize/2) {
 			return true;
 		}
 	}
