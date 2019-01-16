@@ -199,6 +199,7 @@ void ApplicationManager::addFigure(CFigure* pFig)
 //Removes all Figures from the List
 void ApplicationManager::clearFigures()
 {
+	clipboard = selectedFig = nullptr;
 	for (int i = 0; i < figCount; i++)
 	{
 		delete figList[i];
