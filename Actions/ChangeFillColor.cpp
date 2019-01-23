@@ -31,5 +31,4 @@ void ChangeFillColor::execute()
 	else
 		pOut->selectFillColor(P);
 	
-	pOut->deleteColorMenu();
 }

@@ -23,6 +23,5 @@ void ChangeDrawColor::execute()
 		pManager->getSelectedFigure()->changeDrawColor(pOut->selectDrawColor(P));
 	else
 		pOut->selectDrawColor(P);
-	
-	pOut->deleteColorMenu();
+
 }
