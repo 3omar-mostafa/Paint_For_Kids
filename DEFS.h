@@ -37,7 +37,9 @@ enum ActionType //The actions supported (you can add more if needed)
 	PLAY_SHAPE,
 	TO_DRAW,		//Switch interface to Draw mode
 	TO_PLAY,		//Switch interface to Play mode
-	BORDER_SIZE
+	BORDER_SIZE,
+	UNDO,
+	REDO
 };
 
 enum FigureType
@@ -111,18 +113,20 @@ struct GfxInfo	//Graphical info of each figure (you may add more members)
 	int borderSize;	//size of figure borders
 	string data() const
 	{
-		string Data;
+		string Data = "";
 		Data += colorData(drawColor) + " " + colorData(fillColor) + " ";
-		Data += to_string((isFilled) ? true : false);
+		Data += to_string((isFilled) ? true : false) + " ";
+		Data += to_string(borderSize);
 		return Data;
 	}
 	void read(ifstream& in)
 	{
-		int filled;
+		int filled , border;
 		drawColor = readColor(in);
 		fillColor = readColor(in);
-		in >> filled;
+		in >> filled >> border;
 		isFilled = filled;
+		borderSize = border;
 	}
 };
 
