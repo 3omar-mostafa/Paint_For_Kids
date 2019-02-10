@@ -33,23 +33,9 @@ void LoadAction::execute()
 	pOut->printMessage("Enter the name of the file  OR  Press [ENTER] to load from FigureList.txt");
 	string FileName = pIn->getString(pOut);
 	FileName = !FileName.empty() ? FileName : "FigureList.txt";
-	
-	// Opening the file:
-	ifstream InFile;
-	InFile.open(FileName);
-	
-	// Reading the draw and fill colors and changing their icons:
-	color DrawClr = readColor(InFile);
-	color FillClr = readColor(InFile);
-	pOut->changeDrawColorIcon(DrawClr);
-	pOut->changeFillColorIcon(FillClr, (FillClr != NOFILL) ? 1 : 0);
-	
-	// Reading Figure Information from the file:
-	int NoOfFigures; InFile >> NoOfFigures;	
-	readFigures(InFile);	
-	
-	// Finishing up:
-	InFile.close();
+
+	loadFromFile(FileName);
+
 	pOut->printMessage("Loaded Successfully!");
 }
 
@@ -70,12 +56,30 @@ void LoadAction::readFigures(ifstream& InFile) const
 
 void LoadAction::quickLoad() const
 {
-	// Open >> Set Draw & Fill Colors >> Load Figures >> Close:
-	ifstream qin;
-	qin.open("SaveGame.txt");
-	UI.DrawColor = readColor(qin);
-	UI.FillColor = readColor(qin);
-	int NoOfFigures; qin >> NoOfFigures;
-	readFigures(qin);
-	qin.close();
+	loadFromFile("SaveGame.txt");
+	Output* pOut = pManager->getOutput();
+	pOut->createPlayToolBar(); // to redraw play mode toolbar to remove color icons
+}
+
+void LoadAction::loadFromFile(string filename) const
+{
+	Output* pOut = pManager->getOutput();
+	pManager->clearFigures();
+	ifstream InFile;
+	InFile.open(filename);
+
+	// Reading the draw and fill colors and changing their icons:
+	color DrawColor = readColor(InFile);
+	color FillColor = readColor(InFile);
+	pOut->changeDrawColorIcon(DrawColor);
+	pOut->changeFillColorIcon(FillColor, FillColor != NOFILL);
+
+	// Reading Figure Information from the file:
+	int NoOfFigures; 
+	InFile >> NoOfFigures;
+	
+	readFigures(InFile);
+
+	// Finishing up:
+	InFile.close();
 }

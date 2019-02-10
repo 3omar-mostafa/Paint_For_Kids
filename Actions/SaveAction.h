@@ -3,6 +3,7 @@
 class SaveAction :public Action
 {
 	ActionType Confirm;	//An ActionType variable to act as a confirmation for the action
+	void savetoFile(string) const;
 public:
 	SaveAction(ApplicationManager*);
 	void readActionParameters() override;

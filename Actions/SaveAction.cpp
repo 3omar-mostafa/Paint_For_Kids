@@ -34,22 +34,24 @@ void SaveAction::execute()
 	pOut->printMessage("Enter the name of the file including the extension  OR  Press [ENTER] to save to FigureList.txt");
 	string FileName = pIn->getString(pOut);
 	FileName = !FileName.empty() ? FileName : "FigureList.txt";
-	
+
+	savetoFile(FileName);
+
+	pManager->getOutput()->printMessage("Saved Successfully to " + FileName + "!");
+}
+
+void SaveAction::savetoFile(string filename ) const
+{
 	// Saving to the file:
 	ofstream OutFile;
-	OutFile.open(FileName);
+	OutFile.open(filename);
 	pManager->writeFigures(OutFile);
-	
+
 	// Finishing up:
 	OutFile.close();
-	pManager->getOutput()->printMessage("Saved Successfully to " + FileName + "!");
 }
 
 void SaveAction::quickSave() const
 {
-	// Open >> Save >> Close
-	ofstream out;
-	out.open("SaveGame.txt");
-	pManager->writeFigures(out);
-	out.close();
+	savetoFile("SaveGame.txt");
 }

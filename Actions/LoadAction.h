@@ -9,5 +9,6 @@ public:
 	void execute() override;
 	void readFigures(ifstream&) const;	//Reads Figure Information from a file
 	void quickLoad() const;	//Loads without confirmation or asking for a name for the file
+	void loadFromFile(string) const;
 };
 
