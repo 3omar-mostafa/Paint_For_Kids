@@ -227,6 +227,9 @@
     <ClCompile Include="Actions\ChangeBorderSize.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\UndoRedoAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -390,6 +393,9 @@
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\ChangeBorderSize.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\UndoRedoAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>

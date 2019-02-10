@@ -32,6 +32,7 @@
 #include "Actions/BringToFrontAction.h"
 #include "Actions/ResizeAction.h"
 #include "Actions/ChangeBorderSize.h"
+#include "Actions/UndoRedoAction.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager

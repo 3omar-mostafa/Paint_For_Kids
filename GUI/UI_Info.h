@@ -28,6 +28,8 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_BORDER_SIZE,
 	ITM_FILL_COLOR,
 	ITM_DRAW_COLOR,
+	ITM_UNDO,
+	ITM_REDO,
 	ITM_SOUND,
 	ITM_EXIT,		//Exit item
 

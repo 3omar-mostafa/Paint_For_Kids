@@ -197,6 +197,7 @@
     <ClCompile Include="Actions\SaveAction.cpp" />
     <ClCompile Include="Actions\SaveByTypeAction.cpp" />
     <ClCompile Include="Actions\SendToBackAction.cpp" />
+    <ClCompile Include="Actions\UndoRedoAction.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +256,7 @@
     <ClInclude Include="Actions\SaveByTypeAction.h" />
     <ClInclude Include="Actions\SelectShapeAction.h" />
     <ClInclude Include="Actions\SendToBackAction.h" />
+    <ClInclude Include="Actions\UndoRedoAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

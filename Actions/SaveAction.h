@@ -9,5 +9,6 @@ public:
 	void readActionParameters() override;
 	void execute() override;
 	void quickSave() const;	//Saves without confirmation or asking for a name for the file
+	void saveForUndo();
 };
 

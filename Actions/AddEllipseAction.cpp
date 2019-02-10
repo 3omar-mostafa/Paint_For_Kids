@@ -43,4 +43,7 @@ void AddEllipseAction::execute()
 
 	//Add the Ellipse to the list of figures
 	pManager->addFigure(El);
+
+	SaveAction save(pManager);
+	save.saveForUndo();
 }

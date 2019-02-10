@@ -44,4 +44,7 @@ void AddLineAction::readActionParameters()
 
 	 //Add the Line to the list of figures
 	 pManager->addFigure(L);
+
+	 SaveAction save(pManager);
+	save.saveForUndo();
  }

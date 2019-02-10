@@ -28,4 +28,6 @@ void BringToFrontAction::execute()
 	else
 		pManager->bringToFront(currentFigure);
 
+	SaveAction save(pManager);
+	save.saveForUndo();
 }

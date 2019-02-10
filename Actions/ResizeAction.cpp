@@ -42,4 +42,7 @@ void ResizeAction::execute()
 	}
 	else
 		pOut->printMessage("Please Select a Valid Size");
+
+	SaveAction save(pManager);
+	save.saveForUndo();
 }

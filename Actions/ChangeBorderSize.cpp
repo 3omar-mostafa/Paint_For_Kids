@@ -20,9 +20,22 @@ void ChangeBorderSize::execute()
 	pOut->drawBorderSizeMenu();
 	pIn->getPointClicked(P.x, P.y);
 
+	int currentBorderSize, selectedBorderSize;
 	if (pManager->getSelectedFigure() != nullptr)
-		pManager->getSelectedFigure()->changeBorderSize(pOut->selectBorderSize(P));
+	{
+		currentBorderSize = pManager->getSelectedFigure()->getBorderSize();
+		selectedBorderSize = pOut->selectBorderSize(P);
+		pManager->getSelectedFigure()->changeBorderSize(selectedBorderSize);
+	}
 	else
-		pOut->selectBorderSize(P);
+	{
+		selectedBorderSize = currentBorderSize = UI.BorderSize;
+		if(pOut->selectBorderSize(P) != -1) // i.e. the user selected one of the choices
+			selectedBorderSize = pOut->selectBorderSize(P);
+	}
 
+	if (selectedBorderSize != currentBorderSize) {
+		SaveAction save(pManager);
+		save.saveForUndo();
+	}
 }

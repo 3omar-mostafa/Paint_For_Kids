@@ -43,4 +43,7 @@ void AddRhombusAction::execute()
 
 	//Add the rhombus to the list of figures
 	pManager->addFigure(Rh);
+
+	SaveAction save(pManager);
+	save.saveForUndo();
 }

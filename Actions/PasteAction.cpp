@@ -63,6 +63,9 @@ void PasteAction::execute()
 		CEllipse* ellipse = new CEllipse(P1, P2, toPasteGfxInfo);
 		pManager->addFigure(ellipse);
 		pManager->setClipboard(ellipse);
+
+		SaveAction save(pManager);
+		save.saveForUndo();
 	}
 
 	else if (dynamic_cast<CRhombus*>(toPaste))
@@ -96,6 +99,9 @@ void PasteAction::execute()
 		CRhombus* rhombus = new CRhombus(Center, toPasteGfxInfo, a, b);
 		pManager->addFigure(rhombus);
 		pManager->setClipboard(rhombus);
+
+		SaveAction save(pManager);
+		save.saveForUndo();
 	}
 
 	else if (dynamic_cast<CTriangle*>(toPaste))
@@ -129,6 +135,9 @@ void PasteAction::execute()
 		//Add the triangle to the list of figures
 		pManager->addFigure(Tr);
 		pManager->setClipboard(Tr);
+
+		SaveAction save(pManager);
+		save.saveForUndo();
 	}
 
 	else if (dynamic_cast<CRectangle*>(toPaste))
@@ -162,6 +171,9 @@ void PasteAction::execute()
 		//Add the rectangle to the list of figures
 		pManager->addFigure(Rect);
 		pManager->setClipboard(Rect);
+
+		SaveAction save(pManager);
+		save.saveForUndo();
 	}
 
 	else if (dynamic_cast<CLine*>(toPaste))
@@ -196,6 +208,8 @@ void PasteAction::execute()
 		pManager->addFigure(Line);
 		pManager->setClipboard(Line);
 
+		SaveAction save(pManager);
+		save.saveForUndo();
 	}
 }
 

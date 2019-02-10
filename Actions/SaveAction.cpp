@@ -55,3 +55,18 @@ void SaveAction::quickSave() const
 {
 	savetoFile("SaveGame.txt");
 }
+
+void SaveAction::saveForUndo()
+{
+	Output* pOut = pManager->getOutput();
+	string filename = UndoRedoAction::getNextFileName();
+	UndoRedoAction::incrementUndoList();
+
+	// if we made some UNDOs and made a new action previous REDOs will be removed
+	UndoRedoAction::eraseRedoList();
+	pOut->drawUndoRedoIcons(UndoRedoAction::MODE_REDO, false);
+
+	pOut->drawUndoRedoIcons(UndoRedoAction::MODE_UNDO, UndoRedoAction::isUndoAvailable());
+
+	savetoFile(filename);
+}

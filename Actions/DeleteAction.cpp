@@ -20,4 +20,6 @@ void DeleteAction::execute()
 		pOut->printMessage("Please Select a Figure to delete");
 	else 
 		pManager->deleteFigure(deletedFigure);
+	SaveAction save(pManager);
+	save.saveForUndo();
 }

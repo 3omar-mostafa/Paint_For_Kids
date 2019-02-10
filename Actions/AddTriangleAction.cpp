@@ -50,4 +50,7 @@ void AddTriangleAction::execute()
 
 	//Add the triangle to the list of figures
 	pManager->addFigure(T);
+
+	SaveAction save(pManager);
+	save.saveForUndo();
 }

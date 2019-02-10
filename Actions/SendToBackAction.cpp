@@ -23,4 +23,6 @@ void SendToBackAction::execute()
 	else
 		pManager->sendToBack(currentFigure);
 
+	SaveAction save(pManager);
+	save.saveForUndo();
 }

@@ -31,4 +31,7 @@ void ClearAction::execute()
 	// Deleting all figures and clearing the Drawing Area:
 	pManager->clearFigures();	
 	pOut->clearDrawArea();
+
+	SaveAction save(pManager);
+	save.saveForUndo();
 }

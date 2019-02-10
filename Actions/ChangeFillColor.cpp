@@ -19,16 +19,25 @@ void ChangeFillColor::execute()
 	pOut->drawFillColorMenu();
 
 	pIn->getPointClicked(P.x, P.y);
-		
+
+	color currentFillColor , selectedColor;
 	if (pManager->getSelectedFigure() != nullptr) 
 	{
-		color c = pOut->selectFillColor(P);
-		if (c != NOFILL)
-			pManager->getSelectedFigure()->changeFillColor(c);
+		currentFillColor = pManager->getSelectedFigure()->getFillColor();
+		selectedColor = pOut->selectFillColor(P);
+		if (selectedColor != NOFILL)
+			pManager->getSelectedFigure()->changeFillColor(selectedColor);
 		else
 			pManager->getSelectedFigure()->setFilled(false);
 	}
 	else
-		pOut->selectFillColor(P);
-	
+	{
+		currentFillColor = UI.FillColor;
+		selectedColor = pOut->selectFillColor(P);
+	}
+
+	if (selectedColor != currentFillColor) {
+		SaveAction save(pManager);
+		save.saveForUndo();
+	}
 }

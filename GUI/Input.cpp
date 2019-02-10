@@ -57,6 +57,11 @@ ActionType Input::getUserAction(Point & P) const
 		//[1] If user clicks on the Toolbar
 		if (y >= 0 && y < UI.ToolBarHeight)
 		{
+			if (x > UI.width - 5 * UI.MenuActionWidth && x < UI.width - 4 * UI.MenuActionWidth)
+				return UNDO;
+			if (x > UI.width - 4 * UI.MenuActionWidth && x < UI.width - 3 * UI.MenuActionWidth)
+				return REDO;
+
 			//Check which Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
 
@@ -68,6 +73,7 @@ ActionType Input::getUserAction(Point & P) const
 				return CHANGE_FILL_COLOR;
 			if (x < (ITM_DRAW_COLOR)*UI.MenuItemWidth && x >(ITM_DRAW_COLOR)*UI.MenuItemWidth - 50)
 				return CHANGE_DRAW_COLOR;
+
 
 			switch (ClickedItemOrder)
 			{

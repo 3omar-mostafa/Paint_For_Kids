@@ -18,10 +18,23 @@ void ChangeDrawColor::execute()
 
 	pOut->drawDrawingColorMenu();
 	pIn->getPointClicked(P.x, P.y);
-			
-	if (pManager->getSelectedFigure() != nullptr)
-		pManager->getSelectedFigure()->changeDrawColor(pOut->selectDrawColor(P));
-	else
-		pOut->selectDrawColor(P);
 
+	color currentDrawColor, selectedColor;
+	if (pManager->getSelectedFigure() != nullptr)
+	{
+		currentDrawColor = pManager->getSelectedFigure()->getDrawColor();
+		selectedColor = pOut->selectDrawColor(P);
+		pManager->getSelectedFigure()->changeDrawColor(selectedColor);
+
+	}
+	else 
+	{
+		currentDrawColor = UI.DrawColor;
+		selectedColor = pOut->selectDrawColor(P);
+	}
+
+	if (selectedColor != currentDrawColor) {
+		SaveAction save(pManager);
+		save.saveForUndo();
+	}
 }

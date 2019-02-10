@@ -73,6 +73,14 @@ void ApplicationManager::executeAction(ActionType ActType)
 		pAct = new ChangeBorderSize(this);
 		break;
 
+	case UNDO:
+		pAct = new UndoRedoAction(this, UndoRedoAction::MODE_UNDO);
+		break;
+
+	case REDO:
+		pAct = new UndoRedoAction(this, UndoRedoAction::MODE_REDO);
+		break;
+
 	case SELECT:
 		pAct = new SelectShapeAction(this);
 		break;
@@ -141,6 +149,8 @@ void ApplicationManager::executeAction(ActionType ActType)
 		pOut->createDrawActionToolBar();
 		pOut->createBorderSizeIcon();
 
+		pOut->drawUndoRedoIcons(UndoRedoAction::MODE_UNDO, UndoRedoAction::isUndoAvailable());
+		pOut->drawUndoRedoIcons(UndoRedoAction::MODE_REDO, UndoRedoAction::isRedoAvailable());
 		// resets clipboard and selected figures after switching to draw mode
 		selectedFig = nullptr;
 		lastSelected = nullptr;

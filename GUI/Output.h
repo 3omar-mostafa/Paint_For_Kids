@@ -1,6 +1,7 @@
 #ifndef OUTPUT_H
 #define OUTPUT_H
 #include "Input.h"
+#include "../Actions/UndoRedoAction.h"
 
 class Output	//The application manager should have a pointer to this class
 {
@@ -50,6 +51,7 @@ public:
 	void playOnToolbar(string, int) const;
 
 	void createColorIcons();
+	void drawUndoRedoIcons(UndoRedoAction::MODES , bool ) const;
 	void drawFillColorMenu() const;
 	void drawDrawingColorMenu() const;
 	void deleteColorMenu() const;

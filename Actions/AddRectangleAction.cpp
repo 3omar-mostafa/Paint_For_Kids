@@ -46,4 +46,7 @@ void AddRectangleAction::execute()
 
 	//Add the rectangle to the list of figures
 	pManager->addFigure(R);
+
+	SaveAction save(pManager);
+	save.saveForUndo();
 }

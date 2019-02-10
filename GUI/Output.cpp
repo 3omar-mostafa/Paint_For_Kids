@@ -1,4 +1,5 @@
 #include "Output.h"
+#include "../Actions/UndoRedoAction.h"
 
 
 Output::Output()
@@ -37,6 +38,8 @@ Output::Output()
 	createColorIcons();
 	createStatusBar();
 	createBorderSizeIcon();
+	drawUndoRedoIcons(UndoRedoAction::MODE_UNDO,false);
+	drawUndoRedoIcons(UndoRedoAction::MODE_REDO,false);
 
 	//draw sound icon
 	pWind->DrawImage("images\\MenuItems\\Menu_sound_ON.jpg", UI.width - 3*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
@@ -101,7 +104,7 @@ void Output::createDrawToolBar() const
 		pWind->DrawImage(menuItemImages[i], i *UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
 
 	// clean white spaces in toolbar
-	pWind->DrawImage("images\\MenuItems\\clean.jpg", 22 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+	// pWind->DrawImage("images\\MenuItems\\clean.jpg", 22 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 
 	//draw Exit icon
 	pWind->DrawImage(menuItemImages[ITM_EXIT], UI.width - UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
@@ -155,6 +158,20 @@ void Output::createColorIcons()
 	UI.FillColor = BLACK;
 	UI.DrawColor = BLACK;
 	filled = true;
+}
+
+void Output::drawUndoRedoIcons(UndoRedoAction::MODES mode , bool isAvailable) const
+{
+	if( mode == UndoRedoAction::MODE_UNDO)
+		if(isAvailable)
+			pWind->DrawImage("images\\MenuItems\\Menu_undo.jpg", UI.width - 5 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		else
+			pWind->DrawImage("images\\MenuItems\\Menu_undo_no.jpg", UI.width - 5 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+	else
+		if (isAvailable)
+			pWind->DrawImage("images\\MenuItems\\Menu_redo.jpg", UI.width - 4 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		else
+			pWind->DrawImage("images\\MenuItems\\Menu_redo_no.jpg", UI.width - 4 * UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 }
 
 void Output::drawOnToolbar(string path, int place) const
