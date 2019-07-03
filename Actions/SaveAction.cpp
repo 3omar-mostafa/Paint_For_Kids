@@ -56,11 +56,22 @@ void SaveAction::quickSave() const
 	savetoFile("SaveGame.txt");
 }
 
-void SaveAction::saveForUndo()
+void SaveAction::saveForUndo(bool firstTime) const
 {
 	Output* pOut = pManager->getOutput();
-	string filename = UndoRedoAction::getNextFileName();
-	UndoRedoAction::incrementUndoList();
+	string filename;
+
+	// firstTime is used to save the program state when it first opens to initialize "history0.sav" file
+
+	if(firstTime)
+	{
+		filename = UndoRedoAction::getCurrentFileName();
+	}
+	else
+	{
+		filename = UndoRedoAction::getNextFileName();
+		UndoRedoAction::incrementUndoList();
+	}
 
 	// if we made some UNDOs and made a new action previous REDOs will be removed
 	UndoRedoAction::eraseRedoList();

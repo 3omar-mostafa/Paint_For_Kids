@@ -89,6 +89,10 @@ string UndoRedoAction::getNextFileName()
 	return nextFileName;
 }
 
+string UndoRedoAction::getCurrentFileName()
+{
+	return currentFileName;
+}
 
 int UndoRedoAction::historyCount = 1;
 string UndoRedoAction::currentFileName = "save\\history0.sav";

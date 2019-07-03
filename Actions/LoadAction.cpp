@@ -71,8 +71,12 @@ void LoadAction::loadFromFile(string filename) const
 	// Reading the draw and fill colors and changing their icons:
 	Color DrawColor = readColor(InFile);
 	Color FillColor = readColor(InFile);
+	int borderSize;
+	InFile >> borderSize;
+
 	pOut->changeDrawColorIcon(DrawColor);
 	pOut->changeFillColorIcon(FillColor, FillColor != NoFill());
+	pOut->changeBorderSizeIcon(borderSize);
 
 	// Reading Figure Information from the file:
 	int NoOfFigures; 

@@ -18,6 +18,10 @@ ApplicationManager::ApplicationManager()
 	//Create an array of figure pointers and set them to nullptr		
 	for (int i = 0; i < MAX_FIG_COUNT; i++)
 		figList[i] = nullptr;
+
+	// used to save the program state when it first opens to used it as a base state for undo & redo
+	SaveAction save(this);
+	save.saveForUndo(true);
 }
 
 //==================================================================================//
@@ -220,7 +224,7 @@ void ApplicationManager::clearFigures()
 
 void ApplicationManager::writeFigures(ofstream& OutFile)
 {
-	OutFile << colorData(UI.DrawColor) << " " << colorData(UI.FillColor) << endl;	//Writing the Draw and Fill colors to the file
+	OutFile << colorData(UI.DrawColor) << " " << colorData(UI.FillColor) << " " << UI.BorderSize << endl;	//Writing the Draw and Fill colors and border size to the file
 	OutFile << figCount;	//Writing the number of Figures to the file
 	for (int i = 0; i < figCount; i++)
 		figList[i]->save(OutFile);	//Calling the Save function for each figure

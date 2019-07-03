@@ -21,4 +21,5 @@ public:
 	static bool isUndoAvailable();
 	static bool isRedoAvailable();
 	static string getNextFileName();
+	static string getCurrentFileName();
 };
