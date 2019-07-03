@@ -19,6 +19,9 @@
     <Filter Include="Application Manager">
       <UniqueIdentifier>{be3a4e10-d854-4bf8-9add-2f85904b4103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Colors">
+      <UniqueIdentifier>{80555ac5-f782-4b7b-8739-e0178a706bcc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
@@ -230,6 +233,78 @@
     <ClCompile Include="Actions\UndoRedoAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Colors\Black.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Blue.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Brown.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Color.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkBlue.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkBrown.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkGreen.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkGrey.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkOrange.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkPink.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkRed.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkTurquoise.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkViolet.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\DarkYellow.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Green.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Grey.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\NoFill.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Orange.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Pink.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Red.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Turquoise.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Violet.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\White.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Yellow.cpp">
+      <Filter>Colors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -397,6 +472,81 @@
     </ClInclude>
     <ClInclude Include="Actions\UndoRedoAction.h">
       <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Black.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Blue.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Brown.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Color.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\ColorsHeader.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkBlue.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkBrown.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkGreen.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkGrey.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkOrange.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkPink.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkRed.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkTurquoise.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkViolet.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\DarkYellow.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Green.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Grey.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\NoFill.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Orange.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Pink.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Red.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Turquoise.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Violet.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\White.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Yellow.h">
+      <Filter>Colors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

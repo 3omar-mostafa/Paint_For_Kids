@@ -46,19 +46,17 @@ FigureType readType(string Str)
 }
 
 //Stores the information for a color into a string
-string colorData(color C)
+string colorData(Color c)
 {
-	string data;
-	data += to_string(int(C.ucRed)) + " " + to_string(int(C.ucGreen)) + " " + to_string(int(C.ucBlue));
-	return data;
+	return c.getRGB();
 }
 
 //Reads a color's info from a string
-color readColor(ifstream& in)
+Color readColor(ifstream& in)
 {
 	int Red, Green, Blue;
 	in >> Red >> Green >> Blue;
-	return color(Red, Green, Blue);
+	return Output::getColorType(Red, Green, Blue);
 }
 
 //Takes a CFigure* and creates a dummy object of a passed FigureType

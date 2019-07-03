@@ -50,9 +50,9 @@ void CutAction::execute()
 
 	cut->setCut(true);
 	pManager->setClipboard(cut);
-	pManager->getSelectedFigure()->changeDrawColor(GREY);
+	pManager->getSelectedFigure()->changeDrawColor(Grey());
 	if(pManager->getSelectedFigure()->isFilled())
-		pManager->getSelectedFigure()->changeFillColor(GREY);	
+		pManager->getSelectedFigure()->changeFillColor(Grey());	
 	else 
 	{
 		pManager->getSelectedFigure()->setSelected(false);

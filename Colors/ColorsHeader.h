@@ -1,0 +1,27 @@
+#pragma once
+
+#include "Black.h"
+#include "White.h"
+#include "NoFill.h"
+
+#include "Blue.h"
+#include "Brown.h"
+#include "Green.h"
+#include "Grey.h"
+#include "Orange.h"
+#include "Pink.h"
+#include "Red.h"
+#include "Turquoise.h"
+#include "Violet.h"
+
+#include "Yellow.h"
+#include "DarkBlue.h"
+#include "DarkBrown.h"
+#include "DarkGreen.h"
+#include "DarkGrey.h"
+#include "DarkOrange.h"
+#include "DarkPink.h"
+#include "DarkRed.h"
+#include "DarkTurquoise.h"
+#include "DarkViolet.h"
+#include "DarkYellow.h"

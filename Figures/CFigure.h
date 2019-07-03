@@ -30,12 +30,12 @@ public:
 	void setCut(bool);
 	bool isCut() const;
 
-	virtual void draw(Output* ) const = 0;		//Draw the figure
+	virtual void draw(Output*) const = 0;		//Draw the figure
 
-	void changeDrawColor(color );	//changes the figure's drawing color
-	void changeFillColor(color );	//changes the figure's filling color
-	color getFillColor() const;
-	color getDrawColor() const;
+	void changeDrawColor(Color);	//changes the figure's drawing color
+	void changeFillColor(Color);	//changes the figure's filling color
+	Color getFillColor() const;
+	Color getDrawColor() const;
 
 	bool isFilled() const;
 	void setFilled(bool );

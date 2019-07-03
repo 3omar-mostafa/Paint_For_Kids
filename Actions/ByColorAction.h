@@ -3,7 +3,7 @@
 class ByColorAction :public Action
 {
 	int correct, wrong;
-	color FIG_COLOR;
+	Color FIG_COLOR;
 	bool terminate;
 public:
 	ByColorAction(ApplicationManager *pApp);
@@ -11,5 +11,4 @@ public:
 	bool play();
 	void reset() const;
 	void execute() override;
-	static string colorName(color c);
 };

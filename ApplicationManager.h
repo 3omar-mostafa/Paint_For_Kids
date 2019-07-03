@@ -39,14 +39,13 @@ class ApplicationManager
 {
 	enum { MAX_FIG_COUNT = 200 };	//Max no of figures
 
-private:
 	int figCount;		//Actual number of figures
 	CFigure* figList[MAX_FIG_COUNT];	//List of all figures (Array of pointers)
 
 	CFigure* selectedFig; //Pointer to the selected figure
 	CFigure* lastSelected;
 	CFigure* lastCut;
-	color lastDrawColor, lastFillColor;
+	Color lastDrawColor, lastFillColor;
 	int lastBorderSize;
 	CFigure* clipboard;   //Pointer to the copied/cut figure
 
@@ -72,10 +71,10 @@ public:
 	void writeFigures(ofstream&);	//Saves Figure Information to a text file 
 	void writeFigures(ofstream&, FigureType);	//Saves Figure Information of a certain Type to a text file 
 	FigureType randomType() const;
-	color randomColor() const;
+	Color randomColor() const;
 	bool empty();
 	bool hasFigure(FigureType) const;
-	bool hasColor(color) const;
+	bool hasColor(Color) const;
 	void exit();
 
 	// -- Interface Management Functions
@@ -92,11 +91,11 @@ public:
 	void setClipboard(CFigure*);
 	CFigure* getClipboard() const;
 
-	color getLastDrawColor() const;
-	color getLastFillColor() const;
+	Color getLastDrawColor() const;
+	Color getLastFillColor() const;
 	int getLastBorderSize() const;
-	void setLastDrawColor(color);
-	void setLastFillColor(color);
+	void setLastDrawColor(Color);
+	void setLastFillColor(Color);
 	void setLastBorderSize(int);
 
 	void bringToFront(CFigure*);

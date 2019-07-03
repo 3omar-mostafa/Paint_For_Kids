@@ -9,7 +9,7 @@ ByColorAction::ByColorAction(ApplicationManager * pApp) :Action(pApp)
 	correct = 0;
 	wrong = 0;
 	terminate = false;
-	FIG_COLOR = NOFILL;
+	FIG_COLOR = NoFill();
 	// Auto-saving:
 	SaveAction save(pManager);
 	save.quickSave();
@@ -59,15 +59,15 @@ bool ByColorAction::play()
 	Output* pOut = pManager->getOutput();
 	Input* pIn = pManager->getInput();
 	FIG_COLOR = pManager->randomColor();
-	pOut->printMessage("Pick " + colorName(FIG_COLOR) + ", Click to start!");
+	pOut->printMessage("Pick " + FIG_COLOR.getName() + ", Click to start!");
 	pIn->getUserAction();
-	pOut->printMessage("Pick " + colorName(FIG_COLOR) + " ==> Correct: " + to_string(correct) + "    Wrong: " + to_string(wrong));
+	pOut->printMessage("Pick " + FIG_COLOR.getName() + " ==> Correct: " + to_string(correct) + "    Wrong: " + to_string(wrong));
 	while (pManager->hasColor(FIG_COLOR))
 	{
 		readActionParameters();
 		if (terminate)
 			return false;
-		pOut->printMessage("Pick " + colorName(FIG_COLOR) + " ==> Correct: " + to_string(correct) + "    Wrong: " + to_string(wrong));
+		pOut->printMessage("Pick " + FIG_COLOR.getName() + " ==> Correct: " + to_string(correct) + "    Wrong: " + to_string(wrong));
 	}
 	return true;
 
@@ -106,16 +106,4 @@ void ByColorAction::execute()
 	// Auto-Loading:
 	LoadAction load(pManager);
 	load.quickLoad();
-}
-
-//function colorName gets the color name from its RGB
-string ByColorAction::colorName(color c)
-{
-	if (c==BLACK) return "BLACK";
-	else if (c==WHITE) return "WHITE";
-	else if (c==RED) return "RED";
-	else if (c==YELLOW) return "YELLOW";
-	else if (c==GREEN) return "GREEN";
-	else if (c==BLUE) return "BLUE";
-	else return "NOFILL";
 }

@@ -2,12 +2,14 @@
 #define OUTPUT_H
 #include "Input.h"
 #include "../Actions/UndoRedoAction.h"
+#include "../Colors/ColorsHeader.h"
+#include <vector>
 
 class Output	//The application manager should have a pointer to this class
 {
-private:
 	window* pWind;	//Pointer to the Graphics Window
 	bool filled;
+	static vector<vector<Color>> colors;
 public:
 	Output();
 
@@ -28,18 +30,18 @@ public:
 	void drawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected = false) const;
 	void drawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected = false) const;
 	void drawRhombus(const int* X, const int* Y, GfxInfo RhomGfxInfo, bool selected) const;	//Draws the Rhombus using two array of the respective coordinates of its 4 vertices
-
+	drawstyle getDrawingStyle(GfxInfo , bool) const;
 
 	void printMessage(string msg) const;	//Print a message on Status bar
 
-	static color getCurrentDrawColor();	//get current drawing color
-	static color getCurrentFillColor();	//get current filling color
+	static Color getCurrentDrawColor();	//get current drawing color
+	static Color getCurrentFillColor();	//get current filling color
 	static int getCurrentBorderSize();		//get current border size
 	static void setCurrentBorderSize(int);
 
-	void createBorderSizeIcon();
+	void createBorderSizeIcon() const;
 	void drawBorderSizeMenu() const;
-	int selectBorderSize(Point);
+	int selectBorderSize(Point) const;
 	void changeBorderSizeIcon(int) const;
 
 	void drawOnToolbar(string, int) const;
@@ -54,18 +56,18 @@ public:
 	void drawUndoRedoIcons(UndoRedoAction::MODES , bool ) const;
 	void drawFillColorMenu() const;
 	void drawDrawingColorMenu() const;
-	void deleteColorMenu() const;
 
 	void getValidPoint(Point&) const;
 	void getValidEllipsePoint(Point&) const;
 	void getValidRhombusPoint(Point&) const;
 
-	color selectFillColor(Point);
-	color selectDrawColor(Point) const;
+	Color selectFillColor(Point);
+	Color selectDrawColor(Point) const;
 
-	void changeFillColorIcon(color, bool);
-	void changeDrawColorIcon(color) const;
+	void changeFillColorIcon(Color, bool);
+	void changeDrawColorIcon(Color) const;
 
+	Color static getColorType(int, int, int);
 	bool isFilled() const;
 
 	void drawSoundIcon(bool) const;

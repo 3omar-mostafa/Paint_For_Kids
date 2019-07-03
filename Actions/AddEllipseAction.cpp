@@ -24,9 +24,9 @@ void AddEllipseAction::readActionParameters()
 
 	ElpsGfxInfo.isFilled = pOut->isFilled();	//default is filled
 	//Get drawing, filling colors and pen width from the interface
-	ElpsGfxInfo.drawColor = pOut->getCurrentDrawColor();
-	ElpsGfxInfo.fillColor = pOut->getCurrentFillColor();
-	ElpsGfxInfo.borderSize = pOut->getCurrentBorderSize();
+	ElpsGfxInfo.drawColor = Output::getCurrentDrawColor();
+	ElpsGfxInfo.fillColor = Output::getCurrentFillColor();
+	ElpsGfxInfo.borderSize = Output::getCurrentBorderSize();
 
 	pOut->clearStatusBar();
 

@@ -24,9 +24,9 @@ void AddRhombusAction::readActionParameters()
 
 	RhomGfxInfo.isFilled = pOut->isFilled();	//default is filled
 	//get drawing, filling colors and pen width from the interface
-	RhomGfxInfo.drawColor = pOut->getCurrentDrawColor();
-	RhomGfxInfo.fillColor = pOut->getCurrentFillColor();
-	RhomGfxInfo.borderSize = pOut->getCurrentBorderSize();
+	RhomGfxInfo.drawColor = Output::getCurrentDrawColor();
+	RhomGfxInfo.fillColor = Output::getCurrentFillColor();
+	RhomGfxInfo.borderSize = Output::getCurrentBorderSize();
 
 	pOut->clearStatusBar();
 

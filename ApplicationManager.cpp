@@ -248,10 +248,10 @@ FigureType ApplicationManager::randomType() const
 	return type;
 }
 
-color ApplicationManager::randomColor() const
+Color ApplicationManager::randomColor() const
 {
 	int index = abs(rand()) % figCount;
-	color color = figList[index]->isFilled() ? figList[index]->getFillColor() : figList[index]->getDrawColor();
+	Color color = figList[index]->isFilled() ? figList[index]->getFillColor() : figList[index]->getDrawColor();
 	return color;
 }
 
@@ -271,7 +271,7 @@ bool ApplicationManager::hasFigure(FigureType FIG_TYPE) const
 			return true;
 	return false;
 }
-bool ApplicationManager::hasColor(color FIG_COLOR) const
+bool ApplicationManager::hasColor(Color FIG_COLOR) const
 {
 	for (int i = 0; i < figCount; i++)
 	{
@@ -429,12 +429,12 @@ CFigure* ApplicationManager::getClipboard() const
 	return clipboard;
 }
 
-color ApplicationManager::getLastDrawColor() const
+Color ApplicationManager::getLastDrawColor() const
 {
 	return lastDrawColor;
 }
 
-color ApplicationManager::getLastFillColor() const
+Color ApplicationManager::getLastFillColor() const
 {
 	return lastFillColor;
 }
@@ -444,12 +444,12 @@ int ApplicationManager::getLastBorderSize() const
 	return lastBorderSize;
 }
 
-void ApplicationManager::setLastDrawColor(color c)
+void ApplicationManager::setLastDrawColor(Color c)
 {
 	lastDrawColor = c;
 }
 
-void ApplicationManager::setLastFillColor(color clr)
+void ApplicationManager::setLastFillColor(Color clr)
 {
 	lastFillColor = clr;
 }

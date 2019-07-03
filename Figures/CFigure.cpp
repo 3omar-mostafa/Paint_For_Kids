@@ -45,23 +45,23 @@ bool CFigure::isCut() const
 void CFigure::toggleSelection(){
 	selected = !selected;
 }
-void CFigure::changeDrawColor(color dColor)
+void CFigure::changeDrawColor(Color dColor)
 {
 	figGfxInfo.drawColor = dColor;
 }
 
-void CFigure::changeFillColor(color fColor)
+void CFigure::changeFillColor(Color fColor)
 {
 	figGfxInfo.isFilled = true;
 	figGfxInfo.fillColor = fColor;
 }
 
-color CFigure::getFillColor() const
+Color CFigure::getFillColor() const
 {
 	return figGfxInfo.fillColor;
 }
 
-color CFigure::getDrawColor() const
+Color CFigure::getDrawColor() const
 {
 	return figGfxInfo.drawColor;
 }

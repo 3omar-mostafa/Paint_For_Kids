@@ -20,12 +20,12 @@ void ChangeFillColor::execute()
 
 	pIn->getPointClicked(P.x, P.y);
 
-	color currentFillColor , selectedColor;
+	Color currentFillColor , selectedColor;
 	if (pManager->getSelectedFigure() != nullptr) 
 	{
 		currentFillColor = pManager->getSelectedFigure()->getFillColor();
 		selectedColor = pOut->selectFillColor(P);
-		if (selectedColor != NOFILL)
+		if (selectedColor != NoFill())
 			pManager->getSelectedFigure()->changeFillColor(selectedColor);
 		else
 			pManager->getSelectedFigure()->setFilled(false);

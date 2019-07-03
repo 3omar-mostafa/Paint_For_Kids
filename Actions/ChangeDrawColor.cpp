@@ -19,7 +19,7 @@ void ChangeDrawColor::execute()
 	pOut->drawDrawingColorMenu();
 	pIn->getPointClicked(P.x, P.y);
 
-	color currentDrawColor, selectedColor;
+	Color currentDrawColor, selectedColor;
 	if (pManager->getSelectedFigure() != nullptr)
 	{
 		currentDrawColor = pManager->getSelectedFigure()->getDrawColor();

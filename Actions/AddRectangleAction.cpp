@@ -27,9 +27,9 @@ void AddRectangleAction::readActionParameters()
 
 	RectGfxInfo.isFilled = pOut->isFilled();	//default is filled
 	//get drawing, filling colors and pen width from the interface
-	RectGfxInfo.drawColor = pOut->getCurrentDrawColor();
-	RectGfxInfo.fillColor = pOut->getCurrentFillColor();
-	RectGfxInfo.borderSize = pOut->getCurrentBorderSize();
+	RectGfxInfo.drawColor = Output::getCurrentDrawColor();
+	RectGfxInfo.fillColor = Output::getCurrentFillColor();
+	RectGfxInfo.borderSize = Output::getCurrentBorderSize();
 
 	pOut->clearStatusBar();
 

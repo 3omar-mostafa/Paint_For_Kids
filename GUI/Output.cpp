@@ -1,6 +1,6 @@
 #include "Output.h"
 #include "../Actions/UndoRedoAction.h"
-
+#include "../Colors/ColorsHeader.h"
 
 Output::Output()
 {
@@ -18,12 +18,12 @@ Output::Output()
 	UI.MenuItemWidth = 100;
 	UI.MenuActionWidth = 50;
 
-	UI.DrawColor = BLACK;	//Drawing color
-	UI.FillColor = BLACK;	//Filling color
-	UI.MessageColor = WHITESMOKE;		//Messages color
-	UI.BackgroundColor = GAINSBORO;	//Background color
-	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
-	UI.StatusBarColor = STEELBLUE;
+	UI.DrawColor = Black();	//Drawing color
+	UI.FillColor = Black();	//Filling color
+	UI.MessageColor = Color(WHITESMOKE);		//Messages color
+	UI.BackgroundColor = Color(GAINSBORO);	//Background color
+	UI.HighlightColor = Color(MAGENTA);	//This color should NOT be used to draw figures. use if for highlight only
+	UI.StatusBarColor = Color(STEELBLUE);
 	UI.BorderSize = 5;	//width of the figures frames
 
 	filled = true;
@@ -40,6 +40,10 @@ Output::Output()
 	createBorderSizeIcon();
 	drawUndoRedoIcons(UndoRedoAction::MODE_UNDO,false);
 	drawUndoRedoIcons(UndoRedoAction::MODE_REDO,false);
+
+	colors.resize(2);
+	colors[0] = { Black(), DarkGrey(), DarkBrown(), DarkYellow(), DarkOrange(), DarkRed(), DarkPink(), DarkViolet(), DarkBlue(), DarkTurquoise(), DarkGreen() };
+	colors[1] = { White(),	Grey(),		Brown(),	Yellow(),	 Orange(),	    Red(),	   Pink(),		Violet(),	  Blue(),	  Turquoise(),	  Green() };
 
 	//draw sound icon
 	pWind->DrawImage("images\\MenuItems\\Menu_sound_ON.jpg", UI.width - 3*UI.MenuActionWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
@@ -59,24 +63,24 @@ Input* Output::createInput() const
 window* Output::createWindow(int w, int h, int x, int y) const
 {
 	window* pW = new window(w, h, x, y);
-	pW->SetBrush(UI.BackgroundColor);
-	pW->SetPen(UI.BackgroundColor, 1);
+	pW->SetBrush(UI.BackgroundColor.getColor());
+	pW->SetPen(UI.BackgroundColor.getColor(), 1);
 	pW->DrawRectangle(0, UI.ToolBarHeight, w, h);
 	return pW;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void Output::createStatusBar() const
 {
-	pWind->SetPen(UI.StatusBarColor, 1);
-	pWind->SetBrush(UI.StatusBarColor);
+	pWind->SetPen(UI.StatusBarColor.getColor(), 1);
+	pWind->SetBrush(UI.StatusBarColor.getColor());
 	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void Output::clearStatusBar() const
 {
 	//Clear Status bar by drawing a filled white rectangle
-	pWind->SetPen(UI.StatusBarColor, 1);
-	pWind->SetBrush(UI.StatusBarColor);
+	pWind->SetPen(UI.StatusBarColor.getColor(), 1);
+	pWind->SetBrush(UI.StatusBarColor.getColor());
 	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -147,16 +151,16 @@ void Output::createDrawActionToolBar()  const
 
 void Output::removeDrawActionToolBar() const
 {
-	pWind->SetPen(UI.BackgroundColor, 1);
-	pWind->SetBrush(UI.BackgroundColor);
+	pWind->SetPen(UI.BackgroundColor.getColor(), 1);
+	pWind->SetBrush(UI.BackgroundColor.getColor());
 	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.MenuActionWidth, UI.height - UI.StatusBarHeight);
 }
 void Output::createColorIcons()
 {
-	pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-	pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_black.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-	UI.FillColor = BLACK;
-	UI.DrawColor = BLACK;
+	pWind->DrawImage(R"(images\MenuItems\colors\Menu_fill_color_black.jpg)", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+	pWind->DrawImage(R"(images\MenuItems\colors\Menu_draw_color_black.jpg)", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+	UI.FillColor = Black();
+	UI.DrawColor = Black();
 	filled = true;
 }
 
@@ -218,150 +222,34 @@ double Output::selectSize(Point p)
 
 void Output::drawFillColorMenu() const
 {
-	pWind->DrawImage("images\\MenuItems\\colors\\colors_fill.jpg", UI.MenuItemWidth* ITM_FILL_COLOR, UI.ToolBarHeight, UI.MenuItemWidth, UI.MenuActionWidth * 12);
+	pWind->DrawImage(R"(images\MenuItems\colors\colors_fill.jpg)", UI.MenuItemWidth* ITM_FILL_COLOR, UI.ToolBarHeight, UI.MenuItemWidth, UI.MenuActionWidth * 12);
 }
 
 void Output::drawDrawingColorMenu() const
 {
-	pWind->DrawImage("images\\MenuItems\\colors\\colors_draw.jpg", UI.MenuItemWidth* ITM_FILL_COLOR, UI.ToolBarHeight, UI.MenuItemWidth, UI.MenuActionWidth * 11);
+	pWind->DrawImage(R"(images\MenuItems\colors\colors_draw.jpg)", UI.MenuItemWidth* ITM_FILL_COLOR, UI.ToolBarHeight, UI.MenuItemWidth, UI.MenuActionWidth * 11);
 }
 
-color Output::selectFillColor(Point p) {
+Color Output::selectFillColor(Point p) {
 
 	// checks if the user chooses no fill color 
 	if (p.y > 12*UI.ToolBarHeight && p.y < 13*UI.ToolBarHeight && p.x > UI.MenuItemWidth*ITM_FILL_COLOR && p.x < UI.MenuItemWidth*ITM_DRAW_COLOR) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_No.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		pWind->DrawImage(NoFill().getFillColorIcon(), (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		filled = false;
-		return NOFILL;
+		return NoFill();
 	}
 
 	if (p.y > UI.ToolBarHeight && p.y < UI.ToolBarHeight + 11* UI.MenuActionWidth && p.x > UI.MenuItemWidth*ITM_FILL_COLOR && p.x < UI.MenuItemWidth*ITM_DRAW_COLOR) {
+		const int selectedColorRow = p.y / UI.MenuActionWidth -1;
+		const int selectedColorColumn = ( p.x - UI.MenuItemWidth * ITM_FILL_COLOR ) / UI.MenuActionWidth ;
 
-		int selectedColorRow = p.y / UI.MenuActionWidth;
-		int selectedColorColumn = ( p.x - UI.MenuItemWidth * ITM_FILL_COLOR ) / UI.MenuActionWidth ;
-
-		if (selectedColorColumn == 0) // first column
-		{
-			switch (selectedColorRow) {
-			case 1:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = BLACK;
-				filled = true;
-				return BLACK;
-			case 2:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_grey_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_GREY;
-				filled = true;
-				return DARK_GREY;
-			case 3:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_brown_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_BROWN;
-				filled = true;
-				return DARK_BROWN;
-			case 4:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_yellow_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_YELLOW;
-				filled = true;
-				return DARK_YELLOW;
-			case 5:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_orange_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_ORANGE;
-				filled = true;
-				return DARK_ORANGE;
-			case 6:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_red_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_RED;
-				filled = true;
-				return DARK_RED;
-			case 7:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_pink_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_PINK;
-				filled = true;
-				return DARK_PINK;
-			case 8:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_violet_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_VIOLET;
-				filled = true;
-				return DARK_VIOLET;
-			case 9:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_blue_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_BLUE;
-				filled = true;
-				return DARK_BLUE;
-			case 10:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_turquoise_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_TURQUOISE;
-				filled = true;
-				return DARK_TURQUOISE;
-			case 11:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_green_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = DARK_GREEN;
-				filled = true;
-				return DARK_GREEN;
-			}
-
-		} else {
-			switch (selectedColorRow) {
-			case 1:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_white.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = WHITE;
-				filled = true;
-				return WHITE;
-			case 2:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_grey.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = GREY;
-				filled = true;
-				return GREY;
-			case 3:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_brown.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = BROWN;
-				filled = true;
-				return BROWN;
-			case 4:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_yellow.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = YELLOW;
-				filled = true;
-				return YELLOW;
-			case 5:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_orange.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = ORANGE;
-				filled = true;
-				return ORANGE;
-			case 6:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_red.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = RED;
-				filled = true;
-				return RED;
-			case 7:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_pink.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = PINK;
-				filled = true;
-				return PINK;
-			case 8:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_violet.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = VIOLET;
-				filled = true;
-				return VIOLET;
-			case 9:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_blue.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = BLUE;
-				filled = true;
-				return BLUE;
-			case 10:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_turquoise.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = TURQUOISE;
-				filled = true;
-				return TURQUOISE;
-			case 11:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_green.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.FillColor = GREEN;
-				filled = true;
-				return GREEN;
-			}
-		}
+		const Color &c = colors[selectedColorColumn][selectedColorRow];
+		pWind->DrawImage(c.getFillColorIcon(), (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		filled = true;
+		return UI.FillColor = c;
 	}
 
-	return (filled) ? UI.FillColor : NOFILL;
+	return (filled) ? UI.FillColor : NoFill();
 }
 
 bool Output::isFilled() const
@@ -369,323 +257,51 @@ bool Output::isFilled() const
 	return filled;
 }
 
-color Output::selectDrawColor(Point p) const
+Color Output::selectDrawColor(Point p) const
 {
 	if (p.y > UI.ToolBarHeight && p.y < UI.ToolBarHeight + 11 * UI.MenuActionWidth && p.x > UI.MenuItemWidth*ITM_FILL_COLOR && p.x < UI.MenuItemWidth*ITM_DRAW_COLOR) {
 
-		int selectedColorRow = p.y / UI.MenuActionWidth;
-		int selectedColorColumn = (p.x - UI.MenuItemWidth * ITM_FILL_COLOR) / UI.MenuActionWidth;
+		const int selectedColorRow = p.y / UI.MenuActionWidth -1;
+		const int selectedColorColumn = (p.x - UI.MenuItemWidth * ITM_FILL_COLOR) / UI.MenuActionWidth;
 
-		if (selectedColorColumn == 0) // first column
-		{
-			switch (selectedColorRow) {
-			case 1:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_black.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = BLACK;
-				return BLACK;
-			case 2:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_grey_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_GREY;
-				return DARK_GREY;
-			case 3:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_brown_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_BROWN;
-				return DARK_BROWN;
-			case 4:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_yellow_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_YELLOW;
-				return DARK_YELLOW;
-			case 5:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_orange_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_ORANGE;
-				return DARK_ORANGE;
-			case 6:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_red_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_RED;
-				return DARK_RED;
-			case 7:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_pink_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_PINK;
-				return DARK_PINK;
-			case 8:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_violet_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_VIOLET;
-				return DARK_VIOLET;
-			case 9:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_blue_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_BLUE;
-				return DARK_BLUE;
-			case 10:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_turquoise_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_TURQUOISE;
-				return DARK_TURQUOISE;
-			case 11:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_green_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = DARK_GREEN;
-				return DARK_GREEN;
-			}
+		const Color &c = colors[selectedColorColumn][selectedColorRow];
 
-		} else {
-			switch (selectedColorRow) {
-			case 1:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_white.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = WHITE;
-				return WHITE;
-			case 2:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_grey.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = GREY;
-				return GREY;
-			case 3:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_brown.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = BROWN;
-				return BROWN;
-			case 4:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_yellow.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = YELLOW;
-				return YELLOW;
-			case 5:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_orange.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = ORANGE;
-				return ORANGE;
-			case 6:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_red.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = RED;
-				return RED;
-			case 7:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_pink.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = PINK;
-				return PINK;
-			case 8:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_violet.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = VIOLET;
-				return VIOLET;
-			case 9:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_blue.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = BLUE;
-				return BLUE;
-			case 10:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_turquoise.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = TURQUOISE;
-				return TURQUOISE;
-			case 11:
-				pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_green.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-				UI.DrawColor = GREEN;
-				return GREEN;
-			}
-		}
+		pWind->DrawImage(c.getDrawColorIcon(), (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		return UI.DrawColor = c;
 	}
+
 	return UI.DrawColor;
 }
 
-void Output::changeFillColorIcon(color c, bool f) {
+void Output::changeFillColorIcon(Color c, bool f) {
 	if (!f ) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_No.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		pWind->DrawImage(NoFill().getFillColorIcon(), (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
 		filled = false;
-		UI.FillColor=NOFILL;
+		UI.FillColor = NoFill();
 
-	} else if ( c == BLACK ) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_black.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = BLACK;
+	} else {
+		pWind->DrawImage(c.getFillColorIcon(), (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+		UI.FillColor = c;
 		filled = true;
-
-	} else if (c == WHITE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_white.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = WHITE;
-		filled = true;
-
-	} else if (c == GREY) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_grey.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = GREY;
-		filled = true;
-
-	} else if ( c == DARK_GREY ) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_grey_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_GREY;
-		filled = true;
-
-	} else if (c == BROWN) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_brown.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = BROWN;
-		filled = true;
-
-	} else if ( c == DARK_BROWN) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_brown_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_BROWN;
-		filled = true;
-
-	}else if (c == YELLOW) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_yellow.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = YELLOW;
-		filled = true;
-
-	} else if ( c == DARK_YELLOW) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_yellow_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_YELLOW;
-		filled = true;
-
-	}else if (c == ORANGE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_orange.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = ORANGE;
-		filled = true;
-
-	} else if ( c == DARK_ORANGE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_orange_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_ORANGE;
-		filled = true;
-
-	} else if (c == RED) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_red.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = RED;
-		filled = true;
-
-	} else if ( c == DARK_RED ) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_red_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_RED;
-		filled = true;
-
-	} else if (c == PINK) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_pink.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = PINK;
-		filled = true;
-
-	} else if ( c == DARK_PINK) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_pink_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_PINK;
-		filled = true;
-
-	} else if (c == VIOLET) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_violet.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = VIOLET;
-		filled = true;
-
-	} else if ( c == DARK_VIOLET) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_violet_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_VIOLET;
-		filled = true;
-
-	} else if (c == BLUE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_blue.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = BLUE;
-		filled = true;
-
-	} else if ( c == DARK_BLUE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_blue_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_BLUE;
-		filled = true;
-
-	} else if (c == TURQUOISE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_turquoise.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = TURQUOISE;
-		filled = true;
-
-	} else if ( c == DARK_TURQUOISE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_turquoise_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_TURQUOISE;
-		filled = true;
-
-	}else if (c == GREEN) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_green.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = GREEN;
-		filled = true;
-
-	} else if ( c == DARK_GREEN) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_fill_color_green_dark.jpg", (ITM_FILL_COLOR)*UI.MenuItemWidth, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.FillColor = DARK_GREEN;
-		filled = true;	
 	}
 }
 
-void Output::changeDrawColorIcon(color c) const
+void Output::changeDrawColorIcon(Color c) const
 {
-	if (c == BLACK) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_black.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = BLACK;
-		
-	} else if (c == WHITE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_white.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = WHITE;
-		
+	pWind->DrawImage(c.getDrawColorIcon(), (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
+	UI.DrawColor = c;
+}
 
-	} else if (c == GREY) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_grey.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = GREY;
-
-	} else if (c == DARK_GREY) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_grey_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_GREY;
-		
-	} else if (c == BROWN) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_brown.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = BROWN;
-		
-	} else if (c == DARK_BROWN) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_brown_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_BROWN;
-		
-	} else if (c == YELLOW) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_yellow.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = YELLOW;
-		
-	} else if (c == DARK_YELLOW) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_yellow_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_YELLOW;
-		
-	} else if (c == ORANGE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_orange.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = ORANGE;
-
-	} else if (c == DARK_ORANGE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_orange_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_ORANGE;
-
-	} else if (c == RED) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_red.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = RED;
-
-	} else if (c == DARK_RED) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_red_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_RED;
-		
-	} else if (c == PINK) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_pink.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = PINK;
-		
-	} else if (c == DARK_PINK) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_pink_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_PINK;
-
-	} else if (c == VIOLET) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_violet.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = VIOLET;
-
-	} else if (c == DARK_VIOLET) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_violet_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_VIOLET;
-
-	} else if (c == BLUE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_blue.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = BLUE;
-
-	} else if (c == DARK_BLUE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_blue_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_BLUE;
-
-	} else if (c == TURQUOISE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_turquoise.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = TURQUOISE;
-
-	} else if (c == DARK_TURQUOISE) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_turquoise_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_TURQUOISE;
-
-	} else if (c == GREEN) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_green.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = GREEN;
-
-	} else if (c == DARK_GREEN) {
-		pWind->DrawImage("images\\MenuItems\\colors\\Menu_draw_color_green_dark.jpg", (ITM_DRAW_COLOR)*UI.MenuItemWidth - 50, 0, UI.MenuActionWidth, UI.ToolBarHeight - 3);
-		UI.DrawColor = DARK_GREEN;
-
+Color Output::getColorType(int red , int green , int blue)
+{
+	Color test(red, green, blue);
+	for (int i = 0; i < colors.size(); ++i)
+	{
+		for (int j = 0; j < colors[i].size(); ++j)
+		{
+			if (test == colors[i][j])
+				return colors[i][j];
+		}
 	}
 }
 
@@ -722,8 +338,8 @@ void Output::playOnToolbar(string path, int place) const
 
 void Output::clearDrawArea() const
 {
-	pWind->SetPen(UI.BackgroundColor, 1);
-	pWind->SetBrush(UI.BackgroundColor);
+	pWind->SetPen(UI.BackgroundColor.getColor(), 1);
+	pWind->SetBrush(UI.BackgroundColor.getColor());
 	pWind->DrawRectangle(UI.MenuActionWidth, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 
 }
@@ -733,19 +349,19 @@ void Output::printMessage(string msg) const	//Prints a message on status bar
 {
 	clearStatusBar();	//First clear the status bar
 
-	pWind->SetPen(UI.MessageColor, 50);
+	pWind->SetPen(UI.MessageColor.getColor(), 50);
 	pWind->SetFont(20, BOLD, BY_NAME, "Arial");
 	pWind->DrawString(10, UI.height - (int)(UI.StatusBarHeight / 1.5), msg);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-color Output::getCurrentDrawColor() //get current drawing color
+Color Output::getCurrentDrawColor() //get current drawing color
 {
 	return UI.DrawColor;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-color Output::getCurrentFillColor() //get current filling color
+Color Output::getCurrentFillColor() //get current filling color
 {
 	return UI.FillColor;
 }
@@ -753,7 +369,7 @@ color Output::getCurrentFillColor() //get current filling color
 
 enum BorderSizes { BORDER_SIZE_1 = 5, BORDER_SIZE_2 = 10, BORDER_SIZE_3 = 15, BORDER_SIZE_4 = 20, BORDER_SIZE_5 = 25 };
 
-void Output::createBorderSizeIcon()
+void Output::createBorderSizeIcon() const
 {
 	pWind->DrawImage("images\\MenuItems\\Menu_Border_Size_1.jpg", ITM_BORDER_SIZE*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight - 3);
 	UI.BorderSize = BORDER_SIZE_1;
@@ -801,7 +417,7 @@ void Output::drawBorderSizeMenu() const
 	pWind->DrawImage("images\\MenuItems\\Menu_Border_Size.jpg", ITM_BORDER_SIZE*UI.MenuItemWidth, UI.ToolBarHeight, UI.MenuItemWidth, 5 * UI.MenuActionWidth);
 }
 
-int Output::selectBorderSize(Point p)
+int Output::selectBorderSize(Point p) const
 {
 	if (p.x > ITM_BORDER_SIZE*UI.MenuItemWidth && p.x < (ITM_BORDER_SIZE + 1)*UI.MenuItemWidth) {
 		int selectedColor = ((p.y ) / UI.MenuActionWidth);
@@ -837,107 +453,55 @@ int Output::selectBorderSize(Point p)
 //								Figures Drawing Functions								//
 //======================================================================================//
 
-void Output::drawRectangle(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) const
+drawstyle Output::getDrawingStyle(GfxInfo gfxInfo, bool isSelected) const
 {
-	color drawingColor;
-	if (selected)
+	Color drawingColor;
+	if (isSelected)
 		drawingColor = UI.HighlightColor; //Figure should be drawn highlighted
 	else
-		drawingColor = RectGfxInfo.drawColor;
+		drawingColor = gfxInfo.drawColor;
 
-	pWind->SetPen(drawingColor, RectGfxInfo.borderSize);
+	pWind->SetPen(drawingColor.getColor(), gfxInfo.borderSize);
 	drawstyle style;
-	if (RectGfxInfo.isFilled)
+	if (gfxInfo.isFilled)
 	{
 		style = FILLED;
-		pWind->SetBrush(RectGfxInfo.fillColor);
+		pWind->SetBrush(gfxInfo.fillColor.getColor());
 	}
 	else
 		style = FRAME;
 
+	return style;
+}
 
+void Output::drawRectangle(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) const
+{
+	const drawstyle style = getDrawingStyle(RectGfxInfo, selected);
 	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
-
 }
 
 void Output::drawRhombus(const int* X, const int* Y, GfxInfo RhomGfxInfo, bool selected) const
 {
-	color drawingColor;
-	if (selected)
-		drawingColor = UI.HighlightColor; //Figure should be drawn highlighted
-	else
-		drawingColor = RhomGfxInfo.drawColor;
-
-	pWind->SetPen(drawingColor, RhomGfxInfo.borderSize);
-	drawstyle style;
-	if (RhomGfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(RhomGfxInfo.fillColor);
-	}
-	else
-		style = FRAME;
-
+	const drawstyle style = getDrawingStyle(RhomGfxInfo, selected);
 	pWind->DrawPolygon(X, Y, 4, style);
 }
 
 void Output::drawEllipse(Point P1, Point P2, GfxInfo ElpsGfxInfo, bool selected) const
 {
-	color drawingColor;
-	if (selected)
-		drawingColor = UI.HighlightColor; //Figure should be drawn highlighted
-	else
-		drawingColor = ElpsGfxInfo.drawColor;
-
-	pWind->SetPen(drawingColor, ElpsGfxInfo.borderSize);
-	drawstyle style;
-	if (ElpsGfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(ElpsGfxInfo.fillColor);
-	}
-	else
-		style = FRAME;
-
+	const drawstyle style = getDrawingStyle(ElpsGfxInfo, selected);
 	pWind->DrawEllipse(P1.x, P1.y, P2.x, P2.y, style);
 }
 
 void Output::drawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo, bool selected) const
 {
-
-	color drawingColor;
-	if (selected)
-		drawingColor = UI.HighlightColor; //Figure should be drawn highlighted
-	else
-		drawingColor = TriGfxInfo.drawColor;
-
-	pWind->SetPen(drawingColor, TriGfxInfo.borderSize);
-	drawstyle style;
-	if (TriGfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(TriGfxInfo.fillColor);
-	}
-	else
-		style = FRAME;
-
-
+	const drawstyle style = getDrawingStyle(TriGfxInfo, selected);
 	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
-
 }
+
 void Output::drawLine(Point P1, Point P2, GfxInfo LineGfxInfo, bool selected) const
 {
-
-	color drawingColor;
-	if (selected)
-		drawingColor = UI.HighlightColor; //Figure should be drawn highlighted
-	else
-		drawingColor = LineGfxInfo.drawColor;
-
-	pWind->SetPen(drawingColor, LineGfxInfo.borderSize);
-	drawstyle style = FRAME;
+	const drawstyle style = getDrawingStyle(LineGfxInfo, selected);
 	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
-
 }
 
 void Output::getValidPoint(Point& P) const {
@@ -988,3 +552,4 @@ Output::~Output()
 	delete pWind;
 }
 
+vector<vector<Color>> Output::colors;

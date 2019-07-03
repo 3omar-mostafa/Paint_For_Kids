@@ -31,9 +31,9 @@ void AddTriangleAction::readActionParameters()
 
 	TriGfxInfo.isFilled = pOut->isFilled();	//default is filled
 	//get drawing, filling colors and pen width from the interface
-	TriGfxInfo.drawColor = pOut->getCurrentDrawColor();
-	TriGfxInfo.fillColor = pOut->getCurrentFillColor();
-	TriGfxInfo.borderSize = pOut->getCurrentBorderSize();
+	TriGfxInfo.drawColor = Output::getCurrentDrawColor();
+	TriGfxInfo.fillColor = Output::getCurrentFillColor();
+	TriGfxInfo.borderSize = Output::getCurrentBorderSize();
 
 	pOut->clearStatusBar();
 

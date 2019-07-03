@@ -89,12 +89,12 @@ struct UI_Info	//User Interface Info.
 		MenuActionWidth;	//Width of each action item (copy , delete ...) in toolbar menu
 
 
-	color DrawColor;		//Drawing color
-	color FillColor;		//Filling color
-	color HighlightColor;	//Highlighting color
-	color MessageColor;		//Messages color
-	color BackgroundColor;	//Background color
-	color StatusBarColor;	//Status bar color
+	Color DrawColor;		//Drawing color
+	Color FillColor;		//Filling color
+	Color HighlightColor;	//Highlighting color
+	Color MessageColor;		//Messages color
+	Color BackgroundColor;	//Background color
+	Color StatusBarColor;	//Status bar color
 	int BorderSize;			//width of the pen that draws shapes
 
 	/// Add more members if needed

@@ -4,6 +4,7 @@
 #include "CMUgraphicsLib\CMUgraphics.h"
 #include <iostream>
 #include <fstream>
+#include "Colors/ColorsHeader.h"
 using namespace std;
 
 //This file contains some global constants and definitions to be used in the project.
@@ -57,8 +58,8 @@ enum FigureType
 string storeType(FigureType T);		//Stores the type of a figure into a string format
 const auto display = storeType;		//Alias for the function StoreType
 FigureType readType(string Str);	//Determines the type of a figure from a string format
-string colorData(color C);			//Stores the information for a color into a string
-color readColor(ifstream& in);		//Reads a color's info from a string
+string colorData(Color C);			//Stores the information for a color into a string
+Color readColor(ifstream& in);		//Reads a color's info from a string
 
 
 struct Point	//To be used for figures points
@@ -107,18 +108,19 @@ struct Point	//To be used for figures points
 
 struct GfxInfo	//Graphical info of each figure (you may add more members)
 {
-	color drawColor;	//Draw color of the figure
-	color fillColor;	//Fill color of the figure
+	Color drawColor;	//Draw color of the figure
+	Color fillColor;	//Fill color of the figure
 	bool isFilled;	//Figure Filled or not
 	int borderSize;	//size of figure borders
 	string data() const
 	{
-		string Data = "";
-		Data += colorData(drawColor) + " " + colorData(fillColor) + " ";
-		Data += to_string((isFilled) ? true : false) + " ";
-		Data += to_string(borderSize);
-		return Data;
+		string data;
+		data += colorData(drawColor) + " " + colorData(fillColor) + " ";
+		data += to_string(isFilled) + " ";
+		data += to_string(borderSize);
+		return data;
 	}
+
 	void read(ifstream& in)
 	{
 		int filled , border;
